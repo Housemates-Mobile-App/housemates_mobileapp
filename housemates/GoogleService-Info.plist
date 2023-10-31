@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCOz4l3prIaz4o3FtU1NQKAtDzR8rO-Qdc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>495045592524</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>mobile-apps.housemates</string>
+	<key>PROJECT_ID</key>
+	<string>housemates-3b4be</string>
+	<key>STORAGE_BUCKET</key>
+	<string>housemates-3b4be.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:495045592524:ios:cbd77c37e99b9eaeeec969</string>
+</dict>
+</plist>
