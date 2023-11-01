@@ -21,7 +21,6 @@ class GroupRepository: ObservableObject {
         self.get()
     }
 
-
     func get() {
         store.collection(path)
             .addSnapshotListener { querySnapshot, error in
