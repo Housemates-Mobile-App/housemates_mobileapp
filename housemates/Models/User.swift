@@ -15,10 +15,11 @@ struct User: Identifiable, Codable {
     var username: String
     var first_name: String
     var last_name: String
-    var is_home: Bool
+    var is_home: Bool?
     var phone_number: Int
     var email: String
     var birthday: Date
+    var group_id: String?
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {

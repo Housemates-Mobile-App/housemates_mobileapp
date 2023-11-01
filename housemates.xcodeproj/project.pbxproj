@@ -27,6 +27,8 @@
 		8AD6ED382AF1991F006B56B6 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 8AD6ED372AF1991F006B56B6 /* FirebaseFirestoreCombine-Community */; };
 		8AD6ED3A2AF1991F006B56B6 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8AD6ED392AF1991F006B56B6 /* FirebaseFirestoreSwift */; };
 		8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92CD2AF19978006AECD3 /* Comment.swift */; };
+		8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */; };
+		8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		8AD6ED282AF1980D006B56B6 /* GroupDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDataRepository.swift; sourceTree = "<group>"; };
 		8AD6ED2A2AF19832006B56B6 /* PostDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataRepository.swift; sourceTree = "<group>"; };
 		8AEE92CD2AF19978006AECD3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,7 @@
 		8AD6ED1B2AF19738006B56B6 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 			children = (
 				8AD6ED282AF1980D006B56B6 /* GroupDataRepository.swift */,
 				8AD6ED2A2AF19832006B56B6 /* PostDataRepository.swift */,
+				8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */,
 			);
 			path = DataRepositories;
 			sourceTree = "<group>";
@@ -230,6 +236,8 @@
 				8AD6ED212AF19796006B56B6 /* Task.swift in Sources */,
 				8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */,
 				8AD6ED242AF197BD006B56B6 /* Post.swift in Sources */,
+				8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */,
+				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,
 				8AD6ED2B2AF19832006B56B6 /* PostDataRepository.swift in Sources */,
 				8AD6ED1F2AF1977D006B56B6 /* Group.swift in Sources */,
