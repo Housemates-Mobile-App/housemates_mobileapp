@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         SwiftUI.Group {
             if authViewModel.userSession != nil {
-                HomeScreenView()
+                AuthContentView()
             } else {
                 LoginView()
             }
