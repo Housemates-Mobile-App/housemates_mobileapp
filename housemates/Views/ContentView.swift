@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var groupRepository = GroupRepository()
+    @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
-        // Test to see if data can be loaded from firebase
-        groupRepository.groups.forEach { group in print(group)}
-        return Text("Hello, world!")
-       
+        SwiftUI.Group {
+            if authViewModel.userSession != nil {
+                HomeScreenView()
+            } else {
+                LoginView()
+            }
+        }
     }
 }
 

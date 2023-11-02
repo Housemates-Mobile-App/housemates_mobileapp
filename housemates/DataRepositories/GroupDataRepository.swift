@@ -33,11 +33,12 @@ class GroupRepository: ObservableObject {
                     try? document.data(as: Group.self)
                 } ?? []
                 
-            }
+         }
     }
 
 
     // MARK: CRUD methods
+    
 
     // MARK: Filtering methods
 }

@@ -45,13 +45,14 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    
-    func createUser(withEmail email: String, password: String, fullname: String) async throws {
+    // TODO: Change birthday to date type
+    func createUser(withEmail email: String, password: String, first_name: String, last_name: String, phone_number: String, birthday: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = User(id: result.user.uid, fullname: fullname, email: email)
-            try await userRepository.create(user)
+            let user = User(id: result.user.uid, first_name: first_name, last_name: last_name, phone_number: phone_number, email: email, birthday: birthday)
+            let encodedUser = try Firestore.Encoder().encode(user)
+            try await Firestore.firestore().collection("users").document(user.id!).setData(encodedUser)
             await fetchUser()
         }  catch {
             print("Failed to create user: \(error.localizedDescription)")

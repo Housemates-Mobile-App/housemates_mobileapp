@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct Task: Identifiable, Codable {
+struct task: Identifiable, Codable {
     
     // MARK: Fields
     var id: Int

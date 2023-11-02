@@ -10,66 +10,82 @@ import SwiftUI
 struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
+    @EnvironmentObject var authViewModel : AuthViewModel
     
     var body: some View {
-        VStack{
-            // housemates logo
-            Image("House")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 100, height: 120)
-                .padding(.vertical, 32)
-            Text("HouseMates")
-            // text for displaying housemates
-            
-            // enable form
-            VStack(spacing: 24) {
-                //          email entry
-                InputView(text: $email,
-                          title: "Email Address",
-                          placeholder: "name@example.com")
-                .autocapitalization(.none)
+        NavigationStack {
+            VStack{
+                // MARK: Housemates Logo
+                Image("House")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 120)
                 
-                //          password entry
-                InputView(text: $password,
-                          title: "Password",
-                          placeholder: "Please enter your password",
-                            isSecureField: true)
-            }
-            .padding(.horizontal)
-            .padding(.top, 12)
-            
-            //          login button itself
-            
-            Button {
-                print("log user in")
-            } label: {
-                HStack {
-                    Text("SIGN IN")
-                        .fontWeight(.semibold)
-                    Image(systemName: "arrow.right")
+                // MARK: Housemates Title
+                Text("HouseMates")
+                
+                // MARK: Login Form
+                VStack(spacing: 10) {
+                    InputView(text: $email,
+                              title: "Email Address",
+                              placeholder: "name@example.com")
+                    .autocapitalization(.none)
+                    InputView(text: $password,
+                              title: "Password",
+                              placeholder: "Please enter your password",
+                              isSecureField: true)
                 }
-                .foregroundColor(.white)
-                .frame(width: UIScreen.main.bounds.width - 32, height: 48)
+                .padding(.horizontal)
+                .padding(.top, 12)
+                
+                // MARK: Sign in Button
+                Button {
+                    Task {
+                        try await authViewModel.signIn(withEmail: email, password: password)
+                    }
+                } label: {
+                    HStack {
+                        Text("SIGN IN")
+                            .fontWeight(.semibold)
+                        Image(systemName: "arrow.right")
+                    }
+                    .foregroundColor(.white)
+                    .frame(width: UIScreen.main.bounds.width - 32, height: 48)
+                }
+                .background(Color(.systemBlue))
+                .disabled(!formisValid)
+                .opacity(formisValid ? 1.0 : 0.5)
+                .cornerRadius(10)
+                .padding(.top, 24)
+                
+                Spacer()
+                
+                // MARK: Navigation Link to Registration View
+                NavigationLink {
+                    RegistrationView()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    HStack(spacing: 3) {
+                        Text("New User?")
+                        Text("Please Sign Up!")
+                            .fontWeight(.bold)
+                    }
+                }
+                .font(.system(size: 14))
+                
+                
             }
-            .background(Color(.systemBlue))
-            .cornerRadius(10)
-            .padding(.top, 24)
-            
-            Spacer()
-            
-            NavigationLink{
-                RegistrationView()
-                    .navigationBarBackButtonHidden(true)
-            } label: {
-                Text("New User?")
-                Text("Please Sign Up!")
-                    .fontWeight(.bold)
-            }
-            .font(.system(size: 14))
-            
-            
         }
+    }
+}
+
+// MARK: Authentication Protocol
+extension LoginView: AuthenticationFormProtocol {
+    var formisValid: Bool {
+        return (!email.isEmpty
+                && email.contains("@")
+                && !password.isEmpty
+                && password.count > 0)
     }
 }
 
