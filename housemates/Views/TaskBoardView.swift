@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TaskBoardView: View {
     var body: some View {
-        Text("chores")
+        Text("Chores")
     }
 }
 

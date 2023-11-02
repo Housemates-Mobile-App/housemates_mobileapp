@@ -26,7 +26,7 @@ struct TabBar: View {
         ForEach(Tab.allCases, id: \.rawValue) { tab in
           Spacer()
           Image(systemName: selected == tab ? fillIcon: tab.rawValue)
-            .scaleEffect(selected == tab ? 1.3 : 1.0)
+            .scaleEffect(selected == tab ? 1.2 : 1.0)
             .foregroundColor(selected == tab ? .white : .black)
             .font(.system(size: 32))
             .onTapGesture {

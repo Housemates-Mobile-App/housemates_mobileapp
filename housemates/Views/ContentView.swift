@@ -21,9 +21,6 @@ struct ContentView: View {
       VStack {
         TabView(selection: $selected) {
           switch (selected) {
-          case .house:
-              HomeView()
-            
           case .person:
               ProfileView()
             
