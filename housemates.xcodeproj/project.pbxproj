@@ -28,8 +28,13 @@
 		8AD6ED3A2AF1991F006B56B6 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8AD6ED392AF1991F006B56B6 /* FirebaseFirestoreSwift */; };
 		8AE8FF952AF41101003AD997 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF942AF41101003AD997 /* LoginView.swift */; };
 		8AE8FF972AF4110E003AD997 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF962AF4110E003AD997 /* RegistrationView.swift */; };
-		8AE8FF992AF4113B003AD997 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF982AF4113B003AD997 /* HomeScreenView.swift */; };
+		8AE8FF992AF4113B003AD997 /* AuthContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF982AF4113B003AD997 /* AuthContentView.swift */; };
 		8AE8FF9B2AF4114B003AD997 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF9A2AF4114B003AD997 /* InputView.swift */; };
+		8AE8FF9D2AF41F1A003AD997 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF9C2AF41F1A003AD997 /* TabBar.swift */; };
+		8AE8FF9F2AF41F2B003AD997 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF9E2AF41F2B003AD997 /* HomeView.swift */; };
+		8AE8FFA12AF41F36003AD997 /* AmenityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FFA02AF41F36003AD997 /* AmenityView.swift */; };
+		8AE8FFA32AF41F47003AD997 /* TaskBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */; };
+		8AE8FFA52AF41F6B003AD997 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FFA42AF41F6B003AD997 /* ProfileView.swift */; };
 		8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92CD2AF19978006AECD3 /* Comment.swift */; };
 		8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */; };
 		8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */; };
@@ -51,8 +56,13 @@
 		8AD6ED2A2AF19832006B56B6 /* PostDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataRepository.swift; sourceTree = "<group>"; };
 		8AE8FF942AF41101003AD997 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8AE8FF962AF4110E003AD997 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
-		8AE8FF982AF4113B003AD997 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
+		8AE8FF982AF4113B003AD997 /* AuthContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthContentView.swift; sourceTree = "<group>"; };
 		8AE8FF9A2AF4114B003AD997 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		8AE8FF9C2AF41F1A003AD997 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		8AE8FF9E2AF41F2B003AD997 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		8AE8FFA02AF41F36003AD997 /* AmenityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenityView.swift; sourceTree = "<group>"; };
+		8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBoardView.swift; sourceTree = "<group>"; };
+		8AE8FFA42AF41F6B003AD997 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8AEE92CD2AF19978006AECD3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataRepository.swift; sourceTree = "<group>"; };
@@ -134,8 +144,13 @@
 				8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */,
 				8AE8FF942AF41101003AD997 /* LoginView.swift */,
 				8AE8FF962AF4110E003AD997 /* RegistrationView.swift */,
-				8AE8FF982AF4113B003AD997 /* HomeScreenView.swift */,
+				8AE8FF982AF4113B003AD997 /* AuthContentView.swift */,
 				8AE8FF9A2AF4114B003AD997 /* InputView.swift */,
+				8AE8FF9C2AF41F1A003AD997 /* TabBar.swift */,
+				8AE8FF9E2AF41F2B003AD997 /* HomeView.swift */,
+				8AE8FFA02AF41F36003AD997 /* AmenityView.swift */,
+				8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */,
+				8AE8FFA42AF41F6B003AD997 /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -248,14 +263,19 @@
 				8AD6ED292AF1980D006B56B6 /* GroupDataRepository.swift in Sources */,
 				8AE8FF9B2AF4114B003AD997 /* InputView.swift in Sources */,
 				8AD6ED212AF19796006B56B6 /* Task.swift in Sources */,
+				8AE8FF9D2AF41F1A003AD997 /* TabBar.swift in Sources */,
 				8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */,
+				8AE8FF9F2AF41F2B003AD997 /* HomeView.swift in Sources */,
 				8AD6ED242AF197BD006B56B6 /* Post.swift in Sources */,
+				8AE8FFA12AF41F36003AD997 /* AmenityView.swift in Sources */,
 				8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */,
 				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,
 				8AE8FF952AF41101003AD997 /* LoginView.swift in Sources */,
-				8AE8FF992AF4113B003AD997 /* HomeScreenView.swift in Sources */,
+				8AE8FFA32AF41F47003AD997 /* TaskBoardView.swift in Sources */,
+				8AE8FF992AF4113B003AD997 /* AuthContentView.swift in Sources */,
 				8AD6ED2B2AF19832006B56B6 /* PostDataRepository.swift in Sources */,
+				8AE8FFA52AF41F6B003AD997 /* ProfileView.swift in Sources */,
 				8AD6ED1F2AF1977D006B56B6 /* Group.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
