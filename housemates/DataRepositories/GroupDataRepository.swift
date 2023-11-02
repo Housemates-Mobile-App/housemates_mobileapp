@@ -21,7 +21,6 @@ class GroupRepository: ObservableObject {
         self.get()
     }
 
-
     func get() {
         store.collection(path)
             .addSnapshotListener { querySnapshot, error in
@@ -34,11 +33,12 @@ class GroupRepository: ObservableObject {
                     try? document.data(as: Group.self)
                 } ?? []
                 
-            }
+         }
     }
 
 
     // MARK: CRUD methods
+    
 
     // MARK: Filtering methods
 }

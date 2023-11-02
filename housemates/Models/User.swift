@@ -11,19 +11,18 @@ import FirebaseFirestoreSwift
 struct User: Identifiable, Codable {
     
     // MARK: Fields
-    var id: Int
-    var username: String
+    @DocumentID var id: String?
     var first_name: String
     var last_name: String
-    var is_home: Bool
-    var phone_number: Int
+    var is_home: Bool?
+    var phone_number: String
     var email: String
-    var birthday: Date
+    var birthday: String
+    var group_id: String?
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
         case id
-        case username
         case first_name
         case last_name
         case is_home

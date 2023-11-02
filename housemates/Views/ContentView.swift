@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-  @ObservedObject var groupRepository = GroupRepository()
   @State private var selected: Tab = .house
   
   init() {
     UITabBar.appearance().isHidden = true
   }
+  
   var body: some View {
-    @EnvironmentObject var authViewModel: AuthViewModel
-    @ObservedObject var groupRepository = GroupRepository()
     @State private var selected: Tab = .house
       // Test to see if data can be loaded from firebase
      
@@ -44,7 +42,19 @@ struct ContentView: View {
         TabBarView(selected: $selected)
       }
       
-    }
+
+//     @EnvironmentObject var authViewModel: AuthViewModel
+
+//     var body: some View {
+//         SwiftUI.Group {
+//             if authViewModel.userSession != nil {
+//                 HomeScreenView()
+//             } else {
+//                 LoginView()
+//             }
+//         }
+
+//     }
       
      
   }

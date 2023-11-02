@@ -16,7 +16,7 @@ struct Group: Identifiable, Codable {
     var name: String
     var code: Int
     var users: [User]
-    var tasks: [Task]
+    var tasks: [task]
     var amentities: [Amentity]
     
     // MARK: Codable
