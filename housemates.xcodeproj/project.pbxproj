@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		81C711A12AF1E94400B6B579 /* TaskBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C711A02AF1E94400B6B579 /* TaskBoardView.swift */; };
-		81C711A72AF1F38000B6B579 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C711A62AF1F38000B6B579 /* TabBarView.swift */; };
-		81C711A92AF1FED300B6B579 /* AmenityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C711A82AF1FED300B6B579 /* AmenityView.swift */; };
-		81C711AD2AF1FEE500B6B579 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C711AC2AF1FEE500B6B579 /* ProfileView.swift */; };
 		8AD6ED092AF1969C006B56B6 /* housematesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6ED082AF1969C006B56B6 /* housematesApp.swift */; };
 		8AD6ED0B2AF1969C006B56B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */; };
 		8AD6ED0D2AF1969D006B56B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AD6ED0C2AF1969D006B56B6 /* Assets.xcassets */; };
@@ -39,10 +35,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		81C711A02AF1E94400B6B579 /* TaskBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBoardView.swift; sourceTree = "<group>"; };
-		81C711A62AF1F38000B6B579 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
-		81C711A82AF1FED300B6B579 /* AmenityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenityView.swift; sourceTree = "<group>"; };
-		81C711AC2AF1FEE500B6B579 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8AD6ED052AF1969C006B56B6 /* housemates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = housemates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD6ED082AF1969C006B56B6 /* housematesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housematesApp.swift; sourceTree = "<group>"; };
 		8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -141,10 +133,6 @@
 				AD1BAF332AF1EC950000F361 /* Components */,
 				AD1BAF302AF1DDB60000F361 /* Onboarding */,
 				8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */,
-				81C711A02AF1E94400B6B579 /* TaskBoardView.swift */,
-				81C711A82AF1FED300B6B579 /* AmenityView.swift */,
-				81C711AC2AF1FEE500B6B579 /* ProfileView.swift */,
-				81C711A62AF1F38000B6B579 /* TabBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,8 +255,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81C711A92AF1FED300B6B579 /* AmenityView.swift in Sources */,
-				81C711A12AF1E94400B6B579 /* TaskBoardView.swift in Sources */,
 				AD1BAF352AF1ECAA0000F361 /* InputView.swift in Sources */,
 				8AD6ED0B2AF1969C006B56B6 /* ContentView.swift in Sources */,
 				8AD6ED262AF197D3006B56B6 /* Amentity.swift in Sources */,
@@ -278,14 +264,12 @@
 				8AD6ED212AF19796006B56B6 /* Task.swift in Sources */,
 				8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */,
 				8AD6ED242AF197BD006B56B6 /* Post.swift in Sources */,
-				81C711AD2AF1FEE500B6B579 /* ProfileView.swift in Sources */,
 				8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */,
 				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,
 				AD1BAF2F2AF1DD4D0000F361 /* LoginView.swift in Sources */,
 				8AD6ED2B2AF19832006B56B6 /* PostDataRepository.swift in Sources */,
 				8AD6ED1F2AF1977D006B56B6 /* Group.swift in Sources */,
-				81C711A72AF1F38000B6B579 /* TabBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +403,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -427,7 +410,6 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -449,7 +431,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -457,7 +438,6 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
