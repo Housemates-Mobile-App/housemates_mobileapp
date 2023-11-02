@@ -14,7 +14,7 @@ enum Tab: String, CaseIterable {
   case sofa
 }
 
-struct TabBar: View {
+struct TabBarView: View {
   @Binding var selected: Tab
   private var fillIcon: String {
     selected.rawValue + ".fill"
@@ -50,9 +50,9 @@ struct TabBar: View {
     
 }
 
-struct TabBar_Previews: PreviewProvider {
+struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
-      TabBar(selected: .constant(.house))
+      TabBarView(selected: .constant(.house))
     }
 }
 

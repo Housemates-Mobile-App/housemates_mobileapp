@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		81C7119F2AF1E91F00B6B579 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C7119E2AF1E91F00B6B579 /* LoginView.swift */; };
 		81C711A12AF1E94400B6B579 /* TaskBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C711A02AF1E94400B6B579 /* TaskBoardView.swift */; };
-		81C711A72AF1F38000B6B579 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C711A62AF1F38000B6B579 /* TabBar.swift */; };
+		81C711A72AF1F38000B6B579 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C711A62AF1F38000B6B579 /* TabBarView.swift */; };
 		81C711A92AF1FED300B6B579 /* AmenityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C711A82AF1FED300B6B579 /* AmenityView.swift */; };
-		81C711AB2AF1FEDE00B6B579 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C711AA2AF1FEDE00B6B579 /* HomeView.swift */; };
 		81C711AD2AF1FEE500B6B579 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C711AC2AF1FEE500B6B579 /* ProfileView.swift */; };
 		8AD6ED092AF1969C006B56B6 /* housematesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6ED082AF1969C006B56B6 /* housematesApp.swift */; };
 		8AD6ED0B2AF1969C006B56B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */; };
@@ -36,11 +34,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		81C7119E2AF1E91F00B6B579 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		81C711A02AF1E94400B6B579 /* TaskBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBoardView.swift; sourceTree = "<group>"; };
-		81C711A62AF1F38000B6B579 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		81C711A62AF1F38000B6B579 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		81C711A82AF1FED300B6B579 /* AmenityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenityView.swift; sourceTree = "<group>"; };
-		81C711AA2AF1FEDE00B6B579 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		81C711AC2AF1FEE500B6B579 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		8AD6ED052AF1969C006B56B6 /* housemates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = housemates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD6ED082AF1969C006B56B6 /* housematesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housematesApp.swift; sourceTree = "<group>"; };
@@ -132,12 +128,10 @@
 			isa = PBXGroup;
 			children = (
 				8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */,
-				81C7119E2AF1E91F00B6B579 /* LoginView.swift */,
 				81C711A02AF1E94400B6B579 /* TaskBoardView.swift */,
 				81C711A82AF1FED300B6B579 /* AmenityView.swift */,
-				81C711AA2AF1FEDE00B6B579 /* HomeView.swift */,
 				81C711AC2AF1FEE500B6B579 /* ProfileView.swift */,
-				81C711A62AF1F38000B6B579 /* TabBar.swift */,
+				81C711A62AF1F38000B6B579 /* TabBarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -252,11 +246,9 @@
 				8AD6ED242AF197BD006B56B6 /* Post.swift in Sources */,
 				81C711AD2AF1FEE500B6B579 /* ProfileView.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,
-				81C7119F2AF1E91F00B6B579 /* LoginView.swift in Sources */,
 				8AD6ED2B2AF19832006B56B6 /* PostDataRepository.swift in Sources */,
-				81C711AB2AF1FEDE00B6B579 /* HomeView.swift in Sources */,
 				8AD6ED1F2AF1977D006B56B6 /* Group.swift in Sources */,
-				81C711A72AF1F38000B6B579 /* TabBar.swift in Sources */,
+				81C711A72AF1F38000B6B579 /* TabBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

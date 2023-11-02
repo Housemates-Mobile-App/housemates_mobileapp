@@ -31,7 +31,7 @@ struct ContentView: View {
               AmenityView()
             
           default:
-              HomeView()
+              HomeScreenView()
             
             
           }
@@ -40,7 +40,7 @@ struct ContentView: View {
       }
       VStack {
         Spacer()
-        TabBar(selected: $selected)
+        TabBarView(selected: $selected)
       }
       
     }
