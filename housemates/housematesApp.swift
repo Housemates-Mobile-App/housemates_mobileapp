@@ -24,6 +24,7 @@ struct housematesApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+            
         }
     }
 }
