@@ -15,6 +15,9 @@ struct ContentView: View {
     UITabBar.appearance().isHidden = true
   }
   var body: some View {
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @ObservedObject var groupRepository = GroupRepository()
+    @State private var selected: Tab = .house
       // Test to see if data can be loaded from firebase
      
     ZStack {
@@ -32,8 +35,6 @@ struct ContentView: View {
             
           default:
               HomeScreenView()
-            
-            
           }
 
         }
