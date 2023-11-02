@@ -14,6 +14,7 @@ struct InputView: View {
     var isSecureField = false
     
     var body: some View {
+        // MARK: Input field view for Form
         VStack(alignment: .leading, spacing: 12) {
             Text(title)
                 .foregroundColor(Color(.darkGray))
@@ -27,7 +28,6 @@ struct InputView: View {
                 TextField(placeholder, text: $text)
                     .font(.system(size: 14))
             }
-            
             Divider()
         }
     }

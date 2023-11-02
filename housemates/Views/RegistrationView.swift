@@ -15,19 +15,23 @@ struct RegistrationView: View {
     @State private var dob = ""
     @State private var confirmPassword = ""
     @State private var password = ""
-    
     @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var authViewModel : AuthViewModel
+
+   
     var body: some View {
         VStack{
-            // housemates logo
+            // MARK: Housemates Logo
             Image("House")
                 .resizable()
                 .scaledToFill()
                 .frame(width: 100, height: 120)
-                .padding(.vertical, 32)
+            
+            // MARK: Housemates Title
             Text("HouseMates")
             
-            VStack(spacing: 24) {
+            // MARK: Registration Form
+            VStack(spacing: 10) {
                 InputView(text: $email,
                           title: "Email Address",
                           placeholder: "name@example.com")
@@ -54,17 +58,34 @@ struct RegistrationView: View {
                           placeholder: "Please enter your password",
                             isSecureField: true)
                 
-                InputView(text: $confirmPassword,
-                          title: "Confirm Password",
-                          placeholder: "Please confirm your password",
-                            isSecureField: true)
-                
+                ZStack(alignment: .trailing) {
+                    InputView(text: $confirmPassword,
+                              title: "Confirm Password",
+                              placeholder: "Please confirm your password",
+                                isSecureField: true)
+                    if !password.isEmpty && !confirmPassword.isEmpty {
+                        if password == confirmPassword {
+                            Image(systemName: "checkmark.circle.fill")
+                                .imageScale(.large)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(.systemGreen))
+                        } else {
+                            Image(systemName: "checkmark.circle.fill")
+                                .imageScale(.large)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(.systemRed))
+                        }
+                    }
+                }
             }
             .padding(.horizontal)
             .padding(.top, 12)
             
+            // MARK: Registration Button
             Button {
-                print("sign user up")
+                Task {
+                    try await authViewModel.createUser(withEmail: email, password: password, first_name: fname, last_name: lname, phone_number: phone, birthday: dob)
+                }
             } label: {
                 HStack {
                     Text("SIGN UP")
@@ -75,6 +96,8 @@ struct RegistrationView: View {
                 .frame(width: UIScreen.main.bounds.width - 32, height: 48)
             }
             .background(Color(.systemBlue))
+            .disabled(!formisValid)
+            .opacity(formisValid ? 1.0 : 0.5)
             .cornerRadius(10)
             .padding(.top, 24)
             
@@ -83,13 +106,33 @@ struct RegistrationView: View {
             Button {
                 dismiss()
             } label: {
-                Text("Already have an account?")
-                Text("Please Sign In!")
-                    .fontWeight(.bold)
+                HStack(spacing: 3) {
+                    Text("Already have an account?")
+                    Text("Please Sign In!")
+                        .fontWeight(.bold)
+                }
+                
             }
             .font(.system(size: 14))
             
         }
+    }
+}
+
+// MARK: Authentication Protocol
+extension RegistrationView: AuthenticationFormProtocol {
+    var formisValid: Bool {
+        return (!email.isEmpty
+                && email.contains("@")
+                && !password.isEmpty
+                && password.count > 5
+                && confirmPassword == password
+                && !fname.isEmpty
+                && !lname.isEmpty
+                && !phone.isEmpty
+                && !dob.isEmpty
+                
+        )
     }
 }
 

@@ -36,13 +36,22 @@ class UserRepository: ObservableObject {
             }
     }
     
+//    func getUserByID(_ id: String) async -> User {
+//        guard let snapshot = try? await store.collection(path).document(id).getDocument() else { return }
+//        let user = try? snapshot.data(as: User.self)
+//    }
+    
     // MARK: CRUD methods
     func create(_ user: User) {
         do {
-          let newUser = user
-          _ = try store.collection(path).addDocument(from: newUser)
+            let newUser = user
+            _ = try store.collection(path).addDocument(from: newUser)
         } catch {
-          fatalError("Unable to add User: \(error.localizedDescription).")
+            fatalError("Unable to add User: \(error.localizedDescription).")
         }
-      }
+    }
+    
+    // MARK: Filter methods
+    
+    
 }
