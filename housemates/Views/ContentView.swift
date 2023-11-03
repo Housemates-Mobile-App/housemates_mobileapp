@@ -13,7 +13,11 @@ struct ContentView: View {
     var body: some View {
         SwiftUI.Group {
             if authViewModel.userSession != nil {
-                AuthContentView()
+                if authViewModel.currentUser?.group_id != nil {
+                    AuthContentView()
+                } else {
+                    JoinCreateGroupView()
+                }
             } else {
                 LoginView()
             }
