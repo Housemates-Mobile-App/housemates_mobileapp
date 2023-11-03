@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		516E9A472AF487E800ED2189 /* HousemateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E9A462AF487E800ED2189 /* HousemateProfileView.swift */; };
 		8AD6ED092AF1969C006B56B6 /* housematesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6ED082AF1969C006B56B6 /* housematesApp.swift */; };
 		8AD6ED0B2AF1969C006B56B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */; };
 		8AD6ED0D2AF1969D006B56B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AD6ED0C2AF1969D006B56B6 /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		516E9A462AF487E800ED2189 /* HousemateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousemateProfileView.swift; sourceTree = "<group>"; };
 		8AD6ED052AF1969C006B56B6 /* housemates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = housemates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD6ED082AF1969C006B56B6 /* housematesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housematesApp.swift; sourceTree = "<group>"; };
 		8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				8AE8FFA02AF41F36003AD997 /* AmenityView.swift */,
 				8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */,
 				8AE8FFA42AF41F6B003AD997 /* ProfileView.swift */,
+				516E9A462AF487E800ED2189 /* HousemateProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				8AE8FFA12AF41F36003AD997 /* AmenityView.swift in Sources */,
 				8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */,
 				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
+				516E9A472AF487E800ED2189 /* HousemateProfileView.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,
 				8AE8FF952AF41101003AD997 /* LoginView.swift in Sources */,
 				8AE8FFA32AF41F47003AD997 /* TaskBoardView.swift in Sources */,
