@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 

@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 protocol AuthenticationFormProtocol {
     var formisValid: Bool { get }
@@ -46,11 +47,11 @@ class AuthViewModel: ObservableObject {
     }
     
     // TODO: Change birthday to date type
-    func createUser(withEmail email: String, password: String, first_name: String, last_name: String, phone_number: String, birthday: String) async throws {
+    func createUser(withEmail email: String, password: String, first_name: String, last_name: String, phone_number: String, birthday: String, group_id: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = User(id: result.user.uid, first_name: first_name, last_name: last_name, phone_number: phone_number, email: email, birthday: birthday)
+            let user = User(id: result.user.uid, first_name: first_name, last_name: last_name, phone_number: phone_number, email: email, birthday: birthday, group_id: group_id)
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id!).setData(encodedUser)
             await fetchUser()

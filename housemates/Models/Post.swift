@@ -12,7 +12,7 @@ struct Post: Identifiable, Codable {
     
     // MARK: Fields
     @DocumentID var id: String?
-    var task: task
+    var task: Task
     var num_likes: Int
     var num_comments: Int
     var liked_by: [User]?

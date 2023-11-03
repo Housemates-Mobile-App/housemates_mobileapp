@@ -38,6 +38,8 @@
 		8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92CD2AF19978006AECD3 /* Comment.swift */; };
 		8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */; };
 		8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */; };
+		AD1671142AF4862A006E92FC /* TaskDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1671132AF4862A006E92FC /* TaskDataRepository.swift */; };
+		AD1671162AF4A99A006E92FC /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1671152AF4A99A006E92FC /* TaskViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		8AEE92CD2AF19978006AECD3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataRepository.swift; sourceTree = "<group>"; };
+		AD1671132AF4862A006E92FC /* TaskDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataRepository.swift; sourceTree = "<group>"; };
+		AD1671152AF4A99A006E92FC /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */,
+				AD1671152AF4A99A006E92FC /* TaskViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -169,6 +174,7 @@
 				8AD6ED282AF1980D006B56B6 /* GroupDataRepository.swift */,
 				8AD6ED2A2AF19832006B56B6 /* PostDataRepository.swift */,
 				8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */,
+				AD1671132AF4862A006E92FC /* TaskDataRepository.swift */,
 			);
 			path = DataRepositories;
 			sourceTree = "<group>";
@@ -258,6 +264,7 @@
 			files = (
 				8AD6ED0B2AF1969C006B56B6 /* ContentView.swift in Sources */,
 				8AD6ED262AF197D3006B56B6 /* Amentity.swift in Sources */,
+				AD1671162AF4A99A006E92FC /* TaskViewModel.swift in Sources */,
 				8AD6ED092AF1969C006B56B6 /* housematesApp.swift in Sources */,
 				8AE8FF972AF4110E003AD997 /* RegistrationView.swift in Sources */,
 				8AD6ED292AF1980D006B56B6 /* GroupDataRepository.swift in Sources */,
@@ -272,6 +279,7 @@
 				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,
 				8AE8FF952AF41101003AD997 /* LoginView.swift in Sources */,
+				AD1671142AF4862A006E92FC /* TaskDataRepository.swift in Sources */,
 				8AE8FFA32AF41F47003AD997 /* TaskBoardView.swift in Sources */,
 				8AE8FF992AF4113B003AD997 /* AuthContentView.swift in Sources */,
 				8AD6ED2B2AF19832006B56B6 /* PostDataRepository.swift in Sources */,

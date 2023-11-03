@@ -18,7 +18,7 @@ struct User: Identifiable, Codable {
     var phone_number: String
     var email: String
     var birthday: String
-    var group_id: String?
+    var group_id: String
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
@@ -29,5 +29,6 @@ struct User: Identifiable, Codable {
         case phone_number
         case email
         case birthday
+        case group_id
     }
 }
