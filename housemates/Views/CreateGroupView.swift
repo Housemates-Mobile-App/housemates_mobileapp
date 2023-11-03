@@ -19,8 +19,6 @@ struct CreateGroupView: View {
             // MARK: Housemates Title
             Text("Create a New Housemates Group!").padding(.bottom, 12)
             
-        
-            
             // MARK: Create a Group Form
             VStack(spacing: 10) {
                 InputView(text: $group_name,
