@@ -39,14 +39,6 @@ struct HousemateProfileView: View {
                     Text("Currently Using")
                 }
                 Divider()
-                
-                Section("Account") {
-                    Button {
-                        authViewModel.signOut()
-                    } label: {
-                        Text("Sign Out")
-                    }
-                }
             }
         }
     }

@@ -31,12 +31,11 @@ struct ProfileView: View {
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.white, lineWidth: 2))
                         .shadow(radius: 5)
-                    
+                    Text("\(user.first_name)")
                     HStack {
                         Text("Location")
                         Spacer()
                         Toggle(isOn: $isUserHome) {
-                            Text("Home")
                         }
                         .onChange(of: isUserHome) { newIsHome in
                             updateUserHomeStatus(newIsHome)
