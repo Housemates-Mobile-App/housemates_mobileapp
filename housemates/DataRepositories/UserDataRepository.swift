@@ -51,6 +51,18 @@ class UserRepository: ObservableObject {
         }
     }
     
+    func updateUser(_ user: User, fields: [String: Any]) {
+         guard let userId = user.id else {
+             fatalError("User ID is nil. Cannot update user without ID.")
+         }
+
+         do {
+             _ = try store.collection(path).document(userId).setData(fields, merge: true)
+         } catch {
+             fatalError("Unable to update User: \(error.localizedDescription).")
+         }
+    }
+    
     // MARK: Filter methods
     
     
