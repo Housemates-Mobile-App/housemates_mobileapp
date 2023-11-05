@@ -14,10 +14,7 @@ struct Group: Identifiable, Codable {
     @DocumentID var id: String?
     var address: String
     var name: String
-    var code: Int
-    var users: [User]
-    var tasks: [task]
-    var amentities: [Amentity]
+    var code: String
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
@@ -25,8 +22,5 @@ struct Group: Identifiable, Codable {
         case address
         case name = "group_name"
         case code = "group_code"
-        case users
-        case tasks
-        case amentities
     }
 }

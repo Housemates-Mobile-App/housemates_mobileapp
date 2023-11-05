@@ -17,7 +17,8 @@ protocol AuthenticationFormProtocol {
 @MainActor
 class AuthViewModel: ObservableObject {
     private let userRepository = UserRepository()
-    
+    private let groupRepository = GroupRepository()
+
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
     
@@ -45,7 +46,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    // TODO: Change birthday to date type
+    // TODO: Change birthday to date type and phone_number to int
     func createUser(withEmail email: String, password: String, first_name: String, last_name: String, phone_number: String, birthday: String) async throws {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -58,7 +59,39 @@ class AuthViewModel: ObservableObject {
             print("Failed to create user: \(error.localizedDescription)")
         }
     }
+    
+    // TODO: Move to group data repository
+    func joinGroup(_ group_code: String) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+                
+        do {
+            if let group_id = await groupRepository.getGroupIdByCode(group_code) {
+                _ = try await Firestore.firestore().collection("users").document(uid).setData(["group_id": group_id], merge: true)
+                await fetchUser()
+            }
+        }  catch {
+            print("Failed to assign group to User: \(error.localizedDescription)")
+        }
+    }
+    
+    // TODO: Move to group data repository
+    func createAndJoinGroup(group_name: String, address: String) async throws {
         
+        let group_code = String(Int.random(in: 1000...9999))
+        let id = Firestore.firestore().collection("groups").document().documentID
+        do {
+            let group = Group(id: id, address: address, name: group_name, code: group_code)
+            let encodedUser = try Firestore.Encoder().encode(group)
+            try await Firestore.firestore().collection("groups").document(group.id!).setData(encodedUser)
+            try await joinGroup(group_code)
+            await fetchUser()
+        }  catch {
+            print("Failed to assign group to User: \(error.localizedDescription)")
+        }
+
+    }
+    
+    
     func signOut() {
         do {
             try Auth.auth().signOut()
