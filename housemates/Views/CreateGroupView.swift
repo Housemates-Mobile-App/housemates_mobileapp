@@ -32,10 +32,11 @@ struct CreateGroupView: View {
         }.padding(.horizontal)
         .padding(.top, 12)
                 
-                // MARK: Registration Button
+                // MARK: Button for creating and joining a new group
                 Button {
-                    // TODO: Add function from group data repo to create a group
-                    print("create group!")
+                    Task {
+                        try await authViewModel.createAndJoinGroup(group_name : group_name, address : address)
+                    }
                 } label: {
                     HStack {
                         Text("Create Group")

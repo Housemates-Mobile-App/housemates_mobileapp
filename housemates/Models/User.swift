@@ -29,5 +29,6 @@ struct User: Identifiable, Codable {
         case phone_number
         case email
         case birthday
+        case group_id
     }
 }

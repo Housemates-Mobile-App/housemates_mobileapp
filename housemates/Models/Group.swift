@@ -14,7 +14,7 @@ struct Group: Identifiable, Codable {
     @DocumentID var id: String?
     var address: String
     var name: String
-    var code: Int
+    var code: String
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
