@@ -44,6 +44,6 @@ struct HousemateProfileView: View {
     }
 }
 
-#Preview {
-    HousemateProfileView()
-}
+//#Preview {
+//    HousemateProfileView()
+//}
