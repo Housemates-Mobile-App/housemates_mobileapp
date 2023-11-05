@@ -23,6 +23,7 @@ struct FeedCardView: View {
         
       }
       .padding(25)
+//      dynamically set a border
       .frame(maxWidth: UIScreen.main.bounds.width * 0.95)
       .background(
         RoundedRectangle(cornerRadius: 25)

@@ -35,6 +35,7 @@ struct FeedView: View {
             }
           }.padding(.horizontal, 20)
           
+
           ScrollView(.horizontal, showsIndicators: false) {
             HStack() {
                 ProfileCardView()
@@ -54,10 +55,7 @@ struct FeedView: View {
           
         }
         
-        VStack {
-          Spacer()
-          TabBar(selected: .constant(.house))
-        }
+        
         
       }
       
