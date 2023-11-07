@@ -32,8 +32,6 @@ struct TaskBoardView: View {
         Spacer()
         
       }
-      
-        
     }
 }
 

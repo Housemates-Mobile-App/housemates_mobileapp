@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 protocol AuthenticationFormProtocol {
     var formisValid: Bool { get }
@@ -99,6 +100,58 @@ class AuthViewModel: ObservableObject {
         } catch {
             print("Failed to sign out: \(error.localizedDescription)")
         }
+    }
+    
+    func getProfilePicture() {
+        print("Asdf")
+    }
+    
+    func saveProfilePicture(image: UIImage) async -> Bool {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("ERROR: Counld not get current user ID")
+            return false
+        }
+        
+        let photoID = UUID().uuidString
+        let storage = Storage.storage()
+        let storageRef = storage.reference().child("\(photoID).jpeg")
+        
+        guard let resizedImage = image.jpegData(compressionQuality: 0.2) else {
+            print("ERROR: Could not resize image")
+            return false
+        }
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        var imageURLString = ""
+        
+        // MARK: Save image to Storage and get URL
+        do {
+            let _ = try await storageRef.putDataAsync(resizedImage, metadata: metadata)
+            do {
+                let imageURL = try await storageRef.downloadURL()
+                imageURLString = "\(imageURL)"
+            } catch {
+                print("ERROR: Could not get imageURL after saveing image \(error.localizedDescription)")
+                return false
+            }
+        } catch {
+            print("ERROR: Could not upload image to FirebaseStorage")
+            return false
+        }
+        
+        // MARK: Update user struct and Firestore document
+        do {
+            try await Firestore.firestore().collection("users").document(uid).setData(["imageURLString": imageURLString], merge: true)
+            await fetchUser()
+            return true
+        } catch {
+            print("ERROR: Could not update data for user")
+            return false
+        }
+
+        
     }
 
 }
