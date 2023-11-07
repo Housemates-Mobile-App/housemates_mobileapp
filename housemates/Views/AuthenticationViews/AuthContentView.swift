@@ -15,7 +15,6 @@ struct AuthContentView: View {
         UITabBar.appearance().isHidden = true
     }
     var body: some View {
-        // Test to see if data can be loaded from firebase
         ZStack {
             VStack {
                 Spacer()
@@ -35,16 +34,13 @@ struct AuthContentView: View {
                         AmenityView()
                     }
                 }
-                VStack {
-                    Spacer()
-                    TabBar(selected: $selected)
-                }
+                TabBar(selected: $selected)
             }
         }
     }
 }
 
 
-//#Preview {
-//    AuthContentView()
-//}
+#Preview {
+    AuthContentView()
+}
