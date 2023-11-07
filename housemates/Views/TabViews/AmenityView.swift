@@ -12,7 +12,7 @@ struct AmenityView: View {
         Text("Amentity")
     }
 }
-//
-//#Preview {
-//    AmenityView()
-//}
+
+#Preview {
+    AmenityView()
+}

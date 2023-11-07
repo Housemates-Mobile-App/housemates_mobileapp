@@ -40,7 +40,7 @@ class GroupRepository: ObservableObject {
        var groupId: String?
 
        let query = store.collection(path).whereField("group_code", isEqualTo: group_code)
-        let querySnapshot = try? await query.getDocuments()
+       let querySnapshot = try? await query.getDocuments()
 
        if let document = querySnapshot?.documents.first {
            // Extract the group_id from the document
@@ -54,4 +54,14 @@ class GroupRepository: ObservableObject {
     
 
     // MARK: Filtering methods
+    func filterGroupsByID(_ id: String) -> Group? {
+        var group: Group?
+        
+        var groups = self.groups.filter{$0.id == id}
+        
+        if !groups.isEmpty {
+            return groups[0]
+        }
+        return group
+    }
 }
