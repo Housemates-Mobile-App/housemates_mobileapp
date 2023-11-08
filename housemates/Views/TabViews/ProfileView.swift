@@ -28,7 +28,7 @@ struct ProfileView: View {
                     AsyncImage(url: imageURL) { image in
                         image
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 100, height: 100)
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white, lineWidth: 2))
@@ -41,7 +41,7 @@ struct ProfileView: View {
                         // MARK: Default user profile picture
                         Image(systemName: "person.circle")
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
+                            .aspectRatio(contentMode: .fill)
                             .frame(width: 100, height: 100)
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white, lineWidth: 2))
