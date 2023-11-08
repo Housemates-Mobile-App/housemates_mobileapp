@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AuthContentView: View {
-    @EnvironmentObject var authViewModel : AuthViewModel
     @State private var selected: Tab = .house
     
     init() {

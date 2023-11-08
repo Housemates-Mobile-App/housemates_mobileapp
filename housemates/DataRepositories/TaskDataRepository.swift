@@ -29,10 +29,7 @@ class TaskRepository: ObservableObject {
                     return
                 }
                 
-//                print(querySnapshot)
-                
                 self.tasks = querySnapshot?.documents.compactMap { document in
-                    //print(document.data())
                     return try? document.data(as: task.self)
                 } ?? []
                 
@@ -49,38 +46,13 @@ class TaskRepository: ObservableObject {
         }
     }
     
-    // MARK: Filter methods
-//    func getUserTasks(_ user_id: String) -> [task] {
-//        return self.tasks.filter { $0.user_id == user_id }
-//    }
-    
-//    func getUserTasks(_ user_id: String) async -> [task] {
-//       var tasks = [task]()
-//
-//       let query = store.collection(path).whereField("user_id", isEqualTo: user_id)
-//        do {
-//                let querySnapshot = try await query.getDocuments()
-//                tasks = querySnapshot.documents.compactMap { document -> task? in
-//                    try? document.data(as: task.self)
-//                }
-//            } catch {
-//                print("Error fetching user tasks: \(error)")
-//        }
-//
-//       return tasks
-//    }
-    func getUserTasks(_ user_id: String) async -> [task] {
-        var tasks: [task]
-//        print(self.tasks)
-        tasks = self.tasks.filter {$0.user_id == user_id}
-        return tasks
+    func delete(_ task: task) {
+        guard let taskId = task.id else { return }
+        
+        store.collection(path).document(taskId).delete { error in
+          if let error = error {
+            print("Unable to remove book: \(error.localizedDescription)")
+          }
+        }
     }
-    
-    
-    func getGroupTasks(_ group_id: String) async -> [task] {
-        var tasks: [task]
-        tasks = self.tasks.filter { $0.group_id == group_id }
-        return tasks
-    }
-    
 }

@@ -14,26 +14,28 @@ import FirebaseFirestore
 class TaskViewModel: ObservableObject {
     private let taskRepository = TaskRepository()
     
-    @Published var userTasks: [task] = []
-    @Published var groupTasks: [task] = []
-    
+    @Published var tasks: [task] = []
     private var cancellables: Set<AnyCancellable> = []
-        
+
     init() {
-        // Subscribe to changes in the TaskRepository's tasks property
         taskRepository.$tasks
-            .sink { [weak self] tasks in
-                self?.userTasks = tasks // Update tasks for the user
+            .receive(on: DispatchQueue.main)
+            .sink { updatedTasks in
+                self.tasks = updatedTasks
             }
-            .store(in: &cancellables)
+            .store(in: &self.cancellables)
     }
-
-    func fetchUserTasks(_ userId: String) async {
-        self.userTasks = await taskRepository.getUserTasks(userId)
-    }
-
     
-    func fetchGroupTasks(_ groupId: String) async {
-        self.groupTasks = await taskRepository.getGroupTasks(groupId)
+    func getTasksForGroup(_ group_id: String) -> [task] {
+        return self.tasks.filter { $0.group_id == group_id }
     }
+    
+    func create(task: task) {
+        taskRepository.create(task)
+    }
+    
+    func destroy(task: task) {
+        taskRepository.delete(task)
+    }
+    
 }

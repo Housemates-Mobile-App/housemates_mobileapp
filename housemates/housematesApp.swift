@@ -21,11 +21,14 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct housematesApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var authViewModel = AuthViewModel()
+    @StateObject var taskViewModel = TaskViewModel()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(authViewModel)
+                .environmentObject(taskViewModel)
+
         }
     }
 }

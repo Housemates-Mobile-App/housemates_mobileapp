@@ -14,7 +14,7 @@ struct task: Identifiable, Codable {
     @DocumentID var id: String?
     var name: String
     var group_id: String
-    var user_id: String
+    var user_id: String?
     var description: String
     var status: String
     var date_started: String?
