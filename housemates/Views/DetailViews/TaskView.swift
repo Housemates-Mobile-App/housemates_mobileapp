@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct TaskView: View {
-  var unclaimed: Bool
-  var inProgressOther: Bool
-  var inProgressSelf: Bool
+    var task: task
+    var unclaimed: Bool
+    var inProgressOther: Bool
+    var inProgressSelf: Bool
     var body: some View {
       HStack {
         VStack(alignment: .leading) {
@@ -18,7 +19,7 @@ struct TaskView: View {
             .bold()
           
           if inProgressOther {
-            Text("In Progress")
+            Text("In Progress: \(task.name)")
               .foregroundColor(.gray)
               
           }
@@ -60,8 +61,8 @@ struct TaskView: View {
     }
 }
 
-struct TaskView_Previews: PreviewProvider {
-    static var previews: some View {
-      TaskView(unclaimed: false, inProgressOther: true, inProgressSelf: false)
-    }
-}
+//struct TaskView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TaskView(task: task, unclaimed: false, inProgressOther: true, inProgressSelf: false)
+//    }
+//}
