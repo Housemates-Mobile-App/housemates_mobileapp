@@ -13,30 +13,28 @@ struct JoinCreateCard: View {
     var description: String
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15)
-                .fill(Color.white)
-                .shadow(radius: 4)
-//                .frame(width: 300, height: 200)
+        VStack(spacing: 8) {
+            Image(image)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxHeight: 150)
+                .cornerRadius(15)
+                .clipped()
             
-            VStack(alignment: .leading, spacing: 8) {
-                Image(image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(maxHeight: 150)
-                    .cornerRadius(15)
-                    .clipped()
-                
-                Text(title)
-                    .font(.system(size:30))
-                    .foregroundColor(.black)
-                
-                Text(description)
-                    .font(.system(size:15))
-                    .foregroundColor(.gray)
-            }
-            .padding()
+            Text(title)
+                .font(.system(size:30))
+                .foregroundColor(.black)
+            
+            Text(description)
+                .font(.system(size:15))
+                .foregroundColor(.gray)
         }
+        .padding()
+        .cornerRadius(15)
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(.black, lineWidth: 5)
+        )
     }
 }
 
