@@ -11,10 +11,6 @@ struct TaskBoardView: View {
     @EnvironmentObject var taskViewModel : TaskViewModel
     @EnvironmentObject var authViewModel : AuthViewModel
     @Binding var hideTabBar: Bool
-
-        
-    // Placeholder user data
-    let users = ["sean", "sanmoy", "bernie", "gunawan"]
     
     var body: some View {
         NavigationView {
@@ -118,8 +114,13 @@ struct TaskBoardView: View {
 }
 
 
-//struct TaskBoardView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TaskBoardView()
-//    }
-//}
+struct TaskBoardView_Previews: PreviewProvider {
+    static var previews: some View {
+        TaskBoardView(hideTabBar: Binding.constant(false))
+            .environmentObject(AuthViewModel.mock())
+            .environmentObject(TaskViewModel())
+            .environmentObject(UserViewModel())
+    }
+    
+}
+

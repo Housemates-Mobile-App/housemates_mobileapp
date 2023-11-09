@@ -9,12 +9,11 @@ import SwiftUI
 
 struct TaskView: View {
     let task: task
+    let user: User
     @EnvironmentObject var taskViewModel : TaskViewModel
     @EnvironmentObject var authViewModel : AuthViewModel
     @Environment(\.editMode) private var editMode
     
-//  now takes in a user
-    let user: User
     var body: some View {
         HStack {
             VStack(alignment: .leading) {

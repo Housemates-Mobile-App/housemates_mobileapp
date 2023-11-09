@@ -70,3 +70,14 @@ class UserViewModel: ObservableObject {
         }
     }
 }
+
+
+extension UserViewModel {
+    static func mock() -> UserViewModel {
+        // Create and return a mock AuthViewModel with a mock user
+        let mockUsers =  [User(id: "test", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")]
+        let mockUserViewModel = UserViewModel()
+        mockUserViewModel.users = mockUsers
+        return mockUserViewModel
+    }
+}
