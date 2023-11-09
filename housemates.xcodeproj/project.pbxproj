@@ -19,6 +19,7 @@
 		8A6AD4ED2AFB534400A6DF85 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4EC2AFB534400A6DF85 /* FirebaseFirestoreSwift */; };
 		8A6AD4EF2AFB534400A6DF85 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4EE2AFB534400A6DF85 /* FirebaseStorage */; };
 		8A6AD4F12AFB534400A6DF85 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4F02AFB534400A6DF85 /* FirebaseStorageCombine-Community */; };
+		8A7F0AC02AFD407900F7B76B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */; };
 		8AA3B8B92AF9D4680064CFD6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8B82AF9D4680064CFD6 /* FirebaseAnalytics */; };
 		8AA3B8BB2AF9D4680064CFD6 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8BA2AF9D4680064CFD6 /* FirebaseAnalyticsOnDeviceConversion */; };
 		8AA3B8BD2AF9D4680064CFD6 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8BC2AF9D4680064CFD6 /* FirebaseAnalyticsSwift */; };
@@ -101,6 +102,7 @@
 		5138709E2AF562DD007A83B4 /* HousemateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousemateProfileView.swift; sourceTree = "<group>"; };
 		51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCreateCard.swift; sourceTree = "<group>"; };
 		816C30272AF49D59004F1771 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		8AD6ED052AF1969C006B56B6 /* housemates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = housemates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD6ED082AF1969C006B56B6 /* housematesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housematesApp.swift; sourceTree = "<group>"; };
 		8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 			children = (
 				8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */,
 				ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */,
+				8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -464,6 +467,7 @@
 				8AD6ED092AF1969C006B56B6 /* housematesApp.swift in Sources */,
 				8AE8FF972AF4110E003AD997 /* RegistrationView.swift in Sources */,
 				8AF358442AF4B2E20009B93C /* CreateGroupView.swift in Sources */,
+				8A7F0AC02AFD407900F7B76B /* UserViewModel.swift in Sources */,
 				8AD6ED292AF1980D006B56B6 /* GroupDataRepository.swift in Sources */,
 				8AE8FF9B2AF4114B003AD997 /* InputView.swift in Sources */,
 				8AD6ED212AF19796006B56B6 /* Task.swift in Sources */,

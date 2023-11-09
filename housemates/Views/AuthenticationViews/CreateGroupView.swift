@@ -11,6 +11,7 @@ struct CreateGroupView: View {
     @State private var group_name = ""
     @State private var address = ""
     @EnvironmentObject var authViewModel : AuthViewModel
+    @EnvironmentObject var userViewModel : UserViewModel
     
     var body: some View {
         VStack {
@@ -35,7 +36,10 @@ struct CreateGroupView: View {
                 // MARK: Button for creating and joining a new group
                 Button {
                     Task {
-                        try await authViewModel.createAndJoinGroup(group_name : group_name, address : address)
+                        if let uid = authViewModel.currentUser?.id {
+                          await userViewModel.createAndJoinGroup(group_name: group_name, address: address, uid: uid)
+                          await authViewModel.fetchUser()
+                       }
                     }
                 } label: {
                     HStack {
