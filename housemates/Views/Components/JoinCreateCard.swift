@@ -38,6 +38,6 @@ struct JoinCreateCard: View {
     }
 }
 
-#Preview {
-    JoinCreateCard(image:"joinGroupIcon", title:"title", description:"description")
-}
+//#Preview {
+//    JoinCreateCard(image:"joinGroupIcon", title:"title", description:"description")
+//}

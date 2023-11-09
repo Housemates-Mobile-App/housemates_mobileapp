@@ -24,6 +24,6 @@ struct JoinCreateGroupView: View {
     
 }
 
-#Preview {
-    JoinCreateGroupView()
-}
+//#Preview {
+//    JoinCreateGroupView()
+//}
