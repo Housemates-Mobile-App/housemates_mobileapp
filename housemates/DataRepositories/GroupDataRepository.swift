@@ -35,7 +35,19 @@ class GroupRepository: ObservableObject {
                 
          }
     }
+    
+    // MARK: CRUD methods
+    func create(_ group: Group) {
+           do {
+               let newGroup = group
+               _ = try store.collection(path).addDocument(from: newGroup)
+           } catch {
+               fatalError("Unable to add Group: \(error.localizedDescription).")
+           }
+       }
 
+    // MARK: Filtering methods
+    
     func getGroupIdByCode(_ group_code: String) async -> String? {
        var groupId: String?
 
@@ -49,19 +61,16 @@ class GroupRepository: ObservableObject {
 
        return groupId
     }
+       
     
-    // MARK: CRUD methods
-    
-
-    // MARK: Filtering methods
-    func filterGroupsByID(_ id: String) -> Group? {
-        var group: Group?
-        
-        var groups = self.groups.filter{$0.id == id}
-        
-        if !groups.isEmpty {
-            return groups[0]
-        }
-        return group
-    }
+       func filterGroupsByID(_ id: String) -> Group? {
+           var group: Group?
+           
+           var groups = self.groups.filter{$0.id == id}
+           
+           if !groups.isEmpty {
+               return groups[0]
+           }
+           return group
+       }
 }

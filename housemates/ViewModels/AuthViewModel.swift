@@ -22,8 +22,12 @@ class AuthViewModel: ObservableObject {
 
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
+    @Published var isLoading = false
     
     func fetchUser() async {
+        isLoading = true
+        defer { isLoading = false }
+        
         guard let uid = Auth.auth().currentUser?.uid else { return }
         guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else { return }
         self.currentUser = try? snapshot.data(as: User.self)
@@ -61,37 +65,6 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    // TODO: Move to group data repository
-    func joinGroup(_ group_code: String) async throws {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-                
-        do {
-            if let group_id = await groupRepository.getGroupIdByCode(group_code) {
-                _ = try await Firestore.firestore().collection("users").document(uid).setData(["group_id": group_id], merge: true)
-                await fetchUser()
-            }
-        }  catch {
-            print("Failed to assign group to User: \(error.localizedDescription)")
-        }
-    }
-    
-    // TODO: Move to group data repository
-    func createAndJoinGroup(group_name: String, address: String) async throws {
-        
-        let group_code = String(Int.random(in: 1000...9999))
-        let id = Firestore.firestore().collection("groups").document().documentID
-        do {
-            let group = Group(id: id, address: address, name: group_name, code: group_code)
-            let encodedUser = try Firestore.Encoder().encode(group)
-            try await Firestore.firestore().collection("groups").document(group.id!).setData(encodedUser)
-            try await joinGroup(group_code)
-            await fetchUser()
-        }  catch {
-            print("Failed to assign group to User: \(error.localizedDescription)")
-        }
-
-    }
-    
     func signOut() {
         do {
             try Auth.auth().signOut()
@@ -100,10 +73,6 @@ class AuthViewModel: ObservableObject {
         } catch {
             print("Failed to sign out: \(error.localizedDescription)")
         }
-    }
-    
-    func getProfilePicture() {
-        print("Asdf")
     }
     
     func saveProfilePicture(image: UIImage) async -> Bool {
@@ -150,8 +119,6 @@ class AuthViewModel: ObservableObject {
             print("ERROR: Could not update data for user")
             return false
         }
-
-        
     }
 
 }

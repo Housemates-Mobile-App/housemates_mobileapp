@@ -11,17 +11,22 @@ struct ContentView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
-        SwiftUI.Group {
-            if authViewModel.userSession != nil {
-                if authViewModel.currentUser?.group_id != nil {
-                    AuthContentView()
+            SwiftUI.Group {
+                if authViewModel.isLoading {
+                    // Show a loading indicator
+                    ProgressView("Loading...")
                 } else {
-                    JoinCreateGroupView()
+                    if authViewModel.userSession != nil {
+                        if authViewModel.currentUser?.group_id != nil {
+                            AuthContentView()
+                        } else {
+                            JoinCreateGroupView()
+                        }
+                    } else {
+                        LoginView()
+                    }
                 }
-            } else {
-                LoginView()
             }
         }
-    }
 }
 

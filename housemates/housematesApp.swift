@@ -22,12 +22,14 @@ struct housematesApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var authViewModel = AuthViewModel()
     @StateObject var taskViewModel = TaskViewModel()
+    @StateObject var userViewModel = UserViewModel()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(authViewModel)
                 .environmentObject(taskViewModel)
+                .environmentObject(userViewModel)
 
         }
     }
