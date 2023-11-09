@@ -101,7 +101,7 @@ struct AddTaskView: View {
             group_id: user.group_id ?? "",
             user_id: user.id,
             description: taskDescription,
-            status: "unclaimed",
+            status: .unclaimed,
             date_started: nil,
             date_completed: nil,
             priority: priority.rawValue

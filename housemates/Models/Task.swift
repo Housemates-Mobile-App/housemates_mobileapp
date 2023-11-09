@@ -16,7 +16,7 @@ struct task: Identifiable, Codable {
     var group_id: String
     var user_id: String?
     var description: String
-    var status: String
+    var status: Status
     var date_started: String?
     var date_completed: String?
     var priority: String
@@ -32,6 +32,12 @@ struct task: Identifiable, Codable {
         case date_started
         case date_completed
         case priority
+    }
+    
+    enum Status: String, Codable {
+        case inProgress
+        case unclaimed
+        case done
     }
     
 }
