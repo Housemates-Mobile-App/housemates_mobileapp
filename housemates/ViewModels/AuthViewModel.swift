@@ -17,23 +17,35 @@ protocol AuthenticationFormProtocol {
 
 @MainActor
 class AuthViewModel: ObservableObject {
-    private let userRepository = UserRepository()
-    private let groupRepository = GroupRepository()
-
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
-    
-    func fetchUser() async {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else { return }
-        self.currentUser = try? snapshot.data(as: User.self)
-    }
+    @Published var isLoading = false
     
     init () {
         self.userSession = Auth.auth().currentUser
         
         Task {
             await fetchUser()
+        }
+    }
+    
+    func setUser(user: User) async {
+        self.currentUser = user
+    }
+    
+    
+    func fetchUser() async {
+        isLoading = true
+        defer { isLoading = false }
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+            let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
+            print("SNAPSHOT: \(snapshot.data())")
+            self.currentUser = try? snapshot.data(as: User.self)
+        } catch {
+            print("Failed to fetch user: \(error.localizedDescription)")
         }
     }
     
@@ -61,37 +73,6 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    // TODO: Move to group data repository
-    func joinGroup(_ group_code: String) async throws {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-                
-        do {
-            if let group_id = await groupRepository.getGroupIdByCode(group_code) {
-                _ = try await Firestore.firestore().collection("users").document(uid).setData(["group_id": group_id], merge: true)
-                await fetchUser()
-            }
-        }  catch {
-            print("Failed to assign group to User: \(error.localizedDescription)")
-        }
-    }
-    
-    // TODO: Move to group data repository
-    func createAndJoinGroup(group_name: String, address: String) async throws {
-        
-        let group_code = String(Int.random(in: 1000...9999))
-        let id = Firestore.firestore().collection("groups").document().documentID
-        do {
-            let group = Group(id: id, address: address, name: group_name, code: group_code)
-            let encodedUser = try Firestore.Encoder().encode(group)
-            try await Firestore.firestore().collection("groups").document(group.id!).setData(encodedUser)
-            try await joinGroup(group_code)
-            await fetchUser()
-        }  catch {
-            print("Failed to assign group to User: \(error.localizedDescription)")
-        }
-
-    }
-    
     func signOut() {
         do {
             try Auth.auth().signOut()
@@ -102,57 +83,53 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func getProfilePicture() {
-        print("Asdf")
-    }
-    
-    func saveProfilePicture(image: UIImage) async -> Bool {
-        guard let uid = Auth.auth().currentUser?.uid else {
-            print("ERROR: Counld not get current user ID")
-            return false
-        }
-        
-        let photoID = UUID().uuidString
-        let storage = Storage.storage()
-        let storageRef = storage.reference().child("\(photoID).jpeg")
-        
-        guard let resizedImage = image.jpegData(compressionQuality: 0.2) else {
-            print("ERROR: Could not resize image")
-            return false
-        }
-        
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpg"
-        
-        var imageURLString = ""
-        
-        // MARK: Save image to Storage and get URL
-        do {
-            let _ = try await storageRef.putDataAsync(resizedImage, metadata: metadata)
-            do {
-                let imageURL = try await storageRef.downloadURL()
-                imageURLString = "\(imageURL)"
-            } catch {
-                print("ERROR: Could not get imageURL after saveing image \(error.localizedDescription)")
-                return false
-            }
-        } catch {
-            print("ERROR: Could not upload image to FirebaseStorage")
-            return false
-        }
-        
-        // MARK: Update user struct and Firestore document
-        do {
-            try await Firestore.firestore().collection("users").document(uid).setData(["imageURLString": imageURLString], merge: true)
-            await fetchUser()
-            return true
-        } catch {
-            print("ERROR: Could not update data for user")
-            return false
-        }
-
-        
-    }
+//    func saveProfilePicture(image: UIImage) async -> Bool {
+//        guard let uid = Auth.auth().currentUser?.uid else {
+//            print("ERROR: Counld not get current user ID")
+//            return false
+//        }
+//        
+//        let photoID = UUID().uuidString
+//        let storage = Storage.storage()
+//        let storageRef = storage.reference().child("\(photoID).jpeg")
+//        
+//        guard let resizedImage = image.jpegData(compressionQuality: 0.2) else {
+//            print("ERROR: Could not resize image")
+//            return false
+//        }
+//        
+//        let metadata = StorageMetadata()
+//        metadata.contentType = "image/jpg"
+//        
+//        var imageURLString = ""
+//        
+//        // MARK: Save image to Storage and get URL
+//        do {
+//            let _ = try await storageRef.putDataAsync(resizedImage, metadata: metadata)
+//            do {
+//                let imageURL = try await storageRef.downloadURL()
+//                imageURLString = "\(imageURL)"
+//            } catch {
+//                print("ERROR: Could not get imageURL after saveing image \(error.localizedDescription)")
+//                return false
+//            }
+//        } catch {
+//            print("ERROR: Could not upload image to FirebaseStorage")
+//            return false
+//        }
+//        
+//        // MARK: Update user struct and Firestore document
+//        do {
+//            try await Firestore.firestore().collection("users").document(uid).setData(["imageURLString": imageURLString], merge: true)
+//            await fetchUser()
+//            return true
+//        } catch {
+//            print("ERROR: Could not update data for user")
+//            return false
+//        }
+//
+//        
+//    }
 
 }
 

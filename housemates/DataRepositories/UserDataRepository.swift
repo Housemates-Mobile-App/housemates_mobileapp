@@ -46,6 +46,17 @@ class UserRepository: ObservableObject {
         }
       }
     
+    
+    func create(_ user: User) {
+        do {
+            let newUser = user
+            _ = try store.collection(path).addDocument(from: newUser)
+        } catch {
+            fatalError("Unable to add User: \(error.localizedDescription).")
+        }
+    }
+    
+    
 //    func updateUser(_ user: User, fields: [String: Any]) {
 //         guard let userId = user.id else {
 //             fatalError("User ID is nil. Cannot update user without ID.")

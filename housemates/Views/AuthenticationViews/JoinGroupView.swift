@@ -11,6 +11,8 @@ struct JoinGroupView: View {
     @State private var group_code: [String] = Array(repeating: "", count: 4)
     @FocusState private var focusedField: Int?
     @EnvironmentObject var authViewModel : AuthViewModel
+    @EnvironmentObject var userViewModel : UserViewModel
+
 
     let numOfFields = 4
     
@@ -68,8 +70,15 @@ struct JoinGroupView: View {
                 // MARK: Button for Joining Existing Group
                 Button {
                     Task {
-                        try await authViewModel.joinGroup(group_code.joined())
+                        
+                        if let user = authViewModel.currentUser {
+                            if let updatedUser = userViewModel.joinGroup(group_code: group_code.joined(), uid: user.id!) {
+                                await authViewModel.setUser(user: updatedUser)
+                            }
+                        }
                     }
+                
+                
                 } label: {
                     HStack {
                         Text("Join Group")

@@ -10,6 +10,7 @@
 		5138709F2AF562DD007A83B4 /* HousemateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5138709E2AF562DD007A83B4 /* HousemateProfileView.swift */; };
 		51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */; };
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
+		8A04ACD32AFC63F300E982E6 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A04ACD22AFC63F300E982E6 /* UserViewModel.swift */; };
 		8A6AD4E12AFB534400A6DF85 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E02AFB534400A6DF85 /* FirebaseAuth */; };
 		8A6AD4E32AFB534400A6DF85 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E22AFB534400A6DF85 /* FirebaseAuthCombine-Community */; };
 		8A6AD4E52AFB534400A6DF85 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E42AFB534400A6DF85 /* FirebaseDatabase */; };
@@ -99,6 +100,7 @@
 		5138709E2AF562DD007A83B4 /* HousemateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousemateProfileView.swift; sourceTree = "<group>"; };
 		51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCreateCard.swift; sourceTree = "<group>"; };
 		816C30272AF49D59004F1771 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		8A04ACD22AFC63F300E982E6 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		8AD6ED052AF1969C006B56B6 /* housemates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = housemates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD6ED082AF1969C006B56B6 /* housematesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housematesApp.swift; sourceTree = "<group>"; };
 		8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 			children = (
 				8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */,
 				ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */,
+				8A04ACD22AFC63F300E982E6 /* UserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */,
 				816C30282AF49D59004F1771 /* TaskView.swift in Sources */,
 				8AE8FF9F2AF41F2B003AD997 /* HomeView.swift in Sources */,
+				8A04ACD32AFC63F300E982E6 /* UserViewModel.swift in Sources */,
 				8AF358422AF4B2BA0009B93C /* JoinGroupView.swift in Sources */,
 				8AF358402AF4B17A0009B93C /* JoinCreateGroupView.swift in Sources */,
 				8AD6ED242AF197BD006B56B6 /* Post.swift in Sources */,
@@ -615,7 +619,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 5V6283R8D6;
+				DEVELOPMENT_TEAM = 79WMU8S839;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -645,7 +649,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 5V6283R8D6;
+				DEVELOPMENT_TEAM = 79WMU8S839;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

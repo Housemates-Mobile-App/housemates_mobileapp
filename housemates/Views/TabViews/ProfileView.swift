@@ -64,7 +64,7 @@ struct ProfileView: View {
                                 if let data = try await newValue?.loadTransferable(type: Data.self) {
                                     if let uiImage = UIImage(data: data) {
                                         uiImageSelected = uiImage
-                                        _ = await authViewModel.saveProfilePicture(image: uiImageSelected)
+//                                        _ = await authViewModel.saveProfilePicture(image: uiImageSelected)
                                     }
                                 }
                             } catch {
