@@ -94,6 +94,7 @@
 		ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */; };
 		ADD11A662AFAFA54001861A0 /* TaskDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */; };
 		ADD11A682AFC3FCB001861A0 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A672AFC3FCB001861A0 /* AddTaskView.swift */; };
+		ADD11A6C2AFCE97E001861A0 /* AddAmenityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A6B2AFCE97E001861A0 /* AddAmenityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +132,7 @@
 		ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataRepository.swift; sourceTree = "<group>"; };
 		ADD11A672AFC3FCB001861A0 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		ADD11A6B2AFCE97E001861A0 /* AddAmenityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAmenityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +240,7 @@
 				816C30272AF49D59004F1771 /* TaskView.swift */,
 				5138709E2AF562DD007A83B4 /* HousemateProfileView.swift */,
 				ADD11A672AFC3FCB001861A0 /* AddTaskView.swift */,
+				ADD11A6B2AFCE97E001861A0 /* AddAmenityView.swift */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */,
 				51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */,
 				816C30282AF49D59004F1771 /* TaskView.swift in Sources */,
+				ADD11A6C2AFCE97E001861A0 /* AddAmenityView.swift in Sources */,
 				8AE8FF9F2AF41F2B003AD997 /* HomeView.swift in Sources */,
 				8AF358422AF4B2BA0009B93C /* JoinGroupView.swift in Sources */,
 				8AF358402AF4B17A0009B93C /* JoinCreateGroupView.swift in Sources */,
