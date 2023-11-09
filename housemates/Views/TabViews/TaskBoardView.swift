@@ -13,98 +13,82 @@ struct TaskBoardView: View {
     @Binding var hideTabBar: Bool
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-              if let user = authViewModel.currentUser {
+        if let user = authViewModel.currentUser {
+            NavigationView {
                 VStack() {
-                  HStack {
-                    Text("Task Board")
-                      .font(.largeTitle)
-                      .fontWeight(.bold)
-                    
-                    Spacer()
-                    
+                    HStack {
+                      Text("Task Board")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                      
+                      Spacer()
+                        
+                      EditButton().padding(.horizontal).fontWeight(.semibold)
+                        
                       NavigationLink(destination: AddTaskView(user: user, taskViewModel: taskViewModel, hideTabBar: $hideTabBar)) {
-                      Text("+ Add")
-                        .fontWeight(.semibold)
-//                        .onTapGesture {
-//                            showTab = false
-//                        }
-                    }
-                  }
-                  .padding(.horizontal)
-                  
-                  // Users who are free
-                  HStack {
-                    Text("Who's Free?")
-                      .font(.headline)
-                      .padding(.vertical)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                      HStack {
-                        //                                    ForEach(users.filter { $0.isFree }) { user in
-                        //                                        Text(user.name)
-                        //                                            .padding(.all, 5)
-                        //                                            .background(Capsule().fill(Color.green))
-                        Text("sean")
-                          .padding(.all, 5)
-                          .background(Capsule().fill(Color.green))
+                        Text("+ Add")
+                          .fontWeight(.semibold)
                       }
                     }
-                  }
-                  .padding(.horizontal)
-                  
-                  // Daily Tasks Section
-                  VStack(alignment: .leading) {
-                    Text("Unclaimed")
-                      .font(.title2)
-                      .padding(.vertical)
+                    .padding(.horizontal)
+                    .padding(.vertical)
                     
-                    ForEach(taskViewModel.getUnclaimedTasksForGroup(user.group_id!)) { task in
-                      // TODO: refactor TaskView to take in only a task and then case on fields of the task
-                      TaskView(task: task, user: user)
-                    }
-                  }
-                  .padding(.horizontal)
-                  
-                  // Recurring Tasks Section
-                  VStack(alignment: .leading) {
-                    Text("In Progress")
-                      .font(.title2)
-                      .padding(.vertical)
-                    
-                    ForEach(taskViewModel.getInProgressTasksForGroup(user.group_id!)) { task in
-                      // TODO: refactor TaskView to take in only a task and then case on fields of the task
-                      TaskView(task: task, user: user)
-                    }
-                    
-                  }
-                  .padding(.horizontal)
-                  
-                  VStack(alignment: .leading) {
-                    Text("Completed")
-                      .font(.title2)
-                      .padding(.vertical)
-                    
-                    ForEach(taskViewModel.getCompletedTasksForGroup(user.group_id!)) { task in
-                      // TODO: refactor TaskView to take in only a task and then case on fields of the task
-                      TaskView(task: task, user: user)
-                      
-                    }
-                  }
-                  .padding(.horizontal)
-                }
-                .navigationBarItems(
-                  leading: EditButton()
-                  
-                  
-                  //                        ,trailing: Button(action: {
-                  //                            // Action for adding a task
-                  //                        }) {
-                  //                            Image(systemName: "plus")
-                  //                        }
-                )
                 
+
+                ScrollView {
+                    // Users who are free
+                    HStack {
+                        Text("Who's Free?")
+                            .font(.headline)
+                            .padding(.vertical)
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                Text("sean")
+                                    .padding(.all, 5)
+                                    .background(Capsule().fill(Color.green))
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                    
+                    // Daily Tasks Section
+                    VStack(alignment: .leading) {
+                        Text("Unclaimed")
+                            .font(.title2)
+                            .padding(.vertical)
+                        
+                        ForEach(taskViewModel.getUnclaimedTasksForGroup(user.group_id!)) { task in
+                            TaskView(task: task, user: user)
+                        }
+                    }
+                    .padding(.horizontal)
+                    
+                    // Recurring Tasks Section
+                    VStack(alignment: .leading) {
+                        Text("In Progress")
+                            .font(.title2)
+                            .padding(.vertical)
+                        
+                        ForEach(taskViewModel.getInProgressTasksForGroup(user.group_id!)) { task in
+                            TaskView(task: task, user: user)
+                        }
+                        
+                    }
+                    .padding(.horizontal)
+                    
+                    VStack(alignment: .leading) {
+                        Text("Completed")
+                            .font(.title2)
+                            .padding(.vertical)
+                        
+                        ForEach(taskViewModel.getCompletedTasksForGroup(user.group_id!)) { task in
+                            TaskView(task: task, user: user)
+                            
+                        }
+                    }
+                    .padding(.horizontal)
+                }
                 Spacer()
                 
               }

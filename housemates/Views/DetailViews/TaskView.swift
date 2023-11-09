@@ -92,8 +92,6 @@ struct TaskView: View {
                         .background(Color.blue)
                         .cornerRadius(8)
                 }
-            default:
-                EmptyView()
             }
         }
         .padding()
