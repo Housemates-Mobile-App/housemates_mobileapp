@@ -2,17 +2,76 @@
 //  AmentityView.swift
 //  housemates
 //
-//  Created by Sean Pham on 11/2/23.
-//
-
 import SwiftUI
 
+struct Amenity: Identifiable {
+    let id: UUID
+    let name: String
+    var status: String
+}
+
 struct AmenityView: View {
+    @EnvironmentObject var taskViewModel : TaskViewModel
+    @EnvironmentObject var authViewModel : AuthViewModel
+    @Binding var hideTabBar: Bool
+    
+//    var amenity = housemates.Amentity(from: <#Decoder#>)
+    
+    // Sample data for amenities
+    @State private var amenities: [Amenity] = [
+        Amenity(id: UUID(), name: "Kitchen", status: "You are using"),
+        Amenity(id: UUID(), name: "Laundry", status: "In Use"),
+        Amenity(id: UUID(), name: "Bathroom #1", status: "Available"),
+        Amenity(id: UUID(), name: "Bathroom #2", status: "In Use")
+    ]
+
     var body: some View {
-        Text("Amentity")
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    ForEach(amenities) { amenity in
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(amenity.name)
+                                    .font(.headline)
+                                Text(amenity.status)
+                                    .font(.subheadline)
+                                    .foregroundColor(amenity.status == "Available" ? .green : .red)
+                            }
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                // Implement action
+                            }) {
+                                Text(amenity.status == "Available" ? "USE" : "DONE")
+                                    .foregroundColor(.blue)
+                            }
+                            .frame(minWidth: 70)
+                            .padding()
+                            .background(Color.gray.opacity(0.2))
+                            .cornerRadius(10)
+                        }
+                        .padding(.horizontal)
+                    }
+                }
+                .padding(.top)
+            }
+            .navigationTitle("Shared Amenities")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(destination: AddAmenityView(taskViewModel: taskViewModel, hideTabBar: $hideTabBar)) {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
+        }
     }
 }
 
-//#Preview {
-//    AmenityView()
+ 
+//struct AmenitiesView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AmenityView()
+//    }
 //}

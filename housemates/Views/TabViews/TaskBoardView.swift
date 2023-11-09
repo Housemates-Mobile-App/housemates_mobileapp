@@ -7,34 +7,11 @@
 
 import SwiftUI
 
-//struct TaskBoardView: View {
-//    @EnvironmentObject var taskViewModel : TaskViewModel
-//    @EnvironmentObject var authViewModel : AuthViewModel
-//
-//    var body: some View {
-//            if let user = authViewModel.currentUser {
-//                VStack() {
-//                    Text("Task Board")
-//                        .font(.largeTitle)
-//                        .padding(.bottom, 10)
-//                    
-//                    Section("Daily Tasks") {
-//                        ForEach(taskViewModel.getTasksForGroup(user.group_id!)) { task in
-//                            // TODO: refactor TaskView to take in only a task and then case on fields of the task
-//                            TaskView(task: task, unclaimed: false, inProgressOther: true, inProgressSelf: false)
-//                        }
-//                    }
-//                }
-//            }
-//            
-//        }
-//    }
-
-
 struct TaskBoardView: View {
     @EnvironmentObject var taskViewModel : TaskViewModel
     @EnvironmentObject var authViewModel : AuthViewModel
-   
+    @Binding var hideTabBar: Bool
+
         
     // Placeholder user data
     let users = ["sean", "sanmoy", "bernie", "gunawan"]
@@ -51,12 +28,12 @@ struct TaskBoardView: View {
                     
                     Spacer()
                     
-                    //                            Button(action: {
-                    //                                // Action for adding a task
-                    //                            })
-                    NavigationLink(destination: AddTaskView(user: user, taskViewModel: taskViewModel)) {
+                      NavigationLink(destination: AddTaskView(user: user, taskViewModel: taskViewModel, hideTabBar: $hideTabBar)) {
                       Text("+ Add")
                         .fontWeight(.semibold)
+//                        .onTapGesture {
+//                            showTab = false
+//                        }
                     }
                   }
                   .padding(.horizontal)
@@ -141,8 +118,8 @@ struct TaskBoardView: View {
 }
 
 
-struct TaskBoardView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskBoardView()
-    }
-}
+//struct TaskBoardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TaskBoardView()
+//    }
+//}

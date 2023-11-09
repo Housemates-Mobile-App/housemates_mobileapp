@@ -9,15 +9,16 @@ import SwiftUI
 
 struct AddTaskView: View {
     let user: User
-    
-    @Environment(\.presentationMode) var presentationMode
     var taskViewModel : TaskViewModel
-    
+    @Binding var hideTabBar: Bool
+
+    @Environment(\.presentationMode) var presentationMode
     @State private var showAlert = false
     @State private var alertMessage = ""
     @State private var taskName: String = ""
     @State private var taskDescription: String = ""
     @State private var priority: TaskPriority = .medium
+    @State private var taskRepetition: TaskRepetition = .doesNotRepeat
 
     enum TaskPriority: String, CaseIterable {
         case low = "Low"
@@ -25,20 +26,20 @@ struct AddTaskView: View {
         case high = "High"
     }
     
-//    Alert(isPresented: $showAlert) {
-//        if alertMessage.isEmpty {
-//            Text("Adding task...")
-//        } else {
-//            Text(alertMessage)
-//        }
-//    }
-
+    enum TaskRepetition: String, CaseIterable {
+            case doesNotRepeat = "Does Not Repeat"
+            case everyDay = "Every Day"
+            case everyMonday = "Every Monday"
+            case custom = "Custom..."
+        }
+    
     var body: some View {
         NavigationView {
             Form {
                 InputView(text: $taskName, title: "Task Name", placeholder: "Enter task name")
                 InputView(text: $taskDescription, title: "Description", placeholder: "Enter task description")
                 
+                //Picker for priority
                 Section(header: Text("Priority")) {
                     Picker("Priority", selection: $priority) {
                         ForEach(TaskPriority.allCases, id: \.self) { priority in
@@ -47,7 +48,18 @@ struct AddTaskView: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                 }
-
+                
+                
+                //Picker for recurringness
+                Section(header: Text("Repeats")) {
+                                    Picker("Repeats", selection: $taskRepetition) {
+                                        ForEach(TaskRepetition.allCases, id: \.self) { repetition in
+                                            Text(repetition.rawValue).tag(repetition)
+                                        }
+                                    }
+                                    .pickerStyle(DefaultPickerStyle())
+                                }
+                
                 Button(action: {
                     addTask()
                 }) {
@@ -63,6 +75,12 @@ struct AddTaskView: View {
             } else {
                 return Alert(title: Text(alertMessage))
             }
+        }
+        .onAppear {
+            hideTabBar = true
+        }
+        .onDisappear {
+            hideTabBar = false
         }
     }
     

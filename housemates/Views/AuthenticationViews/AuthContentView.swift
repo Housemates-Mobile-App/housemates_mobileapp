@@ -9,7 +9,8 @@ import SwiftUI
 
 struct AuthContentView: View {
     @State private var selected: Tab = .house
-    
+    @State private var hideTabBar = false
+
     init() {
         UITabBar.appearance().isHidden = true
     }
@@ -27,17 +28,24 @@ struct AuthContentView: View {
                         ProfileView()
                         
                     case .tasks:
-                        TaskBoardView()
+                        TaskBoardView(hideTabBar: $hideTabBar)
                         
                     case .sofa:
-                        AmenityView()
+                        AmenityView(hideTabBar: $hideTabBar)
                     }
                 }
-                TabBar(selected: $selected)
+//                TabBar(selected: $selected)
+                if !hideTabBar {
+                    TabBar(selected: $selected, hideTabBar: $hideTabBar)
+                }
             }
         }
+        .onAppear {
+                UITabBar.appearance().isHidden = false
+            }
     }
 }
+
 
 
 //#Preview {

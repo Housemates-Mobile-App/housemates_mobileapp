@@ -17,6 +17,7 @@ enum Tab: String, CaseIterable {
 
 struct TabBar: View {
   @Binding var selected: Tab
+  @Binding var hideTabBar: Bool
   private var fillIcon: String {
     selected.rawValue + ".fill"
   }
@@ -33,17 +34,15 @@ struct TabBar: View {
             .onTapGesture {
               withAnimation(.easeIn(duration: 0.1)) {
                 selected = tab
+//                  hideTabBar = tab == .tasks
               }
             }
-          
           Spacer()
         }
-        
       }
       .frame(width: nil, height: 60)
       .background(.thinMaterial)
       .background(Color.purple)
-      
       .cornerRadius(10)
       .padding()
     }
@@ -51,8 +50,8 @@ struct TabBar: View {
     
 }
 
-struct TabBar_Previews: PreviewProvider {
-    static var previews: some View {
-      TabBar(selected: .constant(.house))
-    }
-}
+//struct TabBar_Previews: PreviewProvider {
+//    static var previews: some View {
+//      TabBar(selected: .constant(.house))
+//    }
+//}
