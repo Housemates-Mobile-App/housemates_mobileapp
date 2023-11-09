@@ -33,6 +33,14 @@ class UserViewModel: ObservableObject {
         return filteredUsers.first
     }
     
+    func getUserGroupmates(_ uid: String) -> [User] {
+        guard let currentUser = self.users.first(where: { $0.id == uid }), let groupID = currentUser.group_id else {
+            return []
+        }
+        
+        return self.users.filter { $0.group_id == groupID && $0.id != uid }
+    }
+    
     func joinGroup(group_code: String, uid: String) async {
             // Fetch the user object by ID
             guard var user = getUserByID(uid) else {
