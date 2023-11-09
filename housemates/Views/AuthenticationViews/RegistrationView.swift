@@ -22,13 +22,10 @@ struct RegistrationView: View {
     var body: some View {
         VStack{
             // MARK: Housemates Logo
-            Image("House")
+            Image("housematesLogo")
                 .resizable()
                 .scaledToFill()
                 .frame(width: 100, height: 120)
-            
-            // MARK: Housemates Title
-            Text("HouseMates")
             
             // MARK: Registration Form
             VStack(spacing: 10) {
