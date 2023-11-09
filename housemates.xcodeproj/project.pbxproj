@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		5138709F2AF562DD007A83B4 /* HousemateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5138709E2AF562DD007A83B4 /* HousemateProfileView.swift */; };
 		51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */; };
+		51D094AA2AFC739800935664 /* housematesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094A92AFC739800935664 /* housematesTests.swift */; };
+		51D094B12AFC740300935664 /* userModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094B02AFC740300935664 /* userModelTests.swift */; };
+		51D094B32AFC747600935664 /* GroupModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094B22AFC747600935664 /* GroupModelTests.swift */; };
+		51D094B52AFC74D700935664 /* taskModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094B42AFC74D700935664 /* taskModelTests.swift */; };
+		51D094B72AFC754300935664 /* postModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094B62AFC754300935664 /* postModelTests.swift */; };
+		51D094B92AFC75A100935664 /* amenityModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094B82AFC75A100935664 /* amenityModelTests.swift */; };
+		51D094BB2AFC760000935664 /* commentModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094BA2AFC760000935664 /* commentModelTests.swift */; };
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
 		8A6AD4E12AFB534400A6DF85 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E02AFB534400A6DF85 /* FirebaseAuth */; };
 		8A6AD4E32AFB534400A6DF85 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E22AFB534400A6DF85 /* FirebaseAuthCombine-Community */; };
@@ -98,9 +105,27 @@
 		ADD11A6C2AFCE97E001861A0 /* AddAmenityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A6B2AFCE97E001861A0 /* AddAmenityView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		51D094AB2AFC739800935664 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AD6ECFD2AF1969C006B56B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8AD6ED042AF1969C006B56B6;
+			remoteInfo = housemates;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		5138709E2AF562DD007A83B4 /* HousemateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousemateProfileView.swift; sourceTree = "<group>"; };
 		51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCreateCard.swift; sourceTree = "<group>"; };
+		51D094A72AFC739800935664 /* housematesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = housematesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		51D094A92AFC739800935664 /* housematesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housematesTests.swift; sourceTree = "<group>"; };
+		51D094B02AFC740300935664 /* userModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userModelTests.swift; sourceTree = "<group>"; };
+		51D094B22AFC747600935664 /* GroupModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupModelTests.swift; sourceTree = "<group>"; };
+		51D094B42AFC74D700935664 /* taskModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskModelTests.swift; sourceTree = "<group>"; };
+		51D094B62AFC754300935664 /* postModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postModelTests.swift; sourceTree = "<group>"; };
+		51D094B82AFC75A100935664 /* amenityModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amenityModelTests.swift; sourceTree = "<group>"; };
+		51D094BA2AFC760000935664 /* commentModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = commentModelTests.swift; sourceTree = "<group>"; };
 		816C30272AF49D59004F1771 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		8AD6ED052AF1969C006B56B6 /* housemates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = housemates.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +163,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		51D094A42AFC739800935664 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AD6ED022AF1969C006B56B6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -202,6 +234,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		51D094A82AFC739800935664 /* housematesTests */ = {
+			isa = PBXGroup;
+			children = (
+				51D094A92AFC739800935664 /* housematesTests.swift */,
+				51D094B02AFC740300935664 /* userModelTests.swift */,
+				51D094B22AFC747600935664 /* GroupModelTests.swift */,
+				51D094B42AFC74D700935664 /* taskModelTests.swift */,
+				51D094B62AFC754300935664 /* postModelTests.swift */,
+				51D094B82AFC75A100935664 /* amenityModelTests.swift */,
+				51D094BA2AFC760000935664 /* commentModelTests.swift */,
+			);
+			path = housematesTests;
+			sourceTree = "<group>";
+		};
 		8A1C9D562AF9A4B700552F45 /* AuthenticationViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				8AD6ED072AF1969C006B56B6 /* housemates */,
+				51D094A82AFC739800935664 /* housematesTests */,
 				8AD6ED062AF1969C006B56B6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -259,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				8AD6ED052AF1969C006B56B6 /* housemates.app */,
+				51D094A72AFC739800935664 /* housematesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -335,6 +383,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		51D094A62AFC739800935664 /* housematesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 51D094AF2AFC739800935664 /* Build configuration list for PBXNativeTarget "housematesTests" */;
+			buildPhases = (
+				51D094A32AFC739800935664 /* Sources */,
+				51D094A42AFC739800935664 /* Frameworks */,
+				51D094A52AFC739800935664 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				51D094AC2AFC739800935664 /* PBXTargetDependency */,
+			);
+			name = housematesTests;
+			productName = housematesTests;
+			productReference = 51D094A72AFC739800935664 /* housematesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8AD6ED042AF1969C006B56B6 /* housemates */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8AD6ED132AF1969D006B56B6 /* Build configuration list for PBXNativeTarget "housemates" */;
@@ -418,6 +484,10 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					51D094A62AFC739800935664 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 8AD6ED042AF1969C006B56B6;
+					};
 					8AD6ED042AF1969C006B56B6 = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
@@ -440,11 +510,19 @@
 			projectRoot = "";
 			targets = (
 				8AD6ED042AF1969C006B56B6 /* housemates */,
+				51D094A62AFC739800935664 /* housematesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		51D094A52AFC739800935664 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AD6ED032AF1969C006B56B6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -458,6 +536,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		51D094A32AFC739800935664 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51D094B32AFC747600935664 /* GroupModelTests.swift in Sources */,
+				51D094B92AFC75A100935664 /* amenityModelTests.swift in Sources */,
+				51D094B72AFC754300935664 /* postModelTests.swift in Sources */,
+				51D094B12AFC740300935664 /* userModelTests.swift in Sources */,
+				51D094B52AFC74D700935664 /* taskModelTests.swift in Sources */,
+				51D094AA2AFC739800935664 /* housematesTests.swift in Sources */,
+				51D094BB2AFC760000935664 /* commentModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8AD6ED012AF1969C006B56B6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -499,7 +591,49 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		51D094AC2AFC739800935664 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8AD6ED042AF1969C006B56B6 /* housemates */;
+			targetProxy = 51D094AB2AFC739800935664 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		51D094AD2AFC739800935664 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mobileApp.housematesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/housemates.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/housemates";
+			};
+			name = Debug;
+		};
+		51D094AE2AFC739800935664 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = mobileApp.housematesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/housemates.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/housemates";
+			};
+			name = Release;
+		};
 		8AD6ED112AF1969D006B56B6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -682,6 +816,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		51D094AF2AFC739800935664 /* Build configuration list for PBXNativeTarget "housematesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51D094AD2AFC739800935664 /* Debug */,
+				51D094AE2AFC739800935664 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8AD6ED002AF1969C006B56B6 /* Build configuration list for PBXProject "housemates" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
