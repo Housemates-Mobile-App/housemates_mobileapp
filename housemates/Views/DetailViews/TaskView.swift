@@ -101,8 +101,9 @@ struct TaskView: View {
     }
 }
 
-//struct TaskView_Previews: PreviewProvider {
-//    static var previews: some View {
-//      TaskView()
-//    }
-//}
+struct TaskView_Previews: PreviewProvider {
+    static var previews: some View {
+        TaskView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser())
+    }
+}
+

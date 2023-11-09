@@ -80,4 +80,8 @@ extension UserViewModel {
         mockUserViewModel.users = mockUsers
         return mockUserViewModel
     }
+    
+    static func mockUser() -> User {
+        return User(id: "test", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
+    }
 }

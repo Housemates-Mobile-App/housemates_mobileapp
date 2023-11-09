@@ -71,3 +71,17 @@ class TaskViewModel: ObservableObject {
     }
     
   }
+
+extension TaskViewModel {
+    static func mockTask() -> task {
+        // Create and return a mock AuthViewModel with a mock user
+        return task( name: "Test",
+                     group_id: "Test",
+                     user_id: "Test",
+                     description: "Test",
+                     status: .unclaimed,
+                     date_started: nil,
+                     date_completed: nil,
+                     priority: "Test")
+    }
+}
