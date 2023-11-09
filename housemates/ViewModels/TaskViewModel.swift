@@ -27,8 +27,34 @@ class TaskViewModel: ObservableObject {
     }
     
     func getTasksForGroup(_ group_id: String) -> [task] {
-        return self.tasks.filter { $0.group_id == group_id }
+      return self.tasks.filter { $0.group_id == group_id}
     }
+
+
+    func getUnclaimedTasksForGroup(_ group_id: String) -> [task] {
+        return self.tasks.filter { $0.group_id == group_id && $0.status == "unclaimed"}
+    }
+
+
+    func getInProgressTasksForGroup(_ group_id: String) -> [task] {
+      return self.tasks.filter { $0.group_id == group_id && $0.status == "inProgress"}
+    }
+
+    func getCompletedTasksForGroup(_ group_id: String) -> [task] {
+      return self.tasks.filter { $0.group_id == group_id && $0.status == "done"}
+    }
+
+    func isMyTask(task: task, user_id: String) -> Bool {
+      return task.user_id == user_id
+    }
+
+    func claimTask(task: task, date_started: String) {
+      taskRepository.update(task, status: "inProgress", date_started: date_started, date_completed: nil)
+    }
+    
+    func completeTask(task: task, date_completed: String) {
+      taskRepository.update(task, status: "done", date_started: nil, date_completed: date_completed)
+      }
     
     func create(task: task) {
         taskRepository.create(task)
@@ -38,4 +64,4 @@ class TaskViewModel: ObservableObject {
         taskRepository.delete(task)
     }
     
-}
+  }

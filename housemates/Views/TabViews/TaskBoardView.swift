@@ -34,6 +34,7 @@ import SwiftUI
 struct TaskBoardView: View {
     @EnvironmentObject var taskViewModel : TaskViewModel
     @EnvironmentObject var authViewModel : AuthViewModel
+   
         
     // Placeholder user data
     let users = ["sean", "sanmoy", "bernie", "gunawan"]
@@ -41,84 +42,99 @@ struct TaskBoardView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                if let user = authViewModel.currentUser {
-                    VStack() {
-                        HStack {
-                            Text("Task Board")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                            
-                            Spacer()
-                            
-//                            Button(action: {
-//                                // Action for adding a task
-//                            })
-                            NavigationLink(destination: AddTaskView(user: user, taskViewModel: taskViewModel)) {
-                                Text("+ Add")
-                                    .fontWeight(.semibold)
-                            }
-                        }
-                        .padding(.horizontal)
-                        
-                        // Users who are free
-                        HStack {
-                            Text("Who's Free?")
-                                .font(.headline)
-                                .padding(.vertical)
-                            
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack {
-//                                    ForEach(users.filter { $0.isFree }) { user in
-//                                        Text(user.name)
-//                                            .padding(.all, 5)
-//                                            .background(Capsule().fill(Color.green))
-                                        Text("sean")
-                                            .padding(.all, 5)
-                                            .background(Capsule().fill(Color.green))
-                                }
-                            }
-                        }
-                        .padding(.horizontal)
-                        
-                        // Daily Tasks Section
-                        VStack(alignment: .leading) {
-                            Text("Daily Tasks")
-                                .font(.title2)
-                                .padding(.vertical)
-                            
-                            ForEach(taskViewModel.getTasksForGroup(user.group_id!)) { task in
-                                // TODO: refactor TaskView to take in only a task and then case on fields of the task
-                                TaskView(task: task)
-                            }
-                        }
-                        .padding(.horizontal)
-                        
-                        // Recurring Tasks Section
-                        VStack(alignment: .leading) {
-                            Text("Recurring Tasks")
-                                .font(.title2)
-                                .padding(.vertical)
-                            
-                            ForEach(taskViewModel.getTasksForGroup(user.group_id!)) { task in
-                                // TODO: refactor TaskView to take in only a task and then case on fields of the task
-                                TaskView(task: task)
-                            }
-                        }
-                        .padding(.horizontal)
-                    }
-//                    .navigationTitle("Tasks")
-                    .navigationBarItems(
-                        leading: EditButton()
-//                        ,trailing: Button(action: {
-//                            // Action for adding a task
-//                        }) {
-//                            Image(systemName: "plus")
-//                        }
-                    )
+              if let user = authViewModel.currentUser {
+                VStack() {
+                  HStack {
+                    Text("Task Board")
+                      .font(.largeTitle)
+                      .fontWeight(.bold)
                     
                     Spacer()
                     
+                    //                            Button(action: {
+                    //                                // Action for adding a task
+                    //                            })
+                    NavigationLink(destination: AddTaskView(user: user, taskViewModel: taskViewModel)) {
+                      Text("+ Add")
+                        .fontWeight(.semibold)
+                    }
+                  }
+                  .padding(.horizontal)
+                  
+                  // Users who are free
+                  HStack {
+                    Text("Who's Free?")
+                      .font(.headline)
+                      .padding(.vertical)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                      HStack {
+                        //                                    ForEach(users.filter { $0.isFree }) { user in
+                        //                                        Text(user.name)
+                        //                                            .padding(.all, 5)
+                        //                                            .background(Capsule().fill(Color.green))
+                        Text("sean")
+                          .padding(.all, 5)
+                          .background(Capsule().fill(Color.green))
+                      }
+                    }
+                  }
+                  .padding(.horizontal)
+                  
+                  // Daily Tasks Section
+                  VStack(alignment: .leading) {
+                    Text("Unclaimed")
+                      .font(.title2)
+                      .padding(.vertical)
+                    
+                    ForEach(taskViewModel.getUnclaimedTasksForGroup(user.group_id!)) { task in
+                      // TODO: refactor TaskView to take in only a task and then case on fields of the task
+                      TaskView(task: task, user: user)
+                    }
+                  }
+                  .padding(.horizontal)
+                  
+                  // Recurring Tasks Section
+                  VStack(alignment: .leading) {
+                    Text("In Progress")
+                      .font(.title2)
+                      .padding(.vertical)
+                    
+                    ForEach(taskViewModel.getInProgressTasksForGroup(user.group_id!)) { task in
+                      // TODO: refactor TaskView to take in only a task and then case on fields of the task
+                      TaskView(task: task, user: user)
+                    }
+                    
+                  }
+                  .padding(.horizontal)
+                  
+                  VStack(alignment: .leading) {
+                    Text("Completed")
+                      .font(.title2)
+                      .padding(.vertical)
+                    
+                    ForEach(taskViewModel.getCompletedTasksForGroup(user.group_id!)) { task in
+                      // TODO: refactor TaskView to take in only a task and then case on fields of the task
+                      TaskView(task: task, user: user)
+                      
+                    }
+                  }
+                  .padding(.horizontal)
                 }
+                .navigationBarItems(
+                  leading: EditButton()
+                  
+                  
+                  //                        ,trailing: Button(action: {
+                  //                            // Action for adding a task
+                  //                        }) {
+                  //                            Image(systemName: "plus")
+                  //                        }
+                )
+                
+                Spacer()
+                
+              }
             }
         }
     }

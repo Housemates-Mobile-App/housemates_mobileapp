@@ -13,6 +13,6 @@ struct AmenityView: View {
     }
 }
 
-#Preview {
-    AmenityView()
-}
+//#Preview {
+//    AmenityView()
+//}
