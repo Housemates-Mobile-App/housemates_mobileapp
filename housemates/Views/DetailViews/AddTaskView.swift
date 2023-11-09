@@ -99,7 +99,7 @@ struct AddTaskView: View {
         let newTask = housemates.task(
             name: taskName,
             group_id: user.group_id ?? "",
-            user_id: user.id,
+            user_id: nil,
             description: taskDescription,
             status: .unclaimed,
             date_started: nil,
@@ -118,7 +118,7 @@ struct AddTaskView: View {
         alertMessage = "Task added successfully."
         showAlert = true
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             // Delay the dismissal for 2 seconds (you can adjust the duration)
             showAlert = false
             presentationMode.wrappedValue.dismiss()

@@ -15,6 +15,7 @@ struct TaskBoardView: View {
     var body: some View {
         if let user = authViewModel.currentUser {
             NavigationView {
+                // MARK: Tab Title and Edit / Add buttons
                 VStack() {
                     HStack {
                       Text("Task Board")
@@ -34,35 +35,38 @@ struct TaskBoardView: View {
                     .padding(.vertical)
                     
                 
-
+                    
                 ScrollView {
-                    // Users who are free
-                    HStack {
-                        Text("Who's Free?")
-                            .font(.headline)
-                            .padding(.vertical)
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
-                                Text("sean")
-                                    .padding(.all, 5)
-                                    .background(Capsule().fill(Color.green))
-                            }
-                        }
-                    }
+                    // MARK: Users who are free
+//                    HStack {
+//                        Text("Who's Free?")
+//                            .font(.headline)
+//                            .padding(.vertical)
+//                        
+//                        ScrollView(.horizontal, showsIndicators: false) {
+//                            HStack {
+//                                Text("sean")
+//                                    .padding(.all, 5)
+//                                    .background(Capsule().fill(Color.green))
+//                            }
+//                        }
+//                    }
+//                    .padding(.horizontal)
+                    
+                    // MARK: Section for Tasks that need to be done
+                    Section(header:
+                        Text("Unclaimed Tasks")
+                        .font(.title2)
+                        .bold()
+                        .padding()
+                        .frame(maxWidth: .infinity, alignment: .leading), content: {
+                            VStack(alignment: .leading) {
+                                ForEach(taskViewModel.getUnclaimedTasksForGroup(user.group_id!)) { task in
+                                    TaskView(task: task, user: user)
+                                }}
+                        })
                     .padding(.horizontal)
                     
-                    // Daily Tasks Section
-                    VStack(alignment: .leading) {
-                        Text("Unclaimed")
-                            .font(.title2)
-                            .padding(.vertical)
-                        
-                        ForEach(taskViewModel.getUnclaimedTasksForGroup(user.group_id!)) { task in
-                            TaskView(task: task, user: user)
-                        }
-                    }
-                    .padding(.horizontal)
                     
                     // Recurring Tasks Section
                     VStack(alignment: .leading) {

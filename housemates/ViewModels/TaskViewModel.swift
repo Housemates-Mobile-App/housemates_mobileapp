@@ -46,8 +46,9 @@ class TaskViewModel: ObservableObject {
       return task.user_id == user_id
     }
 
-    func claimTask(task: task) {
+    func claimTask(task: task, user_id: String) {
         var task = task
+        task.user_id = user_id
         task.date_started = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .medium)
         task.date_completed = nil
         task.status = .inProgress
