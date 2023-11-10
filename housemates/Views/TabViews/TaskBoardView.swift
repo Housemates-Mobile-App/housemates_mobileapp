@@ -19,9 +19,7 @@ struct TaskBoardView: View {
         
         
         NavigationView {
-          // MARK: Tab Title and Edit / Add buttons
-//          allows for swiping between pages
-          
+
 //            contains the task board
             VStack() {
               HStack {
@@ -43,66 +41,66 @@ struct TaskBoardView: View {
               .background(.mint)
               .shadow(radius: 20)
               
-              
+//              allows for swiping
               TabView(selection: $selectedTab) {
-              ScrollView {
-                VStack(alignment: .leading) {
-                  Text("Todo")
-                    .font(.title2)
-                    .padding(.vertical)
-                    .bold()
-                  
-                  let unclaimedTasks = taskViewModel.getUnclaimedTasksForGroup(user.group_id!)
-                  if unclaimedTasks.isEmpty {
-                    MessageCardView(message: "No Tasks To Do")
+                ScrollView {
+                  VStack(alignment: .leading) {
+                    Text("Todo")
+                      .font(.title2)
+                      .padding(.vertical)
+                      .bold()
+                    
+                    let unclaimedTasks = taskViewModel.getUnclaimedTasksForGroup(user.group_id!)
+                    if unclaimedTasks.isEmpty {
+                      MessageCardView(message: "No Tasks To Do")
+                    }
+                    ForEach(unclaimedTasks) { task in
+                      TaskView(task: task, user: user)
+                    }
+                    
+                    
                   }
-                  ForEach(unclaimedTasks) { task in
-                    TaskView(task: task, user: user)
+                  .padding(.horizontal)
+                  
+                  // Recurring Tasks Section
+                  VStack(alignment: .leading) {
+                    Text("In Progress")
+                      .font(.title2)
+                      .padding(.vertical)
+                      .bold()
+                    
+                    let inProgressTasks = taskViewModel.getInProgressTasksForGroup(user.group_id!)
+                    if inProgressTasks.isEmpty {
+                      MessageCardView(message: "No Tasks in Progress")
+                    }
+                    ForEach(inProgressTasks) { task in
+                      TaskView(task: task, user: user)
+                    }
+                    
                   }
+                  .padding(.horizontal)
                   
-                  
+                  VStack(alignment: .leading) {
+                    Text("Completed")
+                      .font(.title2)
+                      .padding(.vertical)
+                      .bold()
+                    
+                    let completedTasks = taskViewModel.getCompletedTasksForGroup(user.group_id!)
+                    if completedTasks.isEmpty {
+                      MessageCardView(message: "No Completed Tasks")
+                    }
+                    ForEach(completedTasks) { task in
+                      TaskView(task: task, user: user)
+                    }
+                  }
+                  .tag(0)
+                  .padding(.horizontal)
                 }
-                .padding(.horizontal)
-                
-                // Recurring Tasks Section
-                VStack(alignment: .leading) {
-                  Text("In Progress")
-                    .font(.title2)
-                    .padding(.vertical)
-                    .bold()
                   
-                  let inProgressTasks = taskViewModel.getInProgressTasksForGroup(user.group_id!)
-                  if inProgressTasks.isEmpty {
-                    MessageCardView(message: "No Tasks in Progress")
-                  }
-                  ForEach(inProgressTasks) { task in
-                    TaskView(task: task, user: user)
-                  }
-                  
-                }
-                .padding(.horizontal)
-                
-                VStack(alignment: .leading) {
-                  Text("Completed")
-                    .font(.title2)
-                    .padding(.vertical)
-                    .bold()
-                  
-                  let completedTasks = taskViewModel.getCompletedTasksForGroup(user.group_id!)
-                  if completedTasks.isEmpty {
-                    MessageCardView(message: "No Completed Tasks")
-                  }
-                  ForEach(completedTasks) { task in
-                    TaskView(task: task, user: user)
-                  }
-                }
-                .tag(0)
-                .padding(.horizontal)
-              }
-                
-              GraphView()
-                  .tag(1)
-             
+                GraphView()
+                    .tag(1)
+               
               
               
             }.tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))

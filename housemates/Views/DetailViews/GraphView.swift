@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct GraphView: View {
-    let data: [Double] = [8, 12, 7, 13, 10, 5, 9] // Example data for the graph bars
+    let data: [Double] = [25, 53, 7, 63, 9]
     
     var body: some View {
         ZStack {
@@ -10,17 +10,17 @@ struct GraphView: View {
                 .shadow(color: .gray, radius: 10, x: 0, y: 10)
             
             VStack {
-                Text("Title")
+                Text("Who Did the Most Tasks?")
                     .font(.headline)
                 
-                HStack(alignment: .bottom, spacing: 8) {
+                HStack(alignment: .bottom, spacing: 6) {
                     ForEach(data, id: \.self) { value in
                         VStack {
                             Spacer()
                             Rectangle()
                                 .fill(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .top, endPoint: .bottom))
                                 .frame(width: 20, height: value)
-                            Text("Legend")
+                            Text("Housemate")
                                 .font(.caption)
                         }
                     }

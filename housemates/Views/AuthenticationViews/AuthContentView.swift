@@ -12,13 +12,13 @@ struct AuthContentView: View {
     @State private var hideTabBar = false
 
     init() {
+        
         UITabBar.appearance().isHidden = true
     }
     var body: some View {
         ZStack {
             VStack {
                
-                
                 TabView(selection: $selected) {
                     switch (selected) {
                     case .house:
@@ -40,9 +40,7 @@ struct AuthContentView: View {
                 }
             }
         }
-        .onAppear {
-                UITabBar.appearance().isHidden = false
-            }
+        
     }
 }
 
