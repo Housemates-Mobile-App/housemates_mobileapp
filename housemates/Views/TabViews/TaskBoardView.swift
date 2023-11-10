@@ -15,11 +15,7 @@ struct TaskBoardView: View {
    
     
     var body: some View {
-      
-//
-       
-       
-      
+   
       if let user = authViewModel.currentUser {
         
         

@@ -3,6 +3,8 @@
 //  housemates
 //
 //  Created by Bernard Sheng on 11/10/23.
+// Shows the users who are currently working on a task
+// need to update viewmodel for this
 //
 
 import SwiftUI

@@ -19,7 +19,7 @@ struct MessageCardView: View {
             Spacer()
         }
         .padding(EdgeInsets(top: 30, leading: 0, bottom: 30, trailing: 0))
-        .background(Color.white)
+     
         .cornerRadius(12)
         
     }
