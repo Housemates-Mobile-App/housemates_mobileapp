@@ -32,6 +32,20 @@ struct HomeView: View {
                         .cornerRadius(10)
                         .padding(.horizontal)
                     
+                    HStack {
+                         Text("Housemates")
+                             .font(.system(size: 30))
+                             .bold()
+                         Spacer()
+                         NavigationLink(destination: AllHousematesView()) {
+                             Text("See All")
+                                 .padding()
+                                 .background(RoundedRectangle(cornerRadius: 10).fill(.pink))
+                                 .foregroundColor(.white)
+                                 .font(.system(size: 15))
+                         }
+                     }
+                    
                     // Horizontal list for housemates
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 15) {
