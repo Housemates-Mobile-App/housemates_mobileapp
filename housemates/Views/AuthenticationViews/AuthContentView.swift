@@ -17,7 +17,7 @@ struct AuthContentView: View {
     var body: some View {
         ZStack {
             VStack {
-                Spacer()
+               
                 
                 TabView(selection: $selected) {
                     switch (selected) {

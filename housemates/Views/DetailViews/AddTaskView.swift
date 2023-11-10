@@ -11,6 +11,8 @@ struct AddTaskView: View {
     let user: User
     var taskViewModel : TaskViewModel
     @Binding var hideTabBar: Bool
+//  added this to bring the user back to the first page after adding a task
+    @Binding var selectedTab: Int
 
     @Environment(\.presentationMode) var presentationMode
     @State private var showAlert = false
@@ -68,6 +70,10 @@ struct AddTaskView: View {
                 }
             }
             .navigationBarTitle(Text("Add Task"), displayMode: .inline)
+            
+        }
+        .onDisappear {
+          self.selectedTab = 0 // Reset the tab when going back
         }
         .alert(isPresented: $showAlert) {
             if alertMessage.isEmpty {
