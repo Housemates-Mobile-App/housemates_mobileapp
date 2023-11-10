@@ -33,6 +33,8 @@ struct TaskBoardView: View {
                     }
                     .padding(.horizontal)
                     .padding(.vertical)
+                    .background(.mint)
+                    .shadow(radius: 20)
                     
                     
                     
@@ -124,4 +126,3 @@ struct TaskBoardView_Previews: PreviewProvider {
     }
     
 }
-

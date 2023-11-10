@@ -42,16 +42,15 @@ struct TabBar: View {
       }
       .frame(width: nil, height: 60)
       .background(.thinMaterial)
-      .background(Color.purple)
+      .background(.mint)
       .cornerRadius(10)
-      .padding()
     }
   }
     
 }
 
-//struct TabBar_Previews: PreviewProvider {
-//    static var previews: some View {
-//      TabBar(selected: .constant(.house))
-//    }
-//}
+struct TabBar_Previews: PreviewProvider {
+    static var previews: some View {
+        TabBar(selected: .constant(.house), hideTabBar: Binding.constant(false))
+    }
+}

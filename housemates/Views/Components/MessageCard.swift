@@ -21,7 +21,7 @@ struct MessageCardView: View {
         .background(Color.white)
         .cornerRadius(10)
         .cornerRadius(12)
-        .shadow(radius: 4)
+        .shadow(color: .mint, radius: 4)
     }
 }
 

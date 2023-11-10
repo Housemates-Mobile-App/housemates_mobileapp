@@ -101,7 +101,7 @@ struct TaskView: View {
         .padding()
         .background(Color.white)
         .cornerRadius(12)
-        .shadow(radius: 4)
+        .shadow(color: .mint, radius: 4)
     }
 }
 
