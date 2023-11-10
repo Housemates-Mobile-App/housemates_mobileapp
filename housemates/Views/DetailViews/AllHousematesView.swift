@@ -33,6 +33,6 @@ struct AllHousematesView: View {
     }
 }
 
-#Preview {
-    AllHousematesView()
-}
+//#Preview {
+//    AllHousematesView()
+//}
