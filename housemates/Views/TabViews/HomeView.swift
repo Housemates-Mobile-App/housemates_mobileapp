@@ -32,18 +32,26 @@ struct HomeView: View {
                         .cornerRadius(10)
                         .padding(.horizontal)
                     
+                    HStack {
+                        Text("Housemates")
+                            .font(.system(size: 30))
+                            .bold()
+                        Spacer()
+                        NavigationLink(destination: AllHousematesView()) {
+                            Text("See All")
+                                .padding()
+                                .background(RoundedRectangle(cornerRadius: 10).fill(.pink))
+                                .foregroundColor(.white)
+                                .font(.system(size: 15))
+                        }
+                    }
+                    
                     // Horizontal list for housemates
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 15) {
                             ForEach(userViewModel.getUserGroupmates(user.id!)) { mate in
                                 NavigationLink(destination: HousemateProfileView(housemate: mate)) {
                                     VStack {
-                                        // Profile image placeholder
-//                                        Image(systemName: "person.crop.circle.fill")
-//                                            .resizable()
-//                                            .scaledToFit()
-//                                            .frame(width: 60, height: 60)
-//                                            .padding(.bottom, 5)
                                         let imageURL = URL(string: mate.imageURLString ?? "")
                                         
                                         AsyncImage(url: imageURL) { image in

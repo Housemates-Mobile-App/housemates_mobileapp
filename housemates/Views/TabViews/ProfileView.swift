@@ -75,6 +75,8 @@ struct ProfileView: View {
                     }
                 }.padding(10)
                 
+                Text("\(user.first_name) \(user.last_name)")
+                
                 
                 // MARK: Profile setting menu
                 List {
