@@ -33,12 +33,25 @@ struct TaskView: View {
               }
               
               else {
-                Text("Priority: " + task.priority).font(.subheadline)
-                  if let uid = task.user_id {
-                      if let user = userViewModel.getUserByID(uid) {
-                          Text("Assigned To: \(user.first_name) \(user.last_name)").font(.subheadline)
-                      } 
-                  }
+                
+                switch (task.priority) {
+                case "Low":
+                  Text(task.priority)
+                    .font(.subheadline)
+                    .foregroundColor(Color.green)
+                case "Medium":
+                  Text(task.priority)
+                    .font(.subheadline)
+                    .foregroundColor(Color.orange)
+                
+                default:
+                  Text(task.priority)
+                    .font(.subheadline)
+                    .foregroundColor(Color.red)
+                }
+                
+                
+                
               }
             }
             Spacer()
@@ -53,14 +66,14 @@ struct TaskView: View {
                   .padding(.horizontal)
                   .padding(.vertical, 4)
                   .background(Color.red)
-                  .cornerRadius(8)
+                  .cornerRadius(15)
               }
             }
 
             // MARK: Display appropriate button
             switch task.status {
                 case .done:
-                    Label("DONE", systemImage: "checkmark.circle.fill")
+                    Label("Done", systemImage: "checkmark.circle.fill")
                         .labelStyle(.iconOnly)
                         .foregroundColor(.green)
                   
@@ -69,18 +82,63 @@ struct TaskView: View {
                         Button(action: {
                           taskViewModel.completeTask(task: task)
                         }) {
-                          Text("DONE")
+                          Text("Done")
+                          
                             .foregroundColor(.white)
                             .padding(.horizontal)
                             .padding(.vertical, 4)
-                            .background(Color.blue)
-                            .cornerRadius(8)
+                            .background(Color.green)
+                            .cornerRadius(15)
                         }
                       } else {
-                        Label("IN PROGRESS", systemImage: "timer")
-                            .labelStyle(.iconOnly)
-                            .foregroundColor(.blue)
-                            .textCase(.uppercase)
+                        
+//                        if let uid = task.user_id {
+//                            if let user = userViewModel.getUserByID(uid) {
+//                                Text("Assigned To: \(user.first_name) \(user.last_name)").font(.subheadline)
+//                            }
+//                        }
+                        let imageURL = URL(string: user.imageURLString ?? "")
+                        
+                        
+//                        puts the user who claimed the task next to task instead of who it was claimed by
+                        if let uid = task.user_id {
+                          if let user = userViewModel.getUserByID(uid) {
+                            let imageURL = URL(string: user.imageURLString ?? "")
+                            AsyncImage(url: imageURL) {
+                              image in image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                                .shadow(radius: 5)
+                                .foregroundColor(.gray)
+                                .padding(5)
+                            } placeholder: {
+                              
+                              // MARK: Default user profile picture
+                              Image(systemName: "person.circle")
+                                  .resizable()
+                                  .aspectRatio(contentMode: .fill)
+                                  .frame(width: 50, height: 50)
+                                  .clipShape(Circle())
+                                  .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                                  .shadow(radius: 5)
+                                  .foregroundColor(.gray)
+                                  .padding(5)
+                              
+                          }
+                           
+                          }
+                        }
+                        
+                        
+                       
+//
+//                        Label("In Progress", systemImage: "timer")
+//                            .labelStyle(.iconOnly)
+//                            .foregroundColor(.blue)
+//                            .textCase(.uppercase)
                       }
                     
                 case .unclaimed:
@@ -89,19 +147,31 @@ struct TaskView: View {
                             taskViewModel.claimTask(task: task, user_id: uid)
                         }
                     }) {
-                        Text("CLAIM")
+                        Text("Claim")
+                           
                             .foregroundColor(.white)
                             .padding(.horizontal)
                             .padding(.vertical, 4)
-                            .background(Color.blue)
-                            .cornerRadius(8)
+                            .background(Color.purple)
+                            .cornerRadius(15)
                     }
                 }
         }
-        .padding()
-        .background(Color.white)
-        .cornerRadius(12)
-        .shadow(color: .mint, radius: 4)
+        .padding(20)
+        
+        .background(
+            RoundedRectangle(cornerRadius: 15)
+              .fill(Color.white.opacity(0.95)) // Adds a white fill
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 15)
+                .stroke(Color.black, lineWidth: 1) // Adds a black stroke
+        )
+        
+        
+       
+        
+        
     }
 }
 

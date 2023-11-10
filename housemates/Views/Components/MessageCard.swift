@@ -13,15 +13,15 @@ struct MessageCardView: View {
         HStack {
             Spacer()
             Text(message)
-                .font(.title)
-                .foregroundColor(.black)
+                .font(.subheadline)
+                .foregroundColor(.gray)
+          
             Spacer()
         }
         .padding(EdgeInsets(top: 30, leading: 0, bottom: 30, trailing: 0))
         .background(Color.white)
-        .cornerRadius(10)
         .cornerRadius(12)
-        .shadow(color: .mint, radius: 4)
+        
     }
 }
 
