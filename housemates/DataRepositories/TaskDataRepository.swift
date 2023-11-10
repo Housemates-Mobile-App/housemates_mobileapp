@@ -56,26 +56,15 @@ class TaskRepository: ObservableObject {
         }
     }
   
-//  Updates task status
-  func update(_ task: task, status: String, date_started: String?, date_completed: String?) {
-    guard let taskId = task.id else { return }
-    var updateData: [String: Any] = [:]
     
-    updateData["status"] = status
-    
-    if let date_started = date_started {
-      updateData["date_started"] = date_started
-    }
-    
-    if let date_completed = date_completed {
-      updateData["date_completed"] = date_completed
-    }
-    
-    store.collection(path).document(taskId).updateData(updateData) { error in
-      if let error = error {
-        print("Unable to update task: \(error.localizedDescription)")
+    func update(_ task: task) {
+        guard let taskId = task.id else { return }
+        
+        do {
+          try store.collection(path).document(taskId).setData(from: task)
+        } catch {
+          fatalError("Unable to update task: \(error.localizedDescription).")
+        }
       }
-    }
-    
-  }
+  
 }

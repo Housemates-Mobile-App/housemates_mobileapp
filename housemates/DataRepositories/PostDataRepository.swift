@@ -36,9 +36,6 @@ class PostRepository: ObservableObject {
             }
     }
 
-
-
-
     // MARK: CRUD methods
 
     // MARK: Filtering methods

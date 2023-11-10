@@ -30,30 +30,37 @@ class TaskViewModel: ObservableObject {
       return self.tasks.filter { $0.group_id == group_id}
     }
 
-
     func getUnclaimedTasksForGroup(_ group_id: String) -> [task] {
-        return self.tasks.filter { $0.group_id == group_id && $0.status == "unclaimed"}
+        return self.tasks.filter { $0.group_id == group_id && $0.status == .unclaimed}
     }
 
-
     func getInProgressTasksForGroup(_ group_id: String) -> [task] {
-      return self.tasks.filter { $0.group_id == group_id && $0.status == "inProgress"}
+        return self.tasks.filter { $0.group_id == group_id && $0.status == .inProgress}
     }
 
     func getCompletedTasksForGroup(_ group_id: String) -> [task] {
-      return self.tasks.filter { $0.group_id == group_id && $0.status == "done"}
+        return self.tasks.filter { $0.group_id == group_id && $0.status == .done}
     }
 
     func isMyTask(task: task, user_id: String) -> Bool {
       return task.user_id == user_id
     }
 
-    func claimTask(task: task, date_started: String) {
-      taskRepository.update(task, status: "inProgress", date_started: date_started, date_completed: nil)
+    func claimTask(task: task, user_id: String) {
+        var task = task
+        task.user_id = user_id
+        task.date_started = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .medium)
+        task.date_completed = nil
+        task.status = .inProgress
+        taskRepository.update(task)
     }
     
-    func completeTask(task: task, date_completed: String) {
-      taskRepository.update(task, status: "done", date_started: nil, date_completed: date_completed)
+    func completeTask(task: task) {
+        var task = task
+        task.date_started = nil
+        task.date_completed = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .medium)
+        task.status = .done
+        taskRepository.update(task)
       }
     
     func create(task: task) {
@@ -65,3 +72,17 @@ class TaskViewModel: ObservableObject {
     }
     
   }
+
+extension TaskViewModel {
+    static func mockTask() -> task {
+        // Create and return a mock AuthViewModel with a mock user
+        return task( name: "Test",
+                     group_id: "Test",
+                     user_id: "Test",
+                     description: "Test",
+                     status: .unclaimed,
+                     date_started: nil,
+                     date_completed: nil,
+                     priority: "Test")
+    }
+}
