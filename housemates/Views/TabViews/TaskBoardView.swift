@@ -18,84 +18,97 @@ struct TaskBoardView: View {
                 // MARK: Tab Title and Edit / Add buttons
                 VStack() {
                     HStack {
-                      Text("Task Board")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                      
-                      Spacer()
+                        Text("Task Board")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
                         
-                      EditButton().padding(.horizontal).fontWeight(.semibold)
+                        Spacer()
                         
-                      NavigationLink(destination: AddTaskView(user: user, taskViewModel: taskViewModel, hideTabBar: $hideTabBar)) {
-                        Text("+ Add")
-                          .fontWeight(.semibold)
-                      }
+                        EditButton().padding(.horizontal).fontWeight(.semibold)
+                        
+                        NavigationLink(destination: AddTaskView(user: user, taskViewModel: taskViewModel, hideTabBar: $hideTabBar)) {
+                            Text("+ Add")
+                                .fontWeight(.semibold)
+                        }
                     }
                     .padding(.horizontal)
                     .padding(.vertical)
                     
-                
-                    
-                ScrollView {
-                    // MARK: Users who are free
-//                    HStack {
-//                        Text("Who's Free?")
-//                            .font(.headline)
-//                            .padding(.vertical)
-//                        
-//                        ScrollView(.horizontal, showsIndicators: false) {
-//                            HStack {
-//                                Text("sean")
-//                                    .padding(.all, 5)
-//                                    .background(Capsule().fill(Color.green))
-//                            }
-//                        }
-//                    }
-//                    .padding(.horizontal)
-                    
-                    // MARK: Section for Tasks that need to be done
-                    Section(header:
-                        Text("Unclaimed Tasks")
-                        .font(.title2)
-                        .bold()
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading), content: {
-                            VStack(alignment: .leading) {
-                                ForEach(taskViewModel.getUnclaimedTasksForGroup(user.group_id!)) { task in
-                                    TaskView(task: task, user: user)
-                                }}
-                        })
-                    .padding(.horizontal)
                     
                     
-                    // Recurring Tasks Section
-                    VStack(alignment: .leading) {
-                        Text("In Progress")
-                            .font(.title2)
-                            .padding(.vertical)
+                    ScrollView {
+                        // MARK: Users who are free
+                        //                    HStack {
+                        //                        Text("Who's Free?")
+                        //                            .font(.headline)
+                        //                            .padding(.vertical)
+                        //
+                        //                        ScrollView(.horizontal, showsIndicators: false) {
+                        //                            HStack {
+                        //                                Text("sean")
+                        //                                    .padding(.all, 5)
+                        //                                    .background(Capsule().fill(Color.green))
+                        //                            }
+                        //                        }
+                        //                    }
+                        //                    .padding(.horizontal)
                         
-                        ForEach(taskViewModel.getInProgressTasksForGroup(user.group_id!)) { task in
-                            TaskView(task: task, user: user)
-                        }
-                        
-                    }
-                    .padding(.horizontal)
-                    
-                    VStack(alignment: .leading) {
-                        Text("Completed")
-                            .font(.title2)
-                            .padding(.vertical)
-                        
-                        ForEach(taskViewModel.getCompletedTasksForGroup(user.group_id!)) { task in
-                            TaskView(task: task, user: user)
+                        // MARK: Section for Tasks that need to be done
+                        VStack(alignment: .leading) {
+                            Text("Todo")
+                                .font(.title2)
+                                .padding(.vertical)
+                                .bold()
+                            
+                            let unclaimedTasks = taskViewModel.getUnclaimedTasksForGroup(user.group_id!)
+                            if unclaimedTasks.isEmpty {
+                                MessageCardView(message: "No Tasks To Do")
+                            }
+                            ForEach(unclaimedTasks) { task in
+                                TaskView(task: task, user: user)
+                            }
+                            
                             
                         }
+                        .padding(.horizontal)
+                        
+                        // Recurring Tasks Section
+                        VStack(alignment: .leading) {
+                            Text("In Progress")
+                                .font(.title2)
+                                .padding(.vertical)
+                                .bold()
+                            
+                            let inProgressTasks = taskViewModel.getInProgressTasksForGroup(user.group_id!)
+                            if inProgressTasks.isEmpty {
+                                MessageCardView(message: "No Tasks in Progress")
+                            }
+                            ForEach(inProgressTasks) { task in
+                                TaskView(task: task, user: user)
+                            }
+                            
+                        }
+                        .padding(.horizontal)
+                        
+                        VStack(alignment: .leading) {
+                            Text("Completed")
+                                .font(.title2)
+                                .padding(.vertical)
+                                .bold()
+                            
+                            let completedTasks = taskViewModel.getCompletedTasksForGroup(user.group_id!)
+                            if completedTasks.isEmpty {
+                                MessageCardView(message: "No Completed Tasks")
+                            }
+                            ForEach(completedTasks) { task in
+                                TaskView(task: task, user: user)
+                            }
+                        }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
+                    Spacer()
+                    
                 }
-                Spacer()
-                
-              }
             }
         }
     }

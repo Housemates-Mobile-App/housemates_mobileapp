@@ -17,6 +17,7 @@
 		51D094B92AFC75A100935664 /* amenityModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094B82AFC75A100935664 /* amenityModelTests.swift */; };
 		51D094BB2AFC760000935664 /* commentModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094BA2AFC760000935664 /* commentModelTests.swift */; };
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
+		8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */; };
 		8A6AD4E12AFB534400A6DF85 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E02AFB534400A6DF85 /* FirebaseAuth */; };
 		8A6AD4E32AFB534400A6DF85 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E22AFB534400A6DF85 /* FirebaseAuthCombine-Community */; };
 		8A6AD4E52AFB534400A6DF85 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E42AFB534400A6DF85 /* FirebaseDatabase */; };
@@ -127,6 +128,7 @@
 		51D094B82AFC75A100935664 /* amenityModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amenityModelTests.swift; sourceTree = "<group>"; };
 		51D094BA2AFC760000935664 /* commentModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = commentModelTests.swift; sourceTree = "<group>"; };
 		816C30272AF49D59004F1771 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		8AD6ED052AF1969C006B56B6 /* housemates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = housemates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD6ED082AF1969C006B56B6 /* housematesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housematesApp.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				8AE8FF9A2AF4114B003AD997 /* InputView.swift */,
 				8AE8FF9C2AF41F1A003AD997 /* TabBar.swift */,
 				51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */,
+				8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -585,6 +588,7 @@
 				ADD11A662AFAFA54001861A0 /* TaskDataRepository.swift in Sources */,
 				8AE8FFA52AF41F6B003AD997 /* ProfileView.swift in Sources */,
 				5138709F2AF562DD007A83B4 /* HousemateProfileView.swift in Sources */,
+				8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */,
 				8AD6ED1F2AF1977D006B56B6 /* Group.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
