@@ -15,7 +15,7 @@ final class PostModelTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        testTask1 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:"done",priority:"low")
+        testTask1 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, priority:"low")
         testPost1 = Post(task: testTask1, num_likes: 3, num_comments: 2)
     }
 
