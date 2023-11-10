@@ -41,6 +41,17 @@ class UserViewModel: ObservableObject {
         return self.users.filter { $0.group_id == groupID && $0.id != uid }
     }
     
+    func getUserGroupmatesInclusive(_ uid: String) -> [User] {
+         guard let currentUser = self.users.first(where: { $0.id == uid }), let groupID = currentUser.group_id else {
+             return []
+         }
+
+         var groupmates = self.users.filter { $0.group_id == groupID && $0.id != uid }
+         // did this so currentUser would appear at the very end.
+         groupmates.append(currentUser)
+         return groupmates
+     }
+    
     func joinGroup(group_code: String, uid: String) async {
             // Fetch the user object by ID
             guard var user = getUserByID(uid) else {
