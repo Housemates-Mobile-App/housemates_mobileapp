@@ -15,34 +15,33 @@ struct AuthContentView: View {
         UITabBar.appearance().isHidden = true
     }
     var body: some View {
-        ZStack {
-            VStack {
-                Spacer()
-                
-                TabView(selection: $selected) {
-                    switch (selected) {
-                    case .house:
-                        HomeView()
-                        
-                    case .person:
-                        ProfileView()
-                        
-                    case .tasks:
-                        TaskBoardView(hideTabBar: $hideTabBar)
-                        
-                    case .sofa:
-                        AmenityView(hideTabBar: $hideTabBar)
-                    }
+        TabView {
+            HomeView()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Home")
                 }
-//                TabBar(selected: $selected)
-                if !hideTabBar {
-                    TabBar(selected: $selected, hideTabBar: $hideTabBar)
+            
+            TaskBoardView(hideTabBar: $hideTabBar)
+                .tabItem {
+                    Image(systemName: "checkmark.square.fill")
+                    Text("Tasks")
                 }
-            }
+            
+            AmenityView(hideTabBar: $hideTabBar)
+                .tabItem {
+                    Image(systemName: "sofa.fill")
+                    Text("Amentities")
+                }
+            
+            ProfileView()
+                .tabItem {
+                    Image(systemName: "person.fill")
+                    Text("Profile")
+                }
+        }.onAppear {
+            UITabBar.appearance().isHidden = false
         }
-        .onAppear {
-                UITabBar.appearance().isHidden = false
-            }
     }
 }
 
