@@ -33,18 +33,25 @@ struct TaskBoardView: View {
                 
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                .foregroundColor(Color.purple)
+                .foregroundColor((Color(red: 0.439, green: 0.298, blue: 1.0)))
+                
               
               Spacer()
               
 //              EditButton().padding(.horizontal).fontWeight(.semibold)
               Button(action: {
-                self.progress += 0.25
+                if self.progress <= 0.75 {
+                  self.progress += 0.25
+                }
+                
               }) {
                 Text("hi")
               }
               Button(action: {
-                self.progress -= 0.25
+                if self.progress >= 0.25 {
+                  self.progress -= 0.25
+                }
+                
               }) {
                 Text("bye")
               }
@@ -56,7 +63,7 @@ struct TaskBoardView: View {
                   .clipShape(Circle())
                   .fontWeight(.semibold)
                   .foregroundColor(Color.white)
-                  .background(Circle().fill(Color.purple))
+                  .background(Circle().fill(Color(red: 0.439, green: 0.298, blue: 1.0)))
                     
                   
               }
@@ -72,32 +79,36 @@ struct TaskBoardView: View {
                 VStack(alignment: .leading) {
                   HStack {
                     Spacer()
-                    Text(String(Int(self.progress) * 100) + "%")
+                    let percent = Int(self.progress * 100)
+                    Text(String(percent) + "%")
                       .font(.title)
+                      .foregroundColor((Color(red: 0.439, green: 0.298, blue: 1.0)))
                       .bold()
                     Spacer()
                   }
                   
                   ZStack(alignment: .leading) {
-                                  
-
-                    Capsule() // Animated Foreground
-                        .fill(LinearGradient(gradient: Gradient(colors: [Color.purple, Color.blue, Color.purple]),
-                                             startPoint: .leading, endPoint: .trailing))
-                        .frame(width: CGFloat(self.progress) * UIScreen.main.bounds.width, height: 30)
-                        .scaleEffect(y: 1 + CGFloat(self.progress) * 0.5, anchor: .leading)
-                        .animation(.easeInOut(duration: animationDuration))
-                    
+                      // Background Capsule
                       Capsule() // Background
-                          .frame(height: 30)
+                          .frame(width: UIScreen.main.bounds.width - 75, height: 30)
                           .foregroundColor(Color.gray.opacity(0.0))
                           .overlay(
-                            Capsule().stroke(Color.black.opacity(0.25), lineWidth: 2)
-                        )
-                              }
-                              .cornerRadius(15)
-                              .padding()
+                              Capsule().stroke(Color.black.opacity(0.25), lineWidth: 2)
+                          )
+                          .offset(x: 20, y: 0)
+                      
+                      // Foreground Capsule
+                      Capsule() // Animated Foreground
+                          .fill(LinearGradient(gradient: Gradient(colors: [Color(red: 0.439, green: 0.298, blue: 1.0).opacity(0.5), Color.purple.opacity(0.5), Color.pink.opacity(0.5)]),
+                                               startPoint: .leading, endPoint: .trailing))
+                          .frame(width: max(CGFloat(self.progress) * (UIScreen.main.bounds.width - 75), 0), height: 30)
+                          .offset(x: 20, y: 0)
+                          .animation(.easeInOut(duration: animationDuration))
+                  }
+          
+//
                   
+                 
               
                   Text("Todo")
                     .font(.headline)

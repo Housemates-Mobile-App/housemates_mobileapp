@@ -157,7 +157,8 @@ struct TaskView: View {
                             .foregroundColor(.white)
                             .padding(.horizontal)
                             .padding(.vertical, 4)
-                            .background(Color.purple)
+                          
+                            .background((Color(red: 0.439, green: 0.298, blue: 1.0)))
                             .cornerRadius(15)
                     }
                 }
