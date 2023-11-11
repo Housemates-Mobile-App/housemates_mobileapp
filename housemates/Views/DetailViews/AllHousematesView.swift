@@ -14,8 +14,9 @@ struct AllHousematesView: View {
         if let user = authViewModel.currentUser {
 
             VStack(spacing: 10)  {
-                Text("Housemates")
+                Text("The Housemates")
                     .font(.system(size: 30))
+                    .bold()
                     .frame(alignment: .leading)
                 Divider()
                 ForEach(userViewModel.getUserGroupmatesInclusive(user.id!)) { mate in
@@ -33,6 +34,13 @@ struct AllHousematesView: View {
     }
 }
 
-//#Preview {
-//    AllHousematesView()
-//}
+struct AllHousematesView_Previews: PreviewProvider {
+    static var previews: some View {
+    
+        AllHousematesView()
+            .environmentObject(AuthViewModel.mock())
+            .environmentObject(UserViewModel())
+           
+    }
+    
+}
