@@ -14,9 +14,11 @@ struct TaskHousematesView: View {
     @EnvironmentObject var userViewModel : UserViewModel
     var body: some View {
       if let user = authViewModel.currentUser {
+        
         ScrollView(.horizontal, showsIndicators: false) {
+          
           HStack {
-            Spacer()
+            
             ForEach(userViewModel.getUserGroupmatesInclusive(user.id!)) { mate in
               let imageURL = URL(string: mate.imageURLString ?? "")
               
@@ -43,7 +45,7 @@ struct TaskHousematesView: View {
                 
               }
             }
-            Spacer()
+            
           }
         }
       }

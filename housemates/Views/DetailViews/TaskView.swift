@@ -62,6 +62,9 @@ struct TaskView: View {
                 taskViewModel.destroy(task: task)
               }) {
                 Text("Delete")
+                  .bold()
+                  
+                  .font(.system(size: 12))
                   .foregroundColor(.white)
                   .padding(.horizontal)
                   .padding(.vertical, 4)
@@ -83,7 +86,8 @@ struct TaskView: View {
                           taskViewModel.completeTask(task: task)
                         }) {
                           Text("Done")
-                          
+                            .bold()
+                            .font(.system(size: 12))
                             .foregroundColor(.white)
                             .padding(.horizontal)
                             .padding(.vertical, 4)
@@ -108,7 +112,7 @@ struct TaskView: View {
                               image in image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 50, height: 50)
+                                .frame(width: 35, height: 35)
                                 .clipShape(Circle())
                                 .overlay(Circle().stroke(Color.white, lineWidth: 2))
                                 .shadow(radius: 5)
@@ -120,7 +124,7 @@ struct TaskView: View {
                               Image(systemName: "person.circle")
                                   .resizable()
                                   .aspectRatio(contentMode: .fill)
-                                  .frame(width: 50, height: 50)
+                                  .frame(width: 35, height: 35)
                                   .clipShape(Circle())
                                   .overlay(Circle().stroke(Color.white, lineWidth: 2))
                                   .shadow(radius: 5)
@@ -148,7 +152,8 @@ struct TaskView: View {
                         }
                     }) {
                         Text("Claim")
-                           
+                            .bold()
+                            .font(.system(size: 12))
                             .foregroundColor(.white)
                             .padding(.horizontal)
                             .padding(.vertical, 4)
@@ -157,7 +162,8 @@ struct TaskView: View {
                     }
                 }
         }
-        .padding(20)
+        
+        .padding(15)
         
         .background(
             RoundedRectangle(cornerRadius: 15)
@@ -165,7 +171,7 @@ struct TaskView: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: 15)
-                .stroke(Color.black, lineWidth: 1) // Adds a black stroke
+              .stroke(Color.black.opacity(0.25), lineWidth: 1) // Adds a black stroke
         )
         
         

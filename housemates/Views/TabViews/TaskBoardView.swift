@@ -12,6 +12,10 @@ struct TaskBoardView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @State private var selectedTab = 0
     @Binding var hideTabBar: Bool
+    @State private var progress = 0.0
+    private let animationDuration = 1.0
+    @State private var rotation: Double = 0
+  
    
     
     var body: some View {
@@ -25,20 +29,36 @@ struct TaskBoardView: View {
           VStack() {
             HStack {
               
-              Text("Task Board")
+              Text("Tasks")
+                
                 .font(.largeTitle)
                 .fontWeight(.bold)
+                .foregroundColor(Color.purple)
               
               Spacer()
               
-              EditButton().padding(.horizontal).fontWeight(.semibold)
+//              EditButton().padding(.horizontal).fontWeight(.semibold)
+              Button(action: {
+                self.progress += 0.25
+              }) {
+                Text("hi")
+              }
+              Button(action: {
+                self.progress -= 0.25
+              }) {
+                Text("bye")
+              }
               
               NavigationLink(destination: AddTaskView(user: user, taskViewModel: taskViewModel, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
                 Text("+")
-                  .padding(.horizontal, 8)
-                  .padding(.vertical, 3)
-                  .background(RoundedRectangle(cornerRadius: 25).stroke(.black, lineWidth: 2))
+                  .font(.title)
+                  .padding(7.5)
+                  .clipShape(Circle())
                   .fontWeight(.semibold)
+                  .foregroundColor(Color.white)
+                  .background(Circle().fill(Color.purple))
+                    
+                  
               }
             }
             .padding()
@@ -50,19 +70,38 @@ struct TaskBoardView: View {
               
               ScrollView {
                 VStack(alignment: .leading) {
-                  TaskHousematesView()
                   HStack {
                     Spacer()
-                    Text(". . . have 5 pending tasks")
-                      .font(.title2)
-                      .padding(.vertical)
+                    Text(String(Int(self.progress) * 100) + "%")
+                      .font(.title)
                       .bold()
                     Spacer()
                   }
                   
+                  ZStack(alignment: .leading) {
+                                  
+
+                    Capsule() // Animated Foreground
+                        .fill(LinearGradient(gradient: Gradient(colors: [Color.purple, Color.blue, Color.purple]),
+                                             startPoint: .leading, endPoint: .trailing))
+                        .frame(width: CGFloat(self.progress) * UIScreen.main.bounds.width, height: 30)
+                        .scaleEffect(y: 1 + CGFloat(self.progress) * 0.5, anchor: .leading)
+                        .animation(.easeInOut(duration: animationDuration))
+                    
+                      Capsule() // Background
+                          .frame(height: 30)
+                          .foregroundColor(Color.gray.opacity(0.0))
+                          .overlay(
+                            Capsule().stroke(Color.black.opacity(0.25), lineWidth: 2)
+                        )
+                              }
+                              .cornerRadius(15)
+                              .padding()
+                  
+              
                   Text("Todo")
                     .font(.headline)
-                    .padding(.vertical)
+                    .padding(.top)
                     .bold()
                   
                   let unclaimedTasks = taskViewModel.getUnclaimedTasksForGroup(user.group_id!)
@@ -79,9 +118,11 @@ struct TaskBoardView: View {
                 
                 // Recurring Tasks Section
                 VStack(alignment: .leading) {
+                  
                   Text("In Progress")
                     .font(.headline)
-                    .padding(.vertical)
+                    .padding(.top)
+                   
                     .bold()
                   
                   let inProgressTasks = taskViewModel.getInProgressTasksForGroup(user.group_id!)
@@ -97,8 +138,9 @@ struct TaskBoardView: View {
                 
                 VStack(alignment: .leading) {
                   Text("Completed")
+                    .padding(.top)
                     .font(.headline)
-                    .padding(.vertical)
+                   
                     .bold()
                   
                   let completedTasks = taskViewModel.getCompletedTasksForGroup(user.group_id!)
