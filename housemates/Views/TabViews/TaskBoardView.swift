@@ -39,22 +39,22 @@ struct TaskBoardView: View {
               Spacer()
               
 //              EditButton().padding(.horizontal).fontWeight(.semibold)
-              Button(action: {
-                if self.progress <= 0.75 {
-                  self.progress += 0.25
-                }
-                
-              }) {
-                Text("hi")
-              }
-              Button(action: {
-                if self.progress >= 0.25 {
-                  self.progress -= 0.25
-                }
-                
-              }) {
-                Text("bye")
-              }
+//              Button(action: {
+//                if self.progress <= 0.75 {
+//                  self.progress += 0.25
+//                }
+//                
+//              }) {
+//                Text("hi")
+//              }
+//              Button(action: {
+//                if self.progress >= 0.25 {
+//                  self.progress -= 0.25
+//                }
+//                
+//              }) {
+//                Text("bye")
+//              }
               
               NavigationLink(destination: AddTaskView(user: user, taskViewModel: taskViewModel, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
                 Text("+")
