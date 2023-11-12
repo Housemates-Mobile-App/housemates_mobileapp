@@ -25,10 +25,14 @@ struct TaskView: View {
                     .font(.headline)
                
               if task.status == .done {
-                Text(task.date_completed ?? "BUG ?")
+                
                   if let uid = task.user_id {
                       if let user = userViewModel.getUserByID(uid) {
-                          Text("\(user.first_name) \(user.last_name) completed this task").font(.subheadline)
+                        
+                        
+                        Text("\(user.first_name) \(user.last_name) finished on \(task.date_completed ?? "Unknown")")
+                          .font(.footnote)
+                          .foregroundColor(Color.gray)
                       }
                   }
               }
@@ -85,7 +89,12 @@ struct TaskView: View {
                       if taskViewModel.isMyTask(task: task, user_id: user.id ?? "") {
                         Button(action: {
                           taskViewModel.completeTask(task: task)
-                          progress += 0.25
+                          
+                          if progress <= 0.9 {
+                            progress += 0.1
+                          }
+                          
+                          
                         }) {
                           Text("Done")
                             .bold()

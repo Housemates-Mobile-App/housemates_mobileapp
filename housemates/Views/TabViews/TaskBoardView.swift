@@ -25,7 +25,6 @@ struct TaskBoardView: View {
    
       if let user = authViewModel.currentUser {
         
-        
         NavigationView {
           
           //            contains the task board
@@ -201,7 +200,14 @@ struct TaskBoardView: View {
                            endPoint: .bottomTrailing)
                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                            .edgesIgnoringSafeArea(.all))
-          
+          .onAppear {
+            let numCompleted = taskViewModel.getNumCompletedTasksForGroup(user.group_id!)
+            progress = Double(numCompleted) / 10.0
+            progress = min(progress, 1.0)
+          }
+            
+            
+            
           
         }
           
