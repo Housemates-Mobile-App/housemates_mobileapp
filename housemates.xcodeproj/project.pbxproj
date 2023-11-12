@@ -20,6 +20,7 @@
 		51D094BB2AFC760000935664 /* commentModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094BA2AFC760000935664 /* commentModelTests.swift */; };
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
 		81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */; };
+		81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29E12AFF56C400748D58 /* FilterView.swift */; };
 		81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EC60C02AFE024000A1B753 /* GraphView.swift */; };
 		8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */; };
 		8A6AD4E12AFB534400A6DF85 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E02AFB534400A6DF85 /* FirebaseAuth */; };
@@ -135,6 +136,7 @@
 		51D094BA2AFC760000935664 /* commentModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = commentModelTests.swift; sourceTree = "<group>"; };
 		816C30272AF49D59004F1771 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHousematesView.swift; sourceTree = "<group>"; };
+		81CF29E12AFF56C400748D58 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		81EC60C02AFE024000A1B753 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				8AE8FF9A2AF4114B003AD997 /* InputView.swift */,
+				81CF29E12AFF56C400748D58 /* FilterView.swift */,
 				8AE8FF9C2AF41F1A003AD997 /* TabBar.swift */,
 				51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */,
 				8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */,
@@ -585,6 +588,7 @@
 				81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */,
 				816C30282AF49D59004F1771 /* TaskView.swift in Sources */,
 				ADD11A6C2AFCE97E001861A0 /* AddAmenityView.swift in Sources */,
+				81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */,
 				8AE8FF9F2AF41F2B003AD997 /* HomeView.swift in Sources */,
 				8AF358422AF4B2BA0009B93C /* JoinGroupView.swift in Sources */,
 				8AF358402AF4B17A0009B93C /* JoinCreateGroupView.swift in Sources */,
