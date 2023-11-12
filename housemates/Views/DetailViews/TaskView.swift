@@ -10,6 +10,7 @@ import SwiftUI
 struct TaskView: View {
     let task: task
     let user: User
+    @Binding var progress: Double
     @EnvironmentObject var taskViewModel : TaskViewModel
     @EnvironmentObject var authViewModel : AuthViewModel    
     @EnvironmentObject var userViewModel : UserViewModel
@@ -27,7 +28,7 @@ struct TaskView: View {
                 Text(task.date_completed ?? "BUG ?")
                   if let uid = task.user_id {
                       if let user = userViewModel.getUserByID(uid) {
-                          Text("Completed By: \(user.first_name) \(user.last_name)").font(.subheadline)
+                          Text("\(user.first_name) \(user.last_name) completed this task").font(.subheadline)
                       }
                   }
               }
@@ -84,6 +85,7 @@ struct TaskView: View {
                       if taskViewModel.isMyTask(task: task, user_id: user.id ?? "") {
                         Button(action: {
                           taskViewModel.completeTask(task: task)
+                          progress += 0.25
                         }) {
                           Text("Done")
                             .bold()
@@ -184,7 +186,7 @@ struct TaskView: View {
 
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser()).environmentObject(UserViewModel())
+      TaskView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser(), progress: Binding.constant(20.0)).environmentObject(UserViewModel())
     }
 }
 
