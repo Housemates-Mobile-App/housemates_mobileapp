@@ -88,11 +88,16 @@ struct TaskView: View {
                 case .inProgress:
                       if taskViewModel.isMyTask(task: task, user_id: user.id ?? "") {
                         Button(action: {
+//                          task view model does not update. the getnumcompleted didn't change after complete task was done
                           taskViewModel.completeTask(task: task)
-                          
-                          if progress <= 0.9 {
-                            progress += 0.1
+                          let numCompleted = taskViewModel.getNumCompletedTasksForGroup(user.group_id!)
+                          progress = Double(numCompleted) / 10.0
+                          progress = min(progress, 1.0)
+                        
+                          withAnimation {
+                                  self.progress = progress
                           }
+//                          current hard coded to add 10% on each task completion
                           
                           
                         }) {
