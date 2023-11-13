@@ -14,6 +14,28 @@ struct AllHousematesCard: View {
      if let currUser = authViewModel.currentUser {
          let isCurrentUser = (currUser.id == housemate.id)
          HStack {
+             let imageURL = URL(string: housemate.imageURLString ?? "")
+             
+             AsyncImage(url: imageURL) { image in
+                 image
+                     .resizable()
+                     .aspectRatio(contentMode: .fill)
+                     .clipShape(Circle())
+                     .frame(width: 60, height: 60)
+                     .padding(.bottom, 5)
+                 
+             } placeholder: {
+     
+                 // MARK: Default user profile picture
+                 Image(systemName: "person.circle")
+                     .resizable()
+                     .aspectRatio(contentMode: .fill)
+                     .clipShape(Circle())
+                     .frame(width: 60, height: 60)
+                     .padding(.bottom, 5)
+                 
+             }
+             
              VStack {
                  Text(housemate.first_name)
                      .bold()
@@ -36,7 +58,7 @@ struct AllHousematesCard: View {
          .padding([.leading, .trailing], 15)
          .background(
             RoundedRectangle(cornerRadius: 15)
-                .fill(isCurrentUser ? Color(red: 0.439, green: 0.298, blue: 1.0).opacity(0.7) : .white.opacity(0.95))
+                .fill(isCurrentUser ? Color(red: 0.439, green: 0.298, blue: 1.0).opacity(0.25) : .white.opacity(0.95))
                 .padding([.leading, .trailing], 15)
          )
          .overlay(

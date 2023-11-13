@@ -23,6 +23,7 @@ struct housematesApp: App {
     @StateObject var authViewModel = AuthViewModel()
     @StateObject var taskViewModel = TaskViewModel()
     @StateObject var userViewModel = UserViewModel()
+    @StateObject var groupViewModel = GroupViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -30,6 +31,7 @@ struct housematesApp: App {
                 .environmentObject(authViewModel)
                 .environmentObject(taskViewModel)
                 .environmentObject(userViewModel)
+                .environmentObject(groupViewModel)
 
         }
     }
