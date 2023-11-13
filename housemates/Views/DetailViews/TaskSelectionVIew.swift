@@ -10,59 +10,90 @@ import SwiftUI
 struct TaskSelectionView: View {
     var body: some View {
         ZStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 20) {
-                    Text("Add Task")
-                        .font(.system(size: 40))
-                        .bold()
-                        .foregroundColor(.white)
-                    Divider()
-                        .background(Color.white)
-                    // Search bar placeholder
-                    TextField("Search for a template...", text: .constant(""))
-                        .font(.system(size: 20))
-                        .padding(.vertical)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
-                        .frame(width: 370)
-                    VStack {
-                        ForEach(0..<hardcodedTaskData.count, id: \.self) { i in
+            VStack(spacing: 20) {
+                // Top part with a different background color
+                Color(red: 0.439, green: 0.298, blue: 1.0)
+                    .frame(width: 400, height: 120)
+                    .overlay(
+                        Text("Add Task")
+                            .font(.system(size: 18))
+                            .bold()
+                            .foregroundColor(.white)
+                )
+                
+                // Search bar placeholder
+                TextField("Search for a template...", text: .constant(""))
+                    .font(.system(size: 20))
+                    .padding(13)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+                    .frame(width: 370)
+
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(spacing: 15) {
+                        Text("Housework")
+                            .font(.system(size: 12))
+                            .bold()
+                        ForEach(0..<hardcodedHouseworkTaskData.count, id: \.self) { i in
                             if i % 3 == 0 {
                                 HStack {
-                                    ForEach(0..<min(3, hardcodedTaskData.count - i), id: \.self) { j in
-                                        TaskSelectionBox(taskIconString: hardcodedTaskData[i + j].taskIcon, taskName: hardcodedTaskData[i + j].taskName)
+                                    ForEach(0..<min(3, hardcodedHouseworkTaskData.count - i), id: \.self) { j in
+                                        TaskSelectionBox(taskIconString: hardcodedHouseworkTaskData[i + j].taskIcon, taskName: hardcodedHouseworkTaskData[i + j].taskName)
+                                    }
+                                }
+                            }
+                        }
+                        Text("Indoor")
+                            .font(.system(size: 12))
+                            .bold()
+                        ForEach(0..<hardcodedIndoorTaskData.count, id: \.self) { i in
+                            if i % 3 == 0 {
+                                HStack {
+                                    ForEach(0..<min(3, hardcodedIndoorTaskData.count - i), id: \.self) { j in
+                                        TaskSelectionBox(taskIconString: hardcodedIndoorTaskData[i + j].taskIcon, taskName: hardcodedIndoorTaskData[i + j].taskName)
+                                    }
+                                }
+                            }
+                        }
+                        Text("Outdoor")
+                            .font(.system(size: 12))
+                            .bold()
+                        ForEach(0..<hardcodedOutdoorTaskData.count, id: \.self) { i in
+                            if i % 3 == 0 {
+                                HStack {
+                                    ForEach(0..<min(3, hardcodedOutdoorTaskData.count - i), id: \.self) { j in
+                                        TaskSelectionBox(taskIconString: hardcodedOutdoorTaskData[i + j].taskIcon, taskName: hardcodedOutdoorTaskData[i + j].taskName)
                                     }
                                 }
                             }
                         }
                     }
-                    Spacer()
+                }.background(
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(Color(red: 0.8118, green: 0.8196, blue: 1.0))
+                )
+
+                // Oval-shaped button at the bottom
+                VStack {
+                    RoundedRectangle(cornerRadius: 30)
+                        .fill(Color(red: 0.439, green: 0.298, blue: 1.0))
+                        .frame(width: 222, height: 51)
+                        .overlay(
+                            Text("Add a Custom Task +")
+                                .font(.system(size: 18))
+                                .bold()
+                                .foregroundColor(.white)
+
+                        )
+                        .offset(y:-20)
                 }
             }
-            .padding(.top, 50)
-            .background(
-                LinearGradient(gradient: Gradient(colors: [Color(red: 234/255, green: 64/255, blue: 128/255), Color(red: 1, green: 88/255, blue: 88/255)]), startPoint: .top, endPoint: .bottom)
-            )
-            .edgesIgnoringSafeArea(.all)
-
-            // Oval-shaped button at the bottom
-            VStack {
-                Spacer()
-                RoundedRectangle(cornerRadius: 100)
-                    .fill(Color(red: 194/255, green: 0/255, blue: 73/255))
-                    .frame(width: 480, height: 167)
-                    .overlay(
-                        Text("Add a Custom Task +")
-                            .font(.system(size: 25))
-                            .bold()
-                            .foregroundColor(.white)
-                            .offset(y: -40)
-                        
-                    )
-                    .padding(.bottom,-60)
-            }
-            .edgesIgnoringSafeArea(.all)
-        }
+        }.background(
+            LinearGradient(gradient: Gradient(colors: [
+                Color(red: 0.925, green: 0.863, blue: 1.0).opacity(0.25),
+                Color(red: 0.619, green: 0.325, blue: 1.0).opacity(0.25)
+            ]), startPoint: .top, endPoint: .bottom)
+            ).ignoresSafeArea(.all)
     }
 }
 
