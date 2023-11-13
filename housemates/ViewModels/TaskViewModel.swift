@@ -41,6 +41,13 @@ class TaskViewModel: ObservableObject {
     func getCompletedTasksForGroup(_ group_id: String) -> [task] {
         return self.tasks.filter { $0.group_id == group_id && $0.status == .done}
     }
+    
+    func getCompletedTasksForUser(_ user_id: String) -> [task] {
+        return self.tasks.filter { $0.user_id == user_id && $0.status == .done}
+    }
+    
+    func getPendingTasksForUser(_ user_id: String) -> [task] {
+        return self.tasks.filter { $0.user_id == user_id && $0.status == .inProgress}
   
     func getNumCompletedTasksForGroup(_ group_id: String) -> Int {
       return self.tasks.filter { $0.group_id == group_id && $0.status == .done}.count
