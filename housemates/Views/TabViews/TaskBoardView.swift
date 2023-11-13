@@ -116,10 +116,10 @@ struct TaskBoardView: View {
                   //
                   
                   
-                  if (selected == "Todo" || selected == "All Tasks") {
+                  if (selected == "To Do" || selected == "All Tasks") {
                     
                     VStack(alignment: .leading) {
-                      Text("Todo")
+                      Text("To Do")
                         .font(.headline)
                         .padding(.top)
                         .bold()
@@ -205,6 +205,11 @@ struct TaskBoardView: View {
             progress = Double(numCompleted) / 10.0
             progress = min(progress, 1.0)
           }
+//          .onReceive(taskViewModel.$tasks) { _ in
+//            let numCompleted = taskViewModel.getNumCompletedTasksForGroup(user.group_id!)
+//            progress = Double(numCompleted) / 10.0
+//            progress = min(progress, 1.0)
+//          }
             
             
             
