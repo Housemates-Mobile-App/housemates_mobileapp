@@ -17,7 +17,7 @@ struct AllHousematesCard: View {
              VStack {
                  Text(housemate.first_name)
                      .bold()
-                     .foregroundColor(isCurrentUser ? .white : .pink)
+                     .foregroundColor(isCurrentUser ? .white : Color(red: 0.439, green: 0.298, blue: 1.0))
                  Text(housemate.is_home != nil ? (housemate.is_home! ? "At Home" : "Not Home") : "Unknown")
                      .foregroundColor(.gray)
              }
@@ -25,7 +25,7 @@ struct AllHousematesCard: View {
              NavigationLink(destination: isCurrentUser ? AnyView(ProfileView()) : AnyView(HousemateProfileView(housemate: housemate))) {
                  RoundedRectangle(cornerRadius: 10)
                      .frame(width: 80, height: 40)
-                     .foregroundColor(isCurrentUser ? .white : .pink)
+                     .foregroundColor(isCurrentUser ? .white : Color(red: 0.439, green: 0.298, blue: 1.0))
                      .overlay(
                          Text("View")
                              .foregroundColor(isCurrentUser ? .black : .white)
@@ -33,13 +33,16 @@ struct AllHousematesCard: View {
              }
          }
          .padding(15)
+         .padding([.leading, .trailing], 15)
          .background(
             RoundedRectangle(cornerRadius: 15)
-                .fill(isCurrentUser ? .pink.opacity(0.95) : .white.opacity(0.95)) // Adds a white fill
+                .fill(isCurrentUser ? Color(red: 0.439, green: 0.298, blue: 1.0).opacity(0.7) : .white.opacity(0.95))
+                .padding([.leading, .trailing], 15)
          )
          .overlay(
             RoundedRectangle(cornerRadius: 15)
-                .stroke(Color.black.opacity(0.25), lineWidth: 1) // Adds a black stroke
+                .stroke(Color.black.opacity(0.25), lineWidth: 1)
+                .padding([.leading, .trailing], 15)
          )
      }
  }

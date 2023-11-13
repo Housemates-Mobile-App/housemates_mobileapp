@@ -14,10 +14,10 @@ import FirebaseFirestore
 class UserViewModel: ObservableObject {
     private let userRepository = UserRepository()
     private let groupRepository = GroupRepository()
-
+    
     @Published var users: [User] = []
     private var cancellables: Set<AnyCancellable> = []
-        
+    
     init() {
         userRepository.$users
             .receive(on: DispatchQueue.main)
@@ -42,33 +42,33 @@ class UserViewModel: ObservableObject {
     }
     
     func getUserGroupmatesInclusive(_ uid: String) -> [User] {
-         guard let currentUser = self.users.first(where: { $0.id == uid }), let groupID = currentUser.group_id else {
-             return []
-         }
-
-         var groupmates = self.users.filter { $0.group_id == groupID && $0.id != uid }
-         // did this so currentUser would appear at the very end.
-         groupmates.append(currentUser)
-         return groupmates
-     }
+        guard let currentUser = self.users.first(where: { $0.id == uid }), let groupID = currentUser.group_id else {
+            return []
+        }
+        
+        var groupmates = self.users.filter { $0.group_id == groupID && $0.id != uid }
+        // did this so currentUser would appear at the very end.
+        groupmates.append(currentUser)
+        return groupmates
+    }
     
     func joinGroup(group_code: String, uid: String) async {
-            // Fetch the user object by ID
-            guard var user = getUserByID(uid) else {
-                print("Failed to get User with ID: \(uid)")
-                return
-            }
+        // Fetch the user object by ID
+        guard var user = getUserByID(uid) else {
+            print("Failed to get User with ID: \(uid)")
+            return
+        }
         
-            do {
-                // MARK: getGroupIdByCode is necessary to be async because firebase updates slower than data repo fetches
-                if let group_id = await groupRepository.getGroupIdByCode(group_code) {
-                    // Update the group_id for the current user
-                    user.group_id = group_id
-                    userRepository.update(user)
-                 }
+        do {
+            // MARK: getGroupIdByCode is necessary to be async because firebase updates slower than data repo fetches
+            if let group_id = await groupRepository.getGroupIdByCode(group_code) {
+                // Update the group_id for the current user
+                user.group_id = group_id
+                userRepository.update(user)
             }
+        }
     }
-        
+    
     func createAndJoinGroup(group_name: String, address: String, uid: String) async {
         let group_code = String(Int.random(in: 1000...9999))
         let group_id = UUID().uuidString
@@ -79,6 +79,28 @@ class UserViewModel: ObservableObject {
             groupRepository.create(group)
             await joinGroup(group_code: group_code, uid: uid)
         }
+    }
+    
+    // did not do self.users here because already filtered [AllHousematesView]
+    func userWithNextBirthday(users: [User]) -> User? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        let currentDate = Date()
+        
+        var daysLeftArray: [(Int, User)] = []
+        
+        for user in users {
+            if let userDate = dateFormatter.date(from: user.birthday) {
+                let diffDateComponents = Calendar.current.dateComponents([.day], from: currentDate, to: userDate)
+                let daysLeft = diffDateComponents.day ?? 0
+                daysLeftArray.append((daysLeft, user))
+            }
+        }
+        
+        daysLeftArray.sort { $0.0 < $1.0 }
+        
+        return daysLeftArray.first?.1
     }
 }
 
