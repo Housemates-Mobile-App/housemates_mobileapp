@@ -10,6 +10,7 @@ import SwiftUI
 struct TaskView: View {
     let task: task
     let user: User
+    @Binding var progress: Double
     @EnvironmentObject var taskViewModel : TaskViewModel
     @EnvironmentObject var authViewModel : AuthViewModel    
     @EnvironmentObject var userViewModel : UserViewModel
@@ -24,10 +25,14 @@ struct TaskView: View {
                     .font(.headline)
                
               if task.status == .done {
-                Text(task.date_completed ?? "BUG ?")
+                
                   if let uid = task.user_id {
                       if let user = userViewModel.getUserByID(uid) {
-                          Text("Completed By: \(user.first_name) \(user.last_name)").font(.subheadline)
+                        
+                        
+                        Text("\(user.first_name) \(user.last_name) finished on \(task.date_completed ?? "Unknown")")
+                          .font(.footnote)
+                          .foregroundColor(Color.gray)
                       }
                   }
               }
@@ -62,6 +67,9 @@ struct TaskView: View {
                 taskViewModel.destroy(task: task)
               }) {
                 Text("Delete")
+                  .bold()
+                  
+                  .font(.system(size: 12))
                   .foregroundColor(.white)
                   .padding(.horizontal)
                   .padding(.vertical, 4)
@@ -80,10 +88,22 @@ struct TaskView: View {
                 case .inProgress:
                       if taskViewModel.isMyTask(task: task, user_id: user.id ?? "") {
                         Button(action: {
+//                          task view model does not update. the getnumcompleted didn't change after complete task was done
                           taskViewModel.completeTask(task: task)
+                          let numCompleted = taskViewModel.getNumCompletedTasksForGroup(user.group_id!)
+                          progress = Double(numCompleted) / 10.0
+                          progress = min(progress, 1.0)
+                        
+                          withAnimation {
+                                  self.progress = progress
+                          }
+//                          current hard coded to add 10% on each task completion
+                          
+                          
                         }) {
                           Text("Done")
-                          
+                            .bold()
+                            .font(.system(size: 12))
                             .foregroundColor(.white)
                             .padding(.horizontal)
                             .padding(.vertical, 4)
@@ -108,7 +128,7 @@ struct TaskView: View {
                               image in image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: 50, height: 50)
+                                .frame(width: 35, height: 35)
                                 .clipShape(Circle())
                                 .overlay(Circle().stroke(Color.white, lineWidth: 2))
                                 .shadow(radius: 5)
@@ -120,7 +140,7 @@ struct TaskView: View {
                               Image(systemName: "person.circle")
                                   .resizable()
                                   .aspectRatio(contentMode: .fill)
-                                  .frame(width: 50, height: 50)
+                                  .frame(width: 35, height: 35)
                                   .clipShape(Circle())
                                   .overlay(Circle().stroke(Color.white, lineWidth: 2))
                                   .shadow(radius: 5)
@@ -148,16 +168,19 @@ struct TaskView: View {
                         }
                     }) {
                         Text("Claim")
-                           
+                            .bold()
+                            .font(.system(size: 12))
                             .foregroundColor(.white)
                             .padding(.horizontal)
                             .padding(.vertical, 4)
-                            .background(Color.purple)
+                          
+                            .background((Color(red: 0.439, green: 0.298, blue: 1.0)))
                             .cornerRadius(15)
                     }
                 }
         }
-        .padding(20)
+        
+        .padding(15)
         
         .background(
             RoundedRectangle(cornerRadius: 15)
@@ -165,7 +188,7 @@ struct TaskView: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: 15)
-                .stroke(Color.black, lineWidth: 1) // Adds a black stroke
+              .stroke(Color.black.opacity(0.25), lineWidth: 1) // Adds a black stroke
         )
         
         
@@ -177,7 +200,7 @@ struct TaskView: View {
 
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser()).environmentObject(UserViewModel())
+      TaskView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser(), progress: Binding.constant(20.0)).environmentObject(UserViewModel())
     }
 }
 

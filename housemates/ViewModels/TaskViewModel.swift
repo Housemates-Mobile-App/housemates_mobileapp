@@ -48,6 +48,9 @@ class TaskViewModel: ObservableObject {
     
     func getPendingTasksForUser(_ user_id: String) -> [task] {
         return self.tasks.filter { $0.user_id == user_id && $0.status == .inProgress}
+  
+    func getNumCompletedTasksForGroup(_ group_id: String) -> Int {
+      return self.tasks.filter { $0.group_id == group_id && $0.status == .done}.count
     }
 
     func isMyTask(task: task, user_id: String) -> Bool {
@@ -57,7 +60,10 @@ class TaskViewModel: ObservableObject {
     func claimTask(task: task, user_id: String) {
         var task = task
         task.user_id = user_id
-        task.date_started = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .medium)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.dd.yy h:mm a"
+        let formattedDate = formatter.string(from: Date())
+        task.date_started = formattedDate
         task.date_completed = nil
         task.status = .inProgress
         taskRepository.update(task)
@@ -66,7 +72,10 @@ class TaskViewModel: ObservableObject {
     func completeTask(task: task) {
         var task = task
         task.date_started = nil
-        task.date_completed = DateFormatter.localizedString(from: Date(), dateStyle: .medium, timeStyle: .medium)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.dd.yy h:mm a"
+        let formattedDate = formatter.string(from: Date())
+        task.date_completed = formattedDate
         task.status = .done
         taskRepository.update(task)
       }
