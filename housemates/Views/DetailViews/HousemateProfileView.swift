@@ -103,8 +103,11 @@ struct HousemateProfileView: View {
             Spacer()
         }.padding(.top, 50)
             .background(
-            LinearGradient(gradient: Gradient(colors: [Color(red: 234/255, green: 64/255, blue: 128/255), Color(red: 1, green: 88/255, blue: 88/255)]), startPoint: .top, endPoint: .bottom)
-            ).edgesIgnoringSafeArea(.all)
+            LinearGradient(gradient: Gradient(colors: [
+                Color(red: 0.925, green: 0.863, blue: 1.0),
+                Color(red: 0.619, green: 0.325, blue: 1.0)
+            ]), startPoint: .top, endPoint: .bottom)
+            ).ignoresSafeArea(.all)
         
     }
 }

@@ -12,21 +12,29 @@ struct TaskData {
     var taskName: String
 }
 
-let hardcodedTaskData: [TaskData] = [
-    TaskData(taskIcon: "dish", taskName: "Wash Dishes"),
-    TaskData(taskIcon: "stove", taskName: "Clean Stove"),
-    TaskData(taskIcon: "wipe", taskName: "Wipe Counter"),
-    TaskData(taskIcon: "trash", taskName: "Take out Trash"),
-    TaskData(taskIcon: "broom", taskName: "Sweep Floor"),
-    TaskData(taskIcon: "vacuum", taskName: "Vacuum Ground"),
-    TaskData(taskIcon: "mop", taskName: "Mop Floor"),
-    TaskData(taskIcon: "dust", taskName: "Dust Chairs"),
-    TaskData(taskIcon: "window", taskName: "Clean Windows"),
-    TaskData(taskIcon: "toilet", taskName: "Scrub Toilet"),
-    TaskData(taskIcon: "toiletpaper", taskName: "Restock Paper"),
-    TaskData(taskIcon: "shower", taskName: "Clean Shower"),
-    TaskData(taskIcon: "laundry", taskName: "Do Laundry"),
-    TaskData(taskIcon: "shop", taskName: "Get Groceries"),
-    TaskData(taskIcon: "eat", taskName: "Prep Meals"),
-    TaskData(taskIcon: "bills", taskName: "Pay Bills"),
+let hardcodedHouseworkTaskData: [TaskData] = [
+    TaskData(taskIcon: "dalle1", taskName: "Wash Dishes"),
+    TaskData(taskIcon: "dalle2", taskName: "Clean Stove"),
+    TaskData(taskIcon: "dalle3", taskName: "Wipe Counter"),
+    TaskData(taskIcon: "dalle4", taskName: "Take out Trash"),
+    TaskData(taskIcon: "dalle5", taskName: "Sweep Floor"),
+    TaskData(taskIcon: "dalle6", taskName: "Vacuum Ground"),
+]
+
+let hardcodedIndoorTaskData: [TaskData] = [
+    TaskData(taskIcon: "dalle1", taskName: "Mop Floor"),
+    TaskData(taskIcon: "dalle2", taskName: "Dust Chairs"),
+    TaskData(taskIcon: "dalle3", taskName: "Clean Windows"),
+    TaskData(taskIcon: "dalle4", taskName: "Scrub Toilet"),
+    TaskData(taskIcon: "dalle5", taskName: "Restock Paper"),
+    TaskData(taskIcon: "dalle6", taskName: "Clean Shower"),
+]
+
+let hardcodedOutdoorTaskData: [TaskData] = [
+    TaskData(taskIcon: "dalle1", taskName: "Do Laundry"),
+    TaskData(taskIcon: "dalle2", taskName: "Get Groceries"),
+    TaskData(taskIcon: "dalle3", taskName: "Prep Meals"),
+    TaskData(taskIcon: "dalle4", taskName: "Pay Bills"),
+    TaskData(taskIcon: "dalle5", taskName: "Mop Floor"),
+    TaskData(taskIcon: "dalle6", taskName: "Dust Chairs"),
 ]

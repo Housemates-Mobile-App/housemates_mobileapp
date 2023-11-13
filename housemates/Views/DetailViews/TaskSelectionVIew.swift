@@ -8,66 +8,133 @@
 import SwiftUI
 
 struct TaskSelectionView: View {
+    @EnvironmentObject var taskViewModel : TaskViewModel
+    let user : User
+    @Binding var hideTabBar: Bool
+//  added this to bring the user back to the first page after adding a task
+    @Binding var selectedTab: Int
+    
     var body: some View {
         ZStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(spacing: 20) {
-                    Text("Add Task")
-                        .font(.system(size: 40))
-                        .bold()
-                        .foregroundColor(.white)
-                    Divider()
-                        .background(Color.white)
-                    // Search bar placeholder
-                    TextField("Search for a template...", text: .constant(""))
-                        .font(.system(size: 20))
-                        .padding(.vertical)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(10)
-                        .frame(width: 370)
-                    VStack {
-                        ForEach(0..<hardcodedTaskData.count, id: \.self) { i in
-                            if i % 3 == 0 {
-                                HStack {
-                                    ForEach(0..<min(3, hardcodedTaskData.count - i), id: \.self) { j in
-                                        TaskSelectionBox(taskIconString: hardcodedTaskData[i + j].taskIcon, taskName: hardcodedTaskData[i + j].taskName)
+            VStack(spacing: 20) {
+                // Top part with a different background color
+                Color(red: 0.439, green: 0.298, blue: 1.0)
+                    .frame(width: 400, height: 120)
+                    .overlay(
+                        Text("Add Task")
+                            .font(.system(size: 18))
+                            .bold()
+                            .foregroundColor(.white)
+                            .padding(.top, 70)
+                            .padding(.trailing, 250)
+                )
+                
+                // Search bar placeholder
+                TextField("Search for a template...", text: .constant(""))
+                    .font(.system(size: 20))
+                    .padding(13)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+                    .frame(width: 370)
+                
+                VStack {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack(spacing: 15) {
+                            Text("Housework")
+                                .font(.system(size: 12))
+                                .bold()
+                            ForEach(0..<hardcodedHouseworkTaskData.count, id: \.self) { i in
+                                if i % 3 == 0 {
+                                    HStack {
+                                        ForEach(0..<min(3, hardcodedHouseworkTaskData.count - i), id: \.self) { j in
+                                            NavigationLink(destination:
+                                                            AddTaskView(taskIconStringHardcoded: hardcodedHouseworkTaskData[i + j].taskIcon, taskNameHardcoded: hardcodedHouseworkTaskData[i + j].taskName, user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
+                                                TaskSelectionBox(taskIconString: hardcodedHouseworkTaskData[i + j].taskIcon, taskName: hardcodedHouseworkTaskData[i + j].taskName)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            Text("Indoor")
+                                .font(.system(size: 12))
+                                .bold()
+                            ForEach(0..<hardcodedIndoorTaskData.count, id: \.self) { i in
+                                if i % 3 == 0 {
+                                    HStack {
+                                        ForEach(0..<min(3, hardcodedIndoorTaskData.count - i), id: \.self) { j in
+                                            NavigationLink(destination:
+                                                            AddTaskView(taskIconStringHardcoded: hardcodedIndoorTaskData[i + j].taskIcon, taskNameHardcoded: hardcodedIndoorTaskData[i + j].taskName, user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
+                                                TaskSelectionBox(taskIconString: hardcodedIndoorTaskData[i + j].taskIcon, taskName: hardcodedIndoorTaskData[i + j].taskName)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            Text("Outdoor")
+                                .font(.system(size: 12))
+                                .bold()
+                            ForEach(0..<hardcodedOutdoorTaskData.count, id: \.self) { i in
+                                if i % 3 == 0 {
+                                    HStack {
+                                        ForEach(0..<min(3, hardcodedOutdoorTaskData.count - i), id: \.self) { j in
+                                            NavigationLink(destination:
+                                                            AddTaskView(taskIconStringHardcoded: hardcodedOutdoorTaskData[i + j].taskIcon, taskNameHardcoded: hardcodedOutdoorTaskData[i + j].taskName, user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
+                                                TaskSelectionBox(taskIconString: hardcodedOutdoorTaskData[i + j].taskIcon, taskName: hardcodedOutdoorTaskData[i + j].taskName)
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                    Spacer()
-                }
-            }
-            .padding(.top, 50)
-            .background(
-                LinearGradient(gradient: Gradient(colors: [Color(red: 234/255, green: 64/255, blue: 128/255), Color(red: 1, green: 88/255, blue: 88/255)]), startPoint: .top, endPoint: .bottom)
-            )
-            .edgesIgnoringSafeArea(.all)
+                }.padding()
+                    // bad style. double padding can we fix this. hardcoded.
+                    .padding(.bottom, 20)
+                    .padding(.horizontal, 15)
+                .background(
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(Color(red: 0.8118, green: 0.8196, blue: 1.0))
+                        .padding(.bottom, 40)
+                )
 
+            }
             // Oval-shaped button at the bottom
             VStack {
                 Spacer()
-                RoundedRectangle(cornerRadius: 100)
-                    .fill(Color(red: 194/255, green: 0/255, blue: 73/255))
-                    .frame(width: 480, height: 167)
-                    .overlay(
-                        Text("Add a Custom Task +")
-                            .font(.system(size: 25))
-                            .bold()
-                            .foregroundColor(.white)
-                            .offset(y: -40)
-                        
-                    )
-                    .padding(.bottom,-60)
+                NavigationLink(destination:
+                                AddTaskView(taskIconStringHardcoded: "", taskNameHardcoded: "", user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
+                    RoundedRectangle(cornerRadius: 30)
+                        .fill(Color(red: 0.439, green: 0.298, blue: 1.0))
+                        .frame(width: 222, height: 51)
+                        .overlay(
+                            Text("Add a Custom Task +")
+                                .font(.system(size: 18))
+                                .bold()
+                                .foregroundColor(.white)
+                            
+                        )
+                        .offset(y:-20)
+                }
             }
-            .edgesIgnoringSafeArea(.all)
         }
+        .onAppear {
+            //setting taskName to be the input
+            hideTabBar = true
+        }
+        .onDisappear {
+            hideTabBar = false
+        }
+        .background(
+            LinearGradient(gradient: Gradient(colors: [
+                Color(red: 0.925, green: 0.863, blue: 1.0).opacity(0.25),
+                Color(red: 0.619, green: 0.325, blue: 1.0).opacity(0.25)
+            ]), startPoint: .top, endPoint: .bottom)
+            ).ignoresSafeArea(.all)
     }
 }
 
 struct TaskSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskSelectionView()
+        TaskSelectionView(user: UserViewModel.mockUser(), hideTabBar: Binding.constant(false), selectedTab: Binding.constant(2)).environmentObject(TaskViewModel())
     }
 }
