@@ -179,7 +179,7 @@ struct TaskView: View {
                     }
                 }
         }
-        
+        .frame(minWidth: 50, minHeight: 50)
         .padding(15)
         
         .background(

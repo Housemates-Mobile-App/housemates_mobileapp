@@ -28,16 +28,16 @@ struct FilterView: View {
         }
         
         Button(action: {
-          selected = "Todo"
+          selected = "To Do"
         }){
-          Text("Todo")
+          Text("To Do")
             .font(.system(size: 12))
             .frame(maxWidth: 75, maxHeight: 15)
             .bold()
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .foregroundColor(Color.white)
-            .background(selected == "Todo" ? deepPurple: deepPurple.opacity(0.25))
+            .background(selected == "To Do" ? deepPurple: deepPurple.opacity(0.25))
             .cornerRadius(25)
         }
         
