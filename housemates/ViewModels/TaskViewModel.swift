@@ -26,6 +26,12 @@ class TaskViewModel: ObservableObject {
             .store(in: &self.cancellables)
     }
     
+    enum TaskPriority: String, CaseIterable {
+        case low = "Low"
+        case medium = "Medium"
+        case high = "High"
+    }
+    
     func getTasksForGroup(_ group_id: String) -> [task] {
       return self.tasks.filter { $0.group_id == group_id}
     }
@@ -93,7 +99,6 @@ class TaskViewModel: ObservableObject {
 
 extension TaskViewModel {
     static func mockTask() -> task {
-        // Create and return a mock AuthViewModel with a mock user
         return task( name: "Test",
                      group_id: "Test",
                      user_id: "Test",
@@ -102,5 +107,21 @@ extension TaskViewModel {
                      date_started: nil,
                      date_completed: nil,
                      priority: "Test")
+    }
+    
+    static func mock() -> TaskViewModel {
+        // Create and return a mock TaskViewModel with a mock task
+        let mockTask = task( name: "Test",
+                              group_id: "Test",
+                              user_id: "Test",
+                              description: "Test",
+                              status: .unclaimed,
+                              date_started: nil,
+                              date_completed: nil,
+                              priority: "Test")
+        
+        let mockTaskViewModel = TaskViewModel()
+        mockTaskViewModel.tasks = [mockTask]
+        return mockTaskViewModel
     }
 }

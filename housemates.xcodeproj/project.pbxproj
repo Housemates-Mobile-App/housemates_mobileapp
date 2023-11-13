@@ -15,6 +15,8 @@
 		515939D22AFF3609004C31BB /* TaskSelectionVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515939D12AFF3609004C31BB /* TaskSelectionVIew.swift */; };
 		515939D42AFF37B2004C31BB /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515939D32AFF37B2004C31BB /* TaskData.swift */; };
 		51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */; };
+		51B397682B01FB8000A0AF2A /* NewInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B397672B01FB8000A0AF2A /* NewInputView.swift */; };
+		51B3976A2B01FF2600A0AF2A /* SliderPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B397692B01FF2600A0AF2A /* SliderPicker.swift */; };
 		51D094AA2AFC739800935664 /* housematesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094A92AFC739800935664 /* housematesTests.swift */; };
 		51D094B12AFC740300935664 /* userModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094B02AFC740300935664 /* userModelTests.swift */; };
 		51D094B32AFC747600935664 /* GroupModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094B22AFC747600935664 /* GroupModelTests.swift */; };
@@ -134,6 +136,8 @@
 		515939D12AFF3609004C31BB /* TaskSelectionVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSelectionVIew.swift; sourceTree = "<group>"; };
 		515939D32AFF37B2004C31BB /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
 		51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCreateCard.swift; sourceTree = "<group>"; };
+		51B397672B01FB8000A0AF2A /* NewInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInputView.swift; sourceTree = "<group>"; };
+		51B397692B01FF2600A0AF2A /* SliderPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderPicker.swift; sourceTree = "<group>"; };
 		51D094A72AFC739800935664 /* housematesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = housematesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51D094A92AFC739800935664 /* housematesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housematesTests.swift; sourceTree = "<group>"; };
 		51D094B02AFC740300935664 /* userModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userModelTests.swift; sourceTree = "<group>"; };
@@ -303,6 +307,8 @@
 				5155A1792AFDC6D500832E51 /* AllHousematesCard.swift */,
 				515939CF2AFF31C0004C31BB /* TaskSelectionBox.swift */,
 				5125D3342B016C4C00E9E623 /* HousemateProfileButton.swift */,
+				51B397672B01FB8000A0AF2A /* NewInputView.swift */,
+				51B397692B01FF2600A0AF2A /* SliderPicker.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -596,11 +602,13 @@
 				8AE8FF9D2AF41F1A003AD997 /* TabBar.swift in Sources */,
 				8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */,
 				81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */,
+				51B3976A2B01FF2600A0AF2A /* SliderPicker.swift in Sources */,
 				51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */,
 				81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */,
 				515939D42AFF37B2004C31BB /* TaskData.swift in Sources */,
 				515939D22AFF3609004C31BB /* TaskSelectionVIew.swift in Sources */,
 				816C30282AF49D59004F1771 /* TaskView.swift in Sources */,
+				51B397682B01FB8000A0AF2A /* NewInputView.swift in Sources */,
 				ADD11A6C2AFCE97E001861A0 /* AddAmenityView.swift in Sources */,
 				81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */,
 				8AE8FF9F2AF41F2B003AD997 /* HomeView.swift in Sources */,

@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct TaskSelectionView: View {
+    @EnvironmentObject var taskViewModel : TaskViewModel
+    let user : User
+    @Binding var hideTabBar: Bool
+//  added this to bring the user back to the first page after adding a task
+    @Binding var selectedTab: Int
+    
     var body: some View {
         ZStack {
             VStack(spacing: 20) {
@@ -19,6 +25,8 @@ struct TaskSelectionView: View {
                             .font(.system(size: 18))
                             .bold()
                             .foregroundColor(.white)
+                            .padding(.top, 70)
+                            .padding(.trailing, 250)
                 )
                 
                 // Search bar placeholder
@@ -38,7 +46,10 @@ struct TaskSelectionView: View {
                             if i % 3 == 0 {
                                 HStack {
                                     ForEach(0..<min(3, hardcodedHouseworkTaskData.count - i), id: \.self) { j in
-                                        TaskSelectionBox(taskIconString: hardcodedHouseworkTaskData[i + j].taskIcon, taskName: hardcodedHouseworkTaskData[i + j].taskName)
+                                        NavigationLink(destination:
+                                                        AddTaskView(taskIconStringHardcoded: hardcodedHouseworkTaskData[i + j].taskIcon, taskNameHardcoded: hardcodedHouseworkTaskData[i + j].taskName, user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
+                                            TaskSelectionBox(taskIconString: hardcodedHouseworkTaskData[i + j].taskIcon, taskName: hardcodedHouseworkTaskData[i + j].taskName)
+                                        }
                                     }
                                 }
                             }
@@ -50,7 +61,10 @@ struct TaskSelectionView: View {
                             if i % 3 == 0 {
                                 HStack {
                                     ForEach(0..<min(3, hardcodedIndoorTaskData.count - i), id: \.self) { j in
-                                        TaskSelectionBox(taskIconString: hardcodedIndoorTaskData[i + j].taskIcon, taskName: hardcodedIndoorTaskData[i + j].taskName)
+                                        NavigationLink(destination:
+                                                        AddTaskView(taskIconStringHardcoded: hardcodedIndoorTaskData[i + j].taskIcon, taskNameHardcoded: hardcodedIndoorTaskData[i + j].taskName, user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
+                                            TaskSelectionBox(taskIconString: hardcodedIndoorTaskData[i + j].taskIcon, taskName: hardcodedIndoorTaskData[i + j].taskName)
+                                        }
                                     }
                                 }
                             }
@@ -62,7 +76,10 @@ struct TaskSelectionView: View {
                             if i % 3 == 0 {
                                 HStack {
                                     ForEach(0..<min(3, hardcodedOutdoorTaskData.count - i), id: \.self) { j in
-                                        TaskSelectionBox(taskIconString: hardcodedOutdoorTaskData[i + j].taskIcon, taskName: hardcodedOutdoorTaskData[i + j].taskName)
+                                        NavigationLink(destination:
+                                                        AddTaskView(taskIconStringHardcoded: hardcodedOutdoorTaskData[i + j].taskIcon, taskNameHardcoded: hardcodedOutdoorTaskData[i + j].taskName, user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
+                                            TaskSelectionBox(taskIconString: hardcodedOutdoorTaskData[i + j].taskIcon, taskName: hardcodedOutdoorTaskData[i + j].taskName)
+                                        }
                                     }
                                 }
                             }
@@ -75,17 +92,20 @@ struct TaskSelectionView: View {
 
                 // Oval-shaped button at the bottom
                 VStack {
-                    RoundedRectangle(cornerRadius: 30)
-                        .fill(Color(red: 0.439, green: 0.298, blue: 1.0))
-                        .frame(width: 222, height: 51)
-                        .overlay(
-                            Text("Add a Custom Task +")
-                                .font(.system(size: 18))
-                                .bold()
-                                .foregroundColor(.white)
-
-                        )
-                        .offset(y:-20)
+                    NavigationLink(destination:
+                                    AddTaskView(taskIconStringHardcoded: "", taskNameHardcoded: "", user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
+                        RoundedRectangle(cornerRadius: 30)
+                            .fill(Color(red: 0.439, green: 0.298, blue: 1.0))
+                            .frame(width: 222, height: 51)
+                            .overlay(
+                                Text("Add a Custom Task +")
+                                    .font(.system(size: 18))
+                                    .bold()
+                                    .foregroundColor(.white)
+                                
+                            )
+                            .offset(y:-20)
+                    }
                 }
             }
         }.background(
@@ -97,8 +117,8 @@ struct TaskSelectionView: View {
     }
 }
 
-struct TaskSelectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskSelectionView()
-    }
-}
+//struct TaskSelectionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TaskSelectionView()
+//    }
+//}

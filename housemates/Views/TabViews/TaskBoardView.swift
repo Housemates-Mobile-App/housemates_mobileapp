@@ -58,7 +58,7 @@ struct TaskBoardView: View {
 //                Text("bye")
 //              }
               
-              NavigationLink(destination: AddTaskView(user: user, taskViewModel: taskViewModel, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
+              NavigationLink(destination: TaskSelectionView(user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
                 Text("+")
                   .font(.title)
                   .padding(7.5)
