@@ -9,6 +9,7 @@ import SwiftUI
 struct AllHousematesView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var userViewModel : UserViewModel
+    @EnvironmentObject var groupViewModel : GroupViewModel
 
     var body: some View {
         if let user = authViewModel.currentUser {
@@ -17,10 +18,24 @@ struct AllHousematesView: View {
             let userWithNextBirthday = userViewModel.userWithNextBirthday(users: userGroupmatesInclusive)
             VStack(spacing:20) {
                 VStack  {
-                    Text("The Housemates")
-                        .font(.system(size: 18))
-                        .bold()
-                        .foregroundColor(.white)
+                    HStack {
+                        if let currGroup = groupViewModel.getGroupByID(user.group_id ?? "") {
+                            Text("Residents of \(currGroup.name)")
+                                .font(.system(size: 25))
+                                .bold()
+                                .foregroundColor(.white)
+                                .padding(.top, 45)
+                                .padding(.leading, 10)
+                        } else {
+                            Text("Residents of this House")
+                                .font(.system(size: 25))
+                                .bold()
+                                .foregroundColor(.white)
+                                .padding(.top, 45)
+                                .padding(.leading, 10)
+                        }
+                        Spacer()
+                    }
                 }
                 .frame(width: 400, height: 120)
                 .background(Color(red: 0.439, green: 0.298, blue: 1.0))
@@ -30,7 +45,7 @@ struct AllHousematesView: View {
                 }
                 HStack {
                     Text("Nice To Know")
-                        .font(.system(size: 30))
+                        .font(.system(size: 25))
                         .foregroundColor(.white)
                         .padding(.leading, 10)
                         .bold()
@@ -61,7 +76,7 @@ struct AllHousematesView: View {
                     }
                     Text("Next Birthday")
                         .font(.system(size:15))
-                        .opacity(0.25)
+                        .opacity(0.40)
                     if let birthday = userWithNextBirthday?.birthday {
                         
                         let startIndexDay = birthday.index(birthday.startIndex, offsetBy: 0)
@@ -78,13 +93,15 @@ struct AllHousematesView: View {
                         
                         Text(formattedBirthday)
                             .font(.system(size:40))
+                            .bold()
                             .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                     } else {
                         Text("None")
                             .font(.system(size:40))
+                            .bold()
                             .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                     }
-                        
+                    
                 }.frame(width: 128, height: 168)
                     .background(
                         RoundedRectangle(
@@ -108,6 +125,7 @@ struct AllHousematesView_Previews: PreviewProvider {
         AllHousematesView()
             .environmentObject(AuthViewModel.mock())
             .environmentObject(UserViewModel())
+            .environmentObject(GroupViewModel())
            
     }
     
