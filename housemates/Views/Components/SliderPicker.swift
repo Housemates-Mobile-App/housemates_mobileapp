@@ -39,10 +39,13 @@ struct SliderPicker: View {
                 selectedColor
                     .matchedGeometryEffect(id: selectedElement, in: namespace, properties: .frame, isSource: false)
             )
-        }.background(
-            RoundedRectangle(cornerRadius: 30)
-                .fill(.white)
-                .padding(10)
+        }
+        .padding(10)
+        .background(
+            VStack {
+                RoundedRectangle(cornerRadius: 30)
+                    .fill(.white)
+            }
         )
     }
 }

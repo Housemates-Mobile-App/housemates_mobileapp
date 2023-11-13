@@ -23,7 +23,7 @@ struct TaskSelectionBox: View {
                 .foregroundColor(Color(red: 0.3725, green: 0.3373, blue: 0.3373))
                 .offset(y: 5)
         }.padding(5)
-        .frame(width: 75, height: 75)
+        .frame(width: 85, height: 85)
         .background(
             RoundedRectangle(cornerRadius: 15)
                 .stroke(Color(red: 0.3569, green: 0.0078, blue: 0.3490), lineWidth: 1)
