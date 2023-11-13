@@ -12,24 +12,92 @@ struct AllHousematesView: View {
 
     var body: some View {
         if let user = authViewModel.currentUser {
-
-            VStack(spacing: 10)  {
-                Text("The Housemates")
-                    .font(.system(size: 30))
-                    .bold()
-                    .frame(alignment: .leading)
-                Divider()
-                ForEach(userViewModel.getUserGroupmatesInclusive(user.id!)) { mate in
-                        AllHousematesCard(housemate: mate)
+            // Top part with a different background color
+            let userGroupmatesInclusive = userViewModel.getUserGroupmatesInclusive(user.id!)
+            let userWithNextBirthday = userViewModel.userWithNextBirthday(users: userGroupmatesInclusive)
+            VStack(spacing:20) {
+                VStack  {
+                    Text("The Housemates")
+                        .font(.system(size: 18))
+                        .bold()
+                        .foregroundColor(.white)
                 }
-                Text("Nice To Know")
-                    .font(.system(size: 30))
-                    .frame(alignment: .leading)
-                Divider()
+                .frame(width: 400, height: 120)
+                .background(Color(red: 0.439, green: 0.298, blue: 1.0))
+                
+                ForEach(userGroupmatesInclusive) { mate in
+                    AllHousematesCard(housemate: mate)
+                }
                 HStack {
+                    Text("Nice To Know")
+                        .font(.system(size: 30))
+                        .foregroundColor(.white)
+                        .padding(.leading, 10)
+                        .bold()
+                    Spacer()
+                }.padding(5)
+                    .background(
+                    RoundedRectangle(cornerRadius: 15)
+                      .fill(Color(red: 0.439, green: 0.298, blue: 1.0))
+                )
+                VStack {
+                    let imageURL = URL(string: userWithNextBirthday?.imageURLString ?? "")
+                    
+                    AsyncImage(url: imageURL) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .clipShape(Circle())
+                            .frame(width: 67, height: 67)
+                        
+                    } placeholder: {
+            
+                        // MARK: Default user profile picture
+                        Image(systemName: "person.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .clipShape(Circle())
+                            .frame(width: 67, height: 67)
+                    }
+                    Text("Next Birthday")
+                        .font(.system(size:15))
+                        .opacity(0.25)
+                    if let birthday = userWithNextBirthday?.birthday {
+                        
+                        let startIndexDay = birthday.index(birthday.startIndex, offsetBy: 0)
+                        let endIndexDay = birthday.index(startIndexDay, offsetBy: 2)
+                        let daySubstring = birthday[startIndexDay..<endIndexDay]
+                        let day = String(daySubstring)
 
-                }
-            }
+                        let startIndexMonth = birthday.index(startIndexDay, offsetBy: 3)
+                        let endIndexMonth = birthday.index(startIndexMonth, offsetBy: 2)
+                        let monthSubstring = birthday[startIndexMonth..<endIndexMonth]
+                        let month = String(monthSubstring)
+
+                        let formattedBirthday = "\(month).\(day)"
+                        
+                        Text(formattedBirthday)
+                            .font(.system(size:40))
+                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                    } else {
+                        Text("None")
+                            .font(.system(size:40))
+                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                    }
+                        
+                }.frame(width: 128, height: 168)
+                    .background(
+                        RoundedRectangle(
+                            cornerRadius: 10
+                        ).fill(.white.opacity(0.9))
+                    )
+                Spacer()
+            }.background(
+                LinearGradient(gradient: Gradient(colors: [
+                    Color(red: 0.925, green: 0.863, blue: 1.0).opacity(1.00),
+                    Color(red: 0.619, green: 0.325, blue: 1.0).opacity(0.51)
+                ]), startPoint: .top, endPoint: .bottom)
+            ).ignoresSafeArea(.all)
         }
     }
 }

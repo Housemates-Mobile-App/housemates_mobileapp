@@ -63,7 +63,8 @@ struct HomeView: View {
                                         AsyncImage(url: imageURL) { image in
                                             image
                                                 .resizable()
-                                                .scaledToFit()
+                                                .aspectRatio(contentMode: .fill)
+                                                .clipShape(Circle())
                                                 .frame(width: 60, height: 60)
                                                 .padding(.bottom, 5)
                                             
@@ -72,7 +73,8 @@ struct HomeView: View {
                                             // MARK: Default user profile picture
                                             Image(systemName: "person.circle")
                                                 .resizable()
-                                                .scaledToFit()
+                                                .aspectRatio(contentMode: .fill)
+                                                .clipShape(Circle())
                                                 .frame(width: 60, height: 60)
                                                 .padding(.bottom, 5)
                                             

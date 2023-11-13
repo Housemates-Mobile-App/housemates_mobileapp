@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct TaskSelectionView: View {
     @EnvironmentObject var taskViewModel : TaskViewModel
@@ -13,7 +14,7 @@ struct TaskSelectionView: View {
     @Binding var hideTabBar: Bool
 //  added this to bring the user back to the first page after adding a task
     @Binding var selectedTab: Int
-    
+    @State var isAnimating : Bool = true
     var body: some View {
         ZStack {
             VStack(spacing: 20) {
@@ -40,6 +41,13 @@ struct TaskSelectionView: View {
                 VStack {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 15) {
+                            HStack {
+                                AnimatedImage(name: "trashAnimated.gif", isAnimating: $isAnimating).frame(width: 50, height: 50)
+                                AnimatedImage(name: "trashAnimated.gif", isAnimating: $isAnimating).frame(width: 50, height: 50)
+                                AnimatedImage(name: "trashAnimated.gif", isAnimating: $isAnimating).frame(width: 50, height: 50)
+                                AnimatedImage(name: "trashAnimated.gif", isAnimating: $isAnimating).frame(width: 50, height: 50)
+                                AnimatedImage(name: "trashAnimated.gif", isAnimating: $isAnimating).frame(width: 50, height: 50)
+                            }
                             Text("Housework")
                                 .font(.system(size: 12))
                                 .bold()
