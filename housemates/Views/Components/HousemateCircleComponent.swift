@@ -21,7 +21,21 @@ struct HousemateCircleComponent: View {
                     .clipShape(Circle())
                     .frame(width: 60, height: 60)
                     .padding(.bottom, 5)
-                
+                    // Gradient stroke overlay
+                    .background(
+                        // Gradient stroke overlay
+                        Circle()
+                            .stroke(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [Color.orange, Color.pink]),
+                                    startPoint: .bottomLeading,
+                                    endPoint: .topTrailing
+                                ),
+                                lineWidth: 3
+                            )
+                            .frame(width: 66, height: 66)
+                            .padding(.bottom, 5)
+                    )
             } placeholder: {
     
                 // MARK: Default user profile picture
@@ -42,7 +56,8 @@ struct HousemateCircleComponent: View {
                                 ),
                                 lineWidth: 3
                             )
-                            .frame(width: 60, height: 60)
+                            .frame(width: 66, height: 66)
+                            .padding(.bottom, 5)
                     )
                 
             }

@@ -70,7 +70,7 @@ struct HomeView: View {
                             .padding(.horizontal)
                         }
                         // Scrollable main content feed
-                        VStack(spacing: 10) {
+                        LazyVStack(spacing: 10) {
                             ForEach(posts) { post in
                                 PostComponent(post: post)
                             }
