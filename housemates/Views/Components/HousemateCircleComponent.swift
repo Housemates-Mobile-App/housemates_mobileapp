@@ -70,6 +70,6 @@ struct HousemateCircleComponent: View {
     }
 }
 
-#Preview {
-    HousemateCircleComponent(housemate: UserViewModel.mockUser())
-}
+//#Preview {
+//    HousemateCircleComponent(housemate: UserViewModel.mockUser())
+//}

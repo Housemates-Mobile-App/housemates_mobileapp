@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct TaskView: View {
-    let task: task  // Assuming 'task' is your Task model
-    let user: User  // Assuming 'User' is your User model
+    let task: task
+    let user: User
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var userViewModel: UserViewModel
@@ -11,6 +11,7 @@ struct TaskView: View {
     
     var body: some View {
         HStack {
+            Image("dalle4")
             taskInformationView
             Spacer()
             if editMode?.wrappedValue.isEditing ?? false {
@@ -19,7 +20,7 @@ struct TaskView: View {
                 statusButtonOrLabel
             }
         }
-        .frame(minWidth: 50, minHeight: 50)
+        .frame(minWidth: 50, minHeight: 45)
         .padding(15)
         .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.black.opacity(0.25), lineWidth: 1))
     }

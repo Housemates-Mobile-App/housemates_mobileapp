@@ -117,7 +117,6 @@ struct HousemateProfileView: View {
 
 struct HousemateProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        let user = User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000")
         HousemateProfileView(housemate: UserViewModel.mockUser())
             .environmentObject(AuthViewModel())
             .environmentObject(TaskViewModel())
