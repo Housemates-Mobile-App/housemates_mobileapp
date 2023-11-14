@@ -28,16 +28,16 @@ struct FilterView: View {
         }
         
         Button(action: {
-          selected = "To Do"
+          selected = "Unclaimed"
         }){
-          Text("To Do")
+          Text("Unclaimed")
             .font(.system(size: 12))
             .frame(maxWidth: 75, maxHeight: 15)
             .bold()
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .foregroundColor(Color.white)
-            .background(selected == "To Do" ? deepPurple: deepPurple.opacity(0.25))
+            .background(selected == "Unclaimed" ? deepPurple: deepPurple.opacity(0.25))
             .cornerRadius(25)
         }
         
