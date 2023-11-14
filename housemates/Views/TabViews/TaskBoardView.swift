@@ -45,11 +45,11 @@ struct TaskBoardView: View {
     private func addTaskButton(user: User) -> some View {
         NavigationLink(destination: TaskSelectionView(user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
             Image(systemName: "plus")
-                .font(.title)
+                .font(.headline)
+                .imageScale(.small)
                 .foregroundColor(Color.white)
-                .background(Color.purple)
-                .clipShape(Circle())
                 .padding(7.5)
+                .background(Circle().fill(Color(red: 0.439, green: 0.298, blue: 1.0)))
                 .fontWeight(.semibold)
         }
     }

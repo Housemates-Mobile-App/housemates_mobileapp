@@ -14,18 +14,17 @@ struct NewInputView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(title)
-                .font(.system(size: 20))
+                .font(.system(size: 18))
                 .foregroundColor(.black)
                 .bold()
             
             TextField(placeholder, text: $text)
                 .font(.system(size: 16))
-                .padding(10)
                 .background(
                     RoundedRectangle(cornerRadius: 30)
                         .fill(.white)
                 )
-        }
+        }.padding()
     }
 }
 

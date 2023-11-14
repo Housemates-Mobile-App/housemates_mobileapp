@@ -18,38 +18,38 @@ struct TaskSelectionView: View {
     var body: some View {
         ZStack {
             VStack(spacing: 20) {
+              Text("Select Task")
+                .font(.title)
+                .fontWeight(.bold)
+                
                 // Top part with a different background color
-                Color(red: 0.439, green: 0.298, blue: 1.0)
-                    .frame(width: 400, height: 120)
-                    .overlay(
-                        Text("Add Task")
-                            .font(.system(size: 18))
-                            .bold()
-                            .foregroundColor(.white)
-                            .padding(.top, 70)
-                            .padding(.trailing, 250)
-                )
+                
                 
                 // Search bar placeholder
-                TextField("Search for a template...", text: .constant(""))
-                    .font(.system(size: 20))
-                    .padding(13)
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .frame(width: 370)
+              HStack {
+                  Image(systemName: "magnifyingglass")
+                      .foregroundColor(.gray) // Icon color
+                      .padding(5)
+
+                  TextField("What task do you want to add?", text: .constant(""))
+                      .font(.system(size: 14))
+                      .foregroundColor(Color.black) // Text color
+                      .padding(.vertical, 10)
+                      .background(Color.clear) // Clear background for the text field
+              }
+              .padding(.horizontal, 10) // Horizontal padding for the HStack
+              .background(Color(.systemGray5)) // Slightly gray background for the entire HStack
+              .cornerRadius(15)
+              .padding(.horizontal)// Corner radius of 15
+             // Fixed width for the HStack
+
+                
                 
                 VStack {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 15) {
-                            HStack {
-                                AnimatedImage(name: "trashAnimated.gif", isAnimating: $isAnimating).frame(width: 50, height: 50)
-                                AnimatedImage(name: "trashAnimated.gif", isAnimating: $isAnimating).frame(width: 50, height: 50)
-                                AnimatedImage(name: "trashAnimated.gif", isAnimating: $isAnimating).frame(width: 50, height: 50)
-                                AnimatedImage(name: "trashAnimated.gif", isAnimating: $isAnimating).frame(width: 50, height: 50)
-                                AnimatedImage(name: "trashAnimated.gif", isAnimating: $isAnimating).frame(width: 50, height: 50)
-                            }
                             Text("Housework")
-                                .font(.system(size: 12))
+                                .font(.system(size: 14))
                                 .bold()
                             ForEach(0..<hardcodedHouseworkTaskData.count, id: \.self) { i in
                                 if i % 3 == 0 {
@@ -63,8 +63,9 @@ struct TaskSelectionView: View {
                                     }
                                 }
                             }
+                          
                             Text("Indoor")
-                                .font(.system(size: 12))
+                                .font(.system(size: 14))
                                 .bold()
                             ForEach(0..<hardcodedIndoorTaskData.count, id: \.self) { i in
                                 if i % 3 == 0 {
@@ -79,7 +80,7 @@ struct TaskSelectionView: View {
                                 }
                             }
                             Text("Outdoor")
-                                .font(.system(size: 12))
+                                .font(.system(size: 14))
                                 .bold()
                             ForEach(0..<hardcodedOutdoorTaskData.count, id: \.self) { i in
                                 if i % 3 == 0 {
@@ -97,33 +98,28 @@ struct TaskSelectionView: View {
                     }
                 }.padding()
                     // bad style. double padding can we fix this. hardcoded.
-                    .padding(.bottom, 20)
-                    .padding(.horizontal, 15)
-                .background(
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(Color(red: 0.8118, green: 0.8196, blue: 1.0))
-                        .padding(.bottom, 40)
-                )
+                    
+                
 
             }
             // Oval-shaped button at the bottom
-            VStack {
-                Spacer()
-                NavigationLink(destination:
-                                AddTaskView(taskIconStringHardcoded: "", taskNameHardcoded: "", user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
-                    RoundedRectangle(cornerRadius: 30)
-                        .fill(Color(red: 0.439, green: 0.298, blue: 1.0))
-                        .frame(width: 222, height: 51)
-                        .overlay(
-                            Text("Add a Custom Task +")
-                                .font(.system(size: 18))
-                                .bold()
-                                .foregroundColor(.white)
-                            
-                        )
-                        .offset(y:-20)
-                }
-            }
+          VStack {
+              Spacer()
+              NavigationLink(destination: AddTaskView(taskIconStringHardcoded: "", taskNameHardcoded: "", user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
+                  Text("Add a Custom Task +")
+                      .font(.system(size: 18))
+                      .bold()
+                      .foregroundColor(.white)
+                      .frame(maxWidth: .infinity, minHeight: 50)
+                      .background(Color(red: 0.439, green: 0.298, blue: 1.0))
+                      .cornerRadius(30)
+                      .padding(.horizontal)
+              }
+              .buttonStyle(PlainButtonStyle())
+              .offset(y: -20) // If needed to offset the button upwards
+          }
+          
+
         }
         .onAppear {
             //setting taskName to be the input
@@ -132,12 +128,7 @@ struct TaskSelectionView: View {
         .onDisappear {
             hideTabBar = false
         }
-        .background(
-            LinearGradient(gradient: Gradient(colors: [
-                Color(red: 0.925, green: 0.863, blue: 1.0).opacity(0.25),
-                Color(red: 0.619, green: 0.325, blue: 1.0).opacity(0.25)
-            ]), startPoint: .top, endPoint: .bottom)
-            ).ignoresSafeArea(.all)
+        
     }
 }
 

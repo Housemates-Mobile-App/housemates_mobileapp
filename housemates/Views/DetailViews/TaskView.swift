@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct TaskView: View {
-    let task: task  // Assuming 'task' is your Task model
-    let user: User  // Assuming 'User' is your User model
+    let task: task
+    let user: User
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var userViewModel: UserViewModel
@@ -11,6 +11,8 @@ struct TaskView: View {
     
     var body: some View {
         HStack {
+//          currently a placeholder
+            Image("dalle4")
             taskInformationView
             Spacer()
             if editMode?.wrappedValue.isEditing ?? false {
@@ -19,45 +21,83 @@ struct TaskView: View {
                 statusButtonOrLabel
             }
         }
-        .frame(minWidth: 50, minHeight: 50)
-        .padding(15)
-        .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.black.opacity(0.25), lineWidth: 1))
+        .frame(minWidth: 50, minHeight: 45)
+        .padding(12.5)
+        .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.black.opacity(0.1), lineWidth: 1))
+        .padding(2.5)
     }
 
     // MARK: - Task Information View
     @ViewBuilder
     private var taskInformationView: some View {
-        VStack(alignment: .leading) {
-            Text(task.name).font(.headline)
-
-            if task.status == .done, let uid = task.user_id, let user = userViewModel.getUserByID(uid) {
-                Text("\(user.first_name) \(user.last_name) finished on \(task.date_completed ?? "Unknown")")
-                    .font(.footnote)
-                    .foregroundColor(Color.gray)
-            } else {
-                priorityLabel
-            }
+      VStack(alignment: .leading, spacing: 0) {
+        
+//        Text and Priority
+        HStack() {
+          Text(task.name).font(.headline)
+          if task.status != .done {
+            priorityLabel
+          }
         }
+        
+        
+        if task.status == .done, let uid = task.user_id, let user = userViewModel.getUserByID(uid) {
+          Text("\(user.first_name) \(user.last_name) finished on \(task.date_completed ?? "Unknown")")
+            .font(.footnote)
+            .foregroundColor(Color.gray)
+//          add else if here
+        }
+        else if task.status == .inProgress, let uid = task.user_id, let user = userViewModel.getUserByID(uid) {
+          Text("Claimed by \(user.first_name) \(user.last_name)")
+            .font(.footnote)
+            .foregroundColor(Color.gray)
+          
+          
+          
+        }
+        
+        else {
+          Text("2 days ago")
+            .font(.footnote)
+            .foregroundColor(Color.black.opacity(0.5))
+        }
+        
+        
+          
+        
+      }
     }
-
+  
     // MARK: - Priority Label
+    @ViewBuilder
     private var priorityLabel: some View {
-        Text(task.priority)
-            .font(.subheadline)
-            .foregroundColor(priorityColor(for: task.priority))
+ 
+        switch task.priority {
+          case "Low":
+            priorityTag(Color.green.opacity(0.25), Color.black)
+          case "Medium":
+            priorityTag(Color.yellow.opacity(0.25), Color.black)
+          default:
+            priorityTag(Color.red.opacity(0.25), Color.black)
+        }
+      
+    }
+  
+  
+    private func priorityTag(_ color: Color, _ text: Color) -> some View {
+        Circle()
+              .fill(color)
+              .frame(width: 15, height: 15)
+//        Text(task.priority)
+//            .font(.system(size: 12))
+//            .padding(.horizontal)
+//            .padding(.vertical, 3)
+//            .foregroundColor(text)
+//            .background(color)
+//            .cornerRadius(15)
     }
 
-    // MARK: - Priority Color
-    private func priorityColor(for priority: String) -> Color {
-        switch priority {
-        case "Low":
-            return Color.green
-        case "Medium":
-            return Color.orange
-        default:
-            return Color.red
-        }
-    }
+    
 
     // MARK: - Delete Button
     private var deleteButton: some View {
@@ -114,7 +154,6 @@ struct TaskView: View {
         .frame(width: 35, height: 35)
         .clipShape(Circle())
         .overlay(Circle().stroke(Color.white, lineWidth: 2))
-        .shadow(radius: 5)
         .padding(5)
     }
 }
