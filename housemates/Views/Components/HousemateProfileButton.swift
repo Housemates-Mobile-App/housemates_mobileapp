@@ -40,6 +40,6 @@ struct HousemateProfileButton: View {
     }
 }
 
-#Preview {
-    HousemateProfileButton(phoneNumber: "1234567890", title: "Call", iconStr: "call-phone", urlScheme:"tel")
-}
+//#Preview {
+//    HousemateProfileButton(phoneNumber: "1234567890", title: "Call", iconStr: "call-phone", urlScheme:"tel")
+//}

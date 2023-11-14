@@ -50,7 +50,7 @@ struct SliderPicker: View {
     }
 }
 
-#Preview {
-    SliderPicker(selectedElement: Binding.constant(TaskViewModel.TaskPriority.medium))
-        .environmentObject(TaskViewModel())
-}
+//#Preview {
+//    SliderPicker(selectedElement: Binding.constant(TaskViewModel.TaskPriority.medium))
+//        .environmentObject(TaskViewModel())
+//}
