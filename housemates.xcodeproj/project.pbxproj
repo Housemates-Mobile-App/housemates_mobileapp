@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5125D3352B016C4C00E9E623 /* HousemateProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125D3342B016C4C00E9E623 /* HousemateProfileButton.swift */; };
+		512D1EAF2B033B6E007A388A /* SwiftUITrackableScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 512D1EAE2B033B6E007A388A /* SwiftUITrackableScrollView */; };
 		5138709F2AF562DD007A83B4 /* HousemateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5138709E2AF562DD007A83B4 /* HousemateProfileView.swift */; };
 		5155A17A2AFDC6D500832E51 /* AllHousematesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155A1792AFDC6D500832E51 /* AllHousematesCard.swift */; };
 		5155A17C2AFDC6ED00832E51 /* AllHousematesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155A17B2AFDC6ED00832E51 /* AllHousematesView.swift */; };
@@ -15,6 +16,8 @@
 		515939D22AFF3609004C31BB /* TaskSelectionVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515939D12AFF3609004C31BB /* TaskSelectionVIew.swift */; };
 		515939D42AFF37B2004C31BB /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515939D32AFF37B2004C31BB /* TaskData.swift */; };
 		5188F2242B02AC47001B1AA0 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5188F2232B02AC47001B1AA0 /* GroupViewModel.swift */; };
+		5188F2262B030DAF001B1AA0 /* HousemateCircleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5188F2252B030DAF001B1AA0 /* HousemateCircleComponent.swift */; };
+		5188F2282B031298001B1AA0 /* PostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5188F2272B031298001B1AA0 /* PostComponent.swift */; };
 		51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */; };
 		51B397682B01FB8000A0AF2A /* NewInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B397672B01FB8000A0AF2A /* NewInputView.swift */; };
 		51B3976A2B01FF2600A0AF2A /* SliderPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B397692B01FF2600A0AF2A /* SliderPicker.swift */; };
@@ -139,6 +142,8 @@
 		515939D12AFF3609004C31BB /* TaskSelectionVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSelectionVIew.swift; sourceTree = "<group>"; };
 		515939D32AFF37B2004C31BB /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
 		5188F2232B02AC47001B1AA0 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
+		5188F2252B030DAF001B1AA0 /* HousemateCircleComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousemateCircleComponent.swift; sourceTree = "<group>"; };
+		5188F2272B031298001B1AA0 /* PostComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComponent.swift; sourceTree = "<group>"; };
 		51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCreateCard.swift; sourceTree = "<group>"; };
 		51B397672B01FB8000A0AF2A /* NewInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInputView.swift; sourceTree = "<group>"; };
 		51B397692B01FF2600A0AF2A /* SliderPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderPicker.swift; sourceTree = "<group>"; };
@@ -219,6 +224,7 @@
 				8AA3B8BB2AF9D4680064CFD6 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				8AF0A4072AF9D40B00A79110 /* FirebaseFirestoreSwift in Frameworks */,
 				8A6AD4E72AFB534400A6DF85 /* FirebaseDatabaseSwift in Frameworks */,
+				512D1EAF2B033B6E007A388A /* SwiftUITrackableScrollView in Frameworks */,
 				8A6AD4F12AFB534400A6DF85 /* FirebaseStorageCombine-Community in Frameworks */,
 				8AF0A4012AF9D40B00A79110 /* FirebaseDatabaseSwift in Frameworks */,
 				8AA3B8DB2AF9D4680064CFD6 /* FirebaseInAppMessaging-Beta in Frameworks */,
@@ -315,6 +321,8 @@
 				5125D3342B016C4C00E9E623 /* HousemateProfileButton.swift */,
 				51B397672B01FB8000A0AF2A /* NewInputView.swift */,
 				51B397692B01FF2600A0AF2A /* SliderPicker.swift */,
+				5188F2252B030DAF001B1AA0 /* HousemateCircleComponent.swift */,
+				5188F2272B031298001B1AA0 /* PostComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -514,6 +522,7 @@
 				8A6AD4EE2AFB534400A6DF85 /* FirebaseStorage */,
 				8A6AD4F02AFB534400A6DF85 /* FirebaseStorageCombine-Community */,
 				51B3976C2B02385100A0AF2A /* SDWebImageSwiftUI */,
+				512D1EAE2B033B6E007A388A /* SwiftUITrackableScrollView */,
 			);
 			productName = housemates;
 			productReference = 8AD6ED052AF1969C006B56B6 /* housemates.app */;
@@ -550,6 +559,7 @@
 			packageReferences = (
 				8AD6ED2C2AF1991F006B56B6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				51B3976B2B02385100A0AF2A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				512D1EAD2B033B6E007A388A /* XCRemoteSwiftPackageReference "trackable-scroll-view" */,
 			);
 			productRefGroup = 8AD6ED062AF1969C006B56B6 /* Products */;
 			projectDirPath = "";
@@ -606,6 +616,7 @@
 				8AD6ED092AF1969C006B56B6 /* housematesApp.swift in Sources */,
 				8AE8FF972AF4110E003AD997 /* RegistrationView.swift in Sources */,
 				8AF358442AF4B2E20009B93C /* CreateGroupView.swift in Sources */,
+				5188F2262B030DAF001B1AA0 /* HousemateCircleComponent.swift in Sources */,
 				8A7F0AC02AFD407900F7B76B /* UserViewModel.swift in Sources */,
 				8AD6ED292AF1980D006B56B6 /* GroupDataRepository.swift in Sources */,
 				8AE8FF9B2AF4114B003AD997 /* InputView.swift in Sources */,
@@ -634,6 +645,7 @@
 				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,
 				ADD11A682AFC3FCB001861A0 /* AddTaskView.swift in Sources */,
+				5188F2282B031298001B1AA0 /* PostComponent.swift in Sources */,
 				8AE8FF952AF41101003AD997 /* LoginView.swift in Sources */,
 				5125D3352B016C4C00E9E623 /* HousemateProfileButton.swift in Sources */,
 				8AE8FFA32AF41F47003AD997 /* TaskBoardView.swift in Sources */,
@@ -906,6 +918,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		512D1EAD2B033B6E007A388A /* XCRemoteSwiftPackageReference "trackable-scroll-view" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/maxnatchanon/trackable-scroll-view";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		51B3976B2B02385100A0AF2A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
@@ -925,6 +945,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		512D1EAE2B033B6E007A388A /* SwiftUITrackableScrollView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 512D1EAD2B033B6E007A388A /* XCRemoteSwiftPackageReference "trackable-scroll-view" */;
+			productName = SwiftUITrackableScrollView;
+		};
 		51B3976C2B02385100A0AF2A /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 51B3976B2B02385100A0AF2A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
