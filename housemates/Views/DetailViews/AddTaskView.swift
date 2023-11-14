@@ -129,7 +129,6 @@ struct AddTaskView: View {
     showAlert = true
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-      // Delay the dismissal for 2 seconds (you can adjust the duration)
       showAlert = false
       presentationMode.wrappedValue.dismiss()
     }

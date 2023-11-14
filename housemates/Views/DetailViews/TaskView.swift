@@ -11,8 +11,8 @@ struct TaskView: View {
     
     var body: some View {
         HStack {
+//          currently a placeholder
             Image("dalle4")
-              .border(Color.red)
             taskInformationView
             Spacer()
             if editMode?.wrappedValue.isEditing ?? false {
