@@ -32,6 +32,11 @@ class TaskViewModel: ObservableObject {
         case high = "High"
     }
     
+    func getUserIdByTaskId(_ tid: String) -> String? {
+        let associatedTask = self.tasks.filter { $0.id == tid }.first
+        return associatedTask?.user_id
+    }
+    
     func getTasksForGroup(_ group_id: String) -> [task] {
       return self.tasks.filter { $0.group_id == group_id}
     }
