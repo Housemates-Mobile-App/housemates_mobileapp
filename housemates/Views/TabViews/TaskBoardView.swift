@@ -75,8 +75,12 @@ struct TaskBoardView: View {
     private func taskScrollView(user: User) -> some View {
         ScrollView {
             VStack(alignment: .leading) {
+              HStack {
+                Spacer()
                 FilterView(selected: $selected)
-                    .padding(.horizontal, 10)
+                Spacer()
+              }
+               
                    
                 taskSections(user: user)
             }
