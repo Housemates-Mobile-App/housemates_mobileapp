@@ -22,8 +22,9 @@ struct TaskView: View {
             }
         }
         .frame(minWidth: 50, minHeight: 45)
-        .padding(15)
+        .padding(12.5)
         .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.black.opacity(0.1), lineWidth: 1))
+        .padding(2.5)
     }
 
     // MARK: - Task Information View
