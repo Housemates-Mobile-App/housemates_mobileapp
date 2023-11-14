@@ -19,7 +19,7 @@ struct SliderPicker: View {
     let selectedColor = Color.green
     
     var body: some View {
-        HStack (spacing: 70) {
+        HStack() {
             ForEach(elements, id: \.self) { priority in
                 Text(priority.rawValue)
                     .foregroundColor(selectedElement.rawValue == priority.rawValue ? selectedColor : color)
