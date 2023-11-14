@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		512246752B034E6B006C3F23 /* FlashcardComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512246742B034E6B006C3F23 /* FlashcardComponent.swift */; };
 		5125D3352B016C4C00E9E623 /* HousemateProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125D3342B016C4C00E9E623 /* HousemateProfileButton.swift */; };
 		512D1EAF2B033B6E007A388A /* SwiftUITrackableScrollView in Frameworks */ = {isa = PBXBuildFile; productRef = 512D1EAE2B033B6E007A388A /* SwiftUITrackableScrollView */; };
 		5138709F2AF562DD007A83B4 /* HousemateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5138709E2AF562DD007A83B4 /* HousemateProfileView.swift */; };
@@ -133,6 +134,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		512246742B034E6B006C3F23 /* FlashcardComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardComponent.swift; sourceTree = "<group>"; };
 		5125D3342B016C4C00E9E623 /* HousemateProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousemateProfileButton.swift; sourceTree = "<group>"; };
 		5138709E2AF562DD007A83B4 /* HousemateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousemateProfileView.swift; sourceTree = "<group>"; };
 		5155A1792AFDC6D500832E51 /* AllHousematesCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHousematesCard.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				51B397692B01FF2600A0AF2A /* SliderPicker.swift */,
 				5188F2252B030DAF001B1AA0 /* HousemateCircleComponent.swift */,
 				5188F2272B031298001B1AA0 /* PostComponent.swift */,
+				512246742B034E6B006C3F23 /* FlashcardComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -637,6 +640,7 @@
 				5155A17A2AFDC6D500832E51 /* AllHousematesCard.swift in Sources */,
 				ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */,
 				8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */,
+				512246752B034E6B006C3F23 /* FlashcardComponent.swift in Sources */,
 				5188F2242B02AC47001B1AA0 /* GroupViewModel.swift in Sources */,
 				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,
