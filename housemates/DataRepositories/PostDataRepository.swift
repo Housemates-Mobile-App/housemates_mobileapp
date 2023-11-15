@@ -37,6 +37,14 @@ class PostRepository: ObservableObject {
     }
 
     // MARK: CRUD methods
-
+    func create(_ post: Post) {
+            do {
+                let newPost = post
+                _ = try store.collection(path).addDocument(from: newPost)
+            } catch {
+                fatalError("Unable to add post: \(error.localizedDescription).")
+            }
+    }
+    
     // MARK: Filtering methods
 }

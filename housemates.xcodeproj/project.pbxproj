@@ -99,6 +99,7 @@
 		8AE8FFA12AF41F36003AD997 /* AmenityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FFA02AF41F36003AD997 /* AmenityView.swift */; };
 		8AE8FFA32AF41F47003AD997 /* TaskBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */; };
 		8AE8FFA52AF41F6B003AD997 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FFA42AF41F6B003AD997 /* ProfileView.swift */; };
+		8AEE050B2B0423A80030A6E0 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE050A2B0423A80030A6E0 /* PostViewModel.swift */; };
 		8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92CD2AF19978006AECD3 /* Comment.swift */; };
 		8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */; };
 		8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */; };
@@ -182,6 +183,7 @@
 		8AE8FFA02AF41F36003AD997 /* AmenityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenityView.swift; sourceTree = "<group>"; };
 		8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBoardView.swift; sourceTree = "<group>"; };
 		8AE8FFA42AF41F6B003AD997 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		8AEE050A2B0423A80030A6E0 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		8AEE92CD2AF19978006AECD3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataRepository.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 				ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */,
 				8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */,
 				5188F2232B02AC47001B1AA0 /* GroupViewModel.swift */,
+				8AEE050A2B0423A80030A6E0 /* PostViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AEE050B2B0423A80030A6E0 /* PostViewModel.swift in Sources */,
 				8AD6ED0B2AF1969C006B56B6 /* ContentView.swift in Sources */,
 				8AD6ED262AF197D3006B56B6 /* Amentity.swift in Sources */,
 				8AD6ED092AF1969C006B56B6 /* housematesApp.swift in Sources */,
