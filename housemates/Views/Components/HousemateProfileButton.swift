@@ -21,8 +21,9 @@ struct HousemateProfileButton: View {
                 }
             }) {
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.white.opacity(0.3))
-                    .frame(width: 65, height: 48)
+                    .fill(.white)
+                    .frame(width: 58, height: 51)
+                    .shadow(color: Color(.black).opacity(0.5), radius: 2, x: 0, y: 2)
                     .overlay(
                         VStack(spacing: 5) {
                             Image(iconStr)
@@ -30,7 +31,7 @@ struct HousemateProfileButton: View {
                                 .frame(width: 24, height: 24)
                             
                             Text(title)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black.opacity(0.75))
                                 .font(.system(size: 12))
                                 .bold()
                         }
@@ -40,6 +41,6 @@ struct HousemateProfileButton: View {
     }
 }
 
-//#Preview {
-//    HousemateProfileButton(phoneNumber: "1234567890", title: "Call", iconStr: "call-phone", urlScheme:"tel")
-//}
+#Preview {
+    HousemateProfileButton(phoneNumber: "1234567890", title: "Call", iconStr: "phone", urlScheme:"tel")
+}

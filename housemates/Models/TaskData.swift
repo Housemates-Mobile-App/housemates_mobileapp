@@ -7,6 +7,7 @@
 
 import Foundation
 
+// for taskSelection
 struct TaskData {
     var taskIcon: String
     var taskName: String
@@ -37,4 +38,21 @@ let hardcodedOutdoorTaskData: [TaskData] = [
     TaskData(taskIcon: "dalle4", taskName: "Pay Bills"),
     TaskData(taskIcon: "dalle5", taskName: "Mop Floor"),
     TaskData(taskIcon: "dalle6", taskName: "Dust Chairs"),
+]
+
+// for task chart
+struct TaskDataPoint : Identifiable {
+    var id = UUID().uuidString
+    var day: String
+    var totalTasks: Int
+}
+
+let hardcodedTaskDataPoints: [TaskDataPoint] = [
+    TaskDataPoint(day: "Sun", totalTasks: 3),
+    TaskDataPoint(day: "Mon", totalTasks: 5),
+    TaskDataPoint(day: "Tue", totalTasks: 7),
+    TaskDataPoint(day: "Wed", totalTasks: 2),
+    TaskDataPoint(day: "Thu", totalTasks: 1),
+    TaskDataPoint(day: "Fri", totalTasks: 3),
+    TaskDataPoint(day: "Sat", totalTasks: 4)
 ]

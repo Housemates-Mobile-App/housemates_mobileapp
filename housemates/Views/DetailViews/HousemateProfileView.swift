@@ -6,112 +6,144 @@
 //
 
 import SwiftUI
+import Charts
 
 struct HousemateProfileView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var taskViewModel : TaskViewModel
     let housemate: User
     var body: some View {
-        ZStack {
-            VStack {
-                VStack(spacing:10) {
-                    
-                    //image
-                    let imageURL = URL(string: housemate.imageURLString ?? "")
-                    
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 90, height: 90)
-                            .clipShape(Circle())
-                            .shadow(radius: 5)
-                            .foregroundColor(.gray)
-                    } placeholder: {
-                        // Default user profile picture
-                        Image(systemName: "person.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 90, height: 90)
-                            .clipShape(Circle())
-                            .shadow(radius: 5)
-                            .foregroundColor(.gray)
-                    }
-                    
-                    Text("\(housemate.first_name) \(housemate.last_name)")
-                        .font(.system(size: 34))
-                        .bold()
-                        .foregroundColor(.white)
-                    
-                    let userStatus: String = {
-                        if let isHome = housemate.is_home {
-                            return isHome ? "home" : "away"
-                        } else {
-                            return "unknown"
-                        }
-                    }()
-                    
-                    Text("\(housemate.first_name) is currently \(userStatus)")
-                        .font(.system(size: 16))
-                        .foregroundColor(housemate.is_home == nil ? Color(red: 0.827, green: 0.827, blue: 0.827) : (housemate.is_home! ? Color(red: 0.07, green: 0.77, blue: 0.52) : .red))
-                    
-                    HStack(spacing: 20) {
-                        HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Call", iconStr: "call-phone", urlScheme:"tel")
-                        HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Text", iconStr: "message-1", urlScheme:"sms")
-                    }
-                }.frame(width: 400, height: 300)
-                    .background(Color(red: 0.439, green: 0.298, blue: 1.0))
-                    .padding(.top, 15)
+        VStack(spacing: 10) {
+            VStack(alignment: .center) {
+                //image
+                let imageURL = URL(string: housemate.imageURLString ?? "")
                 
-                VStack(spacing: 20) {
-
-                    VStack (alignment:.leading) {
-                        Text("Tasks")
-                            .font(.system(size: 27))
-                            .bold()
-                            .foregroundColor(.white)
-                            .padding()
-                        HStack {
-                            Text("COMPLETED")
-                                .font(.system(size: 18))
-                                .foregroundColor(.white)
-                                .padding()
-                            Spacer()
-                            Text("\(taskViewModel.getCompletedTasksForUser(housemate.id!).count)")
-                                .font(.system(size: 27))
-                                .bold()
-                                .foregroundColor(.white)
-                                .padding()
-                        }
-                        
-                        Divider().foregroundColor(.white)
-                        
-                        HStack {
-                            Text("PENDING")
-                                .font(.system(size: 18))
-                                .foregroundColor(.white)
-                                .padding()
-                            Spacer()
-                            Text("\(taskViewModel.getPendingTasksForUser(housemate.id!).count)")
-                                .font(.system(size: 27))
-                                .bold()
-                                .foregroundColor(.white)
-                                .padding()
-                        }
-                        Divider().foregroundColor(.white)
-                    }
-                    
-                    Spacer()
+                AsyncImage(url: imageURL) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 111, height: 111)
+                        .clipShape(Circle())
+                } placeholder: {
+                    // Default user profile picture
+                    Image(systemName: "person.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 111, height: 111)
+                        .clipShape(Circle())
+                        .foregroundColor(.gray)
+                }
+                
+                Text("\(housemate.first_name) \(housemate.last_name)")
+                    .font(.system(size: 26))
+                    .bold()
+                    .foregroundColor(.black)
+                
+                HStack(spacing: 20) {
+                    HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Call", iconStr: "phone", urlScheme:"tel")
+                    HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Text", iconStr: "message", urlScheme:"sms")
                 }
             }
+            
+            VStack (alignment: .leading) {
+                HStack {
+                    Image("entrance")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 29, height: 32)
+                    Text("Joined June 15")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(red: 0x7E / 255.0, green: 0x7E / 255.0, blue: 0x7E / 255.0))
+                    Spacer()
+                }
+                HStack {
+                    Image("birthday")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 29, height: 32)
+                    Text("Birthday on Oct 5")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(red: 0x7E / 255.0, green: 0x7E / 255.0, blue: 0x7E / 255.0))
+                }
+            }.padding(.top, 20)
+            
+            Divider()
+            
+            HStack() {
+                Text("Tasks This Week")
+                    .font(.system(size:22))
+                    .bold()
+                Spacer()
+            }.padding(.top, 10)
+            VStack(alignment: .leading) {
+                
+                //chart
+                Chart {
+                    ForEach(hardcodedTaskDataPoints) { dataPoint in
+                        LineMark (
+                            x: .value("day", dataPoint.day),
+                            y: .value("total tasks", dataPoint.totalTasks)
+                        )
+                        .interpolationMethod(.catmullRom)
+                        .foregroundStyle(Color(red: 0.439, green: 0.298, blue: 1.0))
+                        .symbol() {
+                            Circle()
+                                .fill(Color(red: 0.439, green: 0.298, blue: 1.0))
+                                .frame(width:15)
+                        }
+                    }
+                }.chartYAxis() {
+                    AxisMarks(position: .leading)
+                }
+                
+            }.padding(15)
+                .frame(width: 350, height: 200)
+                .overlay(RoundedRectangle(cornerRadius: 15).stroke(.black.opacity(0.3), lineWidth: 2))
+            
+            HStack() {
+                Text("Stats")
+                    .font(.system(size:22))
+                    .bold()
+                Spacer()
+            }.padding(.top, 10)
+            
+            HStack(spacing: 20) {
+
+                // card 1
+                FlashcardComponent(front: statCardFront(mainText:"\(taskViewModel.getCompletedTasksForUser(housemate.id!).count)", subText:"completed"), back: statCardBack(mainText:"Clean Dish", subText:"recently done", iconStr:"dalle1"))
+                
+                // card 2
+                FlashcardComponent(front: statCardFront(mainText:"\(taskViewModel.getPendingTasksForUser(housemate.id!).count)", subText:"pending"), back: statCardBack(mainText:"Wash Counter", subText:"most urgent", iconStr:"dalle2"))
+
+            }
+        }.padding(15)
+    }
+}
+
+private func statCardFront(mainText: String, subText: String) -> some View {
+    VStack {        
+        Text("\(mainText)")
+            .font(.system(size: 40))
+            .bold()
+            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+        Text("\(subText)")
+            .foregroundColor(.black.opacity(0.5))
+    }
+}
+
+private func statCardBack(mainText: String, subText: String, iconStr: String) -> some View {
+    VStack {
+        HStack {
+            Image(iconStr)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 35, height: 45)
+            Text("\(mainText)")
+                .bold()
+                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
         }
-        .background(
-            LinearGradient(gradient: Gradient(colors: [
-                Color(red: 0.925, green: 0.863, blue: 1.0).opacity(1.00),
-                Color(red: 0.619, green: 0.325, blue: 1.0).opacity(0.51)
-            ]), startPoint: .top, endPoint: .bottom)
-        ).ignoresSafeArea(.all)
-        
+        Text("\(subText)")
+            .foregroundColor(.black.opacity(0.5))
     }
 }
 
