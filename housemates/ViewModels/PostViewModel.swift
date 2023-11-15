@@ -11,7 +11,6 @@ import Firebase
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 
-
 class PostViewModel: ObservableObject {
     private let postRepository = PostRepository()
     
