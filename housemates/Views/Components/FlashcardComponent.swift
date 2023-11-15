@@ -28,12 +28,12 @@ struct FlashcardComponent: View {
         .rotation3DEffect(
             .degrees(contentRotation), axis: (x:0, y:1, z:0)
         )
-        .frame(height: 300)
-        .frame(width: 250)
+        .frame(width: 150, height: 100)
         .background(Color.white)
+        
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(.black, lineWidth: 2)
+                .stroke(.black.opacity(0.3), lineWidth: 2)
         )
         .onTapGesture {
             flipFlashcardComponent()
