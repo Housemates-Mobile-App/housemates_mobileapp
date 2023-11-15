@@ -12,7 +12,14 @@ struct TaskView: View {
     var body: some View {
         HStack {
 //          currently a placeholder
+          ZStack {
             Image("dalle4")
+            if task.status != .done {
+              
+              priorityLabel
+            }
+          }
+           
             taskInformationView
             Spacer()
             if editMode?.wrappedValue.isEditing ?? false {
@@ -35,9 +42,7 @@ struct TaskView: View {
 //        Text and Priority
         HStack() {
           Text(task.name).font(.headline)
-          if task.status != .done {
-            priorityLabel
-          }
+          
         }
         
         
@@ -74,27 +79,57 @@ struct TaskView: View {
  
         switch task.priority {
           case "Low":
-            priorityTag(Color.green.opacity(0.25), Color.black)
+          priorityTag(Color.green.opacity(0.25), Color.green)
           case "Medium":
-            priorityTag(Color.yellow.opacity(0.25), Color.black)
+          priorityTag(Color.yellow.opacity(0.25), Color.yellow)
           default:
-            priorityTag(Color.red.opacity(0.25), Color.black)
+          priorityTag(Color.red.opacity(0.5), Color.red)
         }
       
     }
   
-  
+    @ViewBuilder
     private func priorityTag(_ color: Color, _ text: Color) -> some View {
-        Circle()
-              .fill(color)
-              .frame(width: 15, height: 15)
+//        Circle()
+//              .fill(color)
+//              .frame(width: 15, height: 15)
+      ZStack {
+        
+        Image(systemName: "face.smiling.inverse")
+          .font(.system(size: 12))
+          .foregroundColor(color)
+          .overlay(Circle().stroke(Color.white, lineWidth: 2))
+          .background(Color.white)
+          .clipShape(Circle())
+          .offset(x: 15, y: 15)
+        
+        Image(systemName: "face.smiling.inverse")
+          .font(.system(size: 12))
+          .foregroundColor(color)
+          .overlay(Circle().stroke(text, lineWidth: 2))
+          .offset(x: 15, y: 15)
+      }
+      
+        
+      
+//      if (task.priority == "Medium") {
+//        Text("Med")
+//          .font(.system(size: 12))
+//          .padding(.horizontal, 2)
+//          .padding(.vertical, 2)
+//          .foregroundColor(text)
+//          .background(color)
+//          .cornerRadius(15)
+//      } else {
 //        Text(task.priority)
 //            .font(.system(size: 12))
-//            .padding(.horizontal)
-//            .padding(.vertical, 3)
+//            .padding(.horizontal, 2)
+//            .padding(.vertical, 2)
 //            .foregroundColor(text)
 //            .background(color)
 //            .cornerRadius(15)
+//      }
+       
     }
 
     
