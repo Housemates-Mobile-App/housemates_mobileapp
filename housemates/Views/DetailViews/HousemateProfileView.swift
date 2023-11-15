@@ -98,7 +98,7 @@ struct HousemateProfileView: View {
                 
             }.padding(15)
                 .frame(width: 350, height: 200)
-                .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.black.opacity(0.5), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 15).stroke(.black.opacity(0.3), lineWidth: 2))
             
             HStack() {
                 Text("Stats")
