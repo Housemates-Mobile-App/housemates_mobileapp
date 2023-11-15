@@ -8,23 +8,9 @@
 import SwiftUI
 
 struct FlashcardComponent: View {
-    var user: User
     
-    var front: some View {
-        return VStack {
-            Text("front")
-            Image("danielFace")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 200, height: 200)
-                .clipShape(Rectangle())
-        }
-        
-        
-    }
-    var back: some View {
-        Text("back")
-    }
+    var front : any View
+    var back: any View
     
     @State var isFlipped: Bool = false
     @State var flashcardComponentRotation = 0.0
@@ -34,9 +20,9 @@ struct FlashcardComponent: View {
     var body: some View {
         ZStack {
             if isFlipped {
-                back
+                AnyView(back)
             } else {
-                front
+                AnyView(front)
             }
         }
         .rotation3DEffect(
@@ -68,5 +54,5 @@ struct FlashcardComponent: View {
 }
 
 #Preview {
-    FlashcardComponent(UserViewModel.mockUser())
+    FlashcardComponent(front: Text("front"), back: Text("back"))
 }
