@@ -28,6 +28,7 @@ struct TaskBoardView: View {
         HStack {
             headerTitle()
             Spacer()
+            EditButton()
             addTaskButton(user: user)
         }
         .padding()

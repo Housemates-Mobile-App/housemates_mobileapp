@@ -73,9 +73,12 @@ struct ProfileView: View {
                         }
                         
                     }
-                }.padding(10)
+                }
                 
                 Text("\(user.first_name) \(user.last_name)")
+                  .font(.title)
+                Text("\(group?.name ?? "None")")
+                  .font(.headline)
                 
                 // MARK: Profile setting menu
                 List {
