@@ -100,6 +100,67 @@ class TaskViewModel: ObservableObject {
         taskRepository.delete(task)
     }
     
+    var timerCancellable: AnyCancellable?
+        
+    func startTaskResetTimer() {
+        timerCancellable = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
+            .sink { [weak self] _ in
+                self?.resetRecurringTasks()
+            }
+    }
+    
+    private func resetRecurringTasks() {
+        let currentDate = Date()
+        for var task in tasks where task.recurrence != .none {
+            guard let startDate = task.recurrenceStartDate, let endDate = task.recurrenceEndDate,
+                  startDate <= currentDate, endDate >= currentDate else { continue }
+            
+            if taskNeedsReset(task: task, currentDate: currentDate) {
+                task.status = .unclaimed
+                task.user_id = nil
+                task.date_started = nil
+                task.date_completed = nil
+                taskRepository.update(task)
+            }
+        }
+    }
+    
+    private func taskNeedsReset(task: task, currentDate: Date) -> Bool {
+        guard let completionDate = task.date_completed, let startDate = task.recurrenceStartDate else {
+            return false
+        }
+        
+        var nextResetDate: Date?
+        let calendar = Calendar.current
+        
+        switch task.recurrence {
+        case .daily:
+            nextResetDate = calendar.date(byAdding: .day, value: 1, to: startDate)
+        case .weekly:
+            nextResetDate = calendar.date(byAdding: .weekOfYear, value: 1, to: startDate)
+        case .monthly:
+            nextResetDate = calendar.date(byAdding: .month, value: 1, to: startDate)
+        default:
+            break
+        }
+        
+        if let nextResetDate = nextResetDate, nextResetDate <= currentDate {
+            return true
+        }
+        
+        return false
+    }
+    
+    // Call this method when the app starts or when the view appears
+    func setupRecurringTaskReset() {
+        startTaskResetTimer()
+    }
+    
+    // Cancel the timer when TaskViewModel deinitializes
+    deinit {
+        timerCancellable?.cancel()
+    }
+    
   }
 
 extension TaskViewModel {

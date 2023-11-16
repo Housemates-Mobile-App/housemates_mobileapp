@@ -30,7 +30,7 @@ struct task: Identifiable, Codable {
     var recurrence: Recurrence
     var recurrenceStartDate: Date?
     var recurrenceEndDate: Date?
-    
+        
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
         case id

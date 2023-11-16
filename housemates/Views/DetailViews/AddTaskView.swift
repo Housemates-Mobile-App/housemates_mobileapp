@@ -95,6 +95,12 @@ struct AddTaskView: View {
       showAlert = true
       return
     }
+      
+    guard recurrence == .none || (recurrenceStartDate != nil && recurrenceEndDate != nil) else {
+      alertMessage = "Recurring tasks must have both a start and an end date."
+      showAlert = true
+      return
+    }
     
     
     print("Task Name: \(taskName)")
@@ -135,44 +141,91 @@ struct AddTaskView: View {
   
   
   
-  struct RecurrenceSection: View {
+//  struct RecurrenceSection: View {
+//    @Binding var isRecurring: Bool
+//    @Binding var recurrence: Recurrence
+//    @Binding var recurrenceStartDate: Date
+//    @Binding var recurrenceEndDate: Date
+//    
+//    var body: some View {
+//        Toggle("Is Recurring", isOn: $isRecurring)
+//          .onChange(of: isRecurring) { value in
+//              if !value {
+//                  recurrence = .none // Reset recurrence when toggled off
+//              }
+//          }
+//                          
+//          if isRecurring {
+//              Picker("Repeats", selection: $recurrence) {
+//                  Text("Daily").tag(Recurrence.daily)
+//                  Text("Weekly").tag(Recurrence.weekly)
+//                  Text("Monthly").tag(Recurrence.monthly)
+//              }
+//              .pickerStyle(SegmentedPickerStyle())
+//              
+//              DatePicker(
+//                  "Start Date",
+//                  selection: $recurrenceStartDate,
+//                  displayedComponents: [.date]
+//              )
+//              
+//              DatePicker(
+//                  "End Date",
+//                  selection: $recurrenceEndDate,
+//                  in: recurrenceStartDate...,
+//                  displayedComponents: [.date]
+//              )
+//          }
+//    }
+//  }
+  
+struct RecurrenceSection: View {
     @Binding var isRecurring: Bool
     @Binding var recurrence: Recurrence
     @Binding var recurrenceStartDate: Date
     @Binding var recurrenceEndDate: Date
     
     var body: some View {
-        Toggle("Is Recurring", isOn: $isRecurring)
-          .onChange(of: isRecurring) { value in
-              if !value {
-                  recurrence = .none // Reset recurrence when toggled off
-              }
-          }
-                          
-          if isRecurring {
-              Picker("Repeats", selection: $recurrence) {
-                  Text("Daily").tag(Recurrence.daily)
-                  Text("Weekly").tag(Recurrence.weekly)
-                  Text("Monthly").tag(Recurrence.monthly)
-              }
-              .pickerStyle(SegmentedPickerStyle())
-              
-              DatePicker(
-                  "Start Date",
-                  selection: $recurrenceStartDate,
-                  displayedComponents: [.date]
-              )
-              
-              DatePicker(
-                  "End Date",
-                  selection: $recurrenceEndDate,
-                  in: recurrenceStartDate...,
-                  displayedComponents: [.date]
-              )
-          }
+        VStack(spacing: 16) {
+            Toggle("Is Recurring", isOn: $isRecurring)
+                .toggleStyle(SwitchToggleStyle(tint: .blue))
+                .padding(.horizontal)
+            
+            if isRecurring {
+                VStack(spacing: 16) {
+                    Picker("Repeats", selection: $recurrence) {
+                        Text("Daily").tag(Recurrence.daily)
+                        Text("Weekly").tag(Recurrence.weekly)
+                        Text("Monthly").tag(Recurrence.monthly)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.horizontal)
+                    
+                    DatePicker(
+                        "Start Date",
+                        selection: $recurrenceStartDate,
+                        displayedComponents: [.date]
+                    )
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .padding(.horizontal)
+                    
+                    DatePicker(
+                        "End Date",
+                        selection: $recurrenceEndDate,
+                        in: recurrenceStartDate...,
+                        displayedComponents: [.date]
+                    )
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .padding(.horizontal)
+                }
+                .transition(.opacity.combined(with: .slide))
+            }
+        }
+        .padding(.top, 8)
     }
-  }
-  
+}
+
+    
   struct AddTaskView_Previews: PreviewProvider {
     static var previews: some View {
       AddTaskView(taskIconStringHardcoded: "trash.fill", taskNameHardcoded: "Clean Dishes",

@@ -20,6 +20,9 @@ struct TaskBoardView: View {
 
                 }
             }
+            .onAppear {
+                taskViewModel.setupRecurringTaskReset()
+            }
         }
     }
 
