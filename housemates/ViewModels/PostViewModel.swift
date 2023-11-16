@@ -46,7 +46,7 @@ class PostViewModel: ObservableObject {
         // MARK: Create new post instance
         if let group_id = user.group_id {
             let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [])
-            create(post: post)
+            create(post: post) // user_id in created_by field is non existent for some reason
             taskViewModel.completeTask(task: task)
         }
     }
@@ -54,12 +54,14 @@ class PostViewModel: ObservableObject {
     func unlikePost(user: User, post: Post) {
         var post = post
         post.liked_by.removeAll { $0 == user.id }
+        post.num_likes -= 1
         postRepository.update(post)
     }
     
     func likePost(user: User, post: Post) {
         var post = post
         post.liked_by.append(user.id!)
+        post.num_likes += 1
         postRepository.update(post)
     }
     

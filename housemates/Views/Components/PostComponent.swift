@@ -49,16 +49,10 @@ struct PostComponent: View {
                    
                     // MARK: Comment, Like and Time compontnets
                     HStack(alignment: .bottom) {
-                        // MARK: Like Button
                         likeButton(post: post, user: user)
                        
                         // MARK: Comment Button
-                        Button(action: {
-                            print("Comment button tapped!")
-                        }) {
-                            Image(systemName: "bubble.right")
-                                .font(.system(size: 18))
-                        }
+                        commentButton(post: post, user: user)
                         Spacer()
                         
                         if let date = post.task.date_completed {
@@ -76,13 +70,13 @@ struct PostComponent: View {
 
     }
     
-    // Like Button
+    // MARK: Like / Unlike Button
     private func likeButton(post: Post, user: User) -> some View {
         HStack {
                 // MARK: If user has liked post show unlike button else show like button
                 if post.liked_by.contains(where: {$0 == user.id}) {
                     Button(action: {
-                        postViewModel.unlikePost(post, user)
+                        postViewModel.unlikePost(user: user, post: post)
                     }) {
                         Image(systemName: "heart.fill")
                             .foregroundColor(.red)
@@ -90,29 +84,38 @@ struct PostComponent: View {
                     }
                 } else {
                     Button(action: {
-                        print("Like button tapped!")
+                        postViewModel.likePost(user: user, post: post)
                     }) {
                         Image(systemName: "heart")
                             .font(.system(size: 20))
                     }
                 }
+                
                 // MARK: Like count
-            if !post.liked_by.isEmpty {
-                Text(String(post.num_likes))
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-            }
+                if !post.liked_by.isEmpty {
+                    Text(String(post.num_likes))
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                }
         }
     }
     
-    // Comment Button
-    private func commentButton(post: Post) -> some View {
+    // MARK: Comment Button
+    private func commentButton(post: Post, user: User) -> some View {
         HStack {
+            // MARK: Navigation Link to Post Detail
             Button(action: {
                 print("Comment button tapped!")
             }) {
                 Image(systemName: "bubble.right")
                     .font(.system(size: 18))
+            }
+            
+            // MARK: Comment count
+            if !post.comments.isEmpty {
+                Text(String(post.num_likes))
+                    .font(.footnote)
+                    .foregroundColor(.gray)
             }
             Spacer()
            
