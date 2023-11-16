@@ -12,9 +12,9 @@ struct Post: Identifiable, Codable {
     
     // MARK: Fields
     @DocumentID var id: String?
-    var task_id: String
+    var task: task
     var group_id: String
-    var user_id: String
+    var created_by: User
     var num_likes: Int
     var num_comments: Int
     var liked_by: [String]
@@ -23,9 +23,9 @@ struct Post: Identifiable, Codable {
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
         case id
-        case task_id
+        case task
         case group_id
-        case user_id
+        case created_by
         case num_likes
         case num_comments
         case liked_by

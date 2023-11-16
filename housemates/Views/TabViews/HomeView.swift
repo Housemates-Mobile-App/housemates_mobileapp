@@ -2,6 +2,7 @@
 //  HomeView.swift
 //  housemates
 //
+import Foundation
 import SwiftUI
 import SwiftUITrackableScrollView
 
@@ -9,8 +10,7 @@ struct HomeView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var postViewModel : PostViewModel
-    
-    let examples = ["asdf", "asdf", "asdf"]
+        
     var body: some View {
         if let user = authViewModel.currentUser {
             NavigationView {
@@ -23,8 +23,19 @@ struct HomeView: View {
                              .bold()
                              .padding(.leading, 20)
                         Spacer()
+                        
+                        // MARK - Button to see all housemates
+                        NavigationLink(destination: HomeView()) {
+                                Text("View All")
+                                .foregroundColor(.white)
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 16)
+                                .background(Color.gray)
+                                .cornerRadius(120)
+                                .font(.headline)
+                        }.padding()
                     }
-                
+                    
                     // MARK - Main Scroll Component
                     ScrollView {
                         
@@ -32,39 +43,40 @@ struct HomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 15) {
                                 if let uid = user.id {
-                                    ForEach(userViewModel.getUserGroupmates(uid)) { mate in
-                                        NavigationLink(destination: HousemateProfileView(housemate: mate)) {
-                                            HousemateCircleComponent(housemate: mate)
-                                        }
+                                    ForEach(userViewModel.users) { user in
+                                        NavigationLink(destination: HousemateProfileView(housemate: user)) {
+                                            HousemateCircleComponent(housemate: user)
+                                        }.buttonStyle(PlainButtonStyle())
                                     }
                                 }
                             }
                             .padding(.horizontal)
+                            Divider()
                         }
                         
                         
-                            // MARK - Feed Content
-    //                        LazyVStack(spacing: 10) {
-    //                            ForEach(posts) { post in
-    //                                PostComponent(post: post)
-    //                            }
-    //                        }
+                    //MARK - Feed Content
+                    LazyVStack(spacing: 10) {
+                        ForEach(postViewModel.posts) { post in
+                                PostComponent(post: post)
+                            }
                         }
+                    }
                         
                         Spacer()
                         
-                    }
+                }
             }
         }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
-    @EnvironmentObject var authViewModel : AuthViewModel
-    @EnvironmentObject var userViewModel : UserViewModel
     static var previews: some View {
         HomeView()
             .environmentObject(AuthViewModel.mock())
-            .environmentObject(UserViewModel())
+            .environmentObject(UserViewModel.mock())
+            .environmentObject(PostViewModel())
+
     }
 }

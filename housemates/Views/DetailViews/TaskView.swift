@@ -124,9 +124,9 @@ struct TaskView: View {
     @ViewBuilder
     private var inProgressView: some View {
         if taskViewModel.isMyTask(task: task, user_id: user.id ?? "") {
-            Button("Done", action: {
-                taskViewModel.completeTask(task: task)
-            })
+            NavigationLink(destination: AddPostView(task: task, user: user)) {
+                Text("Done")
+            }
             .buttonStyle(DoneButtonStyle())
         } else if let uid = task.user_id, let user = userViewModel.getUserByID(uid) {
             userProfileImage(for: user)

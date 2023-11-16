@@ -10,6 +10,7 @@ import SwiftUI
 struct AddPostView: View {
     let task: task
     let user: User
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var userViewModel: UserViewModel
@@ -27,19 +28,25 @@ struct AddPostView: View {
                    Text("New post")
                        .font(.system(size: 24))
                        .bold()
-                       .padding(.leading, 60)
+                       .padding(.leading, 70)
                    
 
                    Spacer()
 
                    // MARK - Button for creating post
                    Button {
-//                       let post = Post(task_id: task.id, group_id: user.group_id, user_id: user.id, num_likes: 0, num_comments: 0, liked_by: [], comments: [])
-//                       postViewModel.create(post: post)
+                       if let group_id = user.group_id {
+                           let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [])
+                           postViewModel.create(post: post)
+                           taskViewModel.completeTask(task: task)
+                           presentationMode.wrappedValue.dismiss()
+                       }
                    } label: {
                        Text("Share")
                    }
                    .padding(.trailing)
+                   .font(.system(size: 20))
+                   
                }
             
             Divider()

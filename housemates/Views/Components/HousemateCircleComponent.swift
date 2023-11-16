@@ -19,23 +19,8 @@ struct HousemateCircleComponent: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
-                    .frame(width: 60, height: 60)
+                    .frame(width: 70, height: 70)
                     .padding(.bottom, 5)
-                    // Gradient stroke overlay
-                    .background(
-                        // Gradient stroke overlay
-                        Circle()
-                            .stroke(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [Color.orange, Color.pink]),
-                                    startPoint: .bottomLeading,
-                                    endPoint: .topTrailing
-                                ),
-                                lineWidth: 3
-                            )
-                            .frame(width: 66, height: 66)
-                            .padding(.bottom, 5)
-                    )
             } placeholder: {
     
                 // MARK: Default user profile picture
@@ -43,33 +28,19 @@ struct HousemateCircleComponent: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
-                    .frame(width: 60, height: 60)
+                    .frame(width: 70, height: 70)
+                    .foregroundColor(.gray)
                     .padding(.bottom, 5)
-                    .background(
-                        // Gradient stroke overlay
-                        Circle()
-                            .stroke(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [Color.orange, Color.pink]),
-                                    startPoint: .bottomLeading,
-                                    endPoint: .topTrailing
-                                ),
-                                lineWidth: 3
-                            )
-                            .frame(width: 66, height: 66)
-                            .padding(.bottom, 5)
-                    )
-                
             }
             
             Text("\(housemate.first_name.lowercased()) \(housemate.last_name.first?.lowercased() ?? "")")
                 .font(.system(size:11))
         }
         .frame(width: 80)
-        .padding(.vertical)
+        .padding(.vertical, 10)
     }
 }
 
-//#Preview {
-//    HousemateCircleComponent(housemate: UserViewModel.mockUser())
-//}
+#Preview {
+    HousemateCircleComponent(housemate: UserViewModel.mockUser())
+}

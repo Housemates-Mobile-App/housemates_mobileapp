@@ -13,13 +13,13 @@ struct Comment: Codable {
     // MARK: Fields
     var text: Int
     var date_created: Date
-    var user_id: String
+    var created_by: User
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
         case text
         case date_created
-        case user_id
+        case created_by
     }
     
 }
