@@ -14,16 +14,13 @@ struct AddTaskView: View {
   @State private var taskName: String = ""
   @State private var taskDescription: String = ""
   @State private var priority: TaskViewModel.TaskPriority = .medium
-  @State private var taskRepetition: TaskRepetition = .doesNotRepeat
-  
+  @State private var recurrence: Recurrence = .none
+  @State private var recurrenceStartDate: Date = Date()
+  @State private var recurrenceEndDate: Date = Date()
+  @State private var isRecurring: Bool = false
+
   let elements: [TaskViewModel.TaskPriority] = TaskViewModel.TaskPriority.allCases
   
-  enum TaskRepetition: String, CaseIterable {
-    case doesNotRepeat = "Does Not Repeat"
-    case everyDay = "Every Day"
-    case everyMonday = "Every Monday"
-    case custom = "Custom..."
-  }
   
   var body: some View {
     ScrollView {
@@ -58,12 +55,11 @@ struct AddTaskView: View {
         
         
         SliderPicker(selectedElement: $priority)
-        RecurrenceSection(taskRepetition: $taskRepetition)
-        
+        RecurrenceSection(isRecurring: $isRecurring,
+            recurrence: $recurrence,
+            recurrenceStartDate: $recurrenceStartDate,
+            recurrenceEndDate: $recurrenceEndDate)
        
-
-
-        
         Button(action: addTask) {
           Text("Add Task")
             .font(.system(size: 18))
@@ -113,7 +109,10 @@ struct AddTaskView: View {
       status: .unclaimed,
       date_started: nil,
       date_completed: nil,
-      priority: priority.rawValue
+      priority: priority.rawValue,
+      recurrence: isRecurring ? recurrence : .none,
+      recurrenceStartDate: isRecurring ? recurrenceStartDate : nil,
+      recurrenceEndDate: isRecurring ? recurrenceEndDate : nil
     )
     
     if taskViewModel.tasks.contains(where: { $0.name == newTask.name }) {
@@ -137,20 +136,40 @@ struct AddTaskView: View {
   
   
   struct RecurrenceSection: View {
-    @Binding var taskRepetition: AddTaskView.TaskRepetition
+    @Binding var isRecurring: Bool
+    @Binding var recurrence: Recurrence
+    @Binding var recurrenceStartDate: Date
+    @Binding var recurrenceEndDate: Date
     
     var body: some View {
-      VStack(alignment: .leading) {
-        Text("Recurrence")
-          .bold()
-        Picker("Repeats", selection: $taskRepetition) {
-          ForEach(AddTaskView.TaskRepetition.allCases, id: \.self) { repetition in
-            Text(repetition.rawValue).tag(repetition)
+        Toggle("Is Recurring", isOn: $isRecurring)
+          .onChange(of: isRecurring) { value in
+              if !value {
+                  recurrence = .none // Reset recurrence when toggled off
+              }
           }
-        }
-        .pickerStyle(SegmentedPickerStyle())
-      }
-      .padding(.horizontal)
+                          
+          if isRecurring {
+              Picker("Repeats", selection: $recurrence) {
+                  Text("Daily").tag(Recurrence.daily)
+                  Text("Weekly").tag(Recurrence.weekly)
+                  Text("Monthly").tag(Recurrence.monthly)
+              }
+              .pickerStyle(SegmentedPickerStyle())
+              
+              DatePicker(
+                  "Start Date",
+                  selection: $recurrenceStartDate,
+                  displayedComponents: [.date]
+              )
+              
+              DatePicker(
+                  "End Date",
+                  selection: $recurrenceEndDate,
+                  in: recurrenceStartDate...,
+                  displayedComponents: [.date]
+              )
+          }
     }
   }
   

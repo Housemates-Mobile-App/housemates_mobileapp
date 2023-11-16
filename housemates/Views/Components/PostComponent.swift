@@ -77,7 +77,8 @@ struct PostComponent_Previews: PreviewProvider {
       status: .unclaimed,
       date_started: nil,
       date_completed: nil,
-      priority: "Test")
+      priority: "Test",
+      recurrence: .none)
     static let testPost1 = Post(task: mockTask, num_likes: 3, num_comments: 2)
     static var previews: some View {
         PostComponent(post:testPost1)

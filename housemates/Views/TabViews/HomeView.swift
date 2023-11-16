@@ -16,7 +16,8 @@ struct HomeView: View {
       status: .unclaimed,
       date_started: nil,
       date_completed: nil,
-      priority: "Test")
+      priority: "Test",
+      recurrence: .none)
     static let testPost1 = Post(id: "1", task: mockTask1, num_likes: 3, num_comments: 2)
     
     static let mockTask2 = housemates.task( name: "Sean Completed Washing the Dishes (2)",
@@ -26,7 +27,8 @@ struct HomeView: View {
       status: .unclaimed,
       date_started: nil,
       date_completed: nil,
-      priority: "Test")
+      priority: "Test",
+      recurrence: .none)
     static let testPost2 = Post(id: "2", task: mockTask2, num_likes: 4, num_comments: 3)
     
     static let mockTask3 = housemates.task( name: "Bob Completed Draining the Soap (3)",
@@ -36,7 +38,8 @@ struct HomeView: View {
       status: .unclaimed,
       date_started: nil,
       date_completed: nil,
-      priority: "Test")
+      priority: "Test",
+      recurrence: .none)
     static let testPost3 = Post(id: "3", task: mockTask3, num_likes: 3, num_comments: 10)
     
     let posts : [Post] = [

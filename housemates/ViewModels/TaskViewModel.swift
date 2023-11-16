@@ -111,7 +111,8 @@ extension TaskViewModel {
                      status: .unclaimed,
                      date_started: nil,
                      date_completed: nil,
-                     priority: "Test")
+                     priority: "Test",
+                     recurrence: .none)
     }
     
     static func mock() -> TaskViewModel {
@@ -123,7 +124,8 @@ extension TaskViewModel {
                               status: .unclaimed,
                               date_started: nil,
                               date_completed: nil,
-                              priority: "Test")
+                              priority: "Test",
+                              recurrence: .none)
         
         let mockTaskViewModel = TaskViewModel()
         mockTaskViewModel.tasks = [mockTask]
