@@ -23,7 +23,7 @@ struct PostComponent: View {
                         .scaledToFill()
                         .frame(width: 40, height: 40)
                         .clipShape(Circle())
-                        .padding(.leading, 1)
+                        .padding(.leading, 12)
                 } placeholder: {
         
                     // MARK: Default user profile picture
