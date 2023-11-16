@@ -58,7 +58,7 @@ struct HomeView: View {
                     //MARK - Feed Content
                     LazyVStack(spacing: 10) {
                         ForEach(postViewModel.posts) { post in
-                                PostComponent(post: post)
+                                PostComponent(post: post, user: user)
                             }
                         }
                     }

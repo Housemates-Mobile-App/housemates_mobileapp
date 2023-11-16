@@ -10,7 +10,11 @@ import SwiftUI
 struct PostComponent: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var taskViewModel: TaskViewModel
+    @EnvironmentObject var postViewModel : PostViewModel
+
+    
     let post : Post
+    let user : User
     var body: some View {
         // MARK: Profile Picture for post user
         VStack {
@@ -46,12 +50,7 @@ struct PostComponent: View {
                     // MARK: Comment, Like and Time compontnets
                     HStack(alignment: .bottom) {
                         // MARK: Like Button
-                        Button(action: {
-                            print("Like button tapped!")
-                        }) {
-                            Image(systemName: "heart")
-                                .font(.system(size: 20))
-                        }
+                        likeButton(post: post, user: user)
                        
                         // MARK: Comment Button
                         Button(action: {
@@ -76,12 +75,56 @@ struct PostComponent: View {
         }
 
     }
+    
+    // Like Button
+    private func likeButton(post: Post, user: User) -> some View {
+        HStack {
+                // MARK: If user has liked post show unlike button else show like button
+                if post.liked_by.contains(where: {$0 == user.id}) {
+                    Button(action: {
+                        postViewModel.unlikePost(post, user)
+                    }) {
+                        Image(systemName: "heart.fill")
+                            .foregroundColor(.red)
+                            .font(.system(size: 20))
+                    }
+                } else {
+                    Button(action: {
+                        print("Like button tapped!")
+                    }) {
+                        Image(systemName: "heart")
+                            .font(.system(size: 20))
+                    }
+                }
+                // MARK: Like count
+            if !post.liked_by.isEmpty {
+                Text(String(post.num_likes))
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+            }
+        }
+    }
+    
+    // Comment Button
+    private func commentButton(post: Post) -> some View {
+        HStack {
+            Button(action: {
+                print("Comment button tapped!")
+            }) {
+                Image(systemName: "bubble.right")
+                    .font(.system(size: 18))
+            }
+            Spacer()
+           
+        }
+    }
 }
+
 
 
 struct PostComponent_Previews: PreviewProvider {
     static var previews: some View {
-        PostComponent(post: PostViewModel.mockPost())
+        PostComponent(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
             .environmentObject(UserViewModel())
             .environmentObject(TaskViewModel())
     }

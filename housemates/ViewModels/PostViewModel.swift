@@ -51,6 +51,10 @@ class PostViewModel: ObservableObject {
         }
     }
     
+    func unlikePost(user: User, task: task) {
+        
+    }
+    
 }
 
 
