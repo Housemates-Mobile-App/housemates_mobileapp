@@ -10,6 +10,7 @@ struct TaskView: View {
     @Environment(\.editMode) var editMode
     
     var body: some View {
+      
         HStack {
 //          currently a placeholder
           ZStack {
@@ -43,7 +44,10 @@ struct TaskView: View {
         
 //        Text and Priority
         HStack() {
-          Text(task.name).font(.headline)
+          Text(task.name)
+            .font(.custom("Lato-Bold", size: 15))
+            
+//            .font(.headline)
           
         }
         
@@ -65,7 +69,7 @@ struct TaskView: View {
         
         else {
           Text("2 days ago")
-            .font(.footnote)
+            .font(.custom("Lato", size: 12))
             .foregroundColor(Color.black.opacity(0.5))
         }
         
@@ -149,7 +153,7 @@ struct TaskView: View {
     private var statusButtonOrLabel: some View {
         switch task.status {
         case .done:
-            Label("Done", systemImage: "checkmark.circle.fill").labelStyle(.iconOnly).foregroundColor(.green)
+            Label("DONE", systemImage: "checkmark.circle.fill").labelStyle(.iconOnly).foregroundColor(.green)
         case .inProgress:
             inProgressView
         case .unclaimed:
@@ -161,7 +165,7 @@ struct TaskView: View {
     @ViewBuilder
     private var inProgressView: some View {
         if taskViewModel.isMyTask(task: task, user_id: user.id ?? "") {
-            Button("Done", action: {
+            Button("DONE", action: {
               DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 taskViewModel.completeTask(task: task)
               }
@@ -175,7 +179,7 @@ struct TaskView: View {
 
     // MARK: - Claim Button
     private var claimButton: some View {
-        Button("Claim", action: {
+        Button("CLAIM", action: {
           
           DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if let uid = user.id {
@@ -224,26 +228,30 @@ struct DeleteButtonStyle: ButtonStyle {
             .padding(.horizontal)
             .padding(.vertical, 4)
             .foregroundColor(Color.red)
-            .font(.system(size: 12))
-            .bold()
+            .font(.custom("Lato-Bold", size: 12))
+//            .font(.system(size: 12))
+//            .bold()
             .cornerRadius(16)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
                   .stroke(Color.red, lineWidth: 2)
-                    
-                
+
+
             )
             .overlay(
                   RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color.red, lineWidth: configuration.isPressed ? 0 : 2)
+                    .stroke(Color.red, lineWidth: configuration.isPressed ? 0 : 4)
                     .padding(.top, -1.25)
                     .offset(x: 0, y: configuration.isPressed ? 0 : 1))
 
             .scaleEffect(configuration.isPressed ? 1.0 : 1.0)
             .offset(x: 0, y: configuration.isPressed ? 3 : 1)
-         
+
     }
 }
+
+
+
 
 //struct DoneButtonStyle: ButtonStyle {
 //    func makeBody(configuration: Configuration) -> some View {
@@ -264,8 +272,9 @@ struct DoneButtonStyle: ButtonStyle {
             .padding(.horizontal)
             .padding(.vertical, 4)
             .foregroundColor(Color.green)
-            .font(.system(size: 12))
-            .bold()
+//            .font(.system(size: 12))
+            .font(.custom("Lato-Bold", size: 12))
+//            .bold()
             .cornerRadius(16)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
@@ -304,8 +313,9 @@ struct ClaimButtonStyle: ButtonStyle {
             .padding(.horizontal)
             .padding(.vertical, 4)
             .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-            .font(.system(size: 12))
-            .bold()
+//            .font(.system(size: 12))
+            .font(.custom("Lato-Bold", size: 12))
+//            .bold()
             .cornerRadius(16)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
@@ -316,8 +326,9 @@ struct ClaimButtonStyle: ButtonStyle {
             .overlay(
                   RoundedRectangle(cornerRadius: 16)
                     .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: configuration.isPressed ? 0 : 2)
+//                    .padding(.top, -1.25)
                     .padding(.top, -1.25)
-                    .offset(x: 0, y: configuration.isPressed ? 0 : 1))
+                    .offset(x: 0, y: configuration.isPressed ? 1 : 1))
 
             .scaleEffect(configuration.isPressed ? 1.0 : 1.0)
             .offset(x: 0, y: configuration.isPressed ? 3 : 1)

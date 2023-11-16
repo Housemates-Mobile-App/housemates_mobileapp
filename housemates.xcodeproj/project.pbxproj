@@ -33,6 +33,16 @@
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
 		81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */; };
 		81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29E12AFF56C400748D58 /* FilterView.swift */; };
+		81E9ED532B05EDA000A258A8 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E9ED522B05EDA000A258A8 /* Font.swift */; };
+		81E9ED562B05F15500A258A8 /* Nunito-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED552B05F15500A258A8 /* Nunito-VariableFont_wght.ttf */; };
+		81E9ED5D2B05F25C00A258A8 /* Nunito-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED572B05F25C00A258A8 /* Nunito-Black.ttf */; };
+		81E9ED5E2B05F25C00A258A8 /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED582B05F25C00A258A8 /* Nunito-SemiBold.ttf */; };
+		81E9ED5F2B05F25C00A258A8 /* Nunito-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED592B05F25C00A258A8 /* Nunito-Medium.ttf */; };
+		81E9ED602B05F25C00A258A8 /* Nunito-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED5A2B05F25C00A258A8 /* Nunito-Light.ttf */; };
+		81E9ED612B05F25C00A258A8 /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED5B2B05F25C00A258A8 /* Nunito-Bold.ttf */; };
+		81E9ED622B05F25C00A258A8 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED5C2B05F25C00A258A8 /* Nunito-Regular.ttf */; };
+		81E9ED662B05F61B00A258A8 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED642B05F61A00A258A8 /* Lato-Bold.ttf */; };
+		81E9ED672B05F61B00A258A8 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED652B05F61B00A258A8 /* Lato-Regular.ttf */; };
 		81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EC60C02AFE024000A1B753 /* GraphView.swift */; };
 		8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */; };
 		8A6AD4E12AFB534400A6DF85 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E02AFB534400A6DF85 /* FirebaseAuth */; };
@@ -159,6 +169,17 @@
 		816C30272AF49D59004F1771 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHousematesView.swift; sourceTree = "<group>"; };
 		81CF29E12AFF56C400748D58 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		81E9ED522B05EDA000A258A8 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		81E9ED552B05F15500A258A8 /* Nunito-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		81E9ED572B05F25C00A258A8 /* Nunito-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Black.ttf"; sourceTree = "<group>"; };
+		81E9ED582B05F25C00A258A8 /* Nunito-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-SemiBold.ttf"; sourceTree = "<group>"; };
+		81E9ED592B05F25C00A258A8 /* Nunito-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Medium.ttf"; sourceTree = "<group>"; };
+		81E9ED5A2B05F25C00A258A8 /* Nunito-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Light.ttf"; sourceTree = "<group>"; };
+		81E9ED5B2B05F25C00A258A8 /* Nunito-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Bold.ttf"; sourceTree = "<group>"; };
+		81E9ED5C2B05F25C00A258A8 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Regular.ttf"; sourceTree = "<group>"; };
+		81E9ED632B05F4E700A258A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		81E9ED642B05F61A00A258A8 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		81E9ED652B05F61B00A258A8 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		81EC60C02AFE024000A1B753 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -284,6 +305,22 @@
 			path = housematesTests;
 			sourceTree = "<group>";
 		};
+		81E9ED542B05F09400A258A8 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				81E9ED642B05F61A00A258A8 /* Lato-Bold.ttf */,
+				81E9ED652B05F61B00A258A8 /* Lato-Regular.ttf */,
+				81E9ED572B05F25C00A258A8 /* Nunito-Black.ttf */,
+				81E9ED5B2B05F25C00A258A8 /* Nunito-Bold.ttf */,
+				81E9ED5A2B05F25C00A258A8 /* Nunito-Light.ttf */,
+				81E9ED592B05F25C00A258A8 /* Nunito-Medium.ttf */,
+				81E9ED5C2B05F25C00A258A8 /* Nunito-Regular.ttf */,
+				81E9ED582B05F25C00A258A8 /* Nunito-SemiBold.ttf */,
+				81E9ED552B05F15500A258A8 /* Nunito-VariableFont_wght.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		8A1C9D562AF9A4B700552F45 /* AuthenticationViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +361,7 @@
 				5188F2252B030DAF001B1AA0 /* HousemateCircleComponent.swift */,
 				5188F2272B031298001B1AA0 /* PostComponent.swift */,
 				512246742B034E6B006C3F23 /* FlashcardComponent.swift */,
+				81E9ED522B05EDA000A258A8 /* Font.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -364,6 +402,8 @@
 		8AD6ED072AF1969C006B56B6 /* housemates */ = {
 			isa = PBXGroup;
 			children = (
+				81E9ED632B05F4E700A258A8 /* Info.plist */,
+				81E9ED542B05F09400A258A8 /* Font */,
 				8AD6ED272AF197F3006B56B6 /* DataRepositories */,
 				8AD6ED1B2AF19738006B56B6 /* ViewModels */,
 				8AD6ED1A2AF19732006B56B6 /* Views */,
@@ -583,8 +623,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81E9ED662B05F61B00A258A8 /* Lato-Bold.ttf in Resources */,
+				81E9ED622B05F25C00A258A8 /* Nunito-Regular.ttf in Resources */,
+				81E9ED5E2B05F25C00A258A8 /* Nunito-SemiBold.ttf in Resources */,
+				81E9ED562B05F15500A258A8 /* Nunito-VariableFont_wght.ttf in Resources */,
+				81E9ED5D2B05F25C00A258A8 /* Nunito-Black.ttf in Resources */,
 				8AD6ED102AF1969D006B56B6 /* Preview Assets.xcassets in Resources */,
+				81E9ED612B05F25C00A258A8 /* Nunito-Bold.ttf in Resources */,
+				81E9ED672B05F61B00A258A8 /* Lato-Regular.ttf in Resources */,
+				81E9ED5F2B05F25C00A258A8 /* Nunito-Medium.ttf in Resources */,
 				8AD6ED0D2AF1969D006B56B6 /* Assets.xcassets in Resources */,
+				81E9ED602B05F25C00A258A8 /* Nunito-Light.ttf in Resources */,
 				8AD6ED172AF196E8006B56B6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,6 +682,7 @@
 				ADD11A6C2AFCE97E001861A0 /* AddAmenityView.swift in Sources */,
 				81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */,
 				8AE8FF9F2AF41F2B003AD997 /* HomeView.swift in Sources */,
+				81E9ED532B05EDA000A258A8 /* Font.swift in Sources */,
 				8AF358422AF4B2BA0009B93C /* JoinGroupView.swift in Sources */,
 				8AF358402AF4B17A0009B93C /* JoinCreateGroupView.swift in Sources */,
 				8AD6ED242AF197BD006B56B6 /* Post.swift in Sources */,
@@ -836,6 +886,7 @@
 				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = housemates/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -866,6 +917,7 @@
 				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = housemates/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
