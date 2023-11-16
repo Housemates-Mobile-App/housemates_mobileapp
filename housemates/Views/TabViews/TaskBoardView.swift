@@ -28,6 +28,7 @@ struct TaskBoardView: View {
         HStack {
             headerTitle()
             Spacer()
+            EditButton()
             addTaskButton(user: user)
         }
         .padding()
@@ -36,6 +37,7 @@ struct TaskBoardView: View {
     // Header Title
     private func headerTitle() -> some View {
         Text("Tasks")
+            .font(.custom("Nunito-Bold", size: 26))
             .font(.title)
             .fontWeight(.bold)
             .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
@@ -46,6 +48,7 @@ struct TaskBoardView: View {
         NavigationLink(destination: TaskSelectionView(user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
             Image(systemName: "plus")
                 .font(.headline)
+                .font(.custom("Lato-Bold", size: 15))
                 .imageScale(.small)
                 .foregroundColor(Color.white)
                 .padding(7.5)
@@ -112,7 +115,8 @@ struct TaskBoardView: View {
   private func taskSection(title: String, tasks: [task], user: User) -> some View {
         VStack(alignment: .leading) {
             Text(title)
-                .font(.headline)
+//                .font(.headline)
+                .font(.custom("Lato-Bold", size: 15))
                 .padding(.top)
                 .bold()
 

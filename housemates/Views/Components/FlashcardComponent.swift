@@ -53,6 +53,6 @@ struct FlashcardComponent: View {
     }
 }
 
-#Preview {
-    FlashcardComponent(front: Text("front"), back: Text("back"))
-}
+//#Preview {
+//    FlashcardComponent(front: Text("front"), back: Text("back"))
+//}

@@ -17,9 +17,9 @@ struct FilterView: View {
           selected = "All Tasks"
         }){
           Text("All Tasks")
-            .font(.system(size: 12))
+//            .font(.system(size: 12))
+            .font(.custom("Lato-Bold", size: 12))
             .frame(maxWidth: 75, maxHeight: 15)
-            .bold()
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .foregroundColor(Color.white)
@@ -31,9 +31,10 @@ struct FilterView: View {
           selected = "Unclaimed"
         }){
           Text("Unclaimed")
-            .font(.system(size: 12))
+            .font(.custom("Lato-Bold", size: 12))
+//            .font(.system(size: 12))
             .frame(maxWidth: 75, maxHeight: 15)
-            .bold()
+        
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .foregroundColor(Color.white)
@@ -45,9 +46,10 @@ struct FilterView: View {
           selected = "Doing"
         }){
           Text("Doing")
-            .font(.system(size: 12))
+            .font(.custom("Lato-Bold", size: 12))
+//            .font(.system(size: 12))
             .frame(maxWidth: 75, maxHeight: 15)
-            .bold()
+//            .bold()
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .foregroundColor(Color.white)
@@ -59,9 +61,10 @@ struct FilterView: View {
           selected = "Completed"
         }){
           Text("Completed")
-            .font(.system(size: 12))
+            .font(.custom("Lato-Bold", size: 12))
+//            .font(.system(size: 12))
             .frame(maxWidth: 75, maxHeight: 15)
-            .bold()
+//            .bold()
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .foregroundColor(Color.white)

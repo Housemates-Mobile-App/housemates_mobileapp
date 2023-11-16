@@ -13,7 +13,8 @@ struct MessageCardView: View {
         HStack {
             Spacer()
             Text(message)
-                .font(.subheadline)
+//                .font(.subheadline)
+                .font(.custom("Lato", size: 13))
                 .foregroundColor(.gray)
           
             Spacer()
