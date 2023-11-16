@@ -57,6 +57,12 @@ class PostViewModel: ObservableObject {
         postRepository.update(post)
     }
     
+    func likePost(user: User, post: Post) {
+        var post = post
+        post.liked_by.append(user.id!)
+        postRepository.update(post)
+    }
+    
 }
 
 
