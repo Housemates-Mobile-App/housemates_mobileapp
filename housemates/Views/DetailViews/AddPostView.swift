@@ -35,12 +35,8 @@ struct AddPostView: View {
 
                    // MARK - Button for creating post
                    Button {
-                       if let group_id = user.group_id {
-                           let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [])
-                           postViewModel.create(post: post)
-                           taskViewModel.completeTask(task: task)
-                           presentationMode.wrappedValue.dismiss()
-                       }
+                            postViewModel.sharePost(user: user, task: task)
+                            presentationMode.wrappedValue.dismiss()
                    } label: {
                        Text("Share")
                    }

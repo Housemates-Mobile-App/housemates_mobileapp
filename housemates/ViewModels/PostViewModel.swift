@@ -13,6 +13,8 @@ import FirebaseFirestore
 
 class PostViewModel: ObservableObject {
     private let postRepository = PostRepository()
+    private let taskViewModel = TaskViewModel()
+    
     
     @Published var posts: [Post] = []
     private var cancellables: Set<AnyCancellable> = []
@@ -31,6 +33,23 @@ class PostViewModel: ObservableObject {
         postRepository.create(post)
     }
     
+    func sharePost(user: User, task: task) {
+        // MARK: Must update task instance to be uploaded in post struct in addition to updating task collection
+        var task = task
+        task.date_started = nil
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.dd.yy h:mm a"
+        let formattedDate = formatter.string(from: Date())
+        task.date_completed = formattedDate
+        task.status = .done
+
+        // MARK: Create new post instance
+        if let group_id = user.group_id {
+            let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [])
+            create(post: post)
+            taskViewModel.completeTask(task: task)
+        }
+    }
     
 }
 

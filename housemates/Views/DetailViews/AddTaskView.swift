@@ -116,13 +116,13 @@ struct AddTaskView: View {
       priority: priority.rawValue
     )
     
-    if taskViewModel.tasks.contains(where: { $0.name == newTask.name }) {
-      alertMessage = "Task already exists."
-      showAlert = true
-      return
-    } else{
+//    if taskViewModel.tasks.contains(where: { $0.name == newTask.name }) {
+//      alertMessage = "Task already exists."
+//      showAlert = true
+//      return
+//    } else{
       taskViewModel.create(task: newTask)
-    }
+//    }
     
     
     alertMessage = "Task added successfully."
