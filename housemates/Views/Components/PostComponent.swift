@@ -33,13 +33,7 @@ struct PostComponent: View {
                     //caption/description
                     Text("Hey guys! I finished \(post.task.name)")
                         .font(.system(size: 16))
-                    //image if there is
-                    Image("danielFace")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 250, height: 250)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                    
+             
                     VStack(spacing: 5) {
                         HStack(alignment: .bottom) {
                             Image(systemName: "heart")
