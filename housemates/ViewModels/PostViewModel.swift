@@ -26,4 +26,9 @@ class PostViewModel: ObservableObject {
             .store(in: &self.cancellables)
         
     }
+    
+    func create(post: Post) {
+        postRepository.create(post)
+    }
+    
 }

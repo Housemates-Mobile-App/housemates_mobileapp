@@ -46,24 +46,4 @@ class CommentRepository: ObservableObject {
             fatalError("Unable to add comment: \(error.localizedDescription).")
         }
     }
-    
-    func delete(_ comment: Comment) {
-        guard let commentId = comment.id else { return }
-        
-        store.collection(path).document(commentId).delete { error in
-          if let error = error {
-            print("Unable to remove comment: \(error.localizedDescription)")
-          }
-        }
-    }
-  
-    func update(_ comment: Comment) {
-        guard let commentId = comment.id else { return }
-        
-        do {
-          try store.collection(path).document(commentId).setData(from: comment)
-        } catch {
-          fatalError("Unable to update comment: \(error.localizedDescription).")
-        }
-      }
 }
