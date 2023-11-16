@@ -51,8 +51,10 @@ class PostViewModel: ObservableObject {
         }
     }
     
-    func unlikePost(user: User, task: task) {
-        
+    func unlikePost(user: User, post: Post) {
+        var post = post
+        post.liked_by.removeAll { $0 == user.id }
+        postRepository.update(post)
     }
     
 }

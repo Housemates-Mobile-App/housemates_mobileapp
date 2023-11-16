@@ -46,5 +46,14 @@ class PostRepository: ObservableObject {
             }
     }
     
+    func update(_ post: Post) {
+        guard let postId = post.id else { return }
+        
+        do {
+          try store.collection(path).document(postId).setData(from: post)
+        } catch {
+          fatalError("Unable to update post: \(error.localizedDescription).")
+        }
+      }
     // MARK: Filtering methods
 }
