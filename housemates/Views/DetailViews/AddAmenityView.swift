@@ -10,7 +10,6 @@ import SwiftUI
 struct AddAmenityView: View {
 //    let amenity: Amentity
     var taskViewModel : TaskViewModel
-    @Binding var hideTabBar: Bool
 
     @Environment(\.presentationMode) var presentationMode
     @State private var showAlert = false
@@ -38,12 +37,6 @@ struct AddAmenityView: View {
             } else {
                 return Alert(title: Text(alertMessage))
             }
-        }
-        .onAppear {
-            hideTabBar = true
-        }
-        .onDisappear {
-            hideTabBar = false
         }
     }
     

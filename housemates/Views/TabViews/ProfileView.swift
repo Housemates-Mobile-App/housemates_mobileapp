@@ -11,7 +11,7 @@ import PhotosUI
 
 struct ProfileView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-  @EnvironmentObject var taskViewModel: TaskViewModel
+    @EnvironmentObject var taskViewModel: TaskViewModel
     @ObservedObject var groupRepository = GroupRepository()
     @State private var allowLocation: Bool = true
     @State private var group: Group?
@@ -21,7 +21,6 @@ struct ProfileView: View {
     @State private var uiImageSelected = UIImage()
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
   
-    
 
     var body: some View {
         if let user = authViewModel.currentUser {

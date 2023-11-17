@@ -3,7 +3,6 @@ import SwiftUI
 struct TaskBoardView: View {
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
-    @Binding var hideTabBar: Bool
     @State private var selected: String = "All Tasks"
     @State private var showTaskSelectionView = false
 
@@ -21,7 +20,7 @@ struct TaskBoardView: View {
 
                 }
             }.sheet(isPresented: $showTaskSelectionView) {
-                TaskSelectionView(hideTabBar: $hideTabBar, showTaskSelectionView: $showTaskSelectionView, user: user)
+                TaskSelectionView(showTaskSelectionView: $showTaskSelectionView, user: user)
             }
         }
     }
@@ -144,7 +143,7 @@ struct TaskBoardView: View {
 
 struct TaskBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskBoardView(hideTabBar: Binding.constant(false))
+        TaskBoardView()
             .environmentObject(AuthViewModel.mock())
             .environmentObject(TaskViewModel())
             .environmentObject(UserViewModel())

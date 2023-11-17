@@ -10,7 +10,6 @@ import SwiftUI
 struct PostDetailView: View {
     @EnvironmentObject var postViewModel : PostViewModel
     @State private var newComment: String = ""
-    @Binding var hideTabBar: Bool
     let post : Post
     let user : User
     var body: some View {
@@ -94,12 +93,7 @@ struct PostDetailView: View {
             }
             .padding(.bottom)
             
-        }.onAppear {
-            hideTabBar = true
-        }
-        .onDisappear {
-            hideTabBar = false
-        }
+        }.toolbar(.hidden, for: .tabBar)
     }
     
     
@@ -128,5 +122,5 @@ struct PostDetailView: View {
 }
 
 #Preview {
-    PostDetailView(hideTabBar: Binding.constant(true), post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
+    PostDetailView(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
 }
