@@ -61,6 +61,14 @@ class TaskViewModel: ObservableObject {
         return self.tasks.filter { $0.user_id == user_id && $0.status == .inProgress}
     }
   
+    func getNumPendingTasksForUser(_ user_id: String) -> Int {
+      return self.tasks.filter { $0.user_id == user_id && $0.status == .inProgress}.count
+    }
+  
+    func getNumCompletedTasksForUser(_ user_id: String) -> Int {
+      return self.tasks.filter { $0.user_id == user_id && $0.status == .done}.count
+    }
+  
     func getNumCompletedTasksForGroup(_ group_id: String) -> Int {
       return self.tasks.filter { $0.group_id == group_id && $0.status == .done}.count
     }
@@ -89,6 +97,14 @@ class TaskViewModel: ObservableObject {
         let formattedDate = formatter.string(from: Date())
         task.date_completed = formattedDate
         task.status = .done
+        taskRepository.update(task)
+      }
+  
+  func editTask(task: task, name: String, description: String, priority: String ) {
+        var task = task
+        task.name = name
+        task.priority = priority
+        task.description = description
         taskRepository.update(task)
       }
     

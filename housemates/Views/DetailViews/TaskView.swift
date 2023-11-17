@@ -11,10 +11,21 @@ struct TaskView: View {
     
     var body: some View {
       
-        HStack {
+      
+    
+      HStack(spacing: 0) {
 //          currently a placeholder
           ZStack {
-            Image("dalle4")
+            if task.priority == "High" {
+              Image("dalle3").padding(.trailing, 4)
+            }
+            else if task.priority == "Low" {
+              Image("dalle2").padding(.trailing, 4)
+            }
+            else {
+              Image("dalle4").padding(.trailing, 4)
+            }
+            
             if task.status != .done {
               
               priorityLabel
@@ -29,11 +40,12 @@ struct TaskView: View {
                 statusButtonOrLabel
             }
         }
-        .frame(minWidth: 50, minHeight: 45)
+      
+        .frame(minWidth: 75, minHeight: 45)
         .padding(12.5)
-        
+      
+      
 //        .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.black.opacity(0.1), lineWidth: 1))
-        .padding(2.5)
 //        .shadow(color: Color.black, radius: 1, x: 2, y: 1)
     }
 
@@ -54,7 +66,7 @@ struct TaskView: View {
         
         if task.status == .done, let uid = task.user_id, let user = userViewModel.getUserByID(uid) {
           Text("\(user.first_name) \(user.last_name) finished on \(task.date_completed ?? "Unknown")")
-            .font(.footnote)
+            .font(.custom("Lato", size: 12))
             .foregroundColor(Color.gray)
 //          add else if here
         }
@@ -107,13 +119,13 @@ struct TaskView: View {
           .overlay(Circle().stroke(Color.white, lineWidth: 2))
           .background(Color.white)
           .clipShape(Circle())
-          .offset(x: 15, y: 15)
+          .offset(x: 12, y: 15)
         
         Image(systemName: "face.smiling.inverse")
           .font(.system(size: 12))
           .foregroundColor(color)
           .overlay(Circle().stroke(text, lineWidth: 2))
-          .offset(x: 15, y: 15)
+          .offset(x: 12, y: 15)
       }
       
         
@@ -166,7 +178,7 @@ struct TaskView: View {
     private var inProgressView: some View {
         if taskViewModel.isMyTask(task: task, user_id: user.id ?? "") {
             Button("DONE", action: {
-              DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+              DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 taskViewModel.completeTask(task: task)
               }
                 
@@ -181,7 +193,7 @@ struct TaskView: View {
     private var claimButton: some View {
         Button("CLAIM", action: {
           
-          DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if let uid = user.id {
                 taskViewModel.claimTask(task: task, user_id: uid)
            
@@ -253,87 +265,63 @@ struct DeleteButtonStyle: ButtonStyle {
 
 
 
-//struct DoneButtonStyle: ButtonStyle {
-//    func makeBody(configuration: Configuration) -> some View {
-//        configuration.label
-//            .bold()
-//            .font(.system(size: 12))
-//            .foregroundColor(.white)
-//            .padding(.horizontal)
-//            .padding(.vertical, 4)
-//            .background(Color.green)
-//            .cornerRadius(16)
-//    }
-//}
+
+
+
 
 struct DoneButtonStyle: ButtonStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .padding(.horizontal)
-            .padding(.vertical, 4)
-            .foregroundColor(Color.green)
-//            .font(.system(size: 12))
-            .font(.custom("Lato-Bold", size: 12))
-//            .bold()
-            .cornerRadius(16)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                  .stroke(Color.green, lineWidth: 2)
-                    
-                
-            )
-            .overlay(
-                  RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color.green, lineWidth: configuration.isPressed ? 0 : 2)
-                    .padding(.top, -1.25)
-                    .offset(x: 0, y: configuration.isPressed ? 0 : 1))
+    let lightGreen = Color(red: 0.10, green: 0.85, blue: 0.23)
+    let deepGreen = Color(red: 0.3 * 0.85, green: 1.0 * 0.85, blue: 0.31 * 0.85)
+    let darkGreen = Color(red: 0.3 * 0.5, green: 1.0 * 0.5, blue: 0.31 * 0.5)
+    func makeBody(configuration: Configuration) -> some View {
+            ZStack {
+                configuration.label
+                    .font(.custom("Lato-Bold", size: 12))
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                   
+                    .background(configuration.isPressed ? Color.white : darkGreen)
+                    .cornerRadius(16)
 
-            .scaleEffect(configuration.isPressed ? 1.0 : 1.0)
-            .offset(x: 0, y: configuration.isPressed ? 3 : 1)
-         
-    }
+                configuration.label
+                    .font(.custom("Lato-Bold", size: 12))
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+                    .padding(.vertical, 4)
+                    .background(lightGreen)
+                    .cornerRadius(16)
+                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)
+            }
+        }
+
 }
 
-//struct ClaimButtonStyle: ButtonStyle {
-//    func makeBody(configuration: Configuration) -> some View {
-//        configuration.label
-//            .bold()
-//            .font(.system(size: 12))
-//            .foregroundColor(.white)
-//            .padding(.horizontal)
-//            .padding(.vertical, 4)
-//            .background(Color(red: 0.439, green: 0.298, blue: 1.0))
-//            .cornerRadius(16)
-//    }
-//}
-
 struct ClaimButtonStyle: ButtonStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
-        configuration.label
-            .padding(.horizontal)
-            .padding(.vertical, 4)
-            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-//            .font(.system(size: 12))
-            .font(.custom("Lato-Bold", size: 12))
-//            .bold()
-            .cornerRadius(16)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 2)
-                    
-                
-            )
-            .overlay(
-                  RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: configuration.isPressed ? 0 : 2)
-//                    .padding(.top, -1.25)
-                    .padding(.top, -1.25)
-                    .offset(x: 0, y: configuration.isPressed ? 1 : 1))
+    let lightPurple = Color(red: 0.439 * 1.5, green: 0.298 * 1.5, blue: 1.0 * 1.5)
+    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
+    let darkPurple = Color(red: 0.439 * 0.6, green: 0.298 * 0.6, blue: 1.0 * 0.6)
+  
+    func makeBody(configuration: Configuration) -> some View {
+            ZStack {
+                configuration.label
+                    .font(.custom("Lato-Bold", size: 12))
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                   
+                    .background(configuration.isPressed ? Color.white : darkPurple)
+                    .cornerRadius(16)
 
-            .scaleEffect(configuration.isPressed ? 1.0 : 1.0)
-            .offset(x: 0, y: configuration.isPressed ? 3 : 1)
-         
-    }
+                configuration.label
+                    .font(.custom("Lato-Bold", size: 12))
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+                    .padding(.vertical, 4)
+                    .background(lightPurple)
+                    .cornerRadius(16)
+                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)
+            }
+        }
+
 }
 
 
