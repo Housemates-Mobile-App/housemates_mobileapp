@@ -10,9 +10,28 @@ struct TaskView: View {
     @Environment(\.editMode) var editMode
     
     var body: some View {
-        HStack {
+      
+      
+    
+      HStack(spacing: 0) {
 //          currently a placeholder
-            Image("dalle4")
+          ZStack {
+            if task.priority == "High" {
+              Image("dalle3").padding(.trailing, 4)
+            }
+            else if task.priority == "Low" {
+              Image("dalle2").padding(.trailing, 4)
+            }
+            else {
+              Image("dalle4").padding(.trailing, 4)
+            }
+            
+            if task.status != .done {
+              
+              priorityLabel
+            }
+          }
+           
             taskInformationView
             Spacer()
             if editMode?.wrappedValue.isEditing ?? false {
@@ -21,10 +40,13 @@ struct TaskView: View {
                 statusButtonOrLabel
             }
         }
-        .frame(minWidth: 50, minHeight: 45)
+      
+        .frame(minWidth: 75, minHeight: 45)
         .padding(12.5)
-        .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.black.opacity(0.1), lineWidth: 1))
-        .padding(2.5)
+      
+      
+//        .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.black.opacity(0.1), lineWidth: 1))
+//        .shadow(color: Color.black, radius: 1, x: 2, y: 1)
     }
 
     // MARK: - Task Information View
@@ -34,16 +56,17 @@ struct TaskView: View {
         
 //        Text and Priority
         HStack() {
-          Text(task.name).font(.headline)
-          if task.status != .done {
-            priorityLabel
-          }
+          Text(task.name)
+            .font(.custom("Lato-Bold", size: 15))
+            
+//            .font(.headline)
+          
         }
         
         
         if task.status == .done, let uid = task.user_id, let user = userViewModel.getUserByID(uid) {
           Text("\(user.first_name) \(user.last_name) finished on \(task.date_completed ?? "Unknown")")
-            .font(.footnote)
+            .font(.custom("Lato", size: 12))
             .foregroundColor(Color.gray)
 //          add else if here
         }
@@ -58,7 +81,7 @@ struct TaskView: View {
         
         else {
           Text("2 days ago")
-            .font(.footnote)
+            .font(.custom("Lato", size: 12))
             .foregroundColor(Color.black.opacity(0.5))
         }
         
@@ -74,27 +97,57 @@ struct TaskView: View {
  
         switch task.priority {
           case "Low":
-            priorityTag(Color.green.opacity(0.25), Color.black)
+          priorityTag(Color.green.opacity(0.25), Color.green)
           case "Medium":
-            priorityTag(Color.yellow.opacity(0.25), Color.black)
+          priorityTag(Color.yellow.opacity(0.25), Color.yellow)
           default:
-            priorityTag(Color.red.opacity(0.25), Color.black)
+          priorityTag(Color.red.opacity(0.5), Color.red)
         }
       
     }
   
-  
+    @ViewBuilder
     private func priorityTag(_ color: Color, _ text: Color) -> some View {
-        Circle()
-              .fill(color)
-              .frame(width: 15, height: 15)
+//        Circle()
+//              .fill(color)
+//              .frame(width: 15, height: 15)
+      ZStack {
+        
+        Image(systemName: "face.smiling.inverse")
+          .font(.system(size: 12))
+          .foregroundColor(color)
+          .overlay(Circle().stroke(Color.white, lineWidth: 2))
+          .background(Color.white)
+          .clipShape(Circle())
+          .offset(x: 12, y: 15)
+        
+        Image(systemName: "face.smiling.inverse")
+          .font(.system(size: 12))
+          .foregroundColor(color)
+          .overlay(Circle().stroke(text, lineWidth: 2))
+          .offset(x: 12, y: 15)
+      }
+      
+        
+      
+//      if (task.priority == "Medium") {
+//        Text("Med")
+//          .font(.system(size: 12))
+//          .padding(.horizontal, 2)
+//          .padding(.vertical, 2)
+//          .foregroundColor(text)
+//          .background(color)
+//          .cornerRadius(15)
+//      } else {
 //        Text(task.priority)
 //            .font(.system(size: 12))
-//            .padding(.horizontal)
-//            .padding(.vertical, 3)
+//            .padding(.horizontal, 2)
+//            .padding(.vertical, 2)
 //            .foregroundColor(text)
 //            .background(color)
 //            .cornerRadius(15)
+//      }
+       
     }
 
     
@@ -112,7 +165,7 @@ struct TaskView: View {
     private var statusButtonOrLabel: some View {
         switch task.status {
         case .done:
-            Label("Done", systemImage: "checkmark.circle.fill").labelStyle(.iconOnly).foregroundColor(.green)
+            Label("DONE", systemImage: "checkmark.circle.fill").labelStyle(.iconOnly).foregroundColor(.green)
         case .inProgress:
             inProgressView
         case .unclaimed:
@@ -126,8 +179,7 @@ struct TaskView: View {
         if taskViewModel.isMyTask(task: task, user_id: user.id ?? "") {
             NavigationLink(destination: AddPostView(task: task, user: user)) {
                 Text("Done")
-            }
-            .buttonStyle(DoneButtonStyle())
+            }.buttonStyle(DoneButtonStyle())
         } else if let uid = task.user_id, let user = userViewModel.getUserByID(uid) {
             userProfileImage(for: user)
         }
@@ -135,10 +187,16 @@ struct TaskView: View {
 
     // MARK: - Claim Button
     private var claimButton: some View {
-        Button("Claim", action: {
+        Button("CLAIM", action: {
+          
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             if let uid = user.id {
                 taskViewModel.claimTask(task: task, user_id: uid)
+           
             }
+          }
+            
+          
         })
         .buttonStyle(ClaimButtonStyle())
     }
@@ -159,44 +217,111 @@ struct TaskView: View {
 }
 
 // MARK: - Custom Button Styles
+//struct DeleteButtonStyle: ButtonStyle {
+//    func makeBody(configuration: Configuration) -> some View {
+//        configuration.label
+//            .bold()
+//            .font(.system(size: 12))
+//            .foregroundColor(.white)
+//            .padding(.horizontal)
+//            .padding(.vertical, 4)
+//            .background(Color.red)
+//            .cornerRadius(16)
+//    }
+//}
+
 struct DeleteButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
+    func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .bold()
-            .font(.system(size: 12))
-            .foregroundColor(.white)
             .padding(.horizontal)
             .padding(.vertical, 4)
-            .background(Color.red)
-            .cornerRadius(15)
+            .foregroundColor(Color.red)
+            .font(.custom("Lato-Bold", size: 12))
+//            .font(.system(size: 12))
+//            .bold()
+            .cornerRadius(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                  .stroke(Color.red, lineWidth: 2)
+
+
+            )
+            .overlay(
+                  RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.red, lineWidth: configuration.isPressed ? 0 : 4)
+                    .padding(.top, -1.25)
+                    .offset(x: 0, y: configuration.isPressed ? 0 : 1))
+
+            .scaleEffect(configuration.isPressed ? 1.0 : 1.0)
+            .offset(x: 0, y: configuration.isPressed ? 3 : 1)
+
     }
 }
 
+
+
+
+
+
+
+
 struct DoneButtonStyle: ButtonStyle {
+    let lightGreen = Color(red: 0.10, green: 0.85, blue: 0.23)
+    let deepGreen = Color(red: 0.3 * 0.85, green: 1.0 * 0.85, blue: 0.31 * 0.85)
+    let darkGreen = Color(red: 0.3 * 0.5, green: 1.0 * 0.5, blue: 0.31 * 0.5)
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .bold()
-            .font(.system(size: 12))
-            .foregroundColor(.white)
-            .padding(.horizontal)
-            .padding(.vertical, 4)
-            .background(Color.green)
-            .cornerRadius(15)
-    }
+            ZStack {
+                configuration.label
+                    .font(.custom("Lato-Bold", size: 12))
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                   
+                    .background(configuration.isPressed ? Color.white : darkGreen)
+                    .cornerRadius(16)
+
+                configuration.label
+                    .font(.custom("Lato-Bold", size: 12))
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+                    .padding(.vertical, 4)
+                    .background(lightGreen)
+                    .cornerRadius(16)
+                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)
+            }
+        }
+
 }
 
 struct ClaimButtonStyle: ButtonStyle {
+    let lightPurple = Color(red: 0.439 * 1.5, green: 0.298 * 1.5, blue: 1.0 * 1.5)
+    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
+    let darkPurple = Color(red: 0.439 * 0.6, green: 0.298 * 0.6, blue: 1.0 * 0.6)
+  
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .bold()
-            .font(.system(size: 12))
-            .foregroundColor(.white)
-            .padding(.horizontal)
-            .padding(.vertical, 4)
-            .background(Color(red: 0.439, green: 0.298, blue: 1.0))
-            .cornerRadius(15)
-    }
+            ZStack {
+                configuration.label
+                    .font(.custom("Lato-Bold", size: 12))
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                   
+                    .background(configuration.isPressed ? Color.white : darkPurple)
+                    .cornerRadius(16)
+
+                configuration.label
+                    .font(.custom("Lato-Bold", size: 12))
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+                    .padding(.vertical, 4)
+                    .background(lightPurple)
+                    .cornerRadius(16)
+                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)
+            }
+        }
+
 }
+
+
+
 
 // MARK: - TaskView Previews
 struct TaskView_Previews: PreviewProvider {

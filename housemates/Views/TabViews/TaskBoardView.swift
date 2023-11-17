@@ -36,6 +36,7 @@ struct TaskBoardView: View {
     // Header Title
     private func headerTitle() -> some View {
         Text("Tasks")
+            .font(.custom("Nunito-Bold", size: 26))
             .font(.title)
             .fontWeight(.bold)
             .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
@@ -46,6 +47,7 @@ struct TaskBoardView: View {
         NavigationLink(destination: TaskSelectionView(user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
             Image(systemName: "plus")
                 .font(.headline)
+                .font(.custom("Lato-Bold", size: 15))
                 .imageScale(.small)
                 .foregroundColor(Color.white)
                 .padding(7.5)
@@ -56,79 +58,92 @@ struct TaskBoardView: View {
 
     // Main Content Section
     private func mainContent(user: User) -> some View {
-        VStack {
-            TabView(selection: $selectedTab) {
-                taskScrollView(user: user)
-                    .tag(0)
-                GraphView()
-                    .tag(1)
-            }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+      VStack {
+        FilterView(selected: $selected)
+        taskSections(user: user)
 
-            Spacer()
         }
-    }
+      }
 
  
-
-    // Task Scroll View
-    private func taskScrollView(user: User) -> some View {
-        ScrollView {
-            VStack(alignment: .leading) {
-              HStack {
-                Spacer()
-                FilterView(selected: $selected)
-                Spacer()
-              }
-               
-                   
-                taskSections(user: user)
-            }
-        }
-        .tag(0)
-    }
 
    
 
     // Task Sections
-    private func taskSections(user: User) -> some View {
-        VStack(alignment: .leading) {
-            if selected == "Unclaimed" || selected == "All Tasks" {
-              taskSection(title: "Unclaimed", tasks: taskViewModel.getUnclaimedTasksForGroup(user.group_id!), user: user)
-            }
+  private func taskSections(user: User) -> some View {
+      List {
+          if selected == "Unclaimed" || selected == "All Tasks" {
+            Section(header: Text("Unclaimed").font(.custom("Lato-Bold", size: 15))) {
+                  ForEach(taskViewModel.getUnclaimedTasksForGroup(user.group_id!)) { task in
+                    
+                    ZStack {
+                      NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
+                      }
+                      .opacity(0)
+                      
+                      taskRow(task: task, user: user)
+                        
+                    }.listRowSeparator(.hidden)
+                  }
+              }
+          }
 
-            if selected == "Doing" || selected == "All Tasks" {
-                taskSection(title: "In Progress", tasks: taskViewModel.getInProgressTasksForGroup(user.group_id!), user: user)
-            }
+          if selected == "Doing" || selected == "All Tasks" {
+              Section(header: Text("In Progress").font(.custom("Lato-Bold", size: 15))) {
+                  ForEach(taskViewModel.getInProgressTasksForGroup(user.group_id!)) { task in
+                    ZStack {
+                      NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
+//                        gets rid of the arrow icon
+                      }
+                      .opacity(0)
+                      
+                      taskRow(task: task, user: user)
+                        
+                    }.listRowSeparator(.hidden)
+                  }
+              }
+          }
 
-            if selected == "Completed" || selected == "All Tasks" {
-                taskSection(title: "Completed", tasks: taskViewModel.getCompletedTasksForGroup(user.group_id!), user: user)
-            }
-        }
-        .padding(.horizontal)
-    }
+          if selected == "Completed" || selected == "All Tasks" {
+              Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15))) {
+                  ForEach(taskViewModel.getCompletedTasksForGroup(user.group_id!)) { task in
+                    ZStack {
+                      NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
+                      }
+                      .opacity(0)
+                      
+                      taskRow(task: task, user: user)
+                        
+                    }.listRowSeparator(.hidden)
+                  }
+              }
+          }
+      }
+      .listStyle(.plain)
+  }
+
 
     // Individual Task Section
-  private func taskSection(title: String, tasks: [task], user: User) -> some View {
-        VStack(alignment: .leading) {
-            Text(title)
-                .font(.headline)
-                .padding(.top)
-                .bold()
+  private func taskRow(task: task, user: User) -> some View {
+      TaskView(task: task, user: user)
+          .swipeActions {
+              Button(role: .destructive) {
+                  taskViewModel.destroy(task: task)
+              } label: {
+                  Label("Delete", systemImage: "trash")
+                    .foregroundColor(.red)
+              }
+            
+          }
+  }
 
-            if tasks.isEmpty {
-                MessageCardView(message: "No \(title) Tasks")
-            }
-
-            ForEach(tasks) { task in
-              TaskView(task: task, user: user)
-            }
-        }
-    }
 
  
    
+
 }
+
+
 
 struct TaskBoardView_Previews: PreviewProvider {
     static var previews: some View {
