@@ -11,7 +11,6 @@ struct PostComponent: View {
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var postViewModel : PostViewModel
-
     
     let post : Post
     let user : User
@@ -42,7 +41,7 @@ struct PostComponent: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     // MARK: Post Text Details
-                    Text("**\(post.created_by.first_name) has completed the task:** \(post.task.name)")
+                    Text("**\(post.created_by.first_name)** completed the task: **\(post.task.name)**")
                         .font(.system(size: 14))
                         .padding(.trailing)
                         .padding(.bottom, 30)
@@ -66,8 +65,7 @@ struct PostComponent: View {
                 }
             }
             Divider()
-        }
-
+        }.padding(.top, 5)
     }
     
     // MARK: Like / Unlike Button

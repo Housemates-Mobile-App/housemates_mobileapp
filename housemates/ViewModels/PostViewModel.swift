@@ -65,6 +65,16 @@ class PostViewModel: ObservableObject {
         postRepository.update(post)
     }
     
+    func addComment(user: User, text: String, post: Post) {
+        var post = post
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.dd.yy h:mm a"
+        let formattedDate = formatter.string(from: Date())
+        let comment = Comment(text: text, date_created: formattedDate, created_by: user)
+        post.comments.append(comment)
+        post.num_comments += 1
+        postRepository.update(post)
+    }
 }
 
 

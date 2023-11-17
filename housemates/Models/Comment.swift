@@ -8,15 +8,17 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct Comment: Codable {
+struct Comment: Identifiable, Codable {
     
-    // MARK: Fields
-    var text: Int
-    var date_created: Date
+    // MARK: Fields'
+    var id = UUID()
+    var text: String
+    var date_created: String
     var created_by: User
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
+        case id
         case text
         case date_created
         case created_by

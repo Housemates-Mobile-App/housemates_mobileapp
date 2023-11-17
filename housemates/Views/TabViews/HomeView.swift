@@ -43,7 +43,7 @@ struct HomeView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 15) {
                                 if let uid = user.id {
-                                    ForEach(userViewModel.users) { user in
+                                    ForEach(userViewModel.getUserGroupmates(uid)) { user in
                                         NavigationLink(destination: HousemateProfileView(housemate: user)) {
                                             HousemateCircleComponent(housemate: user)
                                         }.buttonStyle(PlainButtonStyle())
@@ -51,20 +51,20 @@ struct HomeView: View {
                                 }
                             }
                             .padding(.horizontal)
-                            Divider()
                         }
+                        Divider()
                         
                         
                     //MARK - Feed Content
                     LazyVStack(spacing: 10) {
                         ForEach(postViewModel.posts) { post in
-                                PostComponent(post: post, user: user)
+                            NavigationLink(destination: PostDetailView(post: post, user: user)) {
+                                    PostComponent(post: post, user: user)
+                                }.buttonStyle(PlainButtonStyle())
                             }
                         }
                     }
-                        
-                        Spacer()
-                        
+                    Spacer()
                 }
             }
         }
