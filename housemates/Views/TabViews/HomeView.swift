@@ -60,7 +60,7 @@ struct HomeView: View {
                     LazyVStack(spacing: 10) {
                         ForEach(postViewModel.posts) { post in
                             NavigationLink(destination: PostDetailView(hideTabBar: $hideTabBar, post: post, user: user)) {
-                                    PostComponent(post: post, user: user)
+                                PostComponent(hideTabBar: $hideTabBar, post: post, user: user)
                                 }.buttonStyle(PlainButtonStyle())
                             }
                         }

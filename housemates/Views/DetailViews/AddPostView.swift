@@ -11,9 +11,6 @@ struct AddPostView: View {
     let task: task
     let user: User
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var taskViewModel: TaskViewModel
-    @EnvironmentObject var authViewModel: AuthViewModel
-    @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var postViewModel: PostViewModel
 
 
@@ -57,5 +54,4 @@ struct AddPostView: View {
 
 #Preview {
     AddPostView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser())
-        .environmentObject(UserViewModel())
 }

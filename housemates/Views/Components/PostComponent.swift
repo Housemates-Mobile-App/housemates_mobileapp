@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct PostComponent: View {
-    @EnvironmentObject var userViewModel: UserViewModel
-    @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var postViewModel : PostViewModel
+    @Binding var hideTabBar: Bool
+
     
     let post : Post
     let user : User
@@ -52,6 +52,7 @@ struct PostComponent: View {
                        
                         // MARK: Comment Button
                         commentButton(post: post, user: user)
+                        
                         Spacer()
                         
                         if let date = post.task.date_completed {
@@ -102,9 +103,7 @@ struct PostComponent: View {
     private func commentButton(post: Post, user: User) -> some View {
         HStack {
             // MARK: Navigation Link to Post Detail
-            Button(action: {
-                print("Comment button tapped!")
-            }) {
+            NavigationLink(destination: PostDetailView(hideTabBar: $hideTabBar, post: post, user: user)) {
                 Image(systemName: "bubble.right")
                     .font(.system(size: 18))
             }
@@ -125,8 +124,7 @@ struct PostComponent: View {
 
 struct PostComponent_Previews: PreviewProvider {
     static var previews: some View {
-        PostComponent(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
-            .environmentObject(UserViewModel())
-            .environmentObject(TaskViewModel())
+        PostComponent(hideTabBar: Binding.constant(false), post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
+
     }
 }
