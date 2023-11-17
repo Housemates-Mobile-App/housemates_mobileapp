@@ -38,14 +38,6 @@ struct TaskDetailView: View {
 //    .onAppear {
 //      taskName = taskNameHardcoded
 //    }
-//    .onAppear {
-//      taskName = taskNameHardcoded
-//      hideTabBar = true
-//    }
-//    .onDisappear {
-//      hideTabBar = false
-//      selectedTab = 0
-//    }
   }
   
   
@@ -55,8 +47,7 @@ struct TaskDetailView: View {
 //  struct TaskDetailView_Previews: PreviewProvider {
 //    static var previews: some View {
 //      TaskDetailView(taskIconStringHardcoded: "trash.fill", taskNameHardcoded: "Clean Dishes",
-//                  user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"),
-//                  hideTabBar: .constant(true), selectedTab: .constant(0))
+//                  user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"), selectedTab: .constant(0))
 //      .environmentObject(TaskViewModel())
 //    }
 //  }

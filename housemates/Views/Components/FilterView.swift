@@ -71,7 +71,7 @@ struct FilterView: View {
             .background(selected == "Completed" ? deepPurple : deepPurple.opacity(0.25))
             .cornerRadius(25)
         }
-      }.padding(.horizontal)
+      }.padding(.horizontal, 5)
       
   }
 }

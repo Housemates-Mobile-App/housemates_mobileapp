@@ -10,7 +10,6 @@ import SDWebImageSwiftUI
 
 struct TaskSelectionView: View {
     @EnvironmentObject var taskViewModel : TaskViewModel
-    @Binding var hideTabBar: Bool
     @Binding var showTaskSelectionView: Bool
     @State private var searchTask: String = ""
     let user : User
@@ -46,7 +45,7 @@ struct TaskSelectionView: View {
                 }
                 Spacer()
                 
-                NavigationLink(destination: AddTaskView(taskIconStringHardcoded: "", taskNameHardcoded: "", user: user, hideTabBar: $hideTabBar, showTaskSelectionView: $showTaskSelectionView)) {
+                NavigationLink(destination: AddTaskView(taskIconStringHardcoded: "", taskNameHardcoded: "", user: user, showTaskSelectionView: $showTaskSelectionView)) {
                     Text("Add a Custom Task +")
                         .font(.system(size: 18))
                         .bold()
@@ -58,13 +57,7 @@ struct TaskSelectionView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 
-            }.onAppear {
-                hideTabBar = true
             }
-            .onDisappear {
-                hideTabBar = false
-            }
-            
         }
     }
         
@@ -80,7 +73,7 @@ struct TaskSelectionView: View {
                 if i % 3 == 0 {
                     HStack {
                         ForEach(0..<min(3, taskData.count - i), id: \.self) { j in
-                            NavigationLink(destination: AddTaskView(taskIconStringHardcoded: taskData[i + j].taskIcon, taskNameHardcoded: taskData[i + j].taskName, user: user, hideTabBar: $hideTabBar, showTaskSelectionView: $showTaskSelectionView)) {
+                            NavigationLink(destination: AddTaskView(taskIconStringHardcoded: taskData[i + j].taskIcon, taskNameHardcoded: taskData[i + j].taskName, user: user, showTaskSelectionView: $showTaskSelectionView)) {
                                 TaskSelectionBox(taskIconString: taskData[i + j].taskIcon, taskName: taskData[i + j].taskName)
                             }
                         }
@@ -94,7 +87,7 @@ struct TaskSelectionView: View {
 
 struct TaskSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskSelectionView(hideTabBar: Binding.constant(false), showTaskSelectionView: Binding.constant(false), user: UserViewModel.mockUser())
+        TaskSelectionView(showTaskSelectionView: Binding.constant(false), user: UserViewModel.mockUser())
             .environmentObject(TaskViewModel())
     }
 }

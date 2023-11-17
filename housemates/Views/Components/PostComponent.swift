@@ -9,9 +9,7 @@ import SwiftUI
 
 struct PostComponent: View {
     @EnvironmentObject var postViewModel : PostViewModel
-    @Binding var hideTabBar: Bool
 
-    
     let post : Post
     let user : User
     var body: some View {
@@ -103,7 +101,7 @@ struct PostComponent: View {
     private func commentButton(post: Post, user: User) -> some View {
         HStack {
             // MARK: Navigation Link to Post Detail
-            NavigationLink(destination: PostDetailView(hideTabBar: $hideTabBar, post: post, user: user)) {
+            NavigationLink(destination: PostDetailView(post: post, user: user)) {
                 Image(systemName: "bubble.right")
                     .font(.system(size: 18))
             }
@@ -124,7 +122,7 @@ struct PostComponent: View {
 
 struct PostComponent_Previews: PreviewProvider {
     static var previews: some View {
-        PostComponent(hideTabBar: Binding.constant(false), post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
+        PostComponent(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
 
     }
 }
