@@ -27,12 +27,11 @@ struct HomeView: View {
                 }) {
                     Text("Personal")
                         .font(.custom("Nunito-Bold", size: 15))
-                        .frame(minWidth: 50, minHeight: 25)
-                        .foregroundColor(selectedTab == "Personal" ? .white : .gray)
-                        .padding(5)
-                        .background(selectedTab == "Personal" ? Color.blue : Color.clear)
-                        .cornerRadius(10)
-                }.padding()
+                        .frame(minWidth: 80, minHeight: 25)
+                        .background(selectedTab == "Personal" ? Color.purple : deepPurple)
+                        .cornerRadius(16)
+                }.buttonStyle(SwitchButtonStyle())
+                .padding(.horizontal)
               
               
 
@@ -41,18 +40,18 @@ struct HomeView: View {
                 }) {
                     Text("Feed")
                         .font(.custom("Nunito-Bold", size: 15))
-                        .frame(minWidth: 50, minHeight: 25)
-                        .foregroundColor(selectedTab == "Feed" ? .white : .gray)
-                        .padding(5)
-                        .background(selectedTab == "Feed" ? Color.blue : Color.clear)
-                        .cornerRadius(10)
-                }.padding()
+                        .frame(minWidth: 80, minHeight: 25)
+                        .background(selectedTab == "Feed" ? Color.purple : deepPurple)
+                      
+                        .cornerRadius(16)
+                }.buttonStyle(SwitchButtonStyle())
+                .padding(.horizontal)
               
             }
           
            
             
-            .padding(.horizontal)
+            .padding()
             .cornerRadius(10)
             
             if (selectedTab == "Feed") {
@@ -130,6 +129,30 @@ struct HomeView: View {
           }
         }
     }
+}
+
+struct SwitchButtonStyle: ButtonStyle {
+    let lightPurple = Color(red: 0.439 * 1.5, green: 0.298 * 1.5, blue: 1.0 * 1.5)
+    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
+    let darkPurple = Color(red: 0.439 * 0.6, green: 0.298 * 0.6, blue: 1.0 * 0.6)
+  
+    func makeBody(configuration: Configuration) -> some View {
+            ZStack {
+                configuration.label
+                    .font(.custom("Lato-Bold", size: 15))
+                   
+                    .background(configuration.isPressed ? Color.white : darkPurple)
+                    .cornerRadius(16)
+
+                configuration.label
+                    .font(.custom("Lato-Bold", size: 15))
+                    
+                    .background(lightPurple)
+                    .cornerRadius(16)
+                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)
+            }
+        }
+
 }
 
 struct HomeView_Previews: PreviewProvider {

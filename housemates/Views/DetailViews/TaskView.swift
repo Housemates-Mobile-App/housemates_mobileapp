@@ -185,7 +185,7 @@ struct TaskView: View {
                 // Navigate to AddPostView or perform any other action
                 isAddPostViewActive = true
             }) {
-                Text("Done")
+                Text("DONE")
             }
             .buttonStyle(DoneButtonStyle())
             .background(
