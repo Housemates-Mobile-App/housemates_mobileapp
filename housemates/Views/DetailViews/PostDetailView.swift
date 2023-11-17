@@ -122,6 +122,6 @@ struct PostDetailView: View {
     }
 }
 
-#Preview {
-    PostDetailView(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
-}
+//#Preview {
+//    PostDetailView(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
+//}
