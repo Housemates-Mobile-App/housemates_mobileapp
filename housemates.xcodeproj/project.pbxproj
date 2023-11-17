@@ -418,6 +418,7 @@
 			children = (
 				81E9ED632B05F4E700A258A8 /* Info.plist */,
 				81E9ED542B05F09400A258A8 /* Font */,
+				8AD6ED272AF197F3006B56B6 /* DataRepositories */,
 				8AD6ED1B2AF19738006B56B6 /* ViewModels */,
 				8AD6ED1A2AF19732006B56B6 /* Views */,
 				8AD6ED182AF19722006B56B6 /* Models */,
@@ -466,7 +467,6 @@
 		8AD6ED1B2AF19738006B56B6 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				8AD6ED272AF197F3006B56B6 /* DataRepositories */,
 				8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */,
 				ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */,
 				8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */,
