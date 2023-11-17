@@ -217,11 +217,3 @@ struct ProfileView_Previews: PreviewProvider {
 }
 
 
-// MARK: Preview causes this view to crash due to unwrapping of user (not sure what it is)
-
-//#Preview {
-//    ProfileView()
-//}
-
-
-

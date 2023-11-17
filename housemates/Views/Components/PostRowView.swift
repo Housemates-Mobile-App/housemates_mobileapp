@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct PostComponent: View {
+struct PostRowView: View {
     @EnvironmentObject var postViewModel : PostViewModel
-
+    @State var isCommentDetailSheetPresented = false
+    
     let post : Post
     let user : User
     var body: some View {
@@ -24,7 +25,6 @@ struct PostComponent: View {
                         .scaledToFill()
                         .frame(width: 40, height: 40)
                         .clipShape(Circle())
-                        .padding(.leading, 12)
                 } placeholder: {
         
                     // MARK: Default user profile picture
@@ -33,7 +33,6 @@ struct PostComponent: View {
                         .scaledToFill()
                         .frame(width: 40, height: 40)
                         .clipShape(Circle())
-                        .padding(.leading, 12)
                 }
                 
                 
@@ -63,8 +62,7 @@ struct PostComponent: View {
                        
                 }
             }
-            Divider()
-        }.padding(.top, 5)
+        }
     }
     
     // MARK: Like / Unlike Button
@@ -78,14 +76,14 @@ struct PostComponent: View {
                         Image(systemName: "heart.fill")
                             .foregroundColor(.red)
                             .font(.system(size: 20))
-                    }
+                    }.buttonStyle(PlainButtonStyle()) // Allows button on list view to be independent
                 } else {
                     Button(action: {
                         postViewModel.likePost(user: user, post: post)
                     }) {
                         Image(systemName: "heart")
                             .font(.system(size: 20))
-                    }
+                    }.buttonStyle(PlainButtonStyle()) // Allows button on list view to be independent
                 }
                 
                 // MARK: Like count
@@ -100,29 +98,33 @@ struct PostComponent: View {
     // MARK: Comment Button
     private func commentButton(post: Post, user: User) -> some View {
         HStack {
-            // MARK: Navigation Link to Post Detail
-            NavigationLink(destination: PostDetailView(post: post, user: user)) {
+            Button(action: {
+                isCommentDetailSheetPresented = true
+            }) {
                 Image(systemName: "bubble.right")
                     .font(.system(size: 18))
-            }
+            }.buttonStyle(PlainButtonStyle())
             
-            // MARK: Comment count
             if !post.comments.isEmpty {
                 Text(String(post.num_comments))
                     .font(.footnote)
                     .foregroundColor(.gray)
             }
             Spacer()
-           
+        }.sheet(isPresented: $isCommentDetailSheetPresented) {
+                CommentDetailView(post: post, user: user)
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.automatic)
+            }
+        
         }
-    }
 }
 
 
 
 struct PostComponent_Previews: PreviewProvider {
     static var previews: some View {
-        PostComponent(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
+        PostRowView(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
 
     }
 }

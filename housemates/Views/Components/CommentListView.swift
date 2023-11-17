@@ -20,7 +20,6 @@ struct CommentListView: View {
                     .scaledToFill()
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
-                    .padding(.leading, 12)
             } placeholder: {
     
                 // MARK: Default user profile picture
@@ -29,7 +28,6 @@ struct CommentListView: View {
                     .scaledToFill()
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
-                    .padding(.leading, 12)
             }
             
             
@@ -37,13 +35,11 @@ struct CommentListView: View {
                 // MARK: Comment Text Details
                 Text("**\(comment.created_by.first_name)**  \(comment.date_created)")
                     .font(.system(size: 14))
-                    .padding(.trailing)
                 
                 Text(comment.text).font(.system(size: 15))
             }
             Spacer()
         }
-        Divider()
      
     }
 }
