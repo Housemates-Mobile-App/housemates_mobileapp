@@ -96,11 +96,35 @@ struct AddTaskView: View {
       return
     }
       
-    guard recurrence == .none || (recurrenceStartDate != nil && recurrenceEndDate != nil) else {
-      alertMessage = "Recurring tasks must have both a start and an end date."
-      showAlert = true
-      return
-    }
+      
+  if isRecurring {
+      //recurrence type is selected
+      guard recurrence != .none else {
+          alertMessage = "Please select a recurrence type for the task."
+          showAlert = true
+          return
+      }
+      
+      guard recurrence == .none || (recurrenceStartDate != nil && recurrenceEndDate != nil) else {
+        alertMessage = "Recurring tasks must have both a start and an end date."
+        showAlert = true
+        return
+      }
+
+      // start date not in the past
+      guard recurrenceStartDate >= Date() else {
+          alertMessage = "Recurring start date cannot be in the past."
+          showAlert = true
+          return
+      }
+
+      // end date is not current day or the same as the start date
+      guard recurrenceEndDate > Date() && recurrenceEndDate > recurrenceStartDate else {
+          alertMessage = "Recurring end date must be after the start date and not today."
+          showAlert = true
+          return
+      }
+  }
     
     
     print("Task Name: \(taskName)")
