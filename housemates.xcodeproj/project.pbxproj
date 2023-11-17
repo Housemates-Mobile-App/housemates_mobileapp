@@ -30,6 +30,8 @@
 		51D094B72AFC754300935664 /* postModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094B62AFC754300935664 /* postModelTests.swift */; };
 		51D094B92AFC75A100935664 /* amenityModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094B82AFC75A100935664 /* amenityModelTests.swift */; };
 		51D094BB2AFC760000935664 /* commentModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D094BA2AFC760000935664 /* commentModelTests.swift */; };
+		51D9B3332B06AB470091EBCD /* startView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D9B3322B06AB470091EBCD /* startView.swift */; };
+		51D9B3352B06ABC70091EBCD /* temporaryLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 51D9B3342B06ABC70091EBCD /* temporaryLogo.png */; };
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
 		81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */; };
 		81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29E12AFF56C400748D58 /* FilterView.swift */; };
@@ -166,6 +168,8 @@
 		51D094B62AFC754300935664 /* postModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postModelTests.swift; sourceTree = "<group>"; };
 		51D094B82AFC75A100935664 /* amenityModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = amenityModelTests.swift; sourceTree = "<group>"; };
 		51D094BA2AFC760000935664 /* commentModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = commentModelTests.swift; sourceTree = "<group>"; };
+		51D9B3322B06AB470091EBCD /* startView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = startView.swift; sourceTree = "<group>"; };
+		51D9B3342B06ABC70091EBCD /* temporaryLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = temporaryLogo.png; path = ../../../../Downloads/temporaryLogo.png; sourceTree = "<group>"; };
 		816C30272AF49D59004F1771 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHousematesView.swift; sourceTree = "<group>"; };
 		81CF29E12AFF56C400748D58 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -330,6 +334,7 @@
 				8AF3583F2AF4B17A0009B93C /* JoinCreateGroupView.swift */,
 				8AF358412AF4B2BA0009B93C /* JoinGroupView.swift */,
 				8AF358432AF4B2E20009B93C /* CreateGroupView.swift */,
+				51D9B3322B06AB470091EBCD /* startView.swift */,
 			);
 			path = AuthenticationViews;
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 				8AD6ED182AF19722006B56B6 /* Models */,
 				8AD6ED082AF1969C006B56B6 /* housematesApp.swift */,
 				8AD6ED0C2AF1969D006B56B6 /* Assets.xcassets */,
+				51D9B3342B06ABC70091EBCD /* temporaryLogo.png */,
 				8AD6ED162AF196E8006B56B6 /* GoogleService-Info.plist */,
 				8AD6ED0E2AF1969D006B56B6 /* Preview Content */,
 			);
@@ -629,6 +635,7 @@
 				81E9ED562B05F15500A258A8 /* Nunito-VariableFont_wght.ttf in Resources */,
 				81E9ED5D2B05F25C00A258A8 /* Nunito-Black.ttf in Resources */,
 				8AD6ED102AF1969D006B56B6 /* Preview Assets.xcassets in Resources */,
+				51D9B3352B06ABC70091EBCD /* temporaryLogo.png in Resources */,
 				81E9ED612B05F25C00A258A8 /* Nunito-Bold.ttf in Resources */,
 				81E9ED672B05F61B00A258A8 /* Lato-Regular.ttf in Resources */,
 				81E9ED5F2B05F25C00A258A8 /* Nunito-Medium.ttf in Resources */,
@@ -708,6 +715,7 @@
 				8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */,
 				5155A17C2AFDC6ED00832E51 /* AllHousematesView.swift in Sources */,
 				8AD6ED1F2AF1977D006B56B6 /* Group.swift in Sources */,
+				51D9B3332B06AB470091EBCD /* startView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

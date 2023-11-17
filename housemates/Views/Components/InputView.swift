@@ -15,21 +15,25 @@ struct InputView: View {
     
     var body: some View {
         // MARK: Input field view for Form
-        VStack(alignment: .leading, spacing: 12) {
-            Text(title)
-                .foregroundColor(Color(.darkGray))
-                .fontWeight(.semibold)
-                .font(.footnote)
+
             
+        VStack(alignment: .leading, spacing: 12) {
+    
             if isSecureField {
                 SecureField(placeholder, text: $text)
-                    .font(.system(size: 14))
+                    .font(.custom("Nunito", size: 24))
+                    .padding()
             } else {
                 TextField(placeholder, text: $text)
-                    .font(.system(size: 14))
+                    .font(.custom("Nunito", size: 24))
+                    .padding()
             }
-            Divider()
-        }
+        }.padding()
+        overlay(
+            RoundedRectangle(cornerRadius: 10)
+            .stroke(Color(red: 0.588, green: 0.584, blue: 0.584))
+            )
+            
     }
 }
 

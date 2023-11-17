@@ -17,10 +17,11 @@ struct LoginView: View {
             ZStack(alignment: .bottom) {
                 VStack{
                     // MARK: Housemates Logo
-                    Image("housematesLogo")
+                    Image("temporaryLogo")
                         .resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 120)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 221, height: 221)
+                        .padding(.top, 100)
                     
                     // MARK: Login Form
                     VStack(spacing: 10) {
