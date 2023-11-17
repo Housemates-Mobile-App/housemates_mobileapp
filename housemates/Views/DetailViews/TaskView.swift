@@ -6,7 +6,7 @@ struct TaskView: View {
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var userViewModel: UserViewModel
-
+    @State private var isAddPostViewActive = false
     @Environment(\.editMode) var editMode
     
     var body: some View {
@@ -177,9 +177,23 @@ struct TaskView: View {
     @ViewBuilder
     private var inProgressView: some View {
         if taskViewModel.isMyTask(task: task, user_id: user.id ?? "") {
-            NavigationLink(destination: AddPostView(task: task, user: user)) {
+//            NavigationLink(destination: AddPostView(task: task, user: user)) {
+//                Text("Done")
+//            }.buttonStyle(DoneButtonStyle())
+            Button(action: {
+                // Handle button tap action here
+                // Navigate to AddPostView or perform any other action
+                isAddPostViewActive = true
+            }) {
                 Text("Done")
-            }.buttonStyle(DoneButtonStyle())
+            }
+            .buttonStyle(DoneButtonStyle())
+            .background(
+                    NavigationLink(destination: AddPostView(task: task, user: user), isActive: $isAddPostViewActive) {
+                        EmptyView()
+                    }
+                    .hidden()
+                )
         } else if let uid = task.user_id, let user = userViewModel.getUserByID(uid) {
             userProfileImage(for: user)
         }

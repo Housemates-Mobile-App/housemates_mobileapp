@@ -95,6 +95,7 @@ struct TaskBoardView: View {
                     ZStack {
                       NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
 //                        gets rid of the arrow icon
+                          
                       }
                       .opacity(0)
                       
