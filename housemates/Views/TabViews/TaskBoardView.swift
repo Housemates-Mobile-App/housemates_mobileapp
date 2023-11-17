@@ -89,12 +89,13 @@ struct TaskBoardView: View {
               }
           }
 
-          if selected == "Doing" || selected == "All Tasks" {
+          if selected == "In Progress" || selected == "All Tasks" {
               Section(header: Text("In Progress").font(.custom("Lato-Bold", size: 15))) {
                   ForEach(taskViewModel.getInProgressTasksForGroup(user.group_id!)) { task in
                     ZStack {
                       NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
 //                        gets rid of the arrow icon
+                          
                       }
                       .opacity(0)
                       

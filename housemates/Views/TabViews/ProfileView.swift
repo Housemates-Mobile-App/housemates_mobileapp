@@ -26,10 +26,7 @@ struct ProfileView: View {
     var body: some View {
         if let user = authViewModel.currentUser {
           NavigationView {
-            
-          
             VStack(spacing:0) {
-              
               HStack {
                 Spacer()
                 NavigationLink(destination: SettingsView(user: user, authViewModel: authViewModel, groupRepository: groupRepository)) {
