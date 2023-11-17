@@ -65,11 +65,12 @@ struct PostDetailView: View {
             Divider()
             
             // MARK: Comments
-            ScrollView {
+            List {
                 ForEach(post.comments) { comment in
                     CommentListView(comment: comment)
                 }
-            }
+            }.listStyle(InsetListStyle())
+            
             
             Spacer()
             

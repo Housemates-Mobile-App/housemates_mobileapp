@@ -64,69 +64,47 @@ struct HomeView: View {
                   .padding()
                 Spacer()
                 
-                // MARK - Button to see all housemates
-                NavigationLink(destination: HomeView()) {
-                  Text("View All")
-                    .foregroundColor(.white)
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 16)
-                    .background(Color.gray)
-                    .cornerRadius(120)
-                    .font(.headline)
-                }.padding()
-              }
-              
-              // MARK - Main Scroll Component
-              ScrollView {
+                // MARK - Home Page Header
+                HStack {
+                    Text("Housemates")
+                         .font(.system(size: 24))
+                         .bold()
+                         .padding(.leading, 20)
+                    Spacer()
+                }
                 
                 // MARK - Horizontal Housemates Scroll View
                 ScrollView(.horizontal, showsIndicators: false) {
-                  HStack(spacing: 15) {
-                    if let uid = user.id {
-                      ForEach(userViewModel.getUserGroupmates(uid)) { user in
-                        NavigationLink(destination: HousemateProfileView(housemate: user)) {
-                          HousemateCircleComponent(housemate: user)
-                        }.buttonStyle(PlainButtonStyle())
-                      }
+                    HStack(spacing: 15) {
+                        if let uid = user.id {
+                            ForEach(userViewModel.getUserGroupmates(uid)) { user in
+                                NavigationLink(destination: HousemateProfileView(housemate: user)) {
+                                    HousemateCircleComponent(housemate: user)
+                                }.buttonStyle(PlainButtonStyle())
+                            }
+                        }
                     }
-                  }
-                  .padding(.horizontal)
+                    .padding(.horizontal)
                 }
+                
                 Divider()
                 
-                
                 //MARK - Feed Content
-                LazyVStack(spacing: 10) {
-                  ForEach(postViewModel.posts) { post in
-                    NavigationLink(destination: PostDetailView(post: post, user: user)) {
-                      PostComponent(post: post, user: user)
-                    }.buttonStyle(PlainButtonStyle())
-                  }
-                }
-              }
-              Spacer()
-            }
-            
-            else {
-           
-              VStack {
-                Text("hi these are your stats")
-                Text("\(taskViewModel.getNumPendingTasksForUser(user.id!))")
-                  .foregroundColor(deepPurple)
-                  .font(.system(size: 32))
-                  .bold()
-                Text("Pending")
-                  .font(.system(size: 12))
-                }
-                .padding(.horizontal)
-                .frame(minWidth: 75, minHeight: 25)
-              Spacer()
+                List {
+                    
+                    ForEach(postViewModel.posts) { post in
+                        // Jank ass way to get arrow to disappear (Stick it in ZStack)
+                        ZStack {
+                            NavigationLink(destination: PostDetailView(post: post, user: user)) {
+                            }.opacity(0)
+                            PostRowView(post: post, user: user)
+                        }
+                    }
 
-
-              
-              
+                }.listStyle(InsetListStyle())
+                
+                Spacer()
             }
-          }
         }
     }
 }
