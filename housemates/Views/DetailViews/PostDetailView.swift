@@ -11,8 +11,6 @@ struct PostDetailView: View {
     @EnvironmentObject var postViewModel : PostViewModel
     @State private var newComment: String = ""
     @Binding var hideTabBar: Bool
-
-    
     let post : Post
     let user : User
     var body: some View {
@@ -96,6 +94,11 @@ struct PostDetailView: View {
             }
             .padding(.bottom)
             
+        }.onAppear {
+            hideTabBar = true
+        }
+        .onDisappear {
+            hideTabBar = false
         }
     }
     
