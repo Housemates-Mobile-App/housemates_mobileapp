@@ -265,18 +265,7 @@ struct DeleteButtonStyle: ButtonStyle {
 
 
 
-//struct DoneButtonStyle: ButtonStyle {
-//    func makeBody(configuration: Configuration) -> some View {
-//        configuration.label
-//            .bold()
-//            .font(.system(size: 12))
-//            .foregroundColor(.white)
-//            .padding(.horizontal)
-//            .padding(.vertical, 4)
-//            .background(Color.green)
-//            .cornerRadius(16)
-//    }
-//}
+
 
 
 
@@ -291,7 +280,7 @@ struct DoneButtonStyle: ButtonStyle {
                     .padding(.horizontal)
                     .padding(.vertical, 5)
                    
-                    .background(configuration.isPressed ? Color.white : darkGreen)  // Black background for the bottom layer
+                    .background(configuration.isPressed ? Color.white : darkGreen)
                     .cornerRadius(16)
 
                 configuration.label
@@ -299,9 +288,9 @@ struct DoneButtonStyle: ButtonStyle {
                     .foregroundColor(.white)
                     .padding(.horizontal)
                     .padding(.vertical, 4)
-                    .background(lightGreen)  // Red background for the top layer
+                    .background(lightGreen)
                     .cornerRadius(16)
-                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)  // Slight offset on press
+                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)
             }
         }
 
@@ -319,7 +308,7 @@ struct ClaimButtonStyle: ButtonStyle {
                     .padding(.horizontal)
                     .padding(.vertical, 5)
                    
-                    .background(configuration.isPressed ? Color.white : darkPurple)  // Black background for the bottom layer
+                    .background(configuration.isPressed ? Color.white : darkPurple)
                     .cornerRadius(16)
 
                 configuration.label
@@ -327,9 +316,9 @@ struct ClaimButtonStyle: ButtonStyle {
                     .foregroundColor(.white)
                     .padding(.horizontal)
                     .padding(.vertical, 4)
-                    .background(lightPurple)  // Red background for the top layer
+                    .background(lightPurple)
                     .cornerRadius(16)
-                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)  // Slight offset on press
+                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)
             }
         }
 
