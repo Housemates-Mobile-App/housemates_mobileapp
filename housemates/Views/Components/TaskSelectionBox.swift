@@ -42,6 +42,6 @@ struct TaskSelectionBox: View {
     
 }
 
-//#Preview {
-//    TaskSelectionBox(taskIconString:"housematesLogo", taskName: "Clean Dishes")
-//}
+#Preview {
+    TaskSelectionBox(taskIconString:"housematesLogo", taskName: "Clean Dishes")
+}

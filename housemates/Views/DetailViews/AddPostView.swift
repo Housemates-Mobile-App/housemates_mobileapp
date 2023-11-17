@@ -44,8 +44,6 @@ struct AddPostView: View {
             
             Divider()
             
-            // MARK - Add Caption
-            
             Spacer()
         }
         

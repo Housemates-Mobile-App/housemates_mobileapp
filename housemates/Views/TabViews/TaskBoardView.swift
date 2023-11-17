@@ -3,9 +3,10 @@ import SwiftUI
 struct TaskBoardView: View {
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
-    @State private var selectedTab = 0
     @Binding var hideTabBar: Bool
     @State private var selected: String = "All Tasks"
+    @State private var showTaskSelectionView = false
+
 
     var body: some View {
         // Check for current user
@@ -19,6 +20,8 @@ struct TaskBoardView: View {
                     mainContent(user: user)
 
                 }
+            }.sheet(isPresented: $showTaskSelectionView) {
+                TaskSelectionView(hideTabBar: $hideTabBar, showTaskSelectionView: $showTaskSelectionView, user: user)
             }
         }
     }
@@ -44,16 +47,18 @@ struct TaskBoardView: View {
 
     // Add Task Button
     private func addTaskButton(user: User) -> some View {
-        NavigationLink(destination: TaskSelectionView(user: user, hideTabBar: $hideTabBar, selectedTab: $selectedTab)) {
-            Image(systemName: "plus")
-                .font(.headline)
-                .font(.custom("Lato-Bold", size: 15))
-                .imageScale(.small)
-                .foregroundColor(Color.white)
-                .padding(7.5)
-                .background(Circle().fill(Color(red: 0.439, green: 0.298, blue: 1.0)))
-                .fontWeight(.semibold)
-        }
+        Button(action: {
+                showTaskSelectionView = true
+           }) {
+               Image(systemName: "plus")
+                   .font(.headline)
+                   .font(.custom("Lato-Bold", size: 15))
+                   .imageScale(.small)
+                   .foregroundColor(Color.white)
+                   .padding(7.5)
+                   .background(Circle().fill(Color(red: 0.439, green: 0.298, blue: 1.0)))
+                   .fontWeight(.semibold)
+           }
     }
 
     // Main Content Section
@@ -61,14 +66,10 @@ struct TaskBoardView: View {
       VStack {
         FilterView(selected: $selected)
         taskSections(user: user)
-
         }
       }
 
  
-
-   
-
     // Task Sections
   private func taskSections(user: User) -> some View {
       List {
@@ -135,12 +136,7 @@ struct TaskBoardView: View {
               }
             
           }
-  }
-
-
- 
-   
-
+    }
 }
 
 

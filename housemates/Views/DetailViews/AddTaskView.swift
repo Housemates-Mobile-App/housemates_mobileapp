@@ -6,7 +6,8 @@ struct AddTaskView: View {
   let user: User
   @EnvironmentObject var taskViewModel: TaskViewModel
   @Binding var hideTabBar: Bool
-  @Binding var selectedTab: Int
+  @Binding var showTaskSelectionView: Bool
+
   
   @Environment(\.presentationMode) var presentationMode
   @State private var showAlert = false
@@ -88,7 +89,6 @@ struct AddTaskView: View {
     }
     .onDisappear {
       hideTabBar = false
-      selectedTab = 0
     }
   }
   
@@ -131,6 +131,7 @@ struct AddTaskView: View {
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
       showAlert = false
       presentationMode.wrappedValue.dismiss()
+      showTaskSelectionView = false
     }
   }
   
@@ -158,7 +159,7 @@ struct AddTaskView: View {
     static var previews: some View {
       AddTaskView(taskIconStringHardcoded: "trash.fill", taskNameHardcoded: "Clean Dishes",
                   user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"),
-                  hideTabBar: .constant(true), selectedTab: .constant(0))
+                  hideTabBar: .constant(true), showTaskSelectionView: .constant(true))
       .environmentObject(TaskViewModel())
     }
   }
