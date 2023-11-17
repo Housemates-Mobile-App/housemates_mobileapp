@@ -15,99 +15,80 @@ struct HomeView: View {
     var body: some View {
         let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
         if let user = authViewModel.currentUser {
-          VStack {
-          
-           
-              
-           
-            HStack {
-              
-                Button(action: {
-                    selectedTab = "Personal"
-                }) {
-                    Text("Personal")
-                        .font(.custom("Nunito-Bold", size: 15))
-                        .frame(minWidth: 80, minHeight: 25)
-                        .background(selectedTab == "Personal" ? Color.purple : deepPurple)
-                        .cornerRadius(16)
-                }.buttonStyle(SwitchButtonStyle())
-                .padding(.horizontal)
-              
-              
-
-                Button(action: {
-                    selectedTab = "Feed"
-                }) {
-                    Text("Feed")
-                        .font(.custom("Nunito-Bold", size: 15))
-                        .frame(minWidth: 80, minHeight: 25)
-                        .background(selectedTab == "Feed" ? Color.purple : deepPurple)
-                      
-                        .cornerRadius(16)
-                }.buttonStyle(SwitchButtonStyle())
-                .padding(.horizontal)
-              
-            }
-          
-           
-            
-            .padding()
-            .cornerRadius(10)
-            
-            if (selectedTab == "Feed") {
-              
-              
-              // MARK - Home Page Header
-              HStack {
-                Text("Housemates")
-                  .font(.custom("Nunito-Bold", size: 24))
-                  .padding()
-                Spacer()
-                
-                // MARK - Home Page Header
+            VStack {
                 HStack {
-                    Text("Housemates")
-                         .font(.system(size: 24))
-                         .bold()
-                         .padding(.leading, 20)
-                    Spacer()
-                }
+                    Button(action: {
+                        selectedTab = "Personal"
+                    }) {
+                        Text("Personal")
+                            .font(.custom("Nunito-Bold", size: 15))
+                            .frame(minWidth: 80, minHeight: 25)
+                            .background(selectedTab == "Personal" ? Color.purple : deepPurple)
+                            .cornerRadius(16)
+                    }.buttonStyle(SwitchButtonStyle())
+                        .padding(.horizontal)
+                    
+                    Button(action: {
+                        selectedTab = "Feed"
+                    }) {
+                        Text("Feed")
+                            .font(.custom("Nunito-Bold", size: 15))
+                            .frame(minWidth: 80, minHeight: 25)
+                            .background(selectedTab == "Feed" ? Color.purple : deepPurple)
+                        
+                            .cornerRadius(16)
+                    }.buttonStyle(SwitchButtonStyle())
+                        .padding(.horizontal)
+                    
+                }.padding()
+                    .cornerRadius(10)
                 
-                // MARK - Horizontal Housemates Scroll View
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 15) {
-                        if let uid = user.id {
-                            ForEach(userViewModel.getUserGroupmates(uid)) { user in
-                                NavigationLink(destination: HousemateProfileView(housemate: user)) {
-                                    HousemateCircleComponent(housemate: user)
-                                }.buttonStyle(PlainButtonStyle())
+                if (selectedTab == "Feed") {
+                    // MARK - Home Page Header
+                    HStack {
+//                        Text("Housemates")
+//                            .font(.custom("Nunito-Bold", size: 24))
+//                            .padding()
+//                        Spacer()
+                        
+                        // MARK - Horizontal Housemates Scroll View
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 15) {
+                                if let uid = user.id {
+                                    ForEach(userViewModel.getUserGroupmates(uid)) { user in
+                                        NavigationLink(destination: HousemateProfileView(housemate: user)) {
+                                            HousemateCircleComponent(housemate: user)
+                                        }.buttonStyle(PlainButtonStyle())
+                                    }
+                                }
+                            }
+                            .padding(.horizontal)
+                        }
+                    }
+                    
+                    Divider()
+                    
+                    //MARK - Feed Content
+                    List {
+                        
+                        ForEach(postViewModel.posts) { post in
+                            // Jank ass way to get arrow to disappear (Stick it in ZStack)
+                            ZStack {
+                                NavigationLink(destination: PostDetailView(post: post, user: user)) {
+                                }.opacity(0)
+                                PostRowView(post: post, user: user)
                             }
                         }
-                    }
-                    .padding(.horizontal)
-                }
-                
-                Divider()
-                
-                //MARK - Feed Content
-                List {
+                        
+                    }.listStyle(InsetListStyle())
                     
-                    ForEach(postViewModel.posts) { post in
-                        // Jank ass way to get arrow to disappear (Stick it in ZStack)
-                        ZStack {
-                            NavigationLink(destination: PostDetailView(post: post, user: user)) {
-                            }.opacity(0)
-                            PostRowView(post: post, user: user)
-                        }
-                    }
-
-                }.listStyle(InsetListStyle())
-                
-                Spacer()
+                    Spacer()
+                }
             }
         }
     }
 }
+        
 
 struct SwitchButtonStyle: ButtonStyle {
     let lightPurple = Color(red: 0.439 * 1.5, green: 0.298 * 1.5, blue: 1.0 * 1.5)
