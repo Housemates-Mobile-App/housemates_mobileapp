@@ -11,7 +11,6 @@ import Firebase
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 
-
 class GroupViewModel: ObservableObject {
     private let groupRepository = GroupRepository()
     
