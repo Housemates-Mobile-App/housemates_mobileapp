@@ -10,6 +10,7 @@ struct HomeView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var postViewModel : PostViewModel
+    @Binding var hideTabBar: Bool
         
     var body: some View {
         if let user = authViewModel.currentUser {
@@ -25,7 +26,7 @@ struct HomeView: View {
                         Spacer()
                         
                         // MARK - Button to see all housemates
-                        NavigationLink(destination: HomeView()) {
+                        NavigationLink(destination: HomeView(hideTabBar: $hideTabBar)) {
                                 Text("View All")
                                 .foregroundColor(.white)
                                 .padding(.vertical, 8)
@@ -58,7 +59,7 @@ struct HomeView: View {
                     //MARK - Feed Content
                     LazyVStack(spacing: 10) {
                         ForEach(postViewModel.posts) { post in
-                            NavigationLink(destination: PostDetailView(post: post, user: user)) {
+                            NavigationLink(destination: PostDetailView(hideTabBar: $hideTabBar, post: post, user: user)) {
                                     PostComponent(post: post, user: user)
                                 }.buttonStyle(PlainButtonStyle())
                             }
@@ -73,7 +74,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(hideTabBar: Binding.constant(false))
             .environmentObject(AuthViewModel.mock())
             .environmentObject(UserViewModel.mock())
             .environmentObject(PostViewModel())

@@ -10,6 +10,7 @@ import SwiftUI
 struct PostDetailView: View {
     @EnvironmentObject var postViewModel : PostViewModel
     @State private var newComment: String = ""
+    @Binding var hideTabBar: Bool
 
     
     let post : Post
@@ -65,12 +66,15 @@ struct PostDetailView: View {
             .padding()
             
             Divider()
-            Spacer()
             
             // MARK: Comments
-            ForEach(post.comments) { comment in
-                
+            ScrollView {
+                ForEach(post.comments) { comment in
+                    CommentListView(comment: comment)
+                }
             }
+            
+            Spacer()
             
             // MARK: Comment Input Section
             HStack {
@@ -91,6 +95,7 @@ struct PostDetailView: View {
                 .padding(.trailing)
             }
             .padding(.bottom)
+            
         }
     }
     
@@ -120,5 +125,5 @@ struct PostDetailView: View {
 }
 
 #Preview {
-    PostDetailView(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
+    PostDetailView(hideTabBar: Binding.constant(true), post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
 }

@@ -16,7 +16,7 @@ struct AuthContentView: View {
     }
     var body: some View {
         TabView {
-            HomeView()
+            HomeView(hideTabBar: $hideTabBar)
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")
@@ -40,7 +40,7 @@ struct AuthContentView: View {
                     Text("Profile")
                 }
         }.onAppear {
-            UITabBar.appearance().isHidden = false
+            UITabBar.appearance().isHidden = hideTabBar
         }
     }
 }

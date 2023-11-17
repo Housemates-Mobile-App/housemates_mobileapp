@@ -111,7 +111,7 @@ struct PostComponent: View {
             
             // MARK: Comment count
             if !post.comments.isEmpty {
-                Text(String(post.num_likes))
+                Text(String(post.num_comments))
                     .font(.footnote)
                     .foregroundColor(.gray)
             }
