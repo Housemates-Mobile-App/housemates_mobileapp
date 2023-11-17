@@ -64,7 +64,7 @@ struct TaskBoardView: View {
     // Main Content Section
     private func mainContent(user: User) -> some View {
       VStack {
-        FilterView(selected: $selected)
+        FilterView(selected: $selected).padding(.horizontal)
         taskSections(user: user)
         }
       }
