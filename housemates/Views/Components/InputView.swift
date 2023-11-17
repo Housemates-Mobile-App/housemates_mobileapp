@@ -3,7 +3,7 @@
 //  housemates
 // Code referenced from https://www.youtube.com/watch?v=QJHmhLGv-_0&ab_channel=AppStuff
 //  Created by Sanmoy Karmakar on 10/31/23.
-//
+// altered to be just an input field (text or secure)
 
 import SwiftUI
 
@@ -15,25 +15,26 @@ struct InputView: View {
     
     var body: some View {
         // MARK: Input field view for Form
-
             
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading) {
     
             if isSecureField {
                 SecureField(placeholder, text: $text)
                     .font(.custom("Nunito", size: 24))
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
             } else {
                 TextField(placeholder, text: $text)
                     .font(.custom("Nunito", size: 24))
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
             }
-        }.padding()
-        overlay(
+        }.padding(.horizontal)
+        .overlay(
             RoundedRectangle(cornerRadius: 10)
             .stroke(Color(red: 0.588, green: 0.584, blue: 0.584))
+            .padding(.horizontal)
             )
-            
     }
 }
 
