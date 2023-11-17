@@ -49,7 +49,7 @@ struct AddPostView: View {
         
     }
 }
-
-#Preview {
-    AddPostView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser())
-}
+//
+//#Preview {
+//    AddPostView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser())
+//}

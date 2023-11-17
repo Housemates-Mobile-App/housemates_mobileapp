@@ -48,6 +48,6 @@ struct CommentListView: View {
     }
 }
 
-#Preview {
-    CommentListView(comment: PostViewModel.mockComment())
-}
+//#Preview {
+//    CommentListView(comment: PostViewModel.mockComment())
+//}
