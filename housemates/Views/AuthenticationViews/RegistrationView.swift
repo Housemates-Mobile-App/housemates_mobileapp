@@ -15,105 +15,85 @@ struct RegistrationView: View {
     @State private var dob = ""
     @State private var confirmPassword = ""
     @State private var password = ""
+    @State private var currentStep = 0
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var authViewModel : AuthViewModel
 
+    func signUp() {
+        DispatchQueue.main.async {
+            Task {
+                try await authViewModel.createUser(
+                    withEmail: email,
+                    password: password,
+                    first_name: fname,
+                    last_name: lname,
+                    phone_number: phone,
+                    birthday: dob
+                )
+                // handle post sign up logic? mayb for later
+            }
+        }
+    }
+    
+    func backButton() -> some View {
+        Button(action: {
+            if currentStep > 0 {
+                currentStep -= 1
+            }
+        }) {
+            HStack {
+                Image(systemName: "arrow.left")
+                Text("Back")
+            }
+        }
+    }
    
     var body: some View {
-        VStack{
-            // MARK: Housemates Logo
-            Image("housematesLogo")
-                .resizable()
-                .scaledToFill()
-                .frame(width: 100, height: 120)
-            
-            // MARK: Registration Form
-            VStack(spacing: 10) {
-                InputView(text: $email,
-                          title: "Email Address",
-                          placeholder: "name@example.com")
-                .autocapitalization(.none)
-                
-                InputView(text: $fname,
-                          title: "First Name",
-                          placeholder: "John")
-                
-                InputView(text: $lname,
-                          title: "Last Name",
-                          placeholder: "Doe")
-                
-                InputView(text: $phone,
-                          title: "Phone Number",
-                          placeholder: "888-888-8888")
-                
-                InputView(text: $dob,
-                          title: "Date of Birth",
-                          placeholder: "01-01-2000")
-                
-                InputView(text: $password,
-                          title: "Password",
-                          placeholder: "Please enter your password",
-                            isSecureField: true)
-                
-                ZStack(alignment: .trailing) {
-                    InputView(text: $confirmPassword,
-                              title: "Confirm Password",
-                              placeholder: "Please confirm your password",
-                                isSecureField: true)
-                    if !password.isEmpty && !confirmPassword.isEmpty {
-                        if password == confirmPassword {
-                            Image(systemName: "checkmark.circle.fill")
-                                .imageScale(.large)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color(.systemGreen))
-                        } else {
-                            Image(systemName: "checkmark.circle.fill")
-                                .imageScale(.large)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color(.systemRed))
+        NavigationView {
+            VStack{
+                if currentStep > 0 {
+                    backButton()
+                }
+                if currentStep == 0 {
+                    FirstNameView(fname: $fname, progress: calculateProgress()) {
+                        currentStep += 1
+                    }
+                }
+                else if currentStep == 1 {
+                    LastNameView(lname: $lname, progress: calculateProgress()) {
+                        currentStep += 1
+                    }
+                }
+                else if currentStep == 2 {
+                    DateOfBirthView(dob: $dob, progress: calculateProgress()) {
+                        currentStep += 1
+                    }
+                }
+                else if currentStep == 3 {
+                    PhoneNumberView(phoneNumber: $phone, progress: calculateProgress()) {
+                        currentStep += 1
+                    }
+                }
+                else if currentStep == 4 {
+                    EmailView(email: $email, progress: calculateProgress()) {
+                        currentStep += 1
+                    }
+                }
+                else if currentStep == 5 {
+                    PasswordView(password: $password, confirmPassword: $confirmPassword, progress: calculateProgress()) {
+                        if formisValid {
+                            self.signUp()
                         }
                     }
                 }
-            }
-            .padding(.horizontal)
-            .padding(.top, 12)
-            
-            // MARK: Registration Button
-            Button {
-                Task {
-                    try await authViewModel.createUser(withEmail: email, password: password, first_name: fname, last_name: lname, phone_number: phone, birthday: dob)
-                }
-            } label: {
-                HStack {
-                    Text("SIGN UP")
-                        .fontWeight(.semibold)
-                    Image(systemName: "arrow.right")
-                }
-                .foregroundColor(.white)
-                .frame(width: UIScreen.main.bounds.width - 32, height: 48)
-            }
-            .background(Color(.systemBlue))
-            .disabled(!formisValid)
-            .opacity(formisValid ? 1.0 : 0.5)
-            .cornerRadius(10)
-            .padding(.top, 24)
-            
-            Spacer()
-            
-            Button {
-                dismiss()
-            } label: {
-                HStack(spacing: 3) {
-                    Text("Already have an account?")
-                    Text("Please Sign In!")
-                        .fontWeight(.bold)
-                }
                 
             }
-            .font(.system(size: 14))
-            
         }
     }
+    
+    func calculateProgress() -> Float {
+           return Float(currentStep) / Float(6)
+       }
 }
 
 // MARK: Authentication Protocol

@@ -29,11 +29,11 @@ struct InputView: View {
                     .padding(.horizontal)
                     .padding(.vertical, 8)
             }
-        }.padding(.horizontal)
+        }
         .overlay(
             RoundedRectangle(cornerRadius: 10)
             .stroke(Color(red: 0.588, green: 0.584, blue: 0.584))
-            .padding(.horizontal)
+            
             )
     }
 }

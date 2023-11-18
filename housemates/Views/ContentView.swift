@@ -23,7 +23,7 @@ struct ContentView: View {
                             JoinCreateGroupView()
                         }
                     } else {
-                        LoginView()
+                        startView()
                     }
                 }
             }

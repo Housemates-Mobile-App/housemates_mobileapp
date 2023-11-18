@@ -68,6 +68,7 @@ struct LoginView: View {
                 .padding(.bottom, getSafeAreaInsets().bottom)
             }
             .padding(.bottom, getBottomPadding())
+            .padding(.horizontal)
             .ignoresSafeArea(edges: .bottom)
 
         }
