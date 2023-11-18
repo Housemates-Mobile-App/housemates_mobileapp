@@ -19,8 +19,8 @@ struct HousemateCircleComponent: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
-                    .frame(width: 70, height: 70)
-                    .padding(.bottom, 5)
+                    .frame(width: 60, height: 60)
+                    .padding(.bottom, 2.5)
             } placeholder: {
     
                 // MARK: Default user profile picture
@@ -28,19 +28,25 @@ struct HousemateCircleComponent: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
-                    .frame(width: 70, height: 70)
+                    .frame(width: 60, height: 60)
                     .foregroundColor(.gray)
-                    .padding(.bottom, 5)
+                    .padding(.bottom, 2.5)
             }
             
             Text("\(housemate.first_name.lowercased()) \(housemate.last_name.first?.lowercased() ?? "")")
                 .font(.system(size:11))
         }
-        .frame(width: 80)
+     
         .padding(.vertical, 10)
     }
 }
 
+struct HousemateCircleComponent_Previews: PreviewProvider {
+  static var previews: some View {
+    HousemateCircleComponent(housemate: UserViewModel.mockUser())
+  }
+  
+}
 //#Preview {
 //    HousemateCircleComponent(housemate: UserViewModel.mockUser())
 //}
