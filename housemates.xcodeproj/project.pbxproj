@@ -33,6 +33,7 @@
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
 		81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */; };
 		81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29E12AFF56C400748D58 /* FilterView.swift */; };
+		81E659F62B08852E00B77EE4 /* SlidingTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 81E659F52B08852E00B77EE4 /* SlidingTabView */; };
 		81E9ED532B05EDA000A258A8 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E9ED522B05EDA000A258A8 /* Font.swift */; };
 		81E9ED562B05F15500A258A8 /* Nunito-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED552B05F15500A258A8 /* Nunito-VariableFont_wght.ttf */; };
 		81E9ED5D2B05F25C00A258A8 /* Nunito-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED572B05F25C00A258A8 /* Nunito-Black.ttf */; };
@@ -253,6 +254,7 @@
 				8AA3B8ED2AF9D4680064CFD6 /* FirebaseStorageCombine-Community in Frameworks */,
 				8AA3B8E92AF9D4680064CFD6 /* FirebaseRemoteConfigSwift in Frameworks */,
 				8AF0A3F92AF9D40B00A79110 /* FirebaseAuth in Frameworks */,
+				81E659F62B08852E00B77EE4 /* SlidingTabView in Frameworks */,
 				8AF0A3FD2AF9D40B00A79110 /* FirebaseCrashlytics in Frameworks */,
 				8AA3B8BB2AF9D4680064CFD6 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				8AF0A4072AF9D40B00A79110 /* FirebaseFirestoreSwift in Frameworks */,
@@ -581,6 +583,7 @@
 				8A6AD4F02AFB534400A6DF85 /* FirebaseStorageCombine-Community */,
 				51B3976C2B02385100A0AF2A /* SDWebImageSwiftUI */,
 				512D1EAE2B033B6E007A388A /* SwiftUITrackableScrollView */,
+				81E659F52B08852E00B77EE4 /* SlidingTabView */,
 			);
 			productName = housemates;
 			productReference = 8AD6ED052AF1969C006B56B6 /* housemates.app */;
@@ -618,6 +621,7 @@
 				8AD6ED2C2AF1991F006B56B6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				51B3976B2B02385100A0AF2A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				512D1EAD2B033B6E007A388A /* XCRemoteSwiftPackageReference "trackable-scroll-view" */,
+				81E659F42B08852E00B77EE4 /* XCRemoteSwiftPackageReference "SlidingTabView" */,
 			);
 			productRefGroup = 8AD6ED062AF1969C006B56B6 /* Products */;
 			projectDirPath = "";
@@ -1010,6 +1014,14 @@
 				minimumVersion = 2.2.4;
 			};
 		};
+		81E659F42B08852E00B77EE4 /* XCRemoteSwiftPackageReference "SlidingTabView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QuynhNguyen/SlidingTabView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		8AD6ED2C2AF1991F006B56B6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1030,6 +1042,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 51B3976B2B02385100A0AF2A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		81E659F52B08852E00B77EE4 /* SlidingTabView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81E659F42B08852E00B77EE4 /* XCRemoteSwiftPackageReference "SlidingTabView" */;
+			productName = SlidingTabView;
 		};
 		8A6AD4E02AFB534400A6DF85 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

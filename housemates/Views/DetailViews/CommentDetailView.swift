@@ -59,6 +59,6 @@ struct CommentDetailView: View {
     }
 }
 
-#Preview {
-    CommentDetailView(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
-}
+//#Preview {
+//    CommentDetailView(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
+//}
