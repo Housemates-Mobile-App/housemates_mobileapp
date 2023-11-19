@@ -12,7 +12,7 @@ struct JoinCreateGroupView: View {
            NavigationView {
                VStack(spacing:30) {
                    NavigationLink(destination: JoinGroupView()) {
-                       JoinCreateCard(image1:"joinGroupIconNew2", title: "Join A Group", description: "Have an existing code? Tap here!")
+                       JoinCreateCard(image1:"JoinGroupIconNew2", title: "Join A Group", description: "Have an existing code? Tap here!")
                    }
 
                    NavigationLink(destination: CreateGroupView()) {
