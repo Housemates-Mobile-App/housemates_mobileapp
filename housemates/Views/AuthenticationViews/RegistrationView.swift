@@ -42,58 +42,65 @@ struct RegistrationView: View {
             }
         }) {
             HStack {
-                Image(systemName: "arrow.left")
-                Text("Back")
+                Image(systemName: "chevron.left")
+                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                    .font(.system(size:22))
+                    .bold()
             }
         }
     }
    
     var body: some View {
-        NavigationView {
-            VStack{
+        VStack {
+            HStack {
                 if currentStep > 0 {
                     backButton()
                 }
-                if currentStep == 0 {
-                    FirstNameView(fname: $fname, progress: calculateProgress()) {
-                        currentStep += 1
-                    }
-                }
-                else if currentStep == 1 {
-                    LastNameView(lname: $lname, progress: calculateProgress()) {
-                        currentStep += 1
-                    }
-                }
-                else if currentStep == 2 {
-                    DateOfBirthView(dob: $dob, progress: calculateProgress()) {
-                        currentStep += 1
-                    }
-                }
-                else if currentStep == 3 {
-                    PhoneNumberView(phoneNumber: $phone, progress: calculateProgress()) {
-                        currentStep += 1
-                    }
-                }
-                else if currentStep == 4 {
-                    EmailView(email: $email, progress: calculateProgress()) {
-                        currentStep += 1
-                    }
-                }
-                else if currentStep == 5 {
-                    PasswordView(password: $password, confirmPassword: $confirmPassword, progress: calculateProgress()) {
-                        if formisValid {
-                            self.signUp()
-                        }
-                    }
-                }
-                
+                Spacer()
             }
-        }
+            ProgressBar(progress: calculateProgress())
+                .frame(height: 10)
+                .padding(.vertical)
+            
+            if currentStep == 0 {
+                FirstNameView(fname: $fname) {
+                    currentStep += 1
+                }
+            }
+            else if currentStep == 1 {
+                LastNameView(lname: $lname) {
+                    currentStep += 1
+                }
+            }
+            else if currentStep == 2 {
+                DateOfBirthView(dob: $dob) {
+                    currentStep += 1
+                }
+            }
+            else if currentStep == 3 {
+                PhoneNumberView(phoneNumber: $phone) {
+                    currentStep += 1
+                }
+            }
+            else if currentStep == 4 {
+                EmailView(email: $email) {
+                    currentStep += 1
+                }
+            }
+            else if currentStep == 5 {
+                PasswordView(password: $password, confirmPassword: $confirmPassword) {
+                    if formisValid {
+                        self.signUp()
+                    }
+                }
+            }
+            
+        }.padding(.horizontal)
     }
     
     func calculateProgress() -> Float {
            return Float(currentStep) / Float(6)
-       }
+    }
 }
 
 // MARK: Authentication Protocol

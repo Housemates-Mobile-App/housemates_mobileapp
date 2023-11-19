@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PhoneNumberView: View {
     @Binding var phoneNumber: String
-    var progress: Float
     var onContinue: () -> Void
     
     var isPhoneNumberValid: Bool {
@@ -18,13 +17,9 @@ struct PhoneNumberView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            // Progress Bar at the top
-           ProgressBar(progress: progress)
-               .frame(height: 10)
-               .padding(.vertical)
             
             Text("What's your phone number?")
-                .font(.custom("Lato-Bold", size: 28))
+                .font(.custom("Lato-Bold", size: 25))
                 .bold()
             
             InputView(text: $phoneNumber,
@@ -36,7 +31,7 @@ struct PhoneNumberView: View {
                 Spacer()
                 Button(action: onContinue) {
                     Text("NEXT")
-                        .font(.custom("Nunito-Bold", size: 24))
+                        .font(.custom("Nunito-Bold", size: 25))
                         .foregroundColor(.white)
                         .padding(10)
                         .frame(width:130)
@@ -50,12 +45,12 @@ struct PhoneNumberView: View {
 
             
             Spacer()
-        }.padding(.horizontal)
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
 struct PhoneNumberView_Previews: PreviewProvider {
     static var previews: some View {
-        PhoneNumberView(phoneNumber: .constant(""), progress: 0.25, onContinue: {})
+        PhoneNumberView(phoneNumber: .constant(""), onContinue: {})
     }
 }

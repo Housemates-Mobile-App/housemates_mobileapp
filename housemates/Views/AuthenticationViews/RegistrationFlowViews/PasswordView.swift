@@ -12,7 +12,6 @@ struct PasswordView: View {
     @Binding var password: String
     @Binding var confirmPassword: String
     
-    var progress: Float
     var onContinue: () -> Void
     
     var isPasswordValid: Bool {
@@ -21,13 +20,9 @@ struct PasswordView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            // Progress Bar at the top
-           ProgressBar(progress: progress)
-               .frame(height: 10)
-               .padding(.vertical)
             
             Text("What's your password?")
-                .font(.custom("Lato-Bold", size: 28))
+                .font(.custom("Lato-Bold", size: 25))
                 .bold()
             
             InputView(text: $password,
@@ -60,7 +55,7 @@ struct PasswordView: View {
                 Spacer()
                 Button(action: onContinue) {
                     Text("DONE")
-                        .font(.custom("Nunito-Bold", size: 24))
+                        .font(.custom("Nunito-Bold", size: 25))
                         .foregroundColor(.white)
                         .padding(10)
                         .frame(width:130)
@@ -71,14 +66,14 @@ struct PasswordView: View {
                 Spacer()
             }            
             Spacer()
-        }.padding(.horizontal)
+        }.navigationBarBackButtonHidden(true)
     }
     
 }
 
 struct PasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        PasswordView(password: .constant(""), confirmPassword: .constant(""), progress: 0.25, onContinue: {})
+        PasswordView(password: .constant(""), confirmPassword: .constant(""), onContinue: {})
             .environmentObject(AuthViewModel())
     }
 }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct FirstNameView: View {
     @Binding var fname: String
-    var progress: Float
     var onContinue: () -> Void
 
     var isFirstNameValid: Bool {
@@ -18,13 +17,9 @@ struct FirstNameView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            // Progress Bar at the top
-           ProgressBar(progress: progress)
-               .frame(height: 10)
-               .padding(.vertical)
             
             Text("What's your first name?")
-                .font(.custom("Lato-Bold", size: 28))
+                .font(.custom("Lato-Bold", size: 25))
                 .bold()
             
             InputView(text: $fname,
@@ -36,7 +31,7 @@ struct FirstNameView: View {
                 Spacer()
                 Button(action: onContinue) {
                     Text("NEXT")
-                        .font(.custom("Nunito-Bold", size: 24))
+                        .font(.custom("Nunito-Bold", size: 25))
                         .foregroundColor(.white)
                         .padding(10)
                         .frame(width:130)
@@ -46,16 +41,13 @@ struct FirstNameView: View {
                     .opacity(isFirstNameValid ? 1.0 : 0.5)
                 Spacer()
             }
-
-
-            
             Spacer()
-        }.padding(.horizontal)
+        }
     }
 }
 
 struct FirstNameView_Previews: PreviewProvider {
     static var previews: some View {
-        FirstNameView(fname: .constant(""), progress: 0.25, onContinue: {})
+        FirstNameView(fname: .constant(""), onContinue: {})
     }
 }

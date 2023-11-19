@@ -8,36 +8,38 @@
 import SwiftUI
 
 struct JoinCreateCard: View {
-    var image: String
+    var image1: String
     var title: String
     var description: String
     
     var body: some View {
-        VStack(spacing: 8) {
-            Image(image)
+
+        VStack {
+            Image(image1)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(maxHeight: 150)
-                .cornerRadius(15)
-                .clipped()
+                .frame(width:120, height:75)
             
             Text(title)
-                .font(.system(size:30))
-                .foregroundColor(.black)
+                .font(.custom("Nunito-Bold", size: 25))
+                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                .padding(.bottom, 8)
             
             Text(description)
-                .font(.system(size:15))
-                .foregroundColor(.gray)
+                .font(.custom("Nunito", size: 17))
+                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
         }
-        .padding()
-        .cornerRadius(15)
+        .padding(25)
+        .background(.white)
+        .cornerRadius(20)
         .overlay(
-            RoundedRectangle(cornerRadius: 15)
-                .stroke(.black, lineWidth: 5)
-        )
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(.gray.opacity(0.6), lineWidth: 3)
+            )
+
     }
 }
 
-//#Preview {
-//    JoinCreateCard(image:"joinGroupIcon", title:"title", description:"description")
-//}
+#Preview {
+    JoinCreateCard(image1:"joinGroupIconNew2", title:"JOIN A GROUP", description:"Have an existing code? Click here!")
+}

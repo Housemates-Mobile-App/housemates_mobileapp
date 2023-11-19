@@ -9,7 +9,6 @@ import SwiftUI
 
 struct EmailView: View {
     @Binding var email: String
-    var progress: Float
     var onContinue: () -> Void
     
     var isEmailValid: Bool {
@@ -18,13 +17,9 @@ struct EmailView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            // Progress Bar at the top
-           ProgressBar(progress: progress)
-               .frame(height: 10)
-               .padding(.vertical)
             
             Text("What's your email?")
-                .font(.custom("Lato-Bold", size: 28))
+                .font(.custom("Lato-Bold", size: 25))
                 .bold()
             
             InputView(text: $email,
@@ -37,7 +32,7 @@ struct EmailView: View {
                 Spacer()
                 Button(action: onContinue) {
                     Text("NEXT")
-                        .font(.custom("Nunito-Bold", size: 24))
+                        .font(.custom("Nunito-Bold", size: 25))
                         .foregroundColor(.white)
                         .padding(10)
                         .frame(width:130)
@@ -51,12 +46,12 @@ struct EmailView: View {
 
             
             Spacer()
-        }.padding(.horizontal)
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
 struct EmailView_Previews: PreviewProvider {
     static var previews: some View {
-        EmailView(email: .constant(""), progress: 0.25, onContinue: {})
+        EmailView(email: .constant(""), onContinue: {})
     }
 }

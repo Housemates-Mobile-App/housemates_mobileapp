@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LastNameView: View {
     @Binding var lname: String
-    var progress: Float
     var onContinue: () -> Void
     
     var isLastNameValid: Bool {
@@ -18,13 +17,9 @@ struct LastNameView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            // Progress Bar at the top
-           ProgressBar(progress: progress)
-               .frame(height: 10)
-               .padding(.vertical)
             
             Text("What's your last name?")
-                .font(.custom("Lato-Bold", size: 28))
+                .font(.custom("Lato-Bold", size: 25))
                 .bold()
             
             InputView(text: $lname,
@@ -36,7 +31,7 @@ struct LastNameView: View {
                 Spacer()
                 Button(action: onContinue) {
                     Text("NEXT")
-                        .font(.custom("Nunito-Bold", size: 24))
+                        .font(.custom("Nunito-Bold", size: 25))
                         .foregroundColor(.white)
                         .padding(10)
                         .frame(width:130)
@@ -46,17 +41,14 @@ struct LastNameView: View {
                     .opacity(isLastNameValid ? 1.0 : 0.5)
                 Spacer()
             }
-
-
-            
             Spacer()
-        }.padding(.horizontal)
+        }.navigationBarBackButtonHidden(true)
     }
 }
 
 struct LastNameView_Previews: PreviewProvider {
     static var previews: some View {
-        LastNameView(lname: .constant(""), progress: 0.25, onContinue: {})
+        LastNameView(lname: .constant(""), onContinue: {})
     }
 }
 
