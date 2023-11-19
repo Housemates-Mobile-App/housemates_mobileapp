@@ -6,7 +6,6 @@ struct AddTaskView: View {
   let user: User
   @EnvironmentObject var taskViewModel: TaskViewModel
   @Binding var showTaskSelectionView: Bool
-
   
   @Environment(\.presentationMode) var presentationMode
   @State private var showAlert = false
@@ -50,7 +49,7 @@ struct AddTaskView: View {
         }
         
         
-        NewInputView(text: $taskName, title: "Task Name", placeholder: "Enter in task name!")
+        NewInputView(text: $taskName, title: "Task Name", placeholder: "Add a task name!")
         
         // for task description
         NewInputView(text: $taskDescription, title: "Task Description", placeholder: "Write a description about the task!")
@@ -78,6 +77,9 @@ struct AddTaskView: View {
         .padding(.bottom, 20)
       }
       
+    }
+    .onAppear {
+      taskName = taskNameHardcoded
     }
     .alert(isPresented: $showAlert) {
       Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
