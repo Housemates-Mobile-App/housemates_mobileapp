@@ -17,13 +17,30 @@ struct TaskView: View {
 //          currently a placeholder
           ZStack {
             if task.priority == "High" {
-              Image("dalle3").padding(.trailing, 4)
+              Image("dalle3")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 50, height: 50)
+                .padding(.trailing, 4)
+         
             }
             else if task.priority == "Low" {
-              Image("dalle2").padding(.trailing, 4)
+              Image("dalle2")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 50, height: 50)
+              
+                .padding(.trailing, 4)
+                
             }
             else {
-              Image("dalle4").padding(.trailing, 4)
+              Image("dalle4")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 50, height: 50)
+         
+                .padding(.trailing, 4)
+               
             }
             
             if task.status != .done {
@@ -42,7 +59,7 @@ struct TaskView: View {
         }
       
         .frame(minWidth: 75, minHeight: 45)
-        .padding(12.5)
+        .padding(.vertical, 12.5)
       
       
 //        .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.black.opacity(0.1), lineWidth: 1))
