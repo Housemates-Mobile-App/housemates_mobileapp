@@ -1,7 +1,7 @@
 //
 //  JoinGroupView.swift
 //  housemates
-//
+//  good source for detecting backspace on empty field: https://swiftuirecipes.com/blog/detect-backspace-in-swiftui
 //  Created by Sean Pham on 11/3/23.
 //
 
@@ -18,19 +18,17 @@ struct JoinGroupView: View {
     
     var body: some View {
         VStack {
-            
-            
             // MARK: Housemates Title
-            Text("Enter Group Access Code!")
+            Text("Enter Group Code")
                 .padding(.bottom, 20)
-                .font(Font.system(size: 25))
+                .font(.custom("Nunito-Bold", size: 25))
             
             // MARK: Create a Group Form
                 HStack(spacing: 10) {
                     ForEach(0..<numOfFields, id: \.self) { index in
                         TextField("",
-                                  text: $group_code[index],
-                                  prompt: Text("0"))
+                          text: $group_code[index],
+                          prompt: Text("0"))
                             .keyboardType(.numberPad)
                             .font(Font.system(size: 60))
                             .multilineTextAlignment(.center)
@@ -50,12 +48,12 @@ struct JoinGroupView: View {
                                         moveFocusToPrevField(currentIndex: index)
                                     }
                             }
-                            .frame(width: 60, height: 80)
+                            .frame(width: 74, height: 105)
                             .background(Color.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(
-                                group_code[index].isEmpty ? Color.blue : Color.green,
-                                lineWidth: 2
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                            .overlay(RoundedRectangle(cornerRadius: 15).stroke(
+                                group_code[index].isEmpty ? Color.black : Color(red: 0.439, green: 0.298, blue: 1.0),
+                                lineWidth: 1
                             ))
                     }
                 }
@@ -64,30 +62,44 @@ struct JoinGroupView: View {
                         focusedField = field
                     }
                 }
-        }.padding(.horizontal)
-        .padding(.top, 12)
-
+            
+            VStack {
                 // MARK: Button for Joining Existing Group
                 Button {
                     Task {
                         if let uid = authViewModel.currentUser?.id {
-                          await userViewModel.joinGroup(group_code: group_code.joined(), uid: uid)
-                          await authViewModel.fetchUser()
-                       }
+                            await userViewModel.joinGroup(group_code: group_code.joined(), uid: uid)
+                            await authViewModel.fetchUser()
+                        }
                     }
                 } label: {
                     HStack {
-                        Text("Join Group")
-                            .fontWeight(.semibold)
+                        Text("JOIN GROUP")
+                            .font(.custom("Nunito-Bold", size: 25))
                         Image(systemName: "arrow.right")
                     }
                     .foregroundColor(.white)
-                    .frame(width: UIScreen.main.bounds.width - 32, height: 48)
+                    .frame(maxWidth: .infinity)
                 }
-                .background(Color.blue)
+                .disabled(!areAllCodesFilled())
+                    .opacity(areAllCodesFilled() ? 1.0 : 0.5)
+                .padding(.vertical)
+                .background(Color(red: 0.439, green: 0.298, blue: 1.0))
                 .cornerRadius(10)
-                .padding(.top, 24)
+                
+                Text("Don't know where to find it? Look for 'Group Code' on your housemate's profile page")
+                    .font(.custom("Lato", size: 16))
+                    .foregroundColor(Color(red: 0.588, green: 0.588, blue: 0.588))
+            }.padding(.top, 30)
+            Spacer()
+        }.padding(.horizontal, 30)
+        .padding(.top, 12)
     }
+    
+    func areAllCodesFilled() -> Bool {
+        return group_code.allSatisfy { !$0.isEmpty }
+    }
+    
     func moveFocusToNextField(currentIndex: Int) {
         if currentIndex < numOfFields - 1 {
             focusedField = currentIndex + 1
@@ -101,6 +113,6 @@ struct JoinGroupView: View {
     }
 }
 
-//#Preview {
-//    JoinGroupView()
-//}
+#Preview {
+    JoinGroupView()
+}

@@ -10,13 +10,13 @@ import SwiftUI
 struct JoinCreateGroupView: View {
     var body: some View {
            NavigationView {
-               HStack(spacing:20) {
+               VStack(spacing:30) {
                    NavigationLink(destination: JoinGroupView()) {
-                       JoinCreateCard(image: "JoinGroupIcon", title: "Join A Group", description: "If you have an existing code for a group")
+                       JoinCreateCard(image1:"joinGroupIconNew2", title: "Join A Group", description: "Have an existing code? Tap here!")
                    }
 
                    NavigationLink(destination: CreateGroupView()) {
-                       JoinCreateCard(image: "createGroupIcon", title: "Create A Group", description: "If you and your housemates don't have a group")
+                       JoinCreateCard(image1:"createGroupIconNew2", title: "Create A Group", description: "Starting from scratch? Tap here!")
                    }
                }.padding()
            }
@@ -24,6 +24,6 @@ struct JoinCreateGroupView: View {
     
 }
 
-//#Preview {
-//    JoinCreateGroupView()
-//}
+#Preview {
+    JoinCreateGroupView()
+}

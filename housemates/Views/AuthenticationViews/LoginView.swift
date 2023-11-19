@@ -14,67 +14,63 @@ struct LoginView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .bottom) {
-                VStack{
-                    // MARK: Housemates Logo
-                    Image("housematesLogo")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 120)
-                    
+            VStack {
+                // MARK: Housemates Logo
+                Image("temporaryLogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 221, height: 221)
+                
+                VStack(spacing:15) {
                     // MARK: Login Form
-                    VStack(spacing: 10) {
-                        InputView(text: $email,
-                                  title: "Email Address",
-                                  placeholder: "name@example.com")
-                        .autocapitalization(.none)
-                        InputView(text: $password,
-                                  title: "Password",
-                                  placeholder: "Please enter your password",
-                                  isSecureField: true)
-                    }
-                    .padding(.horizontal)
-                    .padding(.top, 12)
-                    
-                    // MARK: Sign in Button
-                    Button {
-                        Task {
-                            try await authViewModel.signIn(withEmail: email, password: password)
-                        }
-                    } label: {
-                        HStack {
-                            Text("SIGN IN")
-                                .fontWeight(.semibold)
-                            Image(systemName: "arrow.right")
-                        }
-                        .foregroundColor(.white)
-                        .frame(width: UIScreen.main.bounds.width - 32, height: 48)
-                    }
-                    .background(Color(.systemBlue))
-                    .disabled(!formisValid)
-                    .opacity(formisValid ? 1.0 : 0.5)
-                    .cornerRadius(10)
-                    .padding(.top, 24)
-                    
-                    Spacer()
-                    
-                    // MARK: Navigation Link to Registration View
-                    NavigationLink {
-                        RegistrationView()
-                            .navigationBarBackButtonHidden(true)
-                    } label: {
-                        HStack(spacing: 3) {
-                            Text("New User?")
-                            Text("Please Sign Up!")
-                                .fontWeight(.bold)
-                        }
-                    }
-                    .font(.system(size: 14))
-                    .padding(.bottom, getSafeAreaInsets().bottom)
+                    InputView(text: $email,
+                              title: "Email Address",
+                              placeholder: "Email")
+                    .autocapitalization(.none)
+                    InputView(text: $password,
+                              title: "Password",
+                              placeholder: "Password",
+                              isSecureField: true)
                 }
-                .padding(.bottom, getBottomPadding())
-                .ignoresSafeArea(edges: .bottom)
+                // MARK: Sign in Button
+                Button {
+                    Task {
+                        try await authViewModel.signIn(withEmail: email, password: password)
+                    }
+                } label: {
+                    HStack {
+                        Text("LOGIN")
+                            .font(.custom("Nunito-Bold", size: 24))
+                    }
+                    .foregroundColor(.white)
+                    .frame(width: UIScreen.main.bounds.width - 32, height: 48)
+                }
+                .background(Color(red: 0.439, green: 0.298, blue: 1.0))
+                .disabled(!formisValid)
+                .opacity(formisValid ? 1.0 : 0.5)
+                .cornerRadius(10)
+                .padding(.top, 24)
+                
+                Spacer()
+                
+                // MARK: Navigation Link to Registration View
+                NavigationLink {
+                    RegistrationView()
+                        .navigationBarBackButtonHidden(true)
+                } label: {
+                    HStack(spacing: 3) {
+                        Text("New User?")
+                        Text("Please Sign Up!")
+                            .fontWeight(.bold)
+                    }
+                }
+                .font(.system(size: 14))
+                .padding(.bottom, getSafeAreaInsets().bottom)
             }
+            .padding(.bottom, getBottomPadding())
+            .padding(.horizontal)
+            .ignoresSafeArea(edges: .bottom)
+
         }
     }
     
