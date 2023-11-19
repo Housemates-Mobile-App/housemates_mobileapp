@@ -25,7 +25,7 @@
 		51802D972B08D33E00B4EE9A /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51802D962B08D33E00B4EE9A /* ProgressBar.swift */; };
 		5188F2242B02AC47001B1AA0 /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5188F2232B02AC47001B1AA0 /* GroupViewModel.swift */; };
 		5188F2262B030DAF001B1AA0 /* HousemateCircleComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5188F2252B030DAF001B1AA0 /* HousemateCircleComponent.swift */; };
-		5188F2282B031298001B1AA0 /* PostComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5188F2272B031298001B1AA0 /* PostComponent.swift */; };
+		5188F2282B031298001B1AA0 /* PostRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5188F2272B031298001B1AA0 /* PostRowView.swift */; };
 		51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */; };
 		51B397682B01FB8000A0AF2A /* NewInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B397672B01FB8000A0AF2A /* NewInputView.swift */; };
 		51B3976A2B01FF2600A0AF2A /* SliderPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B397692B01FF2600A0AF2A /* SliderPicker.swift */; };
@@ -44,6 +44,7 @@
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
 		81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */; };
 		81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29E12AFF56C400748D58 /* FilterView.swift */; };
+		81E659F62B08852E00B77EE4 /* SlidingTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 81E659F52B08852E00B77EE4 /* SlidingTabView */; };
 		81E9ED532B05EDA000A258A8 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E9ED522B05EDA000A258A8 /* Font.swift */; };
 		81E9ED562B05F15500A258A8 /* Nunito-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED552B05F15500A258A8 /* Nunito-VariableFont_wght.ttf */; };
 		81E9ED5D2B05F25C00A258A8 /* Nunito-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED572B05F25C00A258A8 /* Nunito-Black.ttf */; };
@@ -54,7 +55,9 @@
 		81E9ED622B05F25C00A258A8 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED5C2B05F25C00A258A8 /* Nunito-Regular.ttf */; };
 		81E9ED662B05F61B00A258A8 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED642B05F61A00A258A8 /* Lato-Bold.ttf */; };
 		81E9ED672B05F61B00A258A8 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED652B05F61B00A258A8 /* Lato-Regular.ttf */; };
+		81E9ED692B06E0B800A258A8 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E9ED682B06E0B800A258A8 /* TaskDetailView.swift */; };
 		81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EC60C02AFE024000A1B753 /* GraphView.swift */; };
+		8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */; };
 		8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */; };
 		8A6AD4E12AFB534400A6DF85 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E02AFB534400A6DF85 /* FirebaseAuth */; };
 		8A6AD4E32AFB534400A6DF85 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E22AFB534400A6DF85 /* FirebaseAuthCombine-Community */; };
@@ -93,6 +96,7 @@
 		8AA3B8E92AF9D4680064CFD6 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8E82AF9D4680064CFD6 /* FirebaseRemoteConfigSwift */; };
 		8AA3B8EB2AF9D4680064CFD6 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8EA2AF9D4680064CFD6 /* FirebaseStorage */; };
 		8AA3B8ED2AF9D4680064CFD6 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8EC2AF9D4680064CFD6 /* FirebaseStorageCombine-Community */; };
+		8AB780D52B06EEDF0072B065 /* CommentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AB780D42B06EEDF0072B065 /* CommentListView.swift */; };
 		8AD6ED092AF1969C006B56B6 /* housematesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6ED082AF1969C006B56B6 /* housematesApp.swift */; };
 		8AD6ED0B2AF1969C006B56B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */; };
 		8AD6ED0D2AF1969D006B56B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AD6ED0C2AF1969D006B56B6 /* Assets.xcassets */; };
@@ -121,6 +125,7 @@
 		8AE8FFA12AF41F36003AD997 /* AmenityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FFA02AF41F36003AD997 /* AmenityView.swift */; };
 		8AE8FFA32AF41F47003AD997 /* TaskBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */; };
 		8AE8FFA52AF41F6B003AD997 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FFA42AF41F6B003AD997 /* ProfileView.swift */; };
+		8AEE050B2B0423A80030A6E0 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE050A2B0423A80030A6E0 /* PostViewModel.swift */; };
 		8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92CD2AF19978006AECD3 /* Comment.swift */; };
 		8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */; };
 		8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */; };
@@ -138,6 +143,8 @@
 		8AF358402AF4B17A0009B93C /* JoinCreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3583F2AF4B17A0009B93C /* JoinCreateGroupView.swift */; };
 		8AF358422AF4B2BA0009B93C /* JoinGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF358412AF4B2BA0009B93C /* JoinGroupView.swift */; };
 		8AF358442AF4B2E20009B93C /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF358432AF4B2E20009B93C /* CreateGroupView.swift */; };
+		8AF549582B0584C800EB28CC /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF549572B0584C800EB28CC /* AddPostView.swift */; };
+		8AF5495A2B0585C300EB28CC /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF549592B0585C300EB28CC /* PostDetailView.swift */; };
 		ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */; };
 		ADD11A662AFAFA54001861A0 /* TaskDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */; };
 		ADD11A682AFC3FCB001861A0 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A672AFC3FCB001861A0 /* AddTaskView.swift */; };
@@ -172,7 +179,7 @@
 		51802D962B08D33E00B4EE9A /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		5188F2232B02AC47001B1AA0 /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		5188F2252B030DAF001B1AA0 /* HousemateCircleComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousemateCircleComponent.swift; sourceTree = "<group>"; };
-		5188F2272B031298001B1AA0 /* PostComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComponent.swift; sourceTree = "<group>"; };
+		5188F2272B031298001B1AA0 /* PostRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRowView.swift; sourceTree = "<group>"; };
 		51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCreateCard.swift; sourceTree = "<group>"; };
 		51B397672B01FB8000A0AF2A /* NewInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInputView.swift; sourceTree = "<group>"; };
 		51B397692B01FF2600A0AF2A /* SliderPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderPicker.swift; sourceTree = "<group>"; };
@@ -202,9 +209,12 @@
 		81E9ED632B05F4E700A258A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		81E9ED642B05F61A00A258A8 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		81E9ED652B05F61B00A258A8 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		81E9ED682B06E0B800A258A8 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		81EC60C02AFE024000A1B753 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailView.swift; sourceTree = "<group>"; };
 		8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		8AB780D42B06EEDF0072B065 /* CommentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListView.swift; sourceTree = "<group>"; };
 		8AD6ED052AF1969C006B56B6 /* housemates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = housemates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD6ED082AF1969C006B56B6 /* housematesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housematesApp.swift; sourceTree = "<group>"; };
 		8AD6ED0A2AF1969C006B56B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -227,12 +237,15 @@
 		8AE8FFA02AF41F36003AD997 /* AmenityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenityView.swift; sourceTree = "<group>"; };
 		8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBoardView.swift; sourceTree = "<group>"; };
 		8AE8FFA42AF41F6B003AD997 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		8AEE050A2B0423A80030A6E0 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		8AEE92CD2AF19978006AECD3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		8AEE92CF2AF1EF1F006AECD3 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataRepository.swift; sourceTree = "<group>"; };
 		8AF3583F2AF4B17A0009B93C /* JoinCreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinCreateGroupView.swift; sourceTree = "<group>"; };
 		8AF358412AF4B2BA0009B93C /* JoinGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGroupView.swift; sourceTree = "<group>"; };
 		8AF358432AF4B2E20009B93C /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
+		8AF549572B0584C800EB28CC /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
+		8AF549592B0585C300EB28CC /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataRepository.swift; sourceTree = "<group>"; };
 		ADD11A672AFC3FCB001861A0 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
@@ -263,6 +276,7 @@
 				8AA3B8ED2AF9D4680064CFD6 /* FirebaseStorageCombine-Community in Frameworks */,
 				8AA3B8E92AF9D4680064CFD6 /* FirebaseRemoteConfigSwift in Frameworks */,
 				8AF0A3F92AF9D40B00A79110 /* FirebaseAuth in Frameworks */,
+				81E659F62B08852E00B77EE4 /* SlidingTabView in Frameworks */,
 				8AF0A3FD2AF9D40B00A79110 /* FirebaseCrashlytics in Frameworks */,
 				8AA3B8BB2AF9D4680064CFD6 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				8AF0A4072AF9D40B00A79110 /* FirebaseFirestoreSwift in Frameworks */,
@@ -406,7 +420,8 @@
 				51B397672B01FB8000A0AF2A /* NewInputView.swift */,
 				51B397692B01FF2600A0AF2A /* SliderPicker.swift */,
 				5188F2252B030DAF001B1AA0 /* HousemateCircleComponent.swift */,
-				5188F2272B031298001B1AA0 /* PostComponent.swift */,
+				5188F2272B031298001B1AA0 /* PostRowView.swift */,
+				8AB780D42B06EEDF0072B065 /* CommentListView.swift */,
 				512246742B034E6B006C3F23 /* FlashcardComponent.swift */,
 				81E9ED522B05EDA000A258A8 /* Font.swift */,
 				51802D962B08D33E00B4EE9A /* ProgressBar.swift */,
@@ -425,6 +440,10 @@
 				5155A17B2AFDC6ED00832E51 /* AllHousematesView.swift */,
 				81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */,
 				515939D12AFF3609004C31BB /* TaskSelectionVIew.swift */,
+				8AF549572B0584C800EB28CC /* AddPostView.swift */,
+				8AF549592B0585C300EB28CC /* PostDetailView.swift */,
+				81E9ED682B06E0B800A258A8 /* TaskDetailView.swift */,
+				8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -506,6 +525,7 @@
 				ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */,
 				8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */,
 				5188F2232B02AC47001B1AA0 /* GroupViewModel.swift */,
+				8AEE050A2B0423A80030A6E0 /* PostViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -612,6 +632,7 @@
 				8A6AD4F02AFB534400A6DF85 /* FirebaseStorageCombine-Community */,
 				51B3976C2B02385100A0AF2A /* SDWebImageSwiftUI */,
 				512D1EAE2B033B6E007A388A /* SwiftUITrackableScrollView */,
+				81E659F52B08852E00B77EE4 /* SlidingTabView */,
 			);
 			productName = housemates;
 			productReference = 8AD6ED052AF1969C006B56B6 /* housemates.app */;
@@ -649,6 +670,7 @@
 				8AD6ED2C2AF1991F006B56B6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				51B3976B2B02385100A0AF2A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				512D1EAD2B033B6E007A388A /* XCRemoteSwiftPackageReference "trackable-scroll-view" */,
+				81E659F42B08852E00B77EE4 /* XCRemoteSwiftPackageReference "SlidingTabView" */,
 			);
 			productRefGroup = 8AD6ED062AF1969C006B56B6 /* Products */;
 			projectDirPath = "";
@@ -711,6 +733,7 @@
 			files = (
 				51802D912B08CE7400B4EE9A /* PhoneNumberView.swift in Sources */,
 				51802D972B08D33E00B4EE9A /* ProgressBar.swift in Sources */,
+				8AEE050B2B0423A80030A6E0 /* PostViewModel.swift in Sources */,
 				8AD6ED0B2AF1969C006B56B6 /* ContentView.swift in Sources */,
 				8AD6ED262AF197D3006B56B6 /* Amentity.swift in Sources */,
 				8AD6ED092AF1969C006B56B6 /* housematesApp.swift in Sources */,
@@ -718,6 +741,7 @@
 				8AF358442AF4B2E20009B93C /* CreateGroupView.swift in Sources */,
 				5188F2262B030DAF001B1AA0 /* HousemateCircleComponent.swift in Sources */,
 				8A7F0AC02AFD407900F7B76B /* UserViewModel.swift in Sources */,
+				8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */,
 				8AD6ED292AF1980D006B56B6 /* GroupDataRepository.swift in Sources */,
 				8AE8FF9B2AF4114B003AD997 /* InputView.swift in Sources */,
 				51802D8B2B08CD4300B4EE9A /* FirstNameView.swift in Sources */,
@@ -744,6 +768,7 @@
 				51802D8D2B08CE4C00B4EE9A /* LastNameView.swift in Sources */,
 				5155A17A2AFDC6D500832E51 /* AllHousematesCard.swift in Sources */,
 				ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */,
+				8AF549582B0584C800EB28CC /* AddPostView.swift in Sources */,
 				8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */,
 				512246752B034E6B006C3F23 /* FlashcardComponent.swift in Sources */,
 				5188F2242B02AC47001B1AA0 /* GroupViewModel.swift in Sources */,
@@ -754,6 +779,7 @@
 				ADD11A682AFC3FCB001861A0 /* AddTaskView.swift in Sources */,
 				51EA51E92B09951A0098D342 /* GroupAddressView.swift in Sources */,
 				5188F2282B031298001B1AA0 /* PostComponent.swift in Sources */,
+				5188F2282B031298001B1AA0 /* PostRowView.swift in Sources */,
 				8AE8FF952AF41101003AD997 /* LoginView.swift in Sources */,
 				51802D952B08CE8A00B4EE9A /* PasswordView.swift in Sources */,
 				5125D3352B016C4C00E9E623 /* HousemateProfileButton.swift in Sources */,
@@ -762,7 +788,10 @@
 				8AD6ED2B2AF19832006B56B6 /* PostDataRepository.swift in Sources */,
 				ADD11A662AFAFA54001861A0 /* TaskDataRepository.swift in Sources */,
 				8AE8FFA52AF41F6B003AD997 /* ProfileView.swift in Sources */,
+				81E9ED692B06E0B800A258A8 /* TaskDetailView.swift in Sources */,
 				515939D02AFF31C0004C31BB /* TaskSelectionBox.swift in Sources */,
+				8AB780D52B06EEDF0072B065 /* CommentListView.swift in Sources */,
+				8AF5495A2B0585C300EB28CC /* PostDetailView.swift in Sources */,
 				5138709F2AF562DD007A83B4 /* HousemateProfileView.swift in Sources */,
 				8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */,
 				5155A17C2AFDC6ED00832E51 /* AllHousematesView.swift in Sources */,
@@ -943,7 +972,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 5V6283R8D6;
+				DEVELOPMENT_TEAM = 79WMU8S839;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -958,7 +987,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates7";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -974,7 +1003,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 5V6283R8D6;
+				DEVELOPMENT_TEAM = 79WMU8S839;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -989,7 +1018,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates7";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1046,6 +1075,14 @@
 				minimumVersion = 2.2.4;
 			};
 		};
+		81E659F42B08852E00B77EE4 /* XCRemoteSwiftPackageReference "SlidingTabView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/QuynhNguyen/SlidingTabView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		8AD6ED2C2AF1991F006B56B6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1066,6 +1103,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 51B3976B2B02385100A0AF2A /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		81E659F52B08852E00B77EE4 /* SlidingTabView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81E659F42B08852E00B77EE4 /* XCRemoteSwiftPackageReference "SlidingTabView" */;
+			productName = SlidingTabView;
 		};
 		8A6AD4E02AFB534400A6DF85 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

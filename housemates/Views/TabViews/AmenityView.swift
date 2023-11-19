@@ -13,7 +13,6 @@ struct Amenity: Identifiable {
 struct AmenityView: View {
     @EnvironmentObject var taskViewModel : TaskViewModel
     @EnvironmentObject var authViewModel : AuthViewModel
-    @Binding var hideTabBar: Bool
     
 //    var amenity = housemates.Amentity(from: <#Decoder#>)
     
@@ -60,7 +59,7 @@ struct AmenityView: View {
             .navigationTitle("Shared Amenities")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: AddAmenityView(taskViewModel: taskViewModel, hideTabBar: $hideTabBar)) {
+                    NavigationLink(destination: AddAmenityView(taskViewModel: taskViewModel)) {
                         Image(systemName: "plus")
                     }
                 }

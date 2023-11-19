@@ -2,96 +2,123 @@
 //  HomeView.swift
 //  housemates
 //
+import Foundation
 import SwiftUI
 import SwiftUITrackableScrollView
 
 struct HomeView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var userViewModel : UserViewModel
-    
-    static let mockTask1 = housemates.task( name: "Josh Completed Cleaning the Floor (1)",
-      group_id: "Test",
-      user_id: "Test",
-      description: "Test",
-      status: .unclaimed,
-      date_started: nil,
-      date_completed: nil,
-      priority: "Test")
-    static let testPost1 = Post(id: "1", task: mockTask1, num_likes: 3, num_comments: 2)
-    
-    static let mockTask2 = housemates.task( name: "Sean Completed Washing the Dishes (2)",
-      group_id: "Test",
-      user_id: "Test",
-      description: "Test",
-      status: .unclaimed,
-      date_started: nil,
-      date_completed: nil,
-      priority: "Test")
-    static let testPost2 = Post(id: "2", task: mockTask2, num_likes: 4, num_comments: 3)
-    
-    static let mockTask3 = housemates.task( name: "Bob Completed Draining the Soap (3)",
-      group_id: "Test",
-      user_id: "Test",
-      description: "Test",
-      status: .unclaimed,
-      date_started: nil,
-      date_completed: nil,
-      priority: "Test")
-    static let testPost3 = Post(id: "3", task: mockTask3, num_likes: 3, num_comments: 10)
-    
-    let posts : [Post] = [
-        testPost1,
-        testPost2,
-        testPost3
-    ]
-    
+    @EnvironmentObject var postViewModel : PostViewModel
+    @EnvironmentObject var taskViewModel : TaskViewModel
+    @State private var selectedTab = 0
+  var body: some View {
+    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
+    if let user = authViewModel.currentUser {
+      
+      VStack {
+        
+       
+          
+          CustomTabBar(selectedTab: $selectedTab, tabs: [(icon: "person.3.fill", title: "Feed"), (icon: "person.fill", title: "Personal")])
+         
+
+        
+        if (selectedTab == 0) {
+          // MARK - Home Page Header
+          HStack {
+            //                        Text("Housemates")
+            //                            .font(.custom("Nunito-Bold", size: 24))
+            //                            .padding()
+            //                        Spacer()
+            
+            // MARK - Horizontal Housemates Scroll View
+            ScrollView(.horizontal, showsIndicators: false) {
+              HStack(spacing: 15) {
+                if let uid = user.id {
+                  ForEach(userViewModel.getUserGroupmates(uid)) { user in
+                    NavigationLink(destination: HousemateProfileView(housemate: user)) {
+                      HousemateCircleComponent(housemate: user)
+                    }.buttonStyle(PlainButtonStyle())
+                  }
+                }
+              }
+              .padding(.horizontal)
+            }
+          }
+          
+          Divider()
+          
+          //MARK - Feed Content
+          List {
+            
+            ForEach(postViewModel.posts) { post in
+              // Jank ass way to get arrow to disappear (Stick it in ZStack)
+              ZStack {
+                NavigationLink(destination: PostDetailView(post: post, user: user)) {
+                }.opacity(0)
+                PostRowView(post: post, user: user)
+              }
+            }
+            
+          }.listStyle(InsetListStyle())
+          
+          Spacer()
+        }
+        else {
+          Spacer()
+        }
+      }
+    }
+  }
+}
+
+struct CustomTabBar: View {
+    @Binding var selectedTab: Int
+    let tabs: [(icon: String, title: String)]
+    @Namespace private var namespace
+    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     var body: some View {
-        if let user = authViewModel.currentUser {
-            NavigationView {
-                VStack {
-                    HStack {
-                         Text("Housemates")
-                             .font(.system(size: 24))
-                             .bold()
-                             .padding(.leading, 20)
-                        Spacer()
-                     }
-                    
-                    ScrollView {
-                        // Horizontal list for housemates
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 15) {
-                                ForEach(userViewModel.getUserGroupmates(user.id!)) { mate in
-                                    NavigationLink(destination: HousemateProfileView(housemate: mate)) {
-                                        HousemateCircleComponent(housemate: mate)
-                                    }
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
-                        // Scrollable main content feed
-                        LazyVStack(spacing: 10) {
-                            ForEach(posts) { post in
-                                PostComponent(post: post)
-                            }
+        HStack {
+            ForEach(0..<tabs.count, id: \.self) { index in
+                Button(action: {
+                    withAnimation(.easeInOut) {
+                        self.selectedTab = index
+                    }
+                }) {
+                    VStack {
+                      HStack {
+                        Image(systemName: tabs[index].icon)
+                        Text(tabs[index].title)
+                          .font(.custom("Nunito-Bold", size: 15))
+                      }
+                     
+                        if selectedTab == index {
+                            deepPurple.frame(height: 2)
+                                .matchedGeometryEffect(id: "tabIndicator", in: namespace)
+                        } else {
+                            Color.clear.frame(height: 2)
                         }
                     }
-                    
-                    
-                    Spacer()
-                    
                 }
+                .foregroundColor(self.selectedTab == index ? deepPurple : .gray)
             }
         }
+        .padding()
+        .background(Color.white)
+        
     }
 }
 
+        
+
+
 struct HomeView_Previews: PreviewProvider {
-    @EnvironmentObject var authViewModel : AuthViewModel
-    @EnvironmentObject var userViewModel : UserViewModel
     static var previews: some View {
         HomeView()
             .environmentObject(AuthViewModel.mock())
-            .environmentObject(UserViewModel())
+            .environmentObject(UserViewModel.mock())
+            .environmentObject(PostViewModel())
+
     }
 }

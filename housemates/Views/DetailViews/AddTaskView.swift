@@ -5,8 +5,8 @@ struct AddTaskView: View {
   let taskNameHardcoded: String
   let user: User
   @EnvironmentObject var taskViewModel: TaskViewModel
-  @Binding var hideTabBar: Bool
-  @Binding var selectedTab: Int
+  @Binding var showTaskSelectionView: Bool
+
   
   @Environment(\.presentationMode) var presentationMode
   @State private var showAlert = false
@@ -82,14 +82,6 @@ struct AddTaskView: View {
     .alert(isPresented: $showAlert) {
       Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
     }
-    .onAppear {
-      taskName = taskNameHardcoded
-      hideTabBar = true
-    }
-    .onDisappear {
-      hideTabBar = false
-      selectedTab = 0
-    }
   }
   
   
@@ -116,13 +108,13 @@ struct AddTaskView: View {
       priority: priority.rawValue
     )
     
-    if taskViewModel.tasks.contains(where: { $0.name == newTask.name }) {
-      alertMessage = "Task already exists."
-      showAlert = true
-      return
-    } else{
+//    if taskViewModel.tasks.contains(where: { $0.name == newTask.name }) {
+//      alertMessage = "Task already exists."
+//      showAlert = true
+//      return
+//    } else{
       taskViewModel.create(task: newTask)
-    }
+//    }
     
     
     alertMessage = "Task added successfully."
@@ -131,6 +123,7 @@ struct AddTaskView: View {
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
       showAlert = false
       presentationMode.wrappedValue.dismiss()
+      showTaskSelectionView = false
     }
   }
   
@@ -157,8 +150,7 @@ struct AddTaskView: View {
   struct AddTaskView_Previews: PreviewProvider {
     static var previews: some View {
       AddTaskView(taskIconStringHardcoded: "trash.fill", taskNameHardcoded: "Clean Dishes",
-                  user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"),
-                  hideTabBar: .constant(true), selectedTab: .constant(0))
+                  user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"), showTaskSelectionView: .constant(true))
       .environmentObject(TaskViewModel())
     }
   }

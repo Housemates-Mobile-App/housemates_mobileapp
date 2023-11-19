@@ -43,9 +43,9 @@ struct FilterView: View {
         }
         
         Button(action: {
-          selected = "Doing"
+          selected = "In Progress"
         }){
-          Text("Doing")
+          Text("In Progress")
             .font(.custom("Lato-Bold", size: 12))
 //            .font(.system(size: 12))
             .frame(maxWidth: 75, maxHeight: 15)
@@ -53,7 +53,7 @@ struct FilterView: View {
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .foregroundColor(Color.white)
-            .background(selected == "Doing" ? deepPurple : deepPurple.opacity(0.25))
+            .background(selected == "In Progress" ? deepPurple : deepPurple.opacity(0.25))
             .cornerRadius(25)
         }
         
@@ -71,9 +71,9 @@ struct FilterView: View {
             .background(selected == "Completed" ? deepPurple : deepPurple.opacity(0.25))
             .cornerRadius(25)
         }
-      }
+      }.padding(.horizontal, 5)
       
-    }
+  }
 }
 
 struct FilterView_Previews: PreviewProvider {
