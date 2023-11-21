@@ -5,6 +5,7 @@ struct TaskBoardView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var selected: String = "All Tasks"
     @State private var showTaskSelectionView = false
+    private var unknownDate = Date.distantPast
 
 
     var body: some View {
@@ -71,7 +72,8 @@ struct TaskBoardView: View {
  
     // Task Sections
   private func taskSections(user: User) -> some View {
-      List {
+      let completedTasks = taskViewModel.getCompletedTasksForGroup(user.group_id!)
+      return List {
           if selected == "Unclaimed" || selected == "All Tasks" {
             Section(header: Text("Unclaimed").font(.custom("Lato-Bold", size: 15))) {
                   ForEach(taskViewModel.getUnclaimedTasksForGroup(user.group_id!)) { task in
@@ -107,15 +109,18 @@ struct TaskBoardView: View {
 
           if selected == "Completed" || selected == "All Tasks" {
               Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15))) {
-                  ForEach(taskViewModel.getCompletedTasksForGroup(user.group_id!)) { task in
-                    ZStack {
-                      NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
+                  ForEach (convertCompletedList(completedList: completedTasks), id: \.0) { date, tasks in
+                      Text(convertDateToStr(date: date)).font(.custom("Lato-Regular", size: 13)).padding(.bottom, 0)
+                      ForEach(tasks, id: \.id) { task in
+                          ZStack {
+                              NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
+                              }
+                              .opacity(0)
+                              
+                              taskRow(task: task, user: user)
+                              
+                          }.listRowSeparator(.hidden)
                       }
-                      .opacity(0)
-                      
-                      taskRow(task: task, user: user)
-                        
-                    }.listRowSeparator(.hidden)
                   }
               }
           }
@@ -136,6 +141,65 @@ struct TaskBoardView: View {
               }
             
           }
+    }
+    
+    // just d,m,y info for keys
+    private func getPartialDate(dateStr: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "MM.dd.yy h:mm a"
+        
+        guard let dateFromStr = dateFormatter.date(from: dateStr) else {
+            return nil
+        }
+        
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: dateFromStr)
+        let month = calendar.component(.month, from: dateFromStr)
+        let day = calendar.component(.day, from: dateFromStr)
+        return calendar.date(from: DateComponents(year: year, month: month, day: day))
+    }
+    
+    // d,m,y,h,s info
+    private func getFullDate(dateStr: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "MM.dd.yy h:mm a"
+        return dateFormatter.date(from: dateStr)
+    }
+    
+    private func convertCompletedList(completedList: [task]) -> [(Date, [task])] {
+        var completedDict: [Date: [task]] = [:]
+
+        for cTask in completedList {
+            let dateStr = cTask.date_completed!
+            let partialDate = getPartialDate(dateStr: dateStr) ?? unknownDate
+
+            if completedDict[partialDate] != nil {
+                completedDict[partialDate]!.append(cTask)
+            } else {
+                completedDict[partialDate] = [cTask]
+            }
+        }
+
+        // Sort the dictionary by descending date
+        let sortedTasks = completedDict.sorted { $0.key > $1.key }
+            .map { (date: $0.key, tasks: $0.value.sorted { task1, task2 in
+                getFullDate(dateStr: task1.date_completed!) ?? Date() > getFullDate(dateStr: task2.date_completed!) ?? Date()
+            }) }
+        
+        // note: this doesnt sort tasks on a particular day, which i think is fine
+        return sortedTasks
+    }
+    
+    private func convertDateToStr(date: Date) -> String {
+        if date == unknownDate {
+            return "Unknown Day, Unknown Date"
+        } else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "EEEE, MMM d"
+            return dateFormatter.string(from: date)
+        }
     }
 }
 
