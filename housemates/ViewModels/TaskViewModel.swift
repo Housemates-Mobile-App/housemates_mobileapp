@@ -120,14 +120,14 @@ class TaskViewModel: ObservableObject {
 
 extension TaskViewModel {
     static func mockTask() -> task {
-        return task( name: "Test",
+        return task( name: "test name",
                      group_id: "Test",
                      user_id: "Test",
-                     description: "Test",
+                     description: "test description",
                      status: .unclaimed,
                      date_started: nil,
                      date_completed: nil,
-                     priority: "Test")
+                     priority: "test priority")
     }
     
     static func mock() -> TaskViewModel {

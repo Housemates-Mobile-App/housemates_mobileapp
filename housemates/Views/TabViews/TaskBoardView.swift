@@ -79,7 +79,7 @@ struct TaskBoardView: View {
                   ForEach(taskViewModel.getUnclaimedTasksForGroup(user.group_id!)) { task in
                     
                     ZStack {
-                      NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
+                        NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
                       }
                       .opacity(0)
                       
@@ -94,7 +94,7 @@ struct TaskBoardView: View {
               Section(header: Text("In Progress").font(.custom("Lato-Bold", size: 15))) {
                   ForEach(taskViewModel.getInProgressTasksForGroup(user.group_id!)) { task in
                     ZStack {
-                      NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
+                        NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
 //                        gets rid of the arrow icon
                           
                       }
@@ -113,7 +113,7 @@ struct TaskBoardView: View {
                       Text(convertDateToStr(date: date)).font(.custom("Lato-Regular", size: 13)).padding(.bottom, 0)
                       ForEach(tasks, id: \.id) { task in
                           ZStack {
-                              NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
+                              NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
                               }
                               .opacity(0)
                               
