@@ -26,12 +26,21 @@ struct HousemateProfileView: View {
                         .clipShape(Circle())
                 } placeholder: {
                     // Default user profile picture
-                    Image(systemName: "person.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 111, height: 111)
-                        .clipShape(Circle())
-                        .foregroundColor(.gray)
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 100, height: 100)
+                        .overlay(
+                            Text("\(housemate.first_name.prefix(1).capitalized + housemate.last_name.prefix(1).capitalized)")
+                              
+                                .font(.custom("Nunito-Bold", size: 40))
+                                .foregroundColor(.white)
+                        )
                 }
                 
                 Text("\(housemate.first_name) \(housemate.last_name)")

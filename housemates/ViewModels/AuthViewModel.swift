@@ -128,7 +128,7 @@ class AuthViewModel: ObservableObject {
 extension AuthViewModel {
     static func mock() -> AuthViewModel {
         // Create and return a mock AuthViewModel with a mock user
-        let mockUser =  User(id: "test", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
+        let mockUser =  User(id: "test", first_name: "D", last_name: "G", phone_number: "test", email: "test", birthday: "test", group_id: "test")
         let mockAuthViewModel = AuthViewModel()
         mockAuthViewModel.currentUser = mockUser
         return mockAuthViewModel
