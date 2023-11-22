@@ -12,6 +12,11 @@ struct TaskSelectionView: View {
     @EnvironmentObject var taskViewModel : TaskViewModel
     @Binding var showTaskSelectionView: Bool
     @State private var searchTask: String = ""
+    @State private var filteredHouseworkTaskData : [TaskData] = []
+    @State private var filteredIndoorTaskData : [TaskData] = []
+    @State private var filteredOutdoorTaskData : [TaskData] = []
+    var allTaskData : [TaskData] = hardcodedHouseworkTaskData + hardcodedIndoorTaskData + hardcodedOutdoorTaskData
+    
     let user : User
     
     var body: some View {
@@ -33,14 +38,19 @@ struct TaskSelectionView: View {
                             .foregroundColor(Color.black)
                             .padding(.vertical, 10)
                             .background(Color.clear)
+                            .onChange(of: searchTask, perform: { value in
+                                filteredHouseworkTaskData = search(searchText: searchTask, CategoryHardcodedTaskData: hardcodedHouseworkTaskData)
+                                filteredIndoorTaskData = search(searchText: searchTask, CategoryHardcodedTaskData: hardcodedIndoorTaskData)
+                                filteredOutdoorTaskData = search(searchText: searchTask, CategoryHardcodedTaskData: hardcodedOutdoorTaskData)
+                            })
                     }
                     .background(Color(.systemGray5))
                     .cornerRadius(15)
                     .padding(.horizontal)
                     
-                    taskCategoryView(categoryName: "Housework", taskData: hardcodedHouseworkTaskData)
-                    taskCategoryView(categoryName: "Indoor", taskData: hardcodedIndoorTaskData)
-                    taskCategoryView(categoryName: "Outdoor", taskData: hardcodedOutdoorTaskData)
+                    taskCategoryView(categoryName: "Housework", taskData: displayTaskDatas(searchText: searchTask, allTaskData: allTaskData, CategoryHardcodedTaskData: filteredHouseworkTaskData))
+                    taskCategoryView(categoryName: "Indoor", taskData: displayTaskDatas(searchText: searchTask, allTaskData: allTaskData, CategoryHardcodedTaskData: filteredIndoorTaskData))
+                    taskCategoryView(categoryName: "Outdoor", taskData: displayTaskDatas(searchText: searchTask, allTaskData: allTaskData, CategoryHardcodedTaskData: filteredOutdoorTaskData))
                     
                 }
                 Spacer()
@@ -69,17 +79,39 @@ struct TaskSelectionView: View {
                 .bold()
                 .padding(.top)
             
-            ForEach(0..<taskData.count, id: \.self) { i in
-                if i % 3 == 0 {
-                    HStack {
-                        ForEach(0..<min(3, taskData.count - i), id: \.self) { j in
-                            NavigationLink(destination: AddTaskView(taskIconStringHardcoded: taskData[i + j].taskIcon, taskNameHardcoded: taskData[i + j].taskName, user: user, showTaskSelectionView: $showTaskSelectionView)) {
-                                TaskSelectionBox(taskIconString: taskData[i + j].taskIcon, taskName: taskData[i + j].taskName)
+            if (taskData.count == 0) {
+                Text("There are no \(categoryName.lowercased()) templates to display")
+                    .font(.custom("Lato-Regular", size: 12))
+                    .foregroundColor(.gray)
+            }
+            else {
+                ForEach(0..<taskData.count, id: \.self) { i in
+                    if i % 3 == 0 {
+                        HStack {
+                            ForEach(0..<min(3, taskData.count - i), id: \.self) { j in
+                                NavigationLink(destination: AddTaskView(taskIconStringHardcoded: taskData[i + j].taskIcon, taskNameHardcoded: taskData[i + j].taskName, user: user, showTaskSelectionView: $showTaskSelectionView)) {
+                                    TaskSelectionBox(taskIconString: taskData[i + j].taskIcon, taskName: taskData[i + j].taskName)
+                                }
                             }
-                        }
+                            Spacer()
+                        }.frame(width: UIScreen.main.bounds.width - 25)
                     }
                 }
             }
+        }
+    }
+    
+    private func search(searchText: String, CategoryHardcodedTaskData: [TaskData]) -> [TaskData] {
+       return CategoryHardcodedTaskData.filter { tempTaskData in
+         return tempTaskData.taskName.lowercased().contains(searchText.lowercased())
+       }
+     }
+    
+    func displayTaskDatas(searchText: String, allTaskData: [TaskData], CategoryHardcodedTaskData: [TaskData]) -> [TaskData] {
+        if searchText == "" {
+          return allTaskData
+        } else {
+         return CategoryHardcodedTaskData
         }
     }
     

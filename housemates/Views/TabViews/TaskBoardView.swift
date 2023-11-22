@@ -79,7 +79,7 @@ struct TaskBoardView: View {
           if selected == "Unclaimed" || selected == "All Tasks" {
               Section(header: Text("Unclaimed").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
                 if (unclaimedTasks.count == 0) {
-                    Text("There are no tasks to display")
+                    Text("There are no unclaimed tasks to display")
                         .font(.custom("Lato-Regular", size: 12))
                         .foregroundColor(.gray)
                         .listRowSeparator(.hidden)
@@ -103,7 +103,7 @@ struct TaskBoardView: View {
           if selected == "In Progress" || selected == "All Tasks" {
               Section(header: Text("In Progress").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
                   if (inProgressTasks.count == 0) {
-                      Text("There are no tasks to display")
+                      Text("There are no in progress tasks to display")
                           .font(.custom("Lato-Regular", size: 12))
                           .foregroundColor(.gray)
 
@@ -129,7 +129,7 @@ struct TaskBoardView: View {
           if selected == "Completed" || selected == "All Tasks" {
               Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
                   if (completedTasks.count == 0) {
-                      Text("There are no tasks to display")
+                      Text("There are no completed tasks to display")
                           .font(.custom("Lato-Regular", size: 12))
                           .foregroundColor(.gray)
                           .listRowSeparator(.hidden)
