@@ -72,54 +72,77 @@ struct TaskBoardView: View {
  
     // Task Sections
   private func taskSections(user: User) -> some View {
+      let unclaimedTasks = taskViewModel.getUnclaimedTasksForGroup(user.group_id!)
       let completedTasks = taskViewModel.getCompletedTasksForGroup(user.group_id!)
+      let inProgressTasks = taskViewModel.getInProgressTasksForGroup(user.group_id!)
       return List {
           if selected == "Unclaimed" || selected == "All Tasks" {
             Section(header: Text("Unclaimed").font(.custom("Lato-Bold", size: 15))) {
-                  ForEach(taskViewModel.getUnclaimedTasksForGroup(user.group_id!)) { task in
-                    
-                    ZStack {
-                        NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
-                      }
-                      .opacity(0)
-                      
-                      taskRow(task: task, user: user)
+                if (unclaimedTasks.count == 0) {
+                    Text("There are no tasks to display")
+                        .font(.custom("Lato-Regular", size: 13))
+                        .listRowSeparator(.hidden)
+                }
+                else {
+                    ForEach(unclaimedTasks) { task in
                         
-                    }.listRowSeparator(.hidden)
-                  }
+                        ZStack {
+                            NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                            }
+                            .opacity(0)
+                            
+                            taskRow(task: task, user: user)
+                            
+                        }.listRowSeparator(.hidden)
+                    }
+                }
               }
           }
 
           if selected == "In Progress" || selected == "All Tasks" {
               Section(header: Text("In Progress").font(.custom("Lato-Bold", size: 15))) {
-                  ForEach(taskViewModel.getInProgressTasksForGroup(user.group_id!)) { task in
-                    ZStack {
-                        NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
-//                        gets rid of the arrow icon
-                          
-                      }
-                      .opacity(0)
-                      
-                      taskRow(task: task, user: user)
-                        
-                    }.listRowSeparator(.hidden)
+                  if (inProgressTasks.count == 0) {
+                      Text("There are no tasks to display")
+                          .font(.custom("Lato-Regular", size: 13))
+                          .listRowSeparator(.hidden)
                   }
-              }
-          }
-
-          if selected == "Completed" || selected == "All Tasks" {
-              Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15))) {
-                  ForEach (convertCompletedList(completedList: completedTasks), id: \.0) { date, tasks in
-                      Text(convertDateToStr(date: date)).font(.custom("Lato-Regular", size: 13)).padding(.bottom, 0)
-                      ForEach(tasks, id: \.id) { task in
+                  else {
+                      ForEach(inProgressTasks) { task in
                           ZStack {
                               NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                  //                        gets rid of the arrow icon
+                                  
                               }
                               .opacity(0)
                               
                               taskRow(task: task, user: user)
                               
                           }.listRowSeparator(.hidden)
+                      }
+                  }
+              }
+          }
+
+          if selected == "Completed" || selected == "All Tasks" {
+              Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15))) {
+                  if (completedTasks.count == 0) {
+                      Text("There are no tasks to display")
+                          .font(.custom("Lato-Regular", size: 13))
+                          .listRowSeparator(.hidden)
+                  }
+                  else {
+                      ForEach (convertCompletedList(completedList: completedTasks), id: \.0) { date, tasks in
+                          Text(convertDateToStr(date: date)).font(.custom("Lato-Regular", size: 13)).padding(.bottom, 0)
+                          ForEach(tasks, id: \.id) { task in
+                              ZStack {
+                                  NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                  }
+                                  .opacity(0)
+                                  
+                                  taskRow(task: task, user: user)
+                                  
+                              }.listRowSeparator(.hidden)
+                          }
                       }
                   }
               }
