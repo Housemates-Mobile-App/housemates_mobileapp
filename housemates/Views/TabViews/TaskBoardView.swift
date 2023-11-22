@@ -127,13 +127,12 @@ struct TaskBoardView: View {
           }
 
           if selected == "Completed" || selected == "All Tasks" {
-              Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282)).border(.red)) {
+              Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
                   if (completedTasks.count == 0) {
                       Text("There are no completed tasks to display")
                           .font(.custom("Lato-Regular", size: 12))
                           .foregroundColor(.gray)
                           .listRowSeparator(.hidden)
-                          .border(.red)
                   }
                   else {
                       ForEach (convertCompletedList(completedList: completedTasks), id: \.0) { date, tasks in
