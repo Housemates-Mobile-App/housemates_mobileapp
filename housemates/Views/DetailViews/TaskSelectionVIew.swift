@@ -79,16 +79,23 @@ struct TaskSelectionView: View {
                 .bold()
                 .padding(.top)
             
-            ForEach(0..<taskData.count, id: \.self) { i in
-                if i % 3 == 0 {
-                    HStack {
-                        ForEach(0..<min(3, taskData.count - i), id: \.self) { j in
-                            NavigationLink(destination: AddTaskView(taskIconStringHardcoded: taskData[i + j].taskIcon, taskNameHardcoded: taskData[i + j].taskName, user: user, showTaskSelectionView: $showTaskSelectionView)) {
-                                TaskSelectionBox(taskIconString: taskData[i + j].taskIcon, taskName: taskData[i + j].taskName)
+            if (taskData.count == 0) {
+                Text("There are no \(categoryName.lowercased()) templates to display")
+                    .font(.custom("Lato-Regular", size: 12))
+                    .foregroundColor(.gray)
+            }
+            else {
+                ForEach(0..<taskData.count, id: \.self) { i in
+                    if i % 3 == 0 {
+                        HStack {
+                            ForEach(0..<min(3, taskData.count - i), id: \.self) { j in
+                                NavigationLink(destination: AddTaskView(taskIconStringHardcoded: taskData[i + j].taskIcon, taskNameHardcoded: taskData[i + j].taskName, user: user, showTaskSelectionView: $showTaskSelectionView)) {
+                                    TaskSelectionBox(taskIconString: taskData[i + j].taskIcon, taskName: taskData[i + j].taskName)
+                                }
                             }
-                        }
-                        Spacer()
-                    }.frame(width: UIScreen.main.bounds.width - 25)
+                            Spacer()
+                        }.frame(width: UIScreen.main.bounds.width - 25)
+                    }
                 }
             }
         }
