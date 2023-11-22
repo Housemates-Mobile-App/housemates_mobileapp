@@ -59,7 +59,7 @@ struct TaskView: View {
         }
       
         .frame(minWidth: 75, minHeight: 45)
-        .padding(.vertical, 12.5)
+        .padding(.vertical, 0)
       
       
 //        .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.black.opacity(0.1), lineWidth: 1))

@@ -136,25 +136,27 @@ struct TaskBoardView: View {
                   }
                   else {
                       ForEach (convertCompletedList(completedList: completedTasks), id: \.0) { date, tasks in
-                          VStack(alignment: .leading, spacing: 0) {
+                          HStack {
                               Text(convertDateToStr(date: date)).font(.custom("Lato-Regular", size: 12))
                                   .foregroundColor(.gray)
-                              ForEach(tasks, id: \.id) { task in
-                                  ZStack {
-                                      NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
-                                      }
-                                      .opacity(0)
-                                      taskRow(task: task, user: user)
-                                      
-                                  }.listRowSeparator(.hidden)
-                              }
+                              Spacer()
+                          }
+                          ForEach(tasks, id: \.id) { task in
+                              ZStack {
+                                  NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                  }
+                                  .opacity(0)
+                                  taskRow(task: task, user: user)
+                                  
+                              }.listRowSeparator(.hidden)
                           }
                       }.listRowSeparator(.hidden)
                   }
               }
           }
       }
-      .listStyle(.plain)
+//      .listStyle(.plain)
+      .listStyle(PlainListStyle())
   }
 
 

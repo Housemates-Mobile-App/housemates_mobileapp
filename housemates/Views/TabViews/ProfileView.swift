@@ -28,18 +28,8 @@ struct ProfileView: View {
             VStack(spacing:0) {
               HStack {
                 Spacer()
-//                NavigationLink(destination: SettingsView(user: user, authViewModel: authViewModel, groupRepository: groupRepository)) {
-//                  Image(systemName: "gearshape")
-//                    .font(.system(size: 24))
-//                    .foregroundColor(deepPurple)
-//                    .padding()
-//                }
               }.toolbar(content: {
                   Menu {
-//                      Button {
-//                      } label: {
-//                          Label("Group Code", systemImage: "heart")
-//                      }
                       if let group_code = group_code {
                           Text("Group Code: \(group_code)")
                       } else {
@@ -81,14 +71,21 @@ struct ProfileView: View {
                   
                 } placeholder: {
                   // MARK: Default user profile picture
-                  Image(systemName: "person.circle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 100)
-                    .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                    .foregroundColor(.gray)
-                    .padding(.top, 25)
+                  Circle()
+                      .fill(
+                          LinearGradient(
+                              gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                              startPoint: .topLeading,
+                              endPoint: .bottomTrailing
+                          )
+                      )
+                      .frame(width: 100, height: 100)
+                      .overlay(
+                          Text("\(user.first_name.prefix(1).capitalized+user.last_name.prefix(1).capitalized)")
+                            
+                              .font(.custom("Nunito-Bold", size: 40))
+                              .foregroundColor(.white)
+                      )
                   
                   
                 }
