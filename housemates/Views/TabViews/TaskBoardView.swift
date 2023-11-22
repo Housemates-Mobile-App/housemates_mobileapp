@@ -77,10 +77,11 @@ struct TaskBoardView: View {
       let inProgressTasks = taskViewModel.getInProgressTasksForGroup(user.group_id!)
       return List {
           if selected == "Unclaimed" || selected == "All Tasks" {
-            Section(header: Text("Unclaimed").font(.custom("Lato-Bold", size: 15))) {
+              Section(header: Text("Unclaimed").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
                 if (unclaimedTasks.count == 0) {
                     Text("There are no tasks to display")
-                        .font(.custom("Lato-Regular", size: 13))
+                        .font(.custom("Lato-Regular", size: 12))
+                        .foregroundColor(.gray)
                         .listRowSeparator(.hidden)
                 }
                 else {
@@ -100,10 +101,12 @@ struct TaskBoardView: View {
           }
 
           if selected == "In Progress" || selected == "All Tasks" {
-              Section(header: Text("In Progress").font(.custom("Lato-Bold", size: 15))) {
+              Section(header: Text("In Progress").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
                   if (inProgressTasks.count == 0) {
                       Text("There are no tasks to display")
-                          .font(.custom("Lato-Regular", size: 13))
+                          .font(.custom("Lato-Regular", size: 12))
+                          .foregroundColor(.gray)
+
                           .listRowSeparator(.hidden)
                   }
                   else {
@@ -124,26 +127,29 @@ struct TaskBoardView: View {
           }
 
           if selected == "Completed" || selected == "All Tasks" {
-              Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15))) {
+              Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
                   if (completedTasks.count == 0) {
                       Text("There are no tasks to display")
-                          .font(.custom("Lato-Regular", size: 13))
+                          .font(.custom("Lato-Regular", size: 12))
+                          .foregroundColor(.gray)
                           .listRowSeparator(.hidden)
                   }
                   else {
                       ForEach (convertCompletedList(completedList: completedTasks), id: \.0) { date, tasks in
-                          Text(convertDateToStr(date: date)).font(.custom("Lato-Regular", size: 13)).padding(.bottom, 0)
-                          ForEach(tasks, id: \.id) { task in
-                              ZStack {
-                                  NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
-                                  }
-                                  .opacity(0)
-                                  
-                                  taskRow(task: task, user: user)
-                                  
-                              }.listRowSeparator(.hidden)
+                          VStack(alignment: .leading, spacing: 0) {
+                              Text(convertDateToStr(date: date)).font(.custom("Lato-Regular", size: 12))
+                                  .foregroundColor(.gray)
+                              ForEach(tasks, id: \.id) { task in
+                                  ZStack {
+                                      NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                      }
+                                      .opacity(0)
+                                      taskRow(task: task, user: user)
+                                      
+                                  }.listRowSeparator(.hidden)
+                              }
                           }
-                      }
+                      }.listRowSeparator(.hidden)
                   }
               }
           }

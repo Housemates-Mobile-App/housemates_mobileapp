@@ -15,6 +15,7 @@ struct TaskDetailView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Task Details")
                     .font(.custom("Lato-Bold", size: 18))
+                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                     .padding(.bottom, 50)
 
                 // make it dynamic.
