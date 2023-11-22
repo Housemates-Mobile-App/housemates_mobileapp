@@ -5,6 +5,7 @@ struct TaskBoardView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var selected: String = "All Tasks"
     @State private var showTaskSelectionView = false
+    private var unknownDate = Date.distantPast
 
 
     var body: some View {
@@ -71,51 +72,84 @@ struct TaskBoardView: View {
  
     // Task Sections
   private func taskSections(user: User) -> some View {
-      List {
+      let unclaimedTasks = taskViewModel.getUnclaimedTasksForGroup(user.group_id!)
+      let completedTasks = taskViewModel.getCompletedTasksForGroup(user.group_id!)
+      let inProgressTasks = taskViewModel.getInProgressTasksForGroup(user.group_id!)
+      return List {
           if selected == "Unclaimed" || selected == "All Tasks" {
-            Section(header: Text("Unclaimed").font(.custom("Lato-Bold", size: 15))) {
-                  ForEach(taskViewModel.getUnclaimedTasksForGroup(user.group_id!)) { task in
-                    
-                    ZStack {
-                      NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
-                      }
-                      .opacity(0)
-                      
-                      taskRow(task: task, user: user)
+              Section(header: Text("Unclaimed").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
+                if (unclaimedTasks.count == 0) {
+                    Text("There are no tasks to display")
+                        .font(.custom("Lato-Regular", size: 12))
+                        .foregroundColor(.gray)
+                        .listRowSeparator(.hidden)
+                }
+                else {
+                    ForEach(unclaimedTasks) { task in
                         
-                    }.listRowSeparator(.hidden)
-                  }
+                        ZStack {
+                            NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                            }
+                            .opacity(0)
+                            
+                            taskRow(task: task, user: user)
+                            
+                        }.listRowSeparator(.hidden)
+                    }
+                }
               }
           }
 
           if selected == "In Progress" || selected == "All Tasks" {
-              Section(header: Text("In Progress").font(.custom("Lato-Bold", size: 15))) {
-                  ForEach(taskViewModel.getInProgressTasksForGroup(user.group_id!)) { task in
-                    ZStack {
-                      NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
-//                        gets rid of the arrow icon
-                          
+              Section(header: Text("In Progress").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
+                  if (inProgressTasks.count == 0) {
+                      Text("There are no tasks to display")
+                          .font(.custom("Lato-Regular", size: 12))
+                          .foregroundColor(.gray)
+
+                          .listRowSeparator(.hidden)
+                  }
+                  else {
+                      ForEach(inProgressTasks) { task in
+                          ZStack {
+                              NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                  //                        gets rid of the arrow icon
+                                  
+                              }
+                              .opacity(0)
+                              
+                              taskRow(task: task, user: user)
+                              
+                          }.listRowSeparator(.hidden)
                       }
-                      .opacity(0)
-                      
-                      taskRow(task: task, user: user)
-                        
-                    }.listRowSeparator(.hidden)
                   }
               }
           }
 
           if selected == "Completed" || selected == "All Tasks" {
-              Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15))) {
-                  ForEach(taskViewModel.getCompletedTasksForGroup(user.group_id!)) { task in
-                    ZStack {
-                      NavigationLink(destination: TaskDetailView(user: user, taskName: task.name, taskDescription: task.description)) {
-                      }
-                      .opacity(0)
-                      
-                      taskRow(task: task, user: user)
-                        
-                    }.listRowSeparator(.hidden)
+              Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
+                  if (completedTasks.count == 0) {
+                      Text("There are no tasks to display")
+                          .font(.custom("Lato-Regular", size: 12))
+                          .foregroundColor(.gray)
+                          .listRowSeparator(.hidden)
+                  }
+                  else {
+                      ForEach (convertCompletedList(completedList: completedTasks), id: \.0) { date, tasks in
+                          VStack(alignment: .leading, spacing: 0) {
+                              Text(convertDateToStr(date: date)).font(.custom("Lato-Regular", size: 12))
+                                  .foregroundColor(.gray)
+                              ForEach(tasks, id: \.id) { task in
+                                  ZStack {
+                                      NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                      }
+                                      .opacity(0)
+                                      taskRow(task: task, user: user)
+                                      
+                                  }.listRowSeparator(.hidden)
+                              }
+                          }
+                      }.listRowSeparator(.hidden)
                   }
               }
           }
@@ -136,6 +170,65 @@ struct TaskBoardView: View {
               }
             
           }
+    }
+    
+    // just d,m,y info for keys
+    private func getPartialDate(dateStr: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "MM.dd.yy h:mm a"
+        
+        guard let dateFromStr = dateFormatter.date(from: dateStr) else {
+            return nil
+        }
+        
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: dateFromStr)
+        let month = calendar.component(.month, from: dateFromStr)
+        let day = calendar.component(.day, from: dateFromStr)
+        return calendar.date(from: DateComponents(year: year, month: month, day: day))
+    }
+    
+    // d,m,y,h,s info
+    private func getFullDate(dateStr: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "MM.dd.yy h:mm a"
+        return dateFormatter.date(from: dateStr)
+    }
+    
+    private func convertCompletedList(completedList: [task]) -> [(Date, [task])] {
+        var completedDict: [Date: [task]] = [:]
+
+        for cTask in completedList {
+            let dateStr = cTask.date_completed!
+            let partialDate = getPartialDate(dateStr: dateStr) ?? unknownDate
+
+            if completedDict[partialDate] != nil {
+                completedDict[partialDate]!.append(cTask)
+            } else {
+                completedDict[partialDate] = [cTask]
+            }
+        }
+
+        // Sort the dictionary by descending date
+        let sortedTasks = completedDict.sorted { $0.key > $1.key }
+            .map { (date: $0.key, tasks: $0.value.sorted { task1, task2 in
+                getFullDate(dateStr: task1.date_completed!) ?? Date() > getFullDate(dateStr: task2.date_completed!) ?? Date()
+            }) }
+        
+        // note: this doesnt sort tasks on a particular day, which i think is fine
+        return sortedTasks
+    }
+    
+    private func convertDateToStr(date: Date) -> String {
+        if date == unknownDate {
+            return "Unknown Day, Unknown Date"
+        } else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "EEEE, MMM d"
+            return dateFormatter.string(from: date)
+        }
     }
 }
 

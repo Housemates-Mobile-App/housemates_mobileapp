@@ -28,16 +28,41 @@ struct ProfileView: View {
             VStack(spacing:0) {
               HStack {
                 Spacer()
-                NavigationLink(destination: SettingsView(user: user, authViewModel: authViewModel, groupRepository: groupRepository)) {
-                  Image(systemName: "gearshape")
-                    .font(.system(size: 24))
-                    .foregroundColor(deepPurple)
-                    .padding()
-                  
-                  
-                    
-                }
-              }
+//                NavigationLink(destination: SettingsView(user: user, authViewModel: authViewModel, groupRepository: groupRepository)) {
+//                  Image(systemName: "gearshape")
+//                    .font(.system(size: 24))
+//                    .foregroundColor(deepPurple)
+//                    .padding()
+//                }
+              }.toolbar(content: {
+                  Menu {
+//                      Button {
+//                      } label: {
+//                          Label("Group Code", systemImage: "heart")
+//                      }
+                      if let group_code = group_code {
+                          Text("Group Code: \(group_code)")
+                      } else {
+                          Text("Group Code: N/A")
+                      }
+                      Divider()
+                      Button {
+                          print("Leaving group...")
+                      } label: {
+                          Label("Leave Group", systemImage: "door")
+                      }
+                      Button(role: .destructive) {
+                          authViewModel.signOut()
+                      } label: {
+                          Label("Sign Out", systemImage: "door")
+                      }
+                  } label: {
+                      Label("settings", systemImage: "gearshape")
+                          .font(.system(size: 24))
+                          .foregroundColor(deepPurple)
+                          .padding()
+                  }
+              })
               ZStack (alignment: .bottomTrailing) {
                 
                 
@@ -149,6 +174,7 @@ struct ProfileView: View {
             }.onAppear {
               group = groupRepository.filterGroupsByID(user.group_id!)
               group_name = group?.name
+              group_code = group?.code
             }
             }
             }
@@ -211,8 +237,11 @@ struct LeaveButtonStyle: ButtonStyle {
 
 struct ProfileView_Previews: PreviewProvider {
   static var previews: some View {
-    ProfileView()
-      .environmentObject(AuthViewModel.mock())
+      NavigationStack {
+          ProfileView()
+              .environmentObject(AuthViewModel.mock())
+              .environmentObject(TaskViewModel())
+      }
   }
 }
 
