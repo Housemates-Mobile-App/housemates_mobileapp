@@ -113,6 +113,6 @@ struct JoinGroupView: View {
     }
 }
 
-#Preview {
-    JoinGroupView()
-}
+//#Preview {
+//    JoinGroupView()
+//}

@@ -84,9 +84,9 @@ extension CreateGroupView: AuthenticationFormProtocol {
 }
    
 
-#Preview {
-    CreateGroupView()
-        .environmentObject(AuthViewModel())
-        .environmentObject(UserViewModel())
-}
-    
+//#Preview {
+//    CreateGroupView()
+//        .environmentObject(AuthViewModel())
+//        .environmentObject(UserViewModel())
+//}
+//    

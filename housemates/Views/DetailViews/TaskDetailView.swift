@@ -12,12 +12,16 @@ struct TaskDetailView: View {
         let imageURL = URL(string: assignee?.imageURLString ?? "")
         
         ScrollView {
+          
             VStack(alignment: .leading, spacing: 10) {
+              SwiftUI.Group {
+                
+                
                 Text("Task Details")
-                    .font(.custom("Lato-Bold", size: 18))
-                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                    .padding(.bottom, 50)
-
+                  .font(.custom("Nunito-Bold", size: 26))
+                  .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                  .padding(.bottom, 50)
+                
                 // make it dynamic.
                 Image("dalle3")
                   .resizable()
@@ -25,10 +29,10 @@ struct TaskDetailView: View {
                   .frame(width: 60, height: 60)
                 
                 Text(currTask.name)
-                    .font(.custom("Lato-Bold", size: 18))
+                  .font(.custom("Lato-Bold", size: 18))
                 Text("Claimed by \(assignee?.first_name ?? "Nobody")")
-                    .font(.custom("Lato-Regular", size: 14))
-                    .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                  .font(.custom("Lato-Regular", size: 14))
+                  .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
                 
                 AsyncImage(url: imageURL) { image in
                   image
@@ -47,7 +51,8 @@ struct TaskDetailView: View {
                     .foregroundColor(.gray)
                 }
                 Divider()
-                    .padding(.vertical, 10)
+                  .padding(.vertical, 10)
+              }
                 
                 Text("Description")
                     .font(.custom("Lato-Bold", size: 18))
@@ -81,12 +86,12 @@ struct TaskDetailView: View {
   
 
 
-  
-struct TaskDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskDetailView(currUser: UserViewModel.mockUser(), currTask: TaskViewModel.mockTask())
-            .environmentObject(TaskViewModel())
-            .environmentObject(UserViewModel())
-    }
-}
+//
+//struct TaskDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TaskDetailView(currUser: UserViewModel.mockUser(), currTask: TaskViewModel.mockTask())
+//            .environmentObject(TaskViewModel())
+//            .environmentObject(UserViewModel())
+//    }
+//}
 

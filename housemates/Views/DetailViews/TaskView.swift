@@ -75,6 +75,7 @@ struct TaskView: View {
         HStack() {
           Text(task.name)
             .font(.custom("Lato-Bold", size: 15))
+            .padding(.vertical, 2)
             
 //            .font(.headline)
           
@@ -82,7 +83,7 @@ struct TaskView: View {
         
         
         if task.status == .done, let uid = task.user_id, let user = userViewModel.getUserByID(uid) {
-          Text("\(user.first_name) \(user.last_name) finished on \(task.date_completed ?? "Unknown")")
+          Text("Completed by \(user.first_name) \(user.last_name)")
             .font(.custom("Lato", size: 12))
             .foregroundColor(Color.gray)
 //          add else if here
@@ -97,7 +98,7 @@ struct TaskView: View {
         }
         
         else {
-          Text("2 days ago")
+          Text("Created 2 days ago")
             .font(.custom("Lato", size: 12))
             .foregroundColor(Color.black.opacity(0.5))
         }

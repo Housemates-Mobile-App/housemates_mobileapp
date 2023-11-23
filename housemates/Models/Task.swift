@@ -20,6 +20,7 @@ struct task: Identifiable, Codable {
     var date_started: String?
     var date_completed: String?
     var priority: String
+  
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {

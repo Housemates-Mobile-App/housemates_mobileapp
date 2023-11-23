@@ -40,6 +40,6 @@ struct JoinCreateCard: View {
     }
 }
 
-#Preview {
-    JoinCreateCard(image1:"JoinGroupIconNew2", title:"JOIN A GROUP", description:"Have an existing code? Click here!")
-}
+//#Preview {
+//    JoinCreateCard(image1:"JoinGroupIconNew2", title:"JOIN A GROUP", description:"Have an existing code? Click here!")
+//}

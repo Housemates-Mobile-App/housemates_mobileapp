@@ -25,6 +25,6 @@ struct ProgressBar: View {
     }
 }
 
-#Preview {
-    ProgressBar(progress:0.25)
-}
+//#Preview {
+//    ProgressBar(progress:0.25)
+//}
