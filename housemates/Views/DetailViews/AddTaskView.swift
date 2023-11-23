@@ -107,7 +107,9 @@ struct AddTaskView: View {
       status: .unclaimed,
       date_started: nil,
       date_completed: nil,
-      priority: priority.rawValue
+      priority: priority.rawValue,
+      icon: taskIconStringHardcoded
+//      icon: "dalle"
     )
     
 //    if taskViewModel.tasks.contains(where: { $0.name == newTask.name }) {

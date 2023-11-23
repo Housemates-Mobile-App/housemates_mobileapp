@@ -20,6 +20,7 @@ struct task: Identifiable, Codable {
     var date_started: String?
     var date_completed: String?
     var priority: String
+    var icon: String?
   
     
     // MARK: Codable
@@ -33,6 +34,7 @@ struct task: Identifiable, Codable {
         case date_started
         case date_completed
         case priority
+        case icon
     }
     
     enum Status: String, Codable {

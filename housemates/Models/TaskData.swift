@@ -14,30 +14,30 @@ struct TaskData {
 }
 
 let hardcodedHouseworkTaskData: [TaskData] = [
-    TaskData(taskIcon: "dalle1", taskName: "Wash Dishes"),
-    TaskData(taskIcon: "dalle2", taskName: "Clean Stove"),
-    TaskData(taskIcon: "dalle3", taskName: "Wipe Counter"),
-    TaskData(taskIcon: "dalle4", taskName: "Take out Trash"),
-    TaskData(taskIcon: "dalle5", taskName: "Sweep Floor"),
-    TaskData(taskIcon: "dalle6", taskName: "Vacuum Ground"),
+    TaskData(taskIcon: "dishe", taskName: "Wash Dishes"),
+    TaskData(taskIcon: "oven", taskName: "Clean Kitchen"),
+    TaskData(taskIcon: "dining", taskName: "Wipe Dining Table"),
+    TaskData(taskIcon: "trash", taskName: "Take out Trash"),
+    TaskData(taskIcon: "dust", taskName: "Sweep Floor"),
+    TaskData(taskIcon: "sun", taskName: "Vacuum Ground"),
 ]
 
 let hardcodedIndoorTaskData: [TaskData] = [
-    TaskData(taskIcon: "dalle1", taskName: "Mop Floor"),
-    TaskData(taskIcon: "dalle2", taskName: "Dust Chairs"),
-    TaskData(taskIcon: "dalle3", taskName: "Clean Windows"),
-    TaskData(taskIcon: "dalle4", taskName: "Scrub Toilet"),
-    TaskData(taskIcon: "dalle5", taskName: "Restock Paper"),
-    TaskData(taskIcon: "dalle6", taskName: "Clean Shower"),
+    TaskData(taskIcon: "recycle", taskName: "Recycle"),
+    TaskData(taskIcon: "living room", taskName: "Clean Living Room"),
+    TaskData(taskIcon: "fridge", taskName: "Clean Fridge"),
+    TaskData(taskIcon: "toilet", taskName: "Scrub Toilet"),
+    TaskData(taskIcon: "shop", taskName: "Restock Paper"),
+    TaskData(taskIcon: "tub", taskName: "Clean Shower"),
 ]
 
 let hardcodedOutdoorTaskData: [TaskData] = [
-    TaskData(taskIcon: "dalle1", taskName: "Do Laundry"),
-    TaskData(taskIcon: "dalle2", taskName: "Get Groceries"),
-    TaskData(taskIcon: "dalle3", taskName: "Prep Meals"),
-    TaskData(taskIcon: "dalle4", taskName: "Pay Bills"),
-    TaskData(taskIcon: "dalle5", taskName: "Mop Floor"),
-    TaskData(taskIcon: "dalle6", taskName: "Dust Chairs"),
+    TaskData(taskIcon: "laundry", taskName: "Do Laundry"),
+    TaskData(taskIcon: "shop", taskName: "Get Groceries"),
+    TaskData(taskIcon: "chef", taskName: "Prep Meals"),
+    TaskData(taskIcon: "bills", taskName: "Pay Bills"),
+    TaskData(taskIcon: "car", taskName: "Wash Car"),
+    TaskData(taskIcon: "moon", taskName: "Dust Chairs"),
 ]
 
 // for task chart
