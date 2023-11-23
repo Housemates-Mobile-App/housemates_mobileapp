@@ -15,37 +15,44 @@ struct TaskView: View {
     
       HStack(spacing: 0) {
 //          currently a placeholder
+       
           ZStack {
-            if task.priority == "High" {
-              Image("dalle3")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 50, height: 50)
-                .padding(.trailing, 4)
-         
-            }
-            else if task.priority == "Low" {
-              Image("dalle2")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 50, height: 50)
-              
-                .padding(.trailing, 4)
-                
-            }
-            else {
-              Image("dalle4")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 50, height: 50)
-         
-                .padding(.trailing, 4)
-               
-            }
+//            if task.priority == "High" {
+//              Image("dalle3")
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .frame(width: 50, height: 50)
+//                .padding(.trailing, 4)
+//
+//            }
+//            else if task.priority == "Low" {
+//              Image("dalle2")
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .frame(width: 50, height: 50)
+//
+//                .padding(.trailing, 4)
+//
+//            }
+//            else {
+//              Image("dalle4")
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .frame(width: 50, height: 50)
+//
+//                .padding(.trailing, 4)
+//
+//            }
             
+            Image(task.icon ?? "dalle3")
+              .resizable()
+              .aspectRatio(contentMode: .fit)
+              .frame(width: 40, height: 40)
+       
+              .padding(.trailing, 4)
             if task.status != .done {
               
-              priorityLabel
+//              priorityLabel
             }
           }
            

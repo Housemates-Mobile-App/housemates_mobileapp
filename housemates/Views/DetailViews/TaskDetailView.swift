@@ -23,7 +23,7 @@ struct TaskDetailView: View {
                   .padding(.bottom, 50)
                 
                 // make it dynamic.
-                Image("dalle3")
+                Image(currTask.icon ?? "dalle2")
                   .resizable()
                   .aspectRatio(contentMode: .fit)
                   .frame(width: 60, height: 60)
