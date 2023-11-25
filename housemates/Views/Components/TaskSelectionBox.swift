@@ -32,10 +32,11 @@ struct TaskSelectionBox: View {
 
     private var taskBackground: some View {
         RoundedRectangle(cornerRadius: 15)
-        .stroke(Color.black.opacity(0.25))
+//        .background(Color.black.opacity(0.25))
+        .stroke(Color.gray.opacity(0.15))
             .background(
                 RoundedRectangle(cornerRadius: 15)
-                    .fill(Color.white)
+                    .fill(Color.gray.opacity(0.15))
             )
     }
 
