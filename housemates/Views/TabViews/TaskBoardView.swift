@@ -71,9 +71,9 @@ struct TaskBoardView: View {
  
     // Task Sections
   private func taskSections(user: User) -> some View {
-      let unclaimedTasks = taskViewModel.getUnclaimedTasksForGroup(user.group_id!)
-      let completedTasks = taskViewModel.getCompletedTasksForGroup(user.group_id!)
-      let inProgressTasks = taskViewModel.getInProgressTasksForGroup(user.group_id!)
+      let unclaimedTasks = taskViewModel.getUnclaimedTasksForGroup(user.group_id)
+      let completedTasks = taskViewModel.getCompletedTasksForGroup(user.group_id)
+      let inProgressTasks = taskViewModel.getInProgressTasksForGroup(user.group_id)
       return List {
           if selected == "Unclaimed" || selected == "All Tasks" {
               Section(header: Text("Unclaimed").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {

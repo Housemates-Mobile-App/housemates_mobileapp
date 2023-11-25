@@ -41,16 +41,28 @@ class TaskViewModel: ObservableObject {
       return self.tasks.filter { $0.group_id == group_id}
     }
 
-    func getUnclaimedTasksForGroup(_ group_id: String) -> [task] {
-        return self.tasks.filter { $0.group_id == group_id && $0.status == .unclaimed}
+    func getUnclaimedTasksForGroup(_ group_id: String?) -> [task] {
+        guard let groupId = group_id else {
+            return []
+        }
+
+        return self.tasks.filter { $0.group_id == groupId && $0.status == .unclaimed }
     }
 
-    func getInProgressTasksForGroup(_ group_id: String) -> [task] {
-        return self.tasks.filter { $0.group_id == group_id && $0.status == .inProgress}
+    func getInProgressTasksForGroup(_ group_id: String?) -> [task] {
+        guard let groupId = group_id else {
+            return []
+        }
+
+        return self.tasks.filter { $0.group_id == groupId && $0.status == .inProgress }
     }
 
-    func getCompletedTasksForGroup(_ group_id: String) -> [task] {
-        return self.tasks.filter { $0.group_id == group_id && $0.status == .done}
+    func getCompletedTasksForGroup(_ group_id: String?) -> [task] {
+        guard let groupId = group_id else {
+            return []
+        }
+
+        return self.tasks.filter { $0.group_id == groupId && $0.status == .done }
     }
     
     func getCompletedTasksForUser(_ user_id: String) -> [task] {
@@ -59,6 +71,18 @@ class TaskViewModel: ObservableObject {
     
     func getPendingTasksForUser(_ user_id: String) -> [task] {
         return self.tasks.filter { $0.user_id == user_id && $0.status == .inProgress}
+    }
+    
+    // Function to unclaim tasks for a user who leaves a group
+    func unclaimTasksForUserLeavingGroup(uid: String) {
+        tasks
+            .filter { $0.user_id == uid && $0.status == .inProgress }
+            .forEach { task in
+                var updatedTask = task
+                updatedTask.user_id = nil
+                updatedTask.status = .unclaimed
+                taskRepository.update(updatedTask)
+            }
     }
   
     func getNumPendingTasksForUser(_ user_id: String) -> Int {

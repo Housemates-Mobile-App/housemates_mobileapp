@@ -19,11 +19,14 @@ struct ContentView: View {
                     if authViewModel.userSession != nil {
                         if authViewModel.currentUser?.group_id != nil {
                             AuthContentView()
+                                .onAppear { print("a") }
                         } else {
                             JoinCreateGroupView()
+                                .onAppear { print("b") }
                         }
                     } else {
                         startView()
+                            .onAppear { print("c") }
                     }
                 }
             }
