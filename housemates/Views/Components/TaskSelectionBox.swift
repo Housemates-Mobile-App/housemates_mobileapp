@@ -20,7 +20,7 @@ struct TaskSelectionBox: View {
         Image(taskIconString)
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: 75, height: 75)
+            .frame(width: 50, height: 50)
     }
 
     private var taskNameView: some View {

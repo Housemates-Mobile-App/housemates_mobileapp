@@ -12,9 +12,9 @@ struct TaskSelectionView: View {
     @EnvironmentObject var taskViewModel : TaskViewModel
     @Binding var showTaskSelectionView: Bool
     @State private var searchTask: String = ""
-    @State private var filteredHouseworkTaskData : [TaskData] = []
-    @State private var filteredIndoorTaskData : [TaskData] = []
-    @State private var filteredOutdoorTaskData : [TaskData] = []
+    @State private var filteredHouseworkTaskData : [TaskData] = hardcodedHouseworkTaskData
+    @State private var filteredIndoorTaskData : [TaskData] = hardcodedIndoorTaskData
+    @State private var filteredOutdoorTaskData : [TaskData] = hardcodedOutdoorTaskData
     var allTaskData : [TaskData] = hardcodedHouseworkTaskData + hardcodedIndoorTaskData + hardcodedOutdoorTaskData
     
     let user : User
@@ -23,18 +23,20 @@ struct TaskSelectionView: View {
         NavigationView {
             VStack(spacing: 15) {
                 Text("Select Task")
-                    .font(.title)
-                    .fontWeight(.bold)
+                    .font(.custom("Nunito-Bold", size: 26))
+                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                    
                     .padding(.top)
                 ScrollView(.vertical, showsIndicators: false) {
                     // MARK: Search bar for preset tasks
                     HStack {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
-                            .padding(5)
+                            .padding([.top, .bottom], 5)
+                            .padding(.leading, 10)
                         
                         TextField("What task do you want to add?", text: $searchTask)
-                            .font(.system(size: 14))
+                            .font(.custom("Lato", size: 14))
                             .foregroundColor(Color.black)
                             .padding(.vertical, 10)
                             .background(Color.clear)
@@ -48,16 +50,16 @@ struct TaskSelectionView: View {
                     .cornerRadius(15)
                     .padding(.horizontal)
                     
-                    taskCategoryView(categoryName: "Housework", taskData: displayTaskDatas(searchText: searchTask, allTaskData: allTaskData, CategoryHardcodedTaskData: filteredHouseworkTaskData))
-                    taskCategoryView(categoryName: "Indoor", taskData: displayTaskDatas(searchText: searchTask, allTaskData: allTaskData, CategoryHardcodedTaskData: filteredIndoorTaskData))
-                    taskCategoryView(categoryName: "Outdoor", taskData: displayTaskDatas(searchText: searchTask, allTaskData: allTaskData, CategoryHardcodedTaskData: filteredOutdoorTaskData))
+                    taskCategoryView(categoryName: "Housework", taskData: filteredHouseworkTaskData)
+                    taskCategoryView(categoryName: "Indoor", taskData: filteredIndoorTaskData)
+                    taskCategoryView(categoryName: "Outdoor", taskData: filteredOutdoorTaskData)
                     
                 }
                 Spacer()
                 
                 NavigationLink(destination: AddTaskView(taskIconStringHardcoded: "", taskNameHardcoded: "", user: user, showTaskSelectionView: $showTaskSelectionView)) {
                     Text("Add a Custom Task +")
-                        .font(.system(size: 18))
+                        .font(.custom("Nunito-Bold", size: 18))
                         .bold()
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity, minHeight: 50)
@@ -73,27 +75,41 @@ struct TaskSelectionView: View {
         
     // Function to generate task selection content for a category
     private func taskCategoryView(categoryName: String, taskData: [TaskData]) -> some View {
-        VStack {
+      VStack() {
             Text(categoryName)
-                .font(.system(size: 14))
-                .bold()
-                .padding(.top)
+                .font(.custom("Lato-Bold", size: 14))
+             
+                .padding()
+                .lineLimit(1)
+                .frame(width: (UIScreen.main.bounds.width - 25), alignment: .leading)
             
             if (taskData.count == 0) {
-                Text("There are no \(categoryName.lowercased()) templates to display")
+                Text("No \(categoryName.lowercased()) templates to display")
+                    .padding()
                     .font(.custom("Lato-Regular", size: 12))
                     .foregroundColor(.gray)
             }
             else {
                 ForEach(0..<taskData.count, id: \.self) { i in
                     if i % 3 == 0 {
-                        HStack {
+                      HStack(spacing: 0) {
+                       
                             ForEach(0..<min(3, taskData.count - i), id: \.self) { j in
                                 NavigationLink(destination: AddTaskView(taskIconStringHardcoded: taskData[i + j].taskIcon, taskNameHardcoded: taskData[i + j].taskName, user: user, showTaskSelectionView: $showTaskSelectionView)) {
                                     TaskSelectionBox(taskIconString: taskData[i + j].taskIcon, taskName: taskData[i + j].taskName)
+                                    .frame(width: (UIScreen.main.bounds.width - 25) / 3)
                                 }
                             }
-                            Spacer()
+                        
+//                        adds plcaceholder to fix spacing when filetering tasks
+                        if taskData.count - i < 3 {
+                            ForEach(0..<(3 - (taskData.count - i)), id: \.self) { _ in
+                                Rectangle()
+                                    .foregroundColor(Color.clear) // Invisible
+                                    .frame(width: (UIScreen.main.bounds.width - 25) / 3)
+                            }
+                        }
+                           
                         }.frame(width: UIScreen.main.bounds.width - 25)
                     }
                 }
@@ -107,13 +123,7 @@ struct TaskSelectionView: View {
        }
      }
     
-    func displayTaskDatas(searchText: String, allTaskData: [TaskData], CategoryHardcodedTaskData: [TaskData]) -> [TaskData] {
-        if searchText == "" {
-          return allTaskData
-        } else {
-         return CategoryHardcodedTaskData
-        }
-    }
+   
     
 }
 

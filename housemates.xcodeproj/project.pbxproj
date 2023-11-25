@@ -14,7 +14,7 @@
 		5155A17A2AFDC6D500832E51 /* AllHousematesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155A1792AFDC6D500832E51 /* AllHousematesCard.swift */; };
 		5155A17C2AFDC6ED00832E51 /* AllHousematesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5155A17B2AFDC6ED00832E51 /* AllHousematesView.swift */; };
 		515939D02AFF31C0004C31BB /* TaskSelectionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515939CF2AFF31C0004C31BB /* TaskSelectionBox.swift */; };
-		515939D22AFF3609004C31BB /* TaskSelectionVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515939D12AFF3609004C31BB /* TaskSelectionVIew.swift */; };
+		515939D22AFF3609004C31BB /* TaskSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515939D12AFF3609004C31BB /* TaskSelectionView.swift */; };
 		515939D42AFF37B2004C31BB /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515939D32AFF37B2004C31BB /* TaskData.swift */; };
 		51802D8B2B08CD4300B4EE9A /* FirstNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51802D8A2B08CD4300B4EE9A /* FirstNameView.swift */; };
 		51802D8D2B08CE4C00B4EE9A /* LastNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51802D8C2B08CE4C00B4EE9A /* LastNameView.swift */; };
@@ -167,7 +167,7 @@
 		5155A1792AFDC6D500832E51 /* AllHousematesCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHousematesCard.swift; sourceTree = "<group>"; };
 		5155A17B2AFDC6ED00832E51 /* AllHousematesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHousematesView.swift; sourceTree = "<group>"; };
 		515939CF2AFF31C0004C31BB /* TaskSelectionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSelectionBox.swift; sourceTree = "<group>"; };
-		515939D12AFF3609004C31BB /* TaskSelectionVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSelectionVIew.swift; sourceTree = "<group>"; };
+		515939D12AFF3609004C31BB /* TaskSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSelectionView.swift; sourceTree = "<group>"; };
 		515939D32AFF37B2004C31BB /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
 		51802D8A2B08CD4300B4EE9A /* FirstNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstNameView.swift; sourceTree = "<group>"; };
 		51802D8C2B08CE4C00B4EE9A /* LastNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastNameView.swift; sourceTree = "<group>"; };
@@ -437,7 +437,7 @@
 				ADD11A6B2AFCE97E001861A0 /* AddAmenityView.swift */,
 				5155A17B2AFDC6ED00832E51 /* AllHousematesView.swift */,
 				81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */,
-				515939D12AFF3609004C31BB /* TaskSelectionVIew.swift */,
+				515939D12AFF3609004C31BB /* TaskSelectionView.swift */,
 				8AF549572B0584C800EB28CC /* AddPostView.swift */,
 				8AF549592B0585C300EB28CC /* PostDetailView.swift */,
 				81E9ED682B06E0B800A258A8 /* TaskDetailView.swift */,
@@ -750,7 +750,7 @@
 				51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */,
 				81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */,
 				515939D42AFF37B2004C31BB /* TaskData.swift in Sources */,
-				515939D22AFF3609004C31BB /* TaskSelectionVIew.swift in Sources */,
+				515939D22AFF3609004C31BB /* TaskSelectionView.swift in Sources */,
 				816C30282AF49D59004F1771 /* TaskView.swift in Sources */,
 				51B397682B01FB8000A0AF2A /* NewInputView.swift in Sources */,
 				ADD11A6C2AFCE97E001861A0 /* AddAmenityView.swift in Sources */,
@@ -968,7 +968,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 79WMU8S839;
+				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -999,7 +999,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 79WMU8S839;
+				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
