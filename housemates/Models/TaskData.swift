@@ -16,28 +16,28 @@ struct TaskData {
 let hardcodedHouseworkTaskData: [TaskData] = [
     TaskData(taskIcon: "dishe", taskName: "Wash Dishes"),
     TaskData(taskIcon: "oven", taskName: "Clean Kitchen"),
-    TaskData(taskIcon: "dining", taskName: "Wipe Dining Table"),
+    TaskData(taskIcon: "dining", taskName: "Wipe Table"),
     TaskData(taskIcon: "trash", taskName: "Take out Trash"),
     TaskData(taskIcon: "dust", taskName: "Sweep Floor"),
-    TaskData(taskIcon: "sun", taskName: "Vacuum Ground"),
+    TaskData(taskIcon: "living room", taskName: "Clean Sofa"),
 ]
 
 let hardcodedIndoorTaskData: [TaskData] = [
     TaskData(taskIcon: "recycle", taskName: "Recycle"),
-    TaskData(taskIcon: "living room", taskName: "Clean Living Room"),
+    TaskData(taskIcon: "chef", taskName: "Prep Meals"),
     TaskData(taskIcon: "fridge", taskName: "Clean Fridge"),
     TaskData(taskIcon: "toilet", taskName: "Scrub Toilet"),
-    TaskData(taskIcon: "shop", taskName: "Restock Paper"),
+    TaskData(taskIcon: "laundry", taskName: "Do Laundry"),
     TaskData(taskIcon: "tub", taskName: "Clean Shower"),
 ]
 
 let hardcodedOutdoorTaskData: [TaskData] = [
-    TaskData(taskIcon: "laundry", taskName: "Do Laundry"),
-    TaskData(taskIcon: "shop", taskName: "Get Groceries"),
-    TaskData(taskIcon: "chef", taskName: "Prep Meals"),
+    TaskData(taskIcon: "plants", taskName: "Water Plants"),
+    TaskData(taskIcon: "shopping", taskName: "Get Groceries"),
+    TaskData(taskIcon: "package", taskName: "Get Packages"),
     TaskData(taskIcon: "bills", taskName: "Pay Bills"),
     TaskData(taskIcon: "car", taskName: "Wash Car"),
-    TaskData(taskIcon: "moon", taskName: "Dust Chairs"),
+    TaskData(taskIcon: "drinks", taskName: "Get Drinks"),
 ]
 
 // for task chart

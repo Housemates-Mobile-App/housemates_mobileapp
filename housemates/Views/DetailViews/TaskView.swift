@@ -48,8 +48,14 @@ struct TaskView: View {
               .resizable()
               .aspectRatio(contentMode: .fit)
               .frame(width: 40, height: 40)
+//              .padding(3)
+//  
+//              .clipShape(Circle())
+//              .overlay(
+//                      Circle().stroke(Color.black, lineWidth: 2) // Adjust color and lineWidth as needed
+//                  )
        
-              .padding(.trailing, 4)
+              .padding(.trailing, 7.5)
             if task.status != .done {
               
 //              priorityLabel
