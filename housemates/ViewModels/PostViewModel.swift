@@ -61,8 +61,9 @@ class PostViewModel: ObservableObject {
 
       let now = Date()
       let calendar = Calendar.current
-
-      if calendar.isDateInToday(completeDate) {
+      let dayDifference = calendar.dateComponents([.day], from: completeDate, to: now).day
+    
+      if calendar.isDateInToday(completeDate) || dayDifference == 0 {
           let hourNow = calendar.component(.hour, from: now)
           let hourOfCompleteDate = calendar.component(.hour, from: completeDate)
 
