@@ -23,7 +23,7 @@ struct PostRowView: View {
                     image
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 35, height: 35)
                         .clipShape(Circle())
                 } placeholder: {
         
@@ -31,17 +31,42 @@ struct PostRowView: View {
                     Image(systemName: "person.circle")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 35, height: 35)
                         .clipShape(Circle())
                 }
                 
                 
                 VStack(alignment: .leading, spacing: 5) {
                     // MARK: Post Text Details
-                    Text("**\(post.created_by.first_name)** completed the task: **\(post.task.name)**")
-                        .font(.system(size: 14))
-                        .padding(.trailing)
-                        .padding(.bottom, 30)
+                  HStack {
+                    
+                    
+                    Text("**\(post.created_by.first_name)** completed: **\(post.task.name)**")
+                      .font(.custom("Lato", size: 15))
+                      .padding(.trailing)
+                    
+                    Spacer()
+                    if let date = post.task.date_completed {
+                      
+                      let timestamp = String(postViewModel.getTimestamp(time: date) ?? "")
+                      Text(timestamp)
+                        .font(.custom("Lato", size: 12))
+                            .foregroundColor(.gray)
+//                            .padding(.trailing)
+//                            .padding(.bottom, 30)
+                    }
+                  }.padding(.bottom, 30)
+                        
+//                  if want to put date right under name, comment out this and remove hstack
+//                    if let date = post.task.date_completed {
+//
+//                      let timestamp = String(postViewModel.getTimestamp(time: date) ?? "")
+//                      Text(timestamp)
+//                            .font(.footnote)
+//                            .foregroundColor(.gray)
+//                            .padding(.trailing)
+//                            .padding(.bottom, 30)
+//                    }
                    
                     // MARK: Comment, Like and Time compontnets
                     HStack(alignment: .bottom) {
@@ -51,13 +76,10 @@ struct PostRowView: View {
                         commentButton(post: post, user: user)
                         
                         Spacer()
+                      
+//                      add a settings, more button
                         
-                        if let date = post.task.date_completed {
-                            Text(date)
-                                .font(.footnote)
-                                .foregroundColor(.gray)
-                                .padding(.trailing)
-                        }
+                        
                     }
                        
                 }
@@ -67,7 +89,7 @@ struct PostRowView: View {
     
     // MARK: Like / Unlike Button
     private func likeButton(post: Post, user: User) -> some View {
-        HStack {
+      HStack(spacing: 2.5) {
                 // MARK: If user has liked post show unlike button else show like button
                 if post.liked_by.contains(where: {$0 == user.id}) {
                     Button(action: {
@@ -76,6 +98,7 @@ struct PostRowView: View {
                         Image(systemName: "heart.fill")
                             .foregroundColor(.red)
                             .font(.system(size: 20))
+                      
                     }.buttonStyle(PlainButtonStyle()) // Allows button on list view to be independent
                 } else {
                     Button(action: {
@@ -87,17 +110,18 @@ struct PostRowView: View {
                 }
                 
                 // MARK: Like count
-                if !post.liked_by.isEmpty {
-                    Text(String(post.num_likes))
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                }
+                
+                Text(!post.liked_by.isEmpty ? String(post.num_likes) : " ")
+                      .font(.custom("Lato", size: 12))
+                      .foregroundColor(post.liked_by.contains(where: {$0 == user.id}) ? .red : .black)
+                      .frame(minWidth: 10, alignment: .leading)
+                
         }
     }
     
     // MARK: Comment Button
     private func commentButton(post: Post, user: User) -> some View {
-        HStack {
+      HStack(spacing: 2.5) {
             Button(action: {
                 isCommentDetailSheetPresented = true
             }) {
@@ -107,8 +131,8 @@ struct PostRowView: View {
             
             if !post.comments.isEmpty {
                 Text(String(post.num_comments))
-                    .font(.footnote)
-                    .foregroundColor(.gray)
+                    .font(.custom("Lato", size: 12))
+                   
             }
             Spacer()
         }.sheet(isPresented: $isCommentDetailSheetPresented) {
