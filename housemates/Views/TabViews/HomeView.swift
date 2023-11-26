@@ -12,27 +12,53 @@ struct HomeView: View {
     @EnvironmentObject var postViewModel : PostViewModel
     @EnvironmentObject var taskViewModel : TaskViewModel
     @State private var selectedTab = 0
-  var body: some View {
+    var body: some View {
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     if let user = authViewModel.currentUser {
       
       VStack {
+        HStack {
+          Text("Housemates")
+              .font(.custom("Nunito-Bold", size: 26))
+             
+              .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+              .padding(.horizontal)
+              .padding(.top)
+          Spacer()
+        }
+        
         
        
           
-          CustomTabBar(selectedTab: $selectedTab, tabs: [(icon: "person.3.fill", title: "Feed"), (icon: "person.fill", title: "Personal")])
+//          CustomTabBar(selectedTab: $selectedTab, tabs: [(icon: "person.3.fill", title: "Feed"), (icon: "person.fill", title: "Personal")])
          
 
         
         if (selectedTab == 0) {
-          // MARK - Home Page Header
-          HStack {
-            //                        Text("Housemates")
-            //                            .font(.custom("Nunito-Bold", size: 24))
-            //                            .padding()
-            //                        Spacer()
-            
-            // MARK - Horizontal Housemates Scroll View
+//          // MARK - Home Page Header
+//          HStack {
+//            //                        Text("Housemates")
+//            //                            .font(.custom("Nunito-Bold", size: 24))
+//            //                            .padding()
+//            //                        Spacer()
+//
+//            // MARK - Horizontal Housemates Scroll View
+//            ScrollView(.horizontal, showsIndicators: false) {
+//              HStack(spacing: 15) {
+//                if let uid = user.id {
+//                  ForEach(userViewModel.getUserGroupmates(uid)) { user in
+//                    NavigationLink(destination: HousemateProfileView(housemate: user)) {
+//                      HousemateCircleComponent(housemate: user)
+//                    }.buttonStyle(PlainButtonStyle())
+//                  }
+//                }
+//              }
+//              .padding(.horizontal)
+//            }
+//          }
+
+          //MARK - Feed Content
+          List {
             ScrollView(.horizontal, showsIndicators: false) {
               HStack(spacing: 15) {
                 if let uid = user.id {
@@ -43,15 +69,8 @@ struct HomeView: View {
                   }
                 }
               }
-              .padding(.horizontal)
-            }
-          }
-          
-          Divider()
-          
-          //MARK - Feed Content
-          List {
-            
+              
+            }.offset(x: 0, y: -10)
             ForEach(postViewModel.posts) { post in
               // Jank ass way to get arrow to disappear (Stick it in ZStack)
               ZStack {

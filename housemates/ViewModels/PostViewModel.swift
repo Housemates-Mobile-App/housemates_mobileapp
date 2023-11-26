@@ -50,6 +50,41 @@ class PostViewModel: ObservableObject {
             taskViewModel.completeTask(task: task)
         }
     }
+  
+  func getTimestamp(time: String) -> String? {
+      let formatter = DateFormatter()
+      formatter.dateFormat = "MM.dd.yy h:mm a"
+      formatter.locale = Locale(identifier: "en_US_POSIX") // Correct the locale identifier
+      guard let completeDate = formatter.date(from: time) else {
+          return nil
+      }
+
+      let now = Date()
+      let calendar = Calendar.current
+
+      if calendar.isDateInToday(completeDate) {
+          let hourNow = calendar.component(.hour, from: now)
+          let hourOfCompleteDate = calendar.component(.hour, from: completeDate)
+
+          if hourNow == hourOfCompleteDate {
+              let minComponent = calendar.dateComponents([.minute], from: completeDate, to: now)
+              if let minuteDifference = minComponent.minute {
+                  return minuteDifference == 0 ? "<1m" : "\(minuteDifference)m"
+              }
+          } else {
+              let hourComponent = calendar.dateComponents([.hour], from: completeDate, to: now)
+              if let hourDifference = hourComponent.hour {
+                  return "\(hourDifference)h"
+              }
+          }
+      } else {
+          if let dayDifference = calendar.dateComponents([.day], from: completeDate, to: now).day {
+              return "\(dayDifference)d"
+          }
+      }
+
+      return nil
+  }
     
     func unlikePost(user: User, post: Post) {
         var post = post
