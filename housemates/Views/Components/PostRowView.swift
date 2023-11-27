@@ -39,8 +39,8 @@ struct PostRowView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     // MARK: Post Text Details
                   HStack {
-                    
-                    
+                  
+//                    Text("group id\(post.group_id)")
                     Text("**\(post.created_by.first_name)** completed: **\(post.task.name)**")
                       .font(.custom("Lato", size: 15))
                       .padding(.trailing)
