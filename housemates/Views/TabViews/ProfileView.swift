@@ -61,7 +61,7 @@ struct ProfileView: View {
                       }
                   } label: {
                       Label("settings", systemImage: "gearshape")
-                          .font(.system(size: 24))
+                          .font(.system(size: 18))
                           .foregroundColor(deepPurple)
                           .padding()
                   }
