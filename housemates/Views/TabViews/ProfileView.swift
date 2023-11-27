@@ -49,7 +49,6 @@ struct ProfileView: View {
                       } else {
                           Text("Group Code: N/A")
                       }
-                      Divider()
                       Button {
                           activeAlert = .leaveGroup
                       } label: {
