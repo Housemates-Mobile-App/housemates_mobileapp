@@ -86,6 +86,26 @@ class PostViewModel: ObservableObject {
 
       return nil
   }
+  
+//  gets it in sorted order too
+    func getPostsForGroup(_ group_id: String) -> [Post] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.dd.yy h:mm a"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+      
+        return self.posts
+            .filter { $0.group_id == group_id }
+            .sorted { post1, post2 in
+              
+             
+              guard let date1 = formatter.date(from: post1.task.date_completed ?? "01.01.00 12:00 AM"),
+                    let date2 = formatter.date(from: post2.task.date_completed ?? "01.01.00 12:00 AM")
+              else {
+                  return false
+                }
+                return date1 > date2
+            }
+    }
     
     func unlikePost(user: User, post: Post) {
         var post = post

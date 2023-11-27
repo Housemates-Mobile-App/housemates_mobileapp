@@ -71,7 +71,12 @@ struct HomeView: View {
               }
               
             }.offset(x: 0, y: -10)
-            ForEach(postViewModel.posts) { post in
+            
+//            added to make sure only shows for a specific group
+            if let group_id = user.group_id {
+              
+          
+            ForEach(postViewModel.getPostsForGroup(group_id)) { post in
               // Jank ass way to get arrow to disappear (Stick it in ZStack)
               ZStack {
                 NavigationLink(destination: PostDetailView(post: post, user: user)) {
@@ -79,6 +84,7 @@ struct HomeView: View {
                 PostRowView(post: post, user: user)
               }
             }
+          }
             
           }.listStyle(InsetListStyle())
           
