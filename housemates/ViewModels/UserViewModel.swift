@@ -69,6 +69,12 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    func leaveGroup(currUser: User) {
+        var currUser = currUser
+        currUser.group_id = nil
+        userRepository.update(currUser)
+    }
+    
     func createAndJoinGroup(group_name: String, address: String, uid: String) async {
         let group_code = String(Int.random(in: 1000...9999))
         let group_id = UUID().uuidString

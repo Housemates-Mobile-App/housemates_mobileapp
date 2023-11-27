@@ -8,10 +8,23 @@
 import SwiftUI
 import PhotosUI
 
+enum ActiveAlert: Identifiable {
+    case leaveGroup, signOut
+
+    var id: Int {
+        switch self {
+        case .leaveGroup:
+            return 1
+        case .signOut:
+            return 2
+        }
+    }
+}
 
 struct ProfileView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var taskViewModel: TaskViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     @ObservedObject var groupRepository = GroupRepository()
     @State private var allowLocation: Bool = true
     @State private var group: Group?
@@ -19,6 +32,7 @@ struct ProfileView: View {
     @State private var group_name: String?
     @State private var selectedPhoto:  PhotosPickerItem?
     @State private var uiImageSelected = UIImage()
+    @State private var activeAlert: ActiveAlert?
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
   
 
@@ -35,14 +49,13 @@ struct ProfileView: View {
                       } else {
                           Text("Group Code: N/A")
                       }
-                      Divider()
                       Button {
-                          print("Leaving group...")
+                          activeAlert = .leaveGroup
                       } label: {
                           Label("Leave Group", systemImage: "door")
                       }
                       Button(role: .destructive) {
-                          authViewModel.signOut()
+                          activeAlert = .signOut
                       } label: {
                           Label("Sign Out", systemImage: "door")
                       }
@@ -173,6 +186,39 @@ struct ProfileView: View {
               group_name = group?.name
               group_code = group?.code
             }
+            .alert(item: $activeAlert) { alertType in
+                switch alertType {
+                case .leaveGroup:
+                    return Alert(
+                        title: Text("Confirm"),
+                        message: Text("Are you sure you want to leave the group?"),
+                        primaryButton: .destructive(Text("Leave")) {
+                            // Leave group logic
+                            print("Leaving group...")
+                            
+                            DispatchQueue.main.async {
+                                userViewModel.leaveGroup(currUser: user)
+                                authViewModel.currentUser!.group_id = nil
+                                taskViewModel.unclaimTasksForUserLeavingGroup(uid: user.id!)
+                            }
+                            
+                            
+                        },
+                        secondaryButton: .cancel()
+                    )
+                case .signOut:
+                    return Alert(
+                        title: Text("Confirm"),
+                        message: Text("Are you sure you want to sign out?"),
+                        primaryButton: .destructive(Text("Sign Out")) {
+                            // Sign out logic
+                            print("Signing Out...")
+                            authViewModel.signOut()
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
+            }
             }
             }
         }
@@ -238,6 +284,7 @@ struct ProfileView_Previews: PreviewProvider {
           ProfileView()
               .environmentObject(AuthViewModel.mock())
               .environmentObject(TaskViewModel())
+              .environmentObject(UserViewModel())
       }
   }
 }
