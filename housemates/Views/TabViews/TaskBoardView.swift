@@ -22,6 +22,8 @@ struct TaskBoardView: View {
                 }
             }.sheet(isPresented: $showTaskSelectionView) {
                 TaskSelectionView(showTaskSelectionView: $showTaskSelectionView, user: user)
+            }.onAppear {
+                taskViewModel.setupRecurringTaskReset()
             }
         }
     }
