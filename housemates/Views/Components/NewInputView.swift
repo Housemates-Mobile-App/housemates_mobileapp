@@ -14,12 +14,12 @@ struct NewInputView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(title)
-                .font(.system(size: 18))
-                .foregroundColor(.black)
-                .bold()
+                .font(.custom("Lato-Bold", size: 18))
+                
+                
             
             TextField(placeholder, text: $text)
-                .font(.system(size: 16))
+                .font(.custom("Lato", size: 16))
                 .background(
                     RoundedRectangle(cornerRadius: 30)
                         .fill(.white)

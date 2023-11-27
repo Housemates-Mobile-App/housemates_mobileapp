@@ -12,7 +12,7 @@ struct AddTaskView: View {
   @State private var alertMessage = ""
   @State private var taskName: String = ""
   @State private var taskDescription: String = ""
-  @State private var priority: TaskViewModel.TaskPriority = .medium
+  @State private var priority: TaskViewModel.TaskPriority = .low
   @State private var taskRepetition: TaskRepetition = .doesNotRepeat
   
   let elements: [TaskViewModel.TaskPriority] = TaskViewModel.TaskPriority.allCases
@@ -28,8 +28,10 @@ struct AddTaskView: View {
     ScrollView {
       VStack(spacing: 20) {
         Text("Add Task")
-          .font(.title)
-          .fontWeight(.bold)
+          
+          .font(.custom("Nunito-Bold", size: 26))
+          .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+          
           
         
         if taskIconStringHardcoded.count > 0 {
@@ -56,7 +58,7 @@ struct AddTaskView: View {
         
         
         
-        SliderPicker(selectedElement: $priority)
+        SliderPicker(selectedPriority: $priority)
         RecurrenceSection(taskRepetition: $taskRepetition)
         
        
