@@ -87,6 +87,10 @@ struct JoinGroupView: View {
                 .background(Color(red: 0.439, green: 0.298, blue: 1.0))
                 .cornerRadius(10)
                 
+//                Button (action: authViewModel.signOut){
+//                    Text("SignOut")
+//                }
+                
                 Text("Don't know where to find it? Look for 'Group Code' on your housemate's profile page")
                     .font(.custom("Lato", size: 16))
                     .foregroundColor(Color(red: 0.588, green: 0.588, blue: 0.588))

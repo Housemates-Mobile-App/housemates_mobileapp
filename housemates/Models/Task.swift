@@ -8,6 +8,13 @@
 import Foundation
 import FirebaseFirestoreSwift
 
+enum Recurrence: String, Codable {
+    case none = "Does Not Repeat"
+    case daily = "Every Day"
+    case weekly = "Every Week"
+    case monthly = "Every Month"
+}
+
 struct task: Identifiable, Codable {
     
     // MARK: Fields
@@ -21,6 +28,10 @@ struct task: Identifiable, Codable {
     var date_completed: String?
     var priority: String
     var icon: String?
+    var recurrence: Recurrence
+    var recurrenceStartDate: Date?
+    var recurrenceEndDate: Date?
+
   
     
     // MARK: Codable
@@ -35,6 +46,10 @@ struct task: Identifiable, Codable {
         case date_completed
         case priority
         case icon
+        case recurrence
+        case recurrenceStartDate
+        case recurrenceEndDate
+
     }
     
     enum Status: String, Codable {

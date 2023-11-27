@@ -12,17 +12,18 @@ struct AddTaskView: View {
   @State private var alertMessage = ""
   @State private var taskName: String = ""
   @State private var taskDescription: String = ""
+<<<<<<< HEAD
   @State private var priority: TaskViewModel.TaskPriority = .low
   @State private var taskRepetition: TaskRepetition = .doesNotRepeat
+=======
+  @State private var priority: TaskViewModel.TaskPriority = .medium
+  @State private var recurrence: Recurrence = .none
+  @State private var recurrenceStartDate: Date = Date()
+  @State private var recurrenceEndDate: Date = Date()
+  @State private var isRecurring: Bool = false
+>>>>>>> recurring
   
   let elements: [TaskViewModel.TaskPriority] = TaskViewModel.TaskPriority.allCases
-  
-  enum TaskRepetition: String, CaseIterable {
-    case doesNotRepeat = "Does Not Repeat"
-    case everyDay = "Every Day"
-    case everyMonday = "Every Monday"
-    case custom = "Custom..."
-  }
   
   var body: some View {
     ScrollView {
@@ -56,6 +57,7 @@ struct AddTaskView: View {
         // for task description
         NewInputView(text: $taskDescription, title: "Task Description", placeholder: "Write a description about the task!")
         
+<<<<<<< HEAD
         
         
         SliderPicker(selectedPriority: $priority)
@@ -65,6 +67,15 @@ struct AddTaskView: View {
 
 
         
+=======
+        SliderPicker(selectedElement: $priority)
+      
+        RecurrenceSection(isRecurring: $isRecurring,
+          recurrence: $recurrence,
+          recurrenceStartDate: $recurrenceStartDate,
+          recurrenceEndDate: $recurrenceEndDate)
+          
+>>>>>>> recurring
         Button(action: addTask) {
           Text("Add Task")
             .font(.system(size: 18))
@@ -95,11 +106,39 @@ struct AddTaskView: View {
       showAlert = true
       return
     }
+      
+    if isRecurring {
+        //recurrence type is selected
+        guard recurrence != .none else {
+            alertMessage = "Please select a recurrence type for the task."
+            showAlert = true
+            return
+        }
+        
+        guard recurrence == .none || (recurrenceStartDate != nil && recurrenceEndDate != nil) else {
+          alertMessage = "Recurring tasks must have both a start and an end date."
+          showAlert = true
+          return
+        }
+
+        // start date not in the past
+        guard recurrenceStartDate >= Calendar.current.date(byAdding: .day, value: -1, to: Date())! else {
+            alertMessage = "Recurring start date cannot be in the past."
+            showAlert = true
+            return
+        }
+
+        // end date is not current day or the same as the start date
+        guard recurrenceEndDate > Date() && recurrenceEndDate > recurrenceStartDate else {
+            alertMessage = "Recurring end date must be after the start date and not today."
+            showAlert = true
+            return
+        }
+    }
     
-    
-    print("Task Name: \(taskName)")
-    print("Task Description: \(taskDescription)")
-    print("Priority: \(priority.rawValue)")
+//    print("Task Name: \(taskName)")
+//    print("Task Description: \(taskDescription)")
+//    print("Priority: \(priority.rawValue)")
     
     let newTask = housemates.task(
       name: taskName,
@@ -110,9 +149,10 @@ struct AddTaskView: View {
       date_started: nil,
       date_completed: nil,
       priority: priority.rawValue,
-      icon: taskIconStringHardcoded
-//      icon: "dalle"
-    )
+      icon: taskIconStringHardcoded,
+      recurrence: isRecurring ? recurrence : .none,
+      recurrenceStartDate: isRecurring ? recurrenceStartDate : nil,
+      recurrenceEndDate: isRecurring ? recurrenceEndDate : nil)
     
 //    if taskViewModel.tasks.contains(where: { $0.name == newTask.name }) {
 //      alertMessage = "Task already exists."
@@ -121,8 +161,6 @@ struct AddTaskView: View {
 //    } else{
       taskViewModel.create(task: newTask)
 //    }
-    
-    
     alertMessage = "Task added successfully."
     showAlert = true
     
@@ -136,21 +174,49 @@ struct AddTaskView: View {
   
   
   struct RecurrenceSection: View {
-    @Binding var taskRepetition: AddTaskView.TaskRepetition
+    @Binding var isRecurring: Bool
+    @Binding var recurrence: Recurrence
+    @Binding var recurrenceStartDate: Date
+    @Binding var recurrenceEndDate: Date
     
     var body: some View {
-      VStack(alignment: .leading) {
-        Text("Recurrence")
-          .bold()
-        Picker("Repeats", selection: $taskRepetition) {
-          ForEach(AddTaskView.TaskRepetition.allCases, id: \.self) { repetition in
-            Text(repetition.rawValue).tag(repetition)
+      VStack(spacing: 16) {
+          Toggle("Is Recurring", isOn: $isRecurring)
+              .toggleStyle(SwitchToggleStyle(tint: .blue))
+              .padding(.horizontal)
+          
+          if isRecurring {
+              VStack(spacing: 16) {
+                  Picker("Repeats", selection: $recurrence) {
+                      Text("Daily").tag(Recurrence.daily)
+                      Text("Weekly").tag(Recurrence.weekly)
+                      Text("Monthly").tag(Recurrence.monthly)
+                  }
+                  .pickerStyle(SegmentedPickerStyle())
+                  .padding(.horizontal)
+                  
+                  DatePicker(
+                      "Start Date",
+                      selection: $recurrenceStartDate,
+                      displayedComponents: [.date]
+                  )
+                  .datePickerStyle(CompactDatePickerStyle())
+                  .padding(.horizontal)
+                  
+                  DatePicker(
+                      "End Date",
+                      selection: $recurrenceEndDate,
+                      in: recurrenceStartDate...,
+                      displayedComponents: [.date]
+                  )
+                  .datePickerStyle(CompactDatePickerStyle())
+                  .padding(.horizontal)
+              }
+              .transition(.opacity.combined(with: .slide))
           }
-        }
-        .pickerStyle(SegmentedPickerStyle())
       }
-      .padding(.horizontal)
-    }
+      .padding(.top, 8)
+      }
   }
   
   struct AddTaskView_Previews: PreviewProvider {
