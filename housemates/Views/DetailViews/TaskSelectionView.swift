@@ -118,10 +118,14 @@ struct TaskSelectionView: View {
     }
     
     private func search(searchText: String, CategoryHardcodedTaskData: [TaskData]) -> [TaskData] {
-       return CategoryHardcodedTaskData.filter { tempTaskData in
-         return tempTaskData.taskName.lowercased().contains(searchText.lowercased())
-       }
-     }
+        if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return CategoryHardcodedTaskData
+        } else {
+            return CategoryHardcodedTaskData.filter { tempTaskData in
+                return tempTaskData.taskName.lowercased().contains(searchText.lowercased())
+            }
+        }
+    }
     
    
     
