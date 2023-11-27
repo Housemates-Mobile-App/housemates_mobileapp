@@ -12,16 +12,11 @@ struct AddTaskView: View {
   @State private var alertMessage = ""
   @State private var taskName: String = ""
   @State private var taskDescription: String = ""
-<<<<<<< HEAD
   @State private var priority: TaskViewModel.TaskPriority = .low
-  @State private var taskRepetition: TaskRepetition = .doesNotRepeat
-=======
-  @State private var priority: TaskViewModel.TaskPriority = .medium
   @State private var recurrence: Recurrence = .none
   @State private var recurrenceStartDate: Date = Date()
   @State private var recurrenceEndDate: Date = Date()
   @State private var isRecurring: Bool = false
->>>>>>> recurring
   
   let elements: [TaskViewModel.TaskPriority] = TaskViewModel.TaskPriority.allCases
   
@@ -57,25 +52,14 @@ struct AddTaskView: View {
         // for task description
         NewInputView(text: $taskDescription, title: "Task Description", placeholder: "Write a description about the task!")
         
-<<<<<<< HEAD
-        
-        
+
         SliderPicker(selectedPriority: $priority)
-        RecurrenceSection(taskRepetition: $taskRepetition)
-        
-       
-
-
-        
-=======
-        SliderPicker(selectedElement: $priority)
       
         RecurrenceSection(isRecurring: $isRecurring,
           recurrence: $recurrence,
           recurrenceStartDate: $recurrenceStartDate,
           recurrenceEndDate: $recurrenceEndDate)
           
->>>>>>> recurring
         Button(action: addTask) {
           Text("Add Task")
             .font(.system(size: 18))
