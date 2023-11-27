@@ -13,52 +13,58 @@ struct PostDetailView: View {
     let post : Post
     let user : User
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack(alignment: .top, spacing: 10) {
+        VStack() {
+          VStack(spacing: 0) {
                 let imageURL = URL(string: post.created_by.imageURLString ?? "")
                 
                 AsyncImage(url: imageURL) { image in
                     image
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 65, height: 65)
                         .clipShape(Circle())
-                        .padding(.leading, 12)
+                        .padding()
                 } placeholder: {
                     
                     // MARK: Default user profile picture
                     Image(systemName: "person.circle")
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 65, height: 65)
                         .clipShape(Circle())
-                        .padding(.leading, 12)
+                        .padding()
                 }
                 // MARK: Post details header
-                Text("**\(post.created_by.first_name)** completed the task: **\(post.task.name)**")
-                    .font(.headline)
+                Text("**\(post.created_by.first_name)** completed **\(post.task.name)**")
+                .font(.custom("Lato", size: 15))
             }
             
             Text(post.task.date_completed!)
-                .padding(.top, 2)
-                .padding(.leading)
+                .padding(.bottom, 2)
+                .font(.custom("Lato", size: 12))
+
+                
             
             Text("**Description:** \(post.task.description)")
-                .font(.subheadline)
+                .font(.custom("Lato", size: 15))
+      
                 .padding(.top, 2)
-                .padding(.leading)
+      
             
             Text("**Priority:** \(post.task.priority)")
-                .font(.subheadline)
+                .font(.custom("Lato", size: 15))
+               
                 .padding(.top, 2)
-                .padding(.leading)
+            
             
             HStack {
                 likeButton(post: post, user: user).foregroundColor(.black)
                 Text("\(post.num_likes) Likes")
+                  .font(.custom("Lato", size: 15))
                 Spacer()
                 Image(systemName: "bubble.left")
                 Text("\(post.num_comments) Comments")
+                  .font(.custom("Lato", size: 15))
             }
             .padding()
             
@@ -77,6 +83,7 @@ struct PostDetailView: View {
             // MARK: Comment Input Section
             HStack {
                 TextField("Add a comment...", text: $newComment)
+                    .font(.custom("Lato", size: 15))
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(.horizontal)
                 

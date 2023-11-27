@@ -64,11 +64,11 @@ struct TaskView: View {
            
             taskInformationView
             Spacer()
-            if editMode?.wrappedValue.isEditing ?? false {
-                deleteButton
-            } else {
-                statusButtonOrLabel
-            }
+//            if editMode?.wrappedValue.isEditing ?? false {
+//                deleteButton
+//            } else {
+              statusButtonOrLabel
+            
         }
       
         .frame(minWidth: 75, minHeight: 45)
@@ -184,12 +184,12 @@ struct TaskView: View {
     
 
     // MARK: - Delete Button
-    private var deleteButton: some View {
-        Button("Delete", action: {
-            taskViewModel.destroy(task: task)
-        })
-        .buttonStyle(DeleteButtonStyle())
-    }
+//    private var deleteButton: some View {
+//        Button("Delete", action: {
+//            taskViewModel.destroy(task: task)
+//        })
+//        .buttonStyle(DeleteButtonStyle())
+//    }
 
     // MARK: - Status Button or Label
     @ViewBuilder
@@ -262,108 +262,125 @@ struct TaskView: View {
 }
 
 // MARK: - Custom Button Styles
-//struct DeleteButtonStyle: ButtonStyle {
-//    func makeBody(configuration: Configuration) -> some View {
-//        configuration.label
-//            .bold()
-//            .font(.system(size: 12))
-//            .foregroundColor(.white)
-//            .padding(.horizontal)
-//            .padding(.vertical, 4)
-//            .background(Color.red)
-//            .cornerRadius(16)
-//    }
-//}
-
-struct DeleteButtonStyle: ButtonStyle {
-    func makeBody(configuration: Self.Configuration) -> some View {
+struct DoneButtonStyle: ButtonStyle {
+    let lightGreen = Color(red: 0.10, green: 0.85, blue: 0.23)
+    func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .bold()
+            .font(.system(size: 12))
+            .foregroundColor(.white)
             .padding(.horizontal)
             .padding(.vertical, 4)
-            .foregroundColor(Color.red)
-            .font(.custom("Lato-Bold", size: 12))
-//            .font(.system(size: 12))
-//            .bold()
+            .background(lightGreen)
             .cornerRadius(16)
-            .overlay(
-                RoundedRectangle(cornerRadius: 16)
-                  .stroke(Color.red, lineWidth: 2)
+    }
+}
 
-
-            )
-            .overlay(
-                  RoundedRectangle(cornerRadius: 16)
-                    .stroke(Color.red, lineWidth: configuration.isPressed ? 0 : 4)
-                    .padding(.top, -1.25)
-                    .offset(x: 0, y: configuration.isPressed ? 0 : 1))
-
-            .scaleEffect(configuration.isPressed ? 1.0 : 1.0)
-            .offset(x: 0, y: configuration.isPressed ? 3 : 1)
-
+struct ClaimButtonStyle: ButtonStyle {
+    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .bold()
+            .font(.system(size: 12))
+            .foregroundColor(.white)
+            .padding(.horizontal)
+            .padding(.vertical, 4)
+            .background(deepPurple)
+            .cornerRadius(16)
     }
 }
 
 
 
+//struct DeleteButtonStyle: ButtonStyle {
+//    func makeBody(configuration: Self.Configuration) -> some View {
+//        configuration.label
+//            .padding(.horizontal)
+//            .padding(.vertical, 4)
+//            .foregroundColor(Color.red)
+//            .font(.custom("Lato-Bold", size: 12))
+////            .font(.system(size: 12))
+////            .bold()
+//            .cornerRadius(16)
+//            .overlay(
+//                RoundedRectangle(cornerRadius: 16)
+//                  .stroke(Color.red, lineWidth: 2)
+//
+//
+//            )
+//            .overlay(
+//                  RoundedRectangle(cornerRadius: 16)
+//                    .stroke(Color.red, lineWidth: configuration.isPressed ? 0 : 4)
+//                    .padding(.top, -1.25)
+//                    .offset(x: 0, y: configuration.isPressed ? 0 : 1))
+//
+//            .scaleEffect(configuration.isPressed ? 1.0 : 1.0)
+//            .offset(x: 0, y: configuration.isPressed ? 3 : 1)
+//
+//    }
+//}
 
 
 
 
 
-struct DoneButtonStyle: ButtonStyle {
-    let lightGreen = Color(red: 0.10, green: 0.85, blue: 0.23)
-    let deepGreen = Color(red: 0.3 * 0.85, green: 1.0 * 0.85, blue: 0.31 * 0.85)
-    let darkGreen = Color(red: 0.3 * 0.5, green: 1.0 * 0.5, blue: 0.31 * 0.5)
-    func makeBody(configuration: Configuration) -> some View {
-            ZStack {
-                configuration.label
-                    .font(.custom("Lato-Bold", size: 12))
-                    .padding(.horizontal)
-                    .padding(.vertical, 5)
-                   
-                    .background(configuration.isPressed ? Color.white : darkGreen)
-                    .cornerRadius(16)
 
-                configuration.label
-                    .font(.custom("Lato-Bold", size: 12))
-                    .foregroundColor(.white)
-                    .padding(.horizontal)
-                    .padding(.vertical, 4)
-                    .background(lightGreen)
-                    .cornerRadius(16)
-                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)
-            }
-        }
 
-}
-
-struct ClaimButtonStyle: ButtonStyle {
-    let lightPurple = Color(red: 0.439 * 1.5, green: 0.298 * 1.5, blue: 1.0 * 1.5)
-    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
-    let darkPurple = Color(red: 0.439 * 0.6, green: 0.298 * 0.6, blue: 1.0 * 0.6)
-  
-    func makeBody(configuration: Configuration) -> some View {
-            ZStack {
-                configuration.label
-                    .font(.custom("Lato-Bold", size: 12))
-                    .padding(.horizontal)
-                    .padding(.vertical, 5)
-                   
-                    .background(configuration.isPressed ? Color.white : darkPurple)
-                    .cornerRadius(16)
-
-                configuration.label
-                    .font(.custom("Lato-Bold", size: 12))
-                    .foregroundColor(.white)
-                    .padding(.horizontal)
-                    .padding(.vertical, 4)
-                    .background(lightPurple)
-                    .cornerRadius(16)
-                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)
-            }
-        }
-
-}
+//
+//struct DoneButtonStyle: ButtonStyle {
+//    let lightGreen = Color(red: 0.10, green: 0.85, blue: 0.23)
+//    let deepGreen = Color(red: 0.3 * 0.85, green: 1.0 * 0.85, blue: 0.31 * 0.85)
+//    let darkGreen = Color(red: 0.3 * 0.5, green: 1.0 * 0.5, blue: 0.31 * 0.5)
+//    func makeBody(configuration: Configuration) -> some View {
+//            ZStack {
+//                configuration.label
+//                    .font(.custom("Lato-Bold", size: 12))
+//                    .padding(.horizontal)
+//                    .padding(.vertical, 5)
+//
+//                    .background(configuration.isPressed ? Color.white : darkGreen)
+//                    .cornerRadius(16)
+//
+//                configuration.label
+//                    .font(.custom("Lato-Bold", size: 12))
+//                    .foregroundColor(.white)
+//                    .padding(.horizontal)
+//                    .padding(.vertical, 4)
+//                    .background(lightGreen)
+//                    .cornerRadius(16)
+//                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)
+//            }
+//        }
+//
+//}
+//
+//struct ClaimButtonStyle: ButtonStyle {
+//    let lightPurple = Color(red: 0.439 * 1.5, green: 0.298 * 1.5, blue: 1.0 * 1.5)
+//    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
+//    let darkPurple = Color(red: 0.439 * 0.6, green: 0.298 * 0.6, blue: 1.0 * 0.6)
+//
+//    func makeBody(configuration: Configuration) -> some View {
+//            ZStack {
+//                configuration.label
+//                    .font(.custom("Lato-Bold", size: 12))
+//                    .padding(.horizontal)
+//                    .padding(.vertical, 5)
+//
+//                    .background(configuration.isPressed ? Color.white : darkPurple)
+//                    .cornerRadius(16)
+//
+//                configuration.label
+//                    .font(.custom("Lato-Bold", size: 12))
+//                    .foregroundColor(.white)
+//                    .padding(.horizontal)
+//                    .padding(.vertical, 4)
+//                    .background(lightPurple)
+//                    .cornerRadius(16)
+//                    .offset(x: configuration.isPressed ? 0 : 0, y: configuration.isPressed ? 0 : -2)
+//            }
+//        }
+//
+//}
 
 
 
