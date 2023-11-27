@@ -103,7 +103,7 @@ struct AddTaskView: View {
         }
 
         // start date not in the past
-        guard recurrenceStartDate >= Date() else {
+        guard recurrenceStartDate >= Calendar.current.date(byAdding: .day, value: -1, to: Date())! else {
             alertMessage = "Recurring start date cannot be in the past."
             showAlert = true
             return
