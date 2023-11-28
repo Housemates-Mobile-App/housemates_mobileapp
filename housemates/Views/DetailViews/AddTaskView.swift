@@ -123,6 +123,10 @@ struct AddTaskView: View {
 //    print("Task Name: \(taskName)")
 //    print("Task Description: \(taskDescription)")
 //    print("Priority: \(priority.rawValue)")
+//    gets current date
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MM.dd.yy h:mm a"
+    let formattedDate = formatter.string(from: Date())
     
     let newTask = housemates.task(
       name: taskName,
@@ -130,6 +134,7 @@ struct AddTaskView: View {
       user_id: nil,
       description: taskDescription,
       status: .unclaimed,
+      date_created: formattedDate,
       date_started: nil,
       date_completed: nil,
       priority: priority.rawValue,

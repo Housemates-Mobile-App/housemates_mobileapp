@@ -24,6 +24,7 @@ struct task: Identifiable, Codable {
     var user_id: String?
     var description: String
     var status: Status
+    var date_created: String?
     var date_started: String?
     var date_completed: String?
     var priority: String
@@ -42,6 +43,7 @@ struct task: Identifiable, Codable {
         case group_id
         case user_id
         case status
+        case date_created
         case date_started
         case date_completed
         case priority
