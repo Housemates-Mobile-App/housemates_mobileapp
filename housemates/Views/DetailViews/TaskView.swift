@@ -17,32 +17,6 @@ struct TaskView: View {
 //          currently a placeholder
        
           ZStack {
-//            if task.priority == "High" {
-//              Image("dalle3")
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .frame(width: 50, height: 50)
-//                .padding(.trailing, 4)
-//
-//            }
-//            else if task.priority == "Low" {
-//              Image("dalle2")
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .frame(width: 50, height: 50)
-//
-//                .padding(.trailing, 4)
-//
-//            }
-//            else {
-//              Image("dalle4")
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .frame(width: 50, height: 50)
-//
-//                .padding(.trailing, 4)
-//
-//            }
             
             Image(task.icon ?? "dalle3")
               .resizable()
@@ -56,10 +30,10 @@ struct TaskView: View {
 //                  )
        
               .padding(.trailing, 7.5)
-            if task.status != .done {
-              
-//              priorityLabel
-            }
+//            if task.status != .done {
+//
+////              priorityLabel
+//            }
           }
            
             taskInformationView
@@ -83,7 +57,10 @@ struct TaskView: View {
     @ViewBuilder
     private var taskInformationView: some View {
       VStack(alignment: .leading, spacing: 0) {
-        
+//        if task.status != .done && task.priority == "High"{
+//
+//              priorityLabel.padding(.vertical, 2)
+//        }
 //        Text and Priority
         HStack() {
           Text(task.name)
@@ -111,10 +88,34 @@ struct TaskView: View {
         }
         
         else {
-          Text("Created 2 days ago")
-            .font(.custom("Lato", size: 12))
-            .foregroundColor(Color.black.opacity(0.5))
-        }
+          HStack(spacing: 2) {
+            
+            if task.priority == "High" {
+              
+              Image(systemName: "alarm.waves.left.and.right.fill")
+                .font(.custom("Lato", size: 12))
+                .foregroundColor(.red)
+              Text("•")
+                .font(.custom("Lato", size: 8))
+                .foregroundColor(Color.black.opacity(0.25))
+              
+            }
+            
+            if let time = task.date_created {
+              if let timestamp = taskViewModel.getTimestamp(time: time) {
+                Text("Created \(timestamp) ago")
+                  .font(.custom("Lato", size: 12))
+                  .foregroundColor(Color.black.opacity(0.5))
+              }
+            
+            }
+            }
+          }
+        
+//        if task.status != .done && task.priority == "High"{
+//
+//              priorityLabel.padding(.vertical, 2)
+//        }
         
         
           
@@ -128,58 +129,53 @@ struct TaskView: View {
  
         switch task.priority {
           case "Low":
-          priorityTag(Color.green.opacity(0.25), Color.green)
+          priorityTag(Color.green.opacity(0.75), Color.green)
           case "Medium":
-          priorityTag(Color.yellow.opacity(0.25), Color.yellow)
+          priorityTag(Color.yellow.opacity(0.75), Color.yellow)
           default:
-          priorityTag(Color.red.opacity(0.5), Color.red)
+          priorityTag(Color.red.opacity(0.75), Color.red)
         }
       
     }
   
     @ViewBuilder
-    private func priorityTag(_ color: Color, _ text: Color) -> some View {
-//        Circle()
-//              .fill(color)
-//              .frame(width: 15, height: 15)
-      ZStack {
-        
-        Image(systemName: "face.smiling.inverse")
-          .font(.system(size: 12))
-          .foregroundColor(color)
-          .overlay(Circle().stroke(Color.white, lineWidth: 2))
-          .background(Color.white)
-          .clipShape(Circle())
-          .offset(x: 12, y: 15)
-        
-        Image(systemName: "face.smiling.inverse")
-          .font(.system(size: 12))
-          .foregroundColor(color)
-          .overlay(Circle().stroke(text, lineWidth: 2))
-          .offset(x: 12, y: 15)
-      }
-      
-        
-      
-//      if (task.priority == "Medium") {
-//        Text("Med")
-//          .font(.system(size: 12))
-//          .padding(.horizontal, 2)
-//          .padding(.vertical, 2)
-//          .foregroundColor(text)
-//          .background(color)
-//          .cornerRadius(15)
-//      } else {
-//        Text(task.priority)
-//            .font(.system(size: 12))
-//            .padding(.horizontal, 2)
-//            .padding(.vertical, 2)
-//            .foregroundColor(text)
-//            .background(color)
-//            .cornerRadius(15)
-//      }
-       
+  private func priorityTag(_ color: Color, _ text: Color) -> some View {
+    //        Circle()
+    //              .fill(color)
+    //              .frame(width: 15, height: 15)
+    //      ZStack {
+    //
+    //        Image(systemName: "face.smiling.inverse")
+    //          .font(.system(size: 12))
+    //          .foregroundColor(color)
+    //          .overlay(Circle().stroke(Color.white, lineWidth: 2))
+    //          .background(Color.white)
+    //          .clipShape(Circle())
+    //
+    //
+    //        Image(systemName: "face.smiling.inverse")
+    //          .font(.system(size: 12))
+    //          .foregroundColor(color)
+    //          .overlay(Circle().stroke(text, lineWidth: 2))
+    //
+    //      }
+    
+    HStack(spacing: 1.5) {
+//      Image(systemName: "exclamationmark.square.fill")
+      //          .font(.system(size: 12))
+      Text(task.priority.uppercased())
+//      Image(systemName: "exclamationmark.square.fill")
     }
+    .font(.custom("Lato-Bold", size: 12))
+//    .padding(.horizontal, 5)
+//    .padding(.vertical, 3)
+    .foregroundColor(.red)
+//    .background(color)
+//    .cornerRadius(5)
+  }
+      
+       
+    
 
     
 
@@ -266,11 +262,10 @@ struct DoneButtonStyle: ButtonStyle {
     let lightGreen = Color(red: 0.10, green: 0.85, blue: 0.23)
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .bold()
-            .font(.system(size: 12))
+            .font(.custom("Lato-Bold", size: 12))
             .foregroundColor(.white)
             .padding(.horizontal)
-            .padding(.vertical, 4)
+            .padding(.vertical, 5)
             .background(lightGreen)
             .cornerRadius(16)
     }
@@ -280,11 +275,10 @@ struct ClaimButtonStyle: ButtonStyle {
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .bold()
-            .font(.system(size: 12))
+            .font(.custom("Lato-Bold", size: 12))
             .foregroundColor(.white)
             .padding(.horizontal)
-            .padding(.vertical, 4)
+            .padding(.vertical, 5)
             .background(deepPurple)
             .cornerRadius(16)
     }
