@@ -10,6 +10,8 @@ import SwiftUI
 struct AddPostView: View {
     let task: task
     let user: User
+    let image: UIImage
+    @State private var caption: String = ""
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var postViewModel: PostViewModel
 
@@ -26,14 +28,26 @@ struct AddPostView: View {
                        .font(.system(size: 24))
                        .bold()
                        .padding(.leading, 70)
-                   
 
+                   Spacer()
+                   
+                   Image(uiImage: image)
+                       .resizable()
+                       .scaledToFit()
+
+                   TextField("Add a caption...", text: $caption)
+                       .textFieldStyle(RoundedBorderTextFieldStyle())
+                       .padding()
+                   
                    Spacer()
 
                    // MARK - Button for creating post
                    Button {
-                            postViewModel.sharePost(user: user, task: task)
-                            presentationMode.wrappedValue.dismiss()
+//                       postViewModel.sharePost(user: user, task: task, image: image, caption: caption)
+                       Task {
+                           await postViewModel.sharePost(user: user, task: task, image: image, caption: caption)
+                       }
+                       presentationMode.wrappedValue.dismiss()
                    } label: {
                        Text("Share")
                    }

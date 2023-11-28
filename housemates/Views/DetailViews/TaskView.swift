@@ -7,6 +7,8 @@ struct TaskView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @State private var isAddPostViewActive = false
+    @State private var showCamera = false
+    @State private var capturedImage: UIImage?
     @Environment(\.editMode) var editMode
     
     var body: some View {
@@ -211,12 +213,21 @@ struct TaskView: View {
                 // Handle button tap action here
                 // Navigate to AddPostView or perform any other action
                 isAddPostViewActive = true
+                self.showCamera = true
             }) {
                 Text("DONE")
             }
+            .sheet(isPresented: $showCamera) {
+                CameraView(image: self.$capturedImage, isShown: self.$showCamera)
+            }
+            .onChange(of: capturedImage) { _ in
+                if let _ = capturedImage {
+                    isAddPostViewActive = true
+                }
+            }
             .buttonStyle(DoneButtonStyle())
             .background(
-                    NavigationLink(destination: AddPostView(task: task, user: user), isActive: $isAddPostViewActive) {
+                NavigationLink(destination: AddPostView(task: task, user: user, image: capturedImage!), isActive: $isAddPostViewActive) {
                         EmptyView()
                     }
                     .hidden()
@@ -380,9 +391,9 @@ struct ClaimButtonStyle: ButtonStyle {
 
 
 // MARK: - TaskView Previews
-struct TaskView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser())
-            .environmentObject(UserViewModel())
-    }
-}
+//struct TaskView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TaskView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser())
+//            .environmentObject(UserViewModel())
+//    }
+//}

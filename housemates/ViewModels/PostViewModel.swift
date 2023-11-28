@@ -10,6 +10,7 @@ import Combine
 import Firebase
 import FirebaseFirestoreSwift
 import FirebaseFirestore
+import FirebaseStorage
 
 class PostViewModel: ObservableObject {
     private let postRepository = PostRepository()
@@ -33,8 +34,14 @@ class PostViewModel: ObservableObject {
         postRepository.create(post)
     }
     
-    func sharePost(user: User, task: task) {
+    func sharePost(user: User, task: task, image: UIImage, caption: String) async {
         // MARK: Must update task instance to be uploaded in post struct in addition to updating task collection
+//        var imageURL = getPostPicURL(image: image)
+        guard let imageURL = await getPostPicURL(image: image) else {
+            print("Failed to upload image or get URL")
+            return
+        }
+        
         var task = task
         task.date_started = nil
         let formatter = DateFormatter()
@@ -45,11 +52,34 @@ class PostViewModel: ObservableObject {
 
         // MARK: Create new post instance
         if let group_id = user.group_id {
-            let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [])
+            let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [], imageURLString: imageURL, caption: caption)
             create(post: post) // user_id in created_by field is non existent for some reason
             taskViewModel.completeTask(task: task)
         }
     }
+    
+    func getPostPicURL(image: UIImage) async -> String? {
+        let photoID = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("\(photoID).jpeg")
+        
+        guard let resizedImage = image.jpegData(compressionQuality: 0.2) else {
+            print("ERROR: Could not resize image")
+            return nil
+        }
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        do {
+            let _ = try await storageRef.putDataAsync(resizedImage, metadata: metadata)
+            let imageURL = try await storageRef.downloadURL()
+            return imageURL.absoluteString
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
   
   func getTimestamp(time: String) -> String? {
       let formatter = DateFormatter()
@@ -166,4 +196,26 @@ extension PostViewModel {
 
     }
 }
+
+
+//class ImageUploader {
+//    static func uploadImage(_ image: UIImage, completion: @escaping (String) -> Void) {
+//        guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
+//
+//        let filename = UUID().uuidString
+//        let ref = Storage.storage().reference(withPath: "/post_images/\(filename)")
+//
+//        ref.putData(imageData, metadata: nil) { _, error in
+//            if let error = error {
+//                print("Failed to upload image: \(error)")
+//                return
+//            }
+//
+//            ref.downloadURL { url, _ in
+//                guard let url = url?.absoluteString else { return }
+//                completion(url)
+//            }
+//        }
+//    }
+//}
 
