@@ -140,7 +140,7 @@ extension PostViewModel {
         formatter.dateFormat = "MM.dd.yy h:mm a"
         let formattedDate = formatter.string(from: Date())
         let mockUser =  User(id: "test", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
-        let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, priority: "High")
+        let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, priority: "High", recurrence: .none)
         let mockPosts = [Post(task: mockTask, group_id: "test", created_by: mockUser, num_likes: 0, num_comments: 0, liked_by: [], comments: [])]
         let mockPostViewModel = PostViewModel()
         mockPostViewModel.posts = mockPosts
@@ -152,7 +152,7 @@ extension PostViewModel {
         formatter.dateFormat = "MM.dd.yy h:mm a"
         let formattedDate = formatter.string(from: Date())
         let mockUser =  User(id: "test", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
-        let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, priority: "High")
+        let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, priority: "High", recurrence: .none)
         let comment = Comment(text: "This is an example comment", date_created: formattedDate , created_by: mockUser)
         return Post(task: mockTask, group_id: "test", created_by: mockUser, num_likes: 0, num_comments: 1, liked_by: [], comments: [comment])
     }
