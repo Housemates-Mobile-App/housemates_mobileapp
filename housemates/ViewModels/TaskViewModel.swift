@@ -188,6 +188,9 @@ class TaskViewModel: ObservableObject {
     
     private func resetRecurringTasks() {
         let currentDate = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.dd.yy h:mm a"
+        let formattedDate = formatter.string(from: Date())
         for var task in tasks where task.recurrence != .none {
             guard let startDate = task.recurrenceStartDate, let endDate = task.recurrenceEndDate,
                   startDate <= currentDate, endDate >= currentDate else { continue }
@@ -195,6 +198,7 @@ class TaskViewModel: ObservableObject {
             if taskNeedsReset(task: task, currentDate: currentDate) {
                 task.status = .unclaimed
                 task.user_id = nil
+                task.date_created = formattedDate
                 task.date_started = nil
                 task.date_completed = nil
                 taskRepository.update(task)
