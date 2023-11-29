@@ -23,7 +23,10 @@ struct CameraView: UIViewControllerRepresentable {
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
             if let image = info[.originalImage] as? UIImage {
                 parent.image = image
-            }
+            } 
+//            else {
+//                parent.image = UIImage(named: "default")!
+//            }
 
             parent.isShown = false
         }

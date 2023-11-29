@@ -213,12 +213,12 @@ struct TaskView: View {
                 // Handle button tap action here
                 // Navigate to AddPostView or perform any other action
                 isAddPostViewActive = true
-                self.showCamera = true
+                showCamera = true
             }) {
                 Text("DONE")
             }
             .sheet(isPresented: $showCamera) {
-                CameraView(image: self.$capturedImage, isShown: self.$showCamera)
+                CameraView(image: $capturedImage, isShown: $showCamera)
             }
             .onChange(of: capturedImage) { _ in
                 if let _ = capturedImage {
@@ -227,7 +227,7 @@ struct TaskView: View {
             }
             .buttonStyle(DoneButtonStyle())
             .background(
-                NavigationLink(destination: AddPostView(task: task, user: user, image: capturedImage!), isActive: $isAddPostViewActive) {
+                NavigationLink(destination: AddPostView(task: task, user: user, image: capturedImage), isActive: $isAddPostViewActive) {
                         EmptyView()
                     }
                     .hidden()

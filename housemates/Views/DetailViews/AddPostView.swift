@@ -10,7 +10,7 @@ import SwiftUI
 struct AddPostView: View {
     let task: task
     let user: User
-    let image: UIImage
+    let image: UIImage?
     @State private var caption: String = ""
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var postViewModel: PostViewModel
@@ -31,9 +31,11 @@ struct AddPostView: View {
 
                    Spacer()
                    
-                   Image(uiImage: image)
-                       .resizable()
-                       .scaledToFit()
+                   if let uiImage = image {
+                       Image(uiImage: uiImage)
+                           .resizable()
+                           .scaledToFit()
+                   }
 
                    TextField("Add a caption...", text: $caption)
                        .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -45,7 +47,9 @@ struct AddPostView: View {
                    Button {
 //                       postViewModel.sharePost(user: user, task: task, image: image, caption: caption)
                        Task {
-                           await postViewModel.sharePost(user: user, task: task, image: image, caption: caption)
+                           if let uiImage = image {
+                               await postViewModel.sharePost(user: user, task: task, image: uiImage, caption: caption)
+                           }
                        }
                        presentationMode.wrappedValue.dismiss()
                    } label: {
