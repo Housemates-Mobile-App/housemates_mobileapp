@@ -470,7 +470,6 @@
 		8AD6ED072AF1969C006B56B6 /* housemates */ = {
 			isa = PBXGroup;
 			children = (
-				81E9ED632B05F4E700A258A8 /* Info.plist */,
 				81E9ED542B05F09400A258A8 /* Font */,
 				8AD6ED272AF197F3006B56B6 /* DataRepositories */,
 				8AD6ED1B2AF19738006B56B6 /* ViewModels */,
@@ -479,6 +478,7 @@
 				8AD6ED082AF1969C006B56B6 /* housematesApp.swift */,
 				8AD6ED0C2AF1969D006B56B6 /* Assets.xcassets */,
 				8AD6ED162AF196E8006B56B6 /* GoogleService-Info.plist */,
+				81E9ED632B05F4E700A258A8 /* Info.plist */,
 				8AD6ED0E2AF1969D006B56B6 /* Preview Content */,
 			);
 			path = housemates;
