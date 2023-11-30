@@ -1,34 +1,37 @@
 import SwiftUI
 
-struct SliderPicker: View {
-    @Binding var selectedPriority: TaskViewModel.TaskPriority
+protocol SliderPickerItem: Equatable, CaseIterable, Hashable {
+    var displayValue: String { get }
+    var color: Color { get }
+    static var allCases: [Self] { get }
+}
+
+struct SliderPicker<PickerItem: SliderPickerItem>: View {
+  @Binding var selectedItem: PickerItem
 
   var body: some View {
     
     VStack(alignment: .leading) {
-      Text("Priority")
-        .font(.custom("Lato-Bold", size: 18))
-        .padding(.horizontal)
       
       GeometryReader { geometry in
         ZStack(alignment: .leading) {
           // Background view that slides
           RoundedRectangle(cornerRadius: 8)
-            .fill(self.backgroundColor(for: selectedPriority))
-            .frame(width: geometry.size.width / CGFloat(TaskViewModel.TaskPriority.allCases.count), height: geometry.size.height)
-            .offset(x: self.calculateOffset(width: geometry.size.width, for: selectedPriority))
+                .fill(selectedItem.color)
+            .frame(width: geometry.size.width / CGFloat(PickerItem.allCases.count), height: geometry.size.height)
+            .offset(x: self.calculateOffset(width: geometry.size.width, for: selectedItem))
           
           // Text elements
           HStack {
-            ForEach(TaskViewModel.TaskPriority.allCases, id: \.self) { priority in
-              Text(priority.rawValue)
-                .font(.custom(selectedPriority ==  priority ? "Lato-Bold" : "Lato", size: 15))
-                .foregroundColor(selectedPriority == priority ? .white : .black)
+            ForEach(PickerItem.allCases, id: \.self) { item in
+              Text(item.displayValue)
+                .font(.custom(selectedItem ==  item ? "Lato-Bold" : "Lato", size: 15))
+                .foregroundColor(selectedItem == item ? .white : .black)
                 .padding()
                 .frame(maxWidth: .infinity)
                 .onTapGesture {
                   withAnimation(.easeInOut) {
-                    self.selectedPriority = priority
+                    self.selectedItem = item
                   }
                 }
             }
@@ -36,33 +39,19 @@ struct SliderPicker: View {
         }
       }
     
-    .frame(height: 40) // Set the desired height for your segmented control
+    .frame(height: 40)
     .padding(.horizontal)
   }
     }
 
-    private func backgroundColor(for priority: TaskViewModel.TaskPriority) -> Color {
-        switch priority {
-        case .low:
-            return .green
-        case .medium:
-            return .yellow
-        case .high:
-            return .red
-        }
-    }
-
-    private func calculateOffset(width: CGFloat, for priority: TaskViewModel.TaskPriority) -> CGFloat {
-        let segmentWidth = width / CGFloat(TaskViewModel.TaskPriority.allCases.count)
-        if let index = TaskViewModel.TaskPriority.allCases.firstIndex(of: priority) {
-            return segmentWidth * CGFloat(index)
-        }
-        return 0
+    private func calculateOffset(width: CGFloat, for item: PickerItem) -> CGFloat {
+        let segmentWidth = width / CGFloat(PickerItem.allCases.count)
+        return segmentWidth * CGFloat(PickerItem.allCases.firstIndex(of: item) ?? 0)
     }
 }
 
-struct SliderPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        SliderPicker(selectedPriority: .constant(TaskViewModel.TaskPriority.medium))
-    }
-}
+//struct SliderPicker_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SliderPicker(selectedItem: .constant(TaskPriority.medium)) // Example usage
+//    }
+//}

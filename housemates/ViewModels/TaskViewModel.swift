@@ -10,6 +10,7 @@ import Combine
 import Firebase
 import FirebaseFirestoreSwift
 import FirebaseFirestore
+import SwiftUI
 
 class TaskViewModel: ObservableObject {
     private let taskRepository = TaskRepository()
@@ -24,12 +25,6 @@ class TaskViewModel: ObservableObject {
                 self.tasks = updatedTasks
             }
             .store(in: &self.cancellables)
-    }
-    
-    enum TaskPriority: String, CaseIterable {
-        case low = "Low"
-        case medium = "Medium"
-        case high = "High"
     }
     
     func getUserIdByTaskId(_ tid: String) -> String? {

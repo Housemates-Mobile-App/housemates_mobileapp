@@ -12,13 +12,13 @@ struct AddTaskView: View {
   @State private var alertMessage = ""
   @State private var taskName: String = ""
   @State private var taskDescription: String = ""
-  @State private var priority: TaskViewModel.TaskPriority = .low
+  @State private var priority: TaskPriority = .low
   @State private var recurrence: Recurrence = .none
   @State private var recurrenceStartDate: Date = Date()
   @State private var recurrenceEndDate: Date = Date()
   @State private var isRecurring: Bool = false
   
-  let elements: [TaskViewModel.TaskPriority] = TaskViewModel.TaskPriority.allCases
+  let elements: [TaskPriority] = TaskPriority.allCases
   
   var body: some View {
     ScrollView {
@@ -52,10 +52,23 @@ struct AddTaskView: View {
         // for task description
         NewInputView(text: $taskDescription, title: "Task Description", placeholder: "Write a description about the task!")
         
-
-        SliderPicker(selectedPriority: $priority)
+          HStack {
+              Text("Priority")
+                  .font(.custom("Lato-Bold", size: 18))
+                  .padding(.horizontal)
+              Spacer()
+          }
+        SliderPicker(selectedItem: $priority)
+        
+          HStack {
+              Text("Repeats?")
+                  .font(.custom("Lato-Bold", size: 18))
+                  .padding(.horizontal)
+              Spacer()
+          }
+        SliderPicker(selectedItem: $recurrence)
       
-        RecurrenceSection(isRecurring: $isRecurring,
+        RecurrenceSection(
           recurrence: $recurrence,
           recurrenceStartDate: $recurrenceStartDate,
           recurrenceEndDate: $recurrenceEndDate)
@@ -163,27 +176,16 @@ struct AddTaskView: View {
   
   
   struct RecurrenceSection: View {
-    @Binding var isRecurring: Bool
     @Binding var recurrence: Recurrence
     @Binding var recurrenceStartDate: Date
     @Binding var recurrenceEndDate: Date
     
     var body: some View {
+      let isRecurring = recurrence != .none
       VStack(spacing: 16) {
-          Toggle("Is Recurring", isOn: $isRecurring)
-              .toggleStyle(SwitchToggleStyle(tint: .blue))
-              .padding(.horizontal)
           
           if isRecurring {
-              VStack(spacing: 16) {
-                  Picker("Repeats", selection: $recurrence) {
-                      Text("Daily").tag(Recurrence.daily)
-                      Text("Weekly").tag(Recurrence.weekly)
-                      Text("Monthly").tag(Recurrence.monthly)
-                  }
-                  .pickerStyle(SegmentedPickerStyle())
-                  .padding(.horizontal)
-                  
+              VStack(spacing: 16) {                  
                   DatePicker(
                       "Start Date",
                       selection: $recurrenceStartDate,
