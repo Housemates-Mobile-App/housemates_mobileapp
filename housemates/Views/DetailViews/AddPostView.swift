@@ -14,57 +14,49 @@ struct AddPostView: View {
     @State private var caption: String = ""
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var postViewModel: PostViewModel
-
-
+    
     var body: some View {
-        VStack {
-                
-               HStack {
-                   // MARK - Back button
-                   Spacer()
-                   
-                   // MARK - New post Header
-                   Text("New post")
-                       .font(.system(size: 24))
-                       .bold()
-                       .padding(.leading, 70)
+        NavigationView {
+            VStack {
+                if let uiImage = image {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity)
+                        .padding(.top)
+                }
 
-                   Spacer()
-                   
-                   if let uiImage = image {
-                       Image(uiImage: uiImage)
-                           .resizable()
-                           .scaledToFit()
-                   }
+                TextField("Add a caption...", text: $caption)
+                    .padding()
+                    .background(Color.secondary.opacity(0.1))
+                    .cornerRadius(10)
+                    .padding()
 
-                   TextField("Add a caption...", text: $caption)
-                       .textFieldStyle(RoundedBorderTextFieldStyle())
-                       .padding()
-                   
-                   Spacer()
+                Spacer()
 
-                   // MARK - Button for creating post
-                   Button {
-//                       postViewModel.sharePost(user: user, task: task, image: image, caption: caption)
-                       Task {
-                           if let uiImage = image {
-                               await postViewModel.sharePost(user: user, task: task, image: uiImage, caption: caption)
-                           }
-                       }
-                       presentationMode.wrappedValue.dismiss()
-                   } label: {
-                       Text("Share")
-                   }
-                   .padding(.trailing)
-                   .font(.system(size: 20))
-                   
-               }
-            
-            Divider()
-            
-            Spacer()
+                Button(action: sharePost) {
+                    Text("Share")
+                        .bold()
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                }
+            }
+            .navigationBarTitle("New Post", displayMode: .inline)
+            .padding(.bottom, 50)
         }
-        
+    }
+
+    private func sharePost() {
+        if let uiImage = image {
+            Task {
+                await postViewModel.sharePost(user: user, task: task, image: uiImage, caption: caption)
+            }
+        }
+        presentationMode.wrappedValue.dismiss()
     }
 }
 //
