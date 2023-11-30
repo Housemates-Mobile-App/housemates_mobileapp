@@ -70,16 +70,56 @@ struct TaskDetailView: View {
                 Divider()
                     .padding(.vertical, 10)
                 
-                Text("Recurrence")
+                Text("How Often")
                     .font(.custom("Lato-Bold", size: 18))
                 //hardcoded, this data doesnt exist yet
-                Text("Repeats Every Monday")
+                Text("\(recurrenceText(for: currTask))")
                     .font(.custom("Lato-Regular", size: 14))
                     .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
             }.padding()
                 .padding(.vertical, 10)
             
         }
+    }
+    
+    func recurrenceText(for task: task) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM dd, yyyy" // Format for displaying the date
+        
+        switch task.recurrence {
+        case .none:
+            return "Doesn't repeat"
+
+        case .daily:
+            return "Daily"
+
+        case .weekly:
+            guard let startDate = task.recurrenceStartDate else { return "Weekly" }
+            let weekday = Calendar.current.component(.weekday, from: startDate)
+            let weekdayName = formatter.weekdaySymbols[weekday - 1] // Adjusting for index
+            let endDateText = task.recurrenceEndDate != nil ? " until \(formatter.string(from: task.recurrenceEndDate!))" : ""
+            return "Weekly on \(weekdayName)\(endDateText)"
+
+        case .monthly:
+            guard let startDate = task.recurrenceStartDate else { return "Monthly" }
+            let day = Calendar.current.component(.day, from: startDate)
+            let (ordinal, weekdayName) = ordinalWeekday(for: startDate)
+            let endDateText = task.recurrenceEndDate != nil ? " until \(formatter.string(from: task.recurrenceEndDate!))" : ""
+            return "Monthly on the \(ordinal) \(weekdayName)\(endDateText)"
+        }
+    }
+
+    func ordinalWeekday(for date: Date) -> (String, String) {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.weekday, .weekdayOrdinal], from: date)
+        guard let weekday = components.weekday, let ordinal = components.weekdayOrdinal else {
+            return ("", "")
+        }
+        let formatter = DateFormatter()
+        let weekdayName = formatter.weekdaySymbols[weekday - 1] // Adjusting for index
+        let ordinalSuffix = ["first", "second", "third", "fourth", "last"]
+        let ordinalIndex = min(ordinal - 1, ordinalSuffix.count - 1) // Adjust for array index and limit to 'last'
+        return (ordinalSuffix[ordinalIndex], weekdayName)
     }
 }
   
