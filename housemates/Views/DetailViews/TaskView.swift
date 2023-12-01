@@ -62,10 +62,17 @@ struct TaskView: View {
 //              priorityLabel.padding(.vertical, 2)
 //        }
 //        Text and Priority
-        HStack() {
+        HStack(spacing: 0) {
           Text(task.name)
             .font(.custom("Lato-Bold", size: 15))
             .padding(.vertical, 2)
+          if task.recurrence != .none {
+            Image(systemName: "arrow.2.squarepath")
+              .font(.custom("Lato", size: 12))
+              .foregroundColor(.blue)
+              .padding(.horizontal, 2)
+          }
+         
             
 //            .font(.headline)
           
