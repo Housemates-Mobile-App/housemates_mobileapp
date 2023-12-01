@@ -14,13 +14,23 @@ struct TaskDetailView: View {
         ScrollView {
           
             VStack(alignment: .leading, spacing: 10) {
-              SwiftUI.Group {
-                
-                
-                Text("Task Details")
-                  .font(.custom("Nunito-Bold", size: 26))
-                  .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                  .padding(.bottom, 50)
+                  HStack {
+                      Text("Task Details")
+                          .font(.custom("Nunito-Bold", size: 26))
+                          .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                          
+                      Spacer()
+                      
+                      if (currTask.status == .unclaimed) {
+                          NavigationLink(destination: AddTaskView(taskIconStringHardcoded: currTask.icon ?? "dalle2", taskNameHardcoded: currTask.name, user: currUser, showTaskSelectionView: .constant(false), editableTask: currTask)) {
+                              Label("", systemImage: "pencil")
+                                  .font(.system(size: 25))
+                                  .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                          }
+                      }
+                      
+                      
+                  }.padding(.bottom, 50)
                 
                 // make it dynamic.
                 Image(currTask.icon ?? "dalle2")
@@ -52,7 +62,7 @@ struct TaskDetailView: View {
                 }
                 Divider()
                   .padding(.vertical, 10)
-              }
+              
                 
                 Text("Description")
                     .font(.custom("Lato-Bold", size: 18))
@@ -126,12 +136,12 @@ struct TaskDetailView: View {
   
 
 
-//
-//struct TaskDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TaskDetailView(currUser: UserViewModel.mockUser(), currTask: TaskViewModel.mockTask())
-//            .environmentObject(TaskViewModel())
-//            .environmentObject(UserViewModel())
-//    }
-//}
+
+struct TaskDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        TaskDetailView(currUser: UserViewModel.mockUser(), currTask: TaskViewModel.mockTask())
+            .environmentObject(TaskViewModel())
+            .environmentObject(UserViewModel())
+    }
+}
 

@@ -31,7 +31,7 @@ struct SliderPicker<PickerItem: SliderPickerItem>: View {
                 .frame(maxWidth: .infinity)
                 .onTapGesture {
                   withAnimation(.easeInOut) {
-                    self.selectedItem = item
+                    selectedItem = item
                   }
                 }
             }

@@ -156,13 +156,38 @@ class TaskViewModel: ObservableObject {
   }
   
   
-  func editTask(task: task, name: String, description: String, priority: String ) {
-        var task = task
-        task.name = name
-        task.priority = priority
-        task.description = description
-        taskRepository.update(task)
-      }
+    func editTask(task: task, name: String? = nil, description: String? = nil, priority: String? = nil, icon: String? = nil, status: task.Status? = nil, recurrence: Recurrence? = nil, recurrenceStartDate: Date? = nil, recurrenceEndDate: Date? = nil) {
+        
+        var taskToUpdate = task
+
+        // Only update the fields that are not nil
+        if let name = name {
+            taskToUpdate.name = name
+        }
+        if let description = description {
+            taskToUpdate.description = description
+        }
+        if let priority = priority {
+            taskToUpdate.priority = priority
+        }
+        if let icon = icon {
+            taskToUpdate.icon = icon
+        }
+        if let status = status {
+            taskToUpdate.status = status
+        }
+        if let recurrence = recurrence {
+            taskToUpdate.recurrence = recurrence
+        }
+        if let recurrenceStartDate = recurrenceStartDate {
+            taskToUpdate.recurrenceStartDate = recurrenceStartDate
+        }
+        if let recurrenceEndDate = recurrenceEndDate {
+            taskToUpdate.recurrenceEndDate = recurrenceEndDate
+        }
+
+        taskRepository.update(taskToUpdate)
+    }
     
     func create(task: task) {
         taskRepository.create(task)
