@@ -108,6 +108,10 @@ struct TaskView: View {
                   .foregroundColor(Color.black.opacity(0.5))
               }
             
+            } else {
+              Text("Recurring")
+                .font(.custom("Lato", size: 12))
+                .foregroundColor(Color.black.opacity(0.5))
             }
             }
           }
