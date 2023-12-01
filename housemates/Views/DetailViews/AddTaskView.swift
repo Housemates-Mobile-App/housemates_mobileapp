@@ -12,18 +12,19 @@ struct AddTaskView: View {
   @State private var alertMessage = ""
   @State private var taskName: String = ""
   @State private var taskDescription: String = ""
-  @State private var priority: TaskViewModel.TaskPriority = .low
+  @State private var priority: TaskPriority = .low
   @State private var recurrence: Recurrence = .none
   @State private var recurrenceStartDate: Date = Date()
   @State private var recurrenceEndDate: Date = Date()
-  @State private var isRecurring: Bool = false
+    
+  var editableTask: task?
   
-  let elements: [TaskViewModel.TaskPriority] = TaskViewModel.TaskPriority.allCases
+  let elements: [TaskPriority] = TaskPriority.allCases
   
   var body: some View {
     ScrollView {
       VStack(spacing: 20) {
-        Text("Add Task")
+          Text((editableTask != nil) ? "Edit Task" : "Add Task")
           
           .font(.custom("Nunito-Bold", size: 26))
           .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
@@ -52,16 +53,29 @@ struct AddTaskView: View {
         // for task description
         NewInputView(text: $taskDescription, title: "Task Description", placeholder: "Write a description about the task!")
         
-
-        SliderPicker(selectedPriority: $priority)
+          HStack {
+              Text("Priority")
+                  .font(.custom("Lato-Bold", size: 18))
+                  .padding(.horizontal)
+              Spacer()
+          }
+        SliderPicker(selectedItem: $priority)
+        
+          HStack {
+              Text("Repeats?")
+                  .font(.custom("Lato-Bold", size: 18))
+                  .padding(.horizontal)
+              Spacer()
+          }
+        SliderPicker(selectedItem: $recurrence)
       
-        RecurrenceSection(isRecurring: $isRecurring,
+        RecurrenceSection(
           recurrence: $recurrence,
           recurrenceStartDate: $recurrenceStartDate,
           recurrenceEndDate: $recurrenceEndDate)
           
         Button(action: addTask) {
-          Text("Add Task")
+            Text((editableTask != nil) ? "Edit Task" : "Add Task")
             .font(.system(size: 18))
             .bold()
             .frame(maxWidth: .infinity, minHeight: 50)
@@ -77,9 +91,23 @@ struct AddTaskView: View {
     }
     .onAppear {
       taskName = taskNameHardcoded
+            
+      if let task = editableTask {
+          self.taskName = task.name
+          self.taskDescription = task.description
+          self.priority = TaskPriority(rawValue: task.priority) ?? .low
+          self.recurrence = task.recurrence
+          self.recurrenceStartDate = task.recurrenceStartDate ?? Date()
+          self.recurrenceEndDate = task.recurrenceEndDate ?? Date()
+    }
+            
     }
     .alert(isPresented: $showAlert) {
-      Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
+        if (editableTask != nil) {
+            Alert(title: Text(alertMessage.isEmpty ? "Editing task..." : alertMessage))
+        } else {
+            Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
+        }
     }
   }
   
@@ -91,7 +119,7 @@ struct AddTaskView: View {
       return
     }
       
-    if isRecurring {
+      if recurrence != .none {
         //recurrence type is selected
         guard recurrence != .none else {
             alertMessage = "Please select a recurrence type for the task."
@@ -139,19 +167,27 @@ struct AddTaskView: View {
       date_completed: nil,
       priority: priority.rawValue,
       icon: taskIconStringHardcoded,
-      recurrence: isRecurring ? recurrence : .none,
-      recurrenceStartDate: isRecurring ? recurrenceStartDate : nil,
-      recurrenceEndDate: isRecurring ? recurrenceEndDate : nil)
+      recurrence: recurrence,
+      recurrenceStartDate: (recurrence != .none) ? recurrenceStartDate : nil,
+      recurrenceEndDate: (recurrence != .none) ? recurrenceEndDate : nil)
     
 //    if taskViewModel.tasks.contains(where: { $0.name == newTask.name }) {
 //      alertMessage = "Task already exists."
 //      showAlert = true
 //      return
 //    } else{
-      taskViewModel.create(task: newTask)
+//      taskViewModel.create(task: newTask)
 //    }
-    alertMessage = "Task added successfully."
-    showAlert = true
+      
+      if let editableTask = editableTask {
+          taskViewModel.editTask(task: editableTask, name: taskName, description: taskDescription, priority: priority.rawValue, icon: taskIconStringHardcoded, recurrence: recurrence, recurrenceStartDate: recurrenceStartDate, recurrenceEndDate: recurrenceEndDate)
+          alertMessage = "Task edited successfully."
+      } else {
+          taskViewModel.create(task: newTask)
+          alertMessage = "Task added successfully."
+      }
+    
+      showAlert = true
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
       showAlert = false
@@ -163,27 +199,15 @@ struct AddTaskView: View {
   
   
   struct RecurrenceSection: View {
-    @Binding var isRecurring: Bool
     @Binding var recurrence: Recurrence
     @Binding var recurrenceStartDate: Date
     @Binding var recurrenceEndDate: Date
     
     var body: some View {
       VStack(spacing: 16) {
-          Toggle("Is Recurring", isOn: $isRecurring)
-              .toggleStyle(SwitchToggleStyle(tint: .blue))
-              .padding(.horizontal)
           
-          if isRecurring {
+          if (recurrence != .none) {
               VStack(spacing: 16) {
-                  Picker("Repeats", selection: $recurrence) {
-                      Text("Daily").tag(Recurrence.daily)
-                      Text("Weekly").tag(Recurrence.weekly)
-                      Text("Monthly").tag(Recurrence.monthly)
-                  }
-                  .pickerStyle(SegmentedPickerStyle())
-                  .padding(.horizontal)
-                  
                   DatePicker(
                       "Start Date",
                       selection: $recurrenceStartDate,
@@ -206,6 +230,7 @@ struct AddTaskView: View {
       }
       .padding(.top, 8)
       }
+      
   }
   
   struct AddTaskView_Previews: PreviewProvider {
