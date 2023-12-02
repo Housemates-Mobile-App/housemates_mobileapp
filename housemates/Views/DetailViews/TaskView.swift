@@ -7,6 +7,8 @@ struct TaskView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @State private var isAddPostViewActive = false
+    @State private var showCamera = false
+    @State private var capturedImage: UIImage?
     @Environment(\.editMode) var editMode
     
     var body: some View {
@@ -215,12 +217,21 @@ struct TaskView: View {
                 // Handle button tap action here
                 // Navigate to AddPostView or perform any other action
                 isAddPostViewActive = true
+                showCamera = true
             }) {
                 Text("DONE")
             }
+            .sheet(isPresented: $showCamera) {
+                CameraView(image: $capturedImage, isShown: $showCamera)
+            }
+            .onChange(of: capturedImage) { _ in
+                if let _ = capturedImage {
+                    isAddPostViewActive = true
+                }
+            }
             .buttonStyle(DoneButtonStyle())
             .background(
-                    NavigationLink(destination: AddPostView(task: task, user: user), isActive: $isAddPostViewActive) {
+                NavigationLink(destination: AddPostView(task: task, user: user, image: capturedImage), isActive: $isAddPostViewActive) {
                         EmptyView()
                     }
                     .hidden()
@@ -233,17 +244,32 @@ struct TaskView: View {
     // MARK: - Claim Button
     private var claimButton: some View {
         Button("CLAIM", action: {
-          
-          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            if let uid = user.id {
-                taskViewModel.claimTask(task: task, user_id: uid)
-           
-            }
-          }
             
+          self.showCamera = true
           
+//          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//            if let uid = user.id {
+//                taskViewModel.claimTask(task: task, user_id: uid)
+//           
+//            }
+//          }
+            
         })
         .buttonStyle(ClaimButtonStyle())
+        .sheet(isPresented: $showCamera) {
+            CameraView(image: $capturedImage, isShown: $showCamera)
+        }
+        .onChange(of: capturedImage) { _ in
+            if let image = capturedImage {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                  if let uid = user.id {
+                      Task {
+                          await taskViewModel.claimTask(task: task, user_id: uid, image: image)
+                      }
+                  }
+                }
+            }
+        }
     }
 
     // MARK: - User Profile Image
@@ -384,9 +410,9 @@ struct ClaimButtonStyle: ButtonStyle {
 
 
 // MARK: - TaskView Previews
-struct TaskView_Previews: PreviewProvider {
-    static var previews: some View {
-        TaskView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser())
-            .environmentObject(UserViewModel())
-    }
-}
+//struct TaskView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TaskView(task: TaskViewModel.mockTask(), user: UserViewModel.mockUser())
+//            .environmentObject(UserViewModel())
+//    }
+//}

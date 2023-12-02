@@ -10,43 +10,88 @@ import SwiftUI
 struct AddPostView: View {
     let task: task
     let user: User
+    let image: UIImage?
+    @State private var caption: String = ""
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var postViewModel: PostViewModel
-
-
+    
     var body: some View {
-        VStack {
-                
-               HStack {
-                   // MARK - Back button
-                   Spacer()
-                   
-                   // MARK - New post Header
-                   Text("New post")
-                       .font(.system(size: 24))
-                       .bold()
-                       .padding(.leading, 70)
-                   
+        NavigationView {
+            VStack {
+//                if let uiImage = image {
+//                    Image(uiImage: uiImage)
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(maxWidth: .infinity)
+//                        .padding(.top)
+//                }
+                TabView {
+                    if let beforeImageUrl = task.beforeImageURL, let url = URL(string: beforeImageUrl) {
+                        VStack {
+                            AsyncImage(url: url) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                case .success(let image):
+                                    image.resizable()
+                                case .failure:
+                                    Image(systemName: "photo")
+                                @unknown default:
+                                    EmptyView()
+                                }
+                            }
+                            .scaledToFit()
 
-                   Spacer()
+                            Text("Before")
+                                .font(.headline)
+                        }
+                    }
 
-                   // MARK - Button for creating post
-                   Button {
-                            postViewModel.sharePost(user: user, task: task)
-                            presentationMode.wrappedValue.dismiss()
-                   } label: {
-                       Text("Share")
-                   }
-                   .padding(.trailing)
-                   .font(.system(size: 20))
-                   
-               }
-            
-            Divider()
-            
-            Spacer()
+                    if let afterImage = image {
+                        VStack {
+                            Image(uiImage: afterImage)
+                                .resizable()
+                                .scaledToFit()
+
+                            Text("After")
+                                .font(.headline)
+                        }
+                    }
+                }
+                .frame(height: 300)
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+
+                TextField("Add a caption...", text: $caption)
+                    .padding()
+                    .background(Color.secondary.opacity(0.1))
+                    .cornerRadius(10)
+                    .padding()
+
+                Spacer()
+
+                Button(action: sharePost) {
+                    Text("Share")
+                        .bold()
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                        .padding(.horizontal)
+                }
+            }
+            .navigationBarTitle("New Post", displayMode: .inline)
+            .padding(.bottom, 50)
         }
-        
+    }
+
+    private func sharePost() {
+        if let uiImage = image {
+            Task {
+                await postViewModel.sharePost(user: user, task: task, image: uiImage, caption: caption)
+            }
+        }
+        presentationMode.wrappedValue.dismiss()
     }
 }
 //

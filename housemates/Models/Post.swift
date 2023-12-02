@@ -19,6 +19,9 @@ struct Post: Identifiable, Codable {
     var num_comments: Int
     var liked_by: [String]
     var comments: [Comment]
+//    var beforeImageURL: String?
+    var afterImageURL: String?
+    var caption: String?
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
@@ -30,6 +33,9 @@ struct Post: Identifiable, Codable {
         case num_comments
         case liked_by
         case comments
+//        case beforeImageURL
+        case afterImageURL
+        case caption
     }
     
 }
