@@ -57,13 +57,6 @@ struct AmenityView: View {
                 .padding(.top)
             }
             .navigationTitle("Shared Amenities")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: AddAmenityView(taskViewModel: taskViewModel)) {
-                        Image(systemName: "plus")
-                    }
-                }
-            }
         }
     }
 }

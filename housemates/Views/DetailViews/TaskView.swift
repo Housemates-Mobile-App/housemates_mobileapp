@@ -261,11 +261,9 @@ struct TaskView: View {
         }
         .onChange(of: capturedImage) { _ in
             if let image = capturedImage {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                   if let uid = user.id {
                       Task {
                           await taskViewModel.claimTask(task: task, user_id: uid, image: image)
-                      }
                   }
                 }
             }
