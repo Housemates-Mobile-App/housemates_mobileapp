@@ -116,8 +116,8 @@ class PostViewModel: ObservableObject {
 
       return nil
   }
-  
-//  gets it in sorted order too
+    
+    // Get list of posts for group in chronogical order
     func getPostsForGroup(_ group_id: String) -> [Post] {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM.dd.yy h:mm a"

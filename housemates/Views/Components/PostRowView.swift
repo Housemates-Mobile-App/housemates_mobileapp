@@ -37,38 +37,26 @@ struct PostRowView: View {
                 
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    // MARK: Post Text Details
+                    
+                  // MARK: Post Text Details
                   HStack {
-                  
-//                    Text("group id\(post.group_id)")
                     Text("**\(post.created_by.first_name)** completed: **\(post.task.name)**")
                       .font(.custom("Lato", size: 15))
                       .padding(.trailing)
                     
                     Spacer()
-                    if let date = post.task.date_completed {
                       
+                    // MARK: Timestamp
+                    if let date = post.task.date_completed {
                       let timestamp = String(postViewModel.getTimestamp(time: date) ?? "")
                       Text(timestamp)
                         .font(.custom("Lato", size: 12))
                             .foregroundColor(.gray)
-//                            .padding(.trailing)
-//                            .padding(.bottom, 30)
+
                     }
                   }.padding(.bottom, 30)
                         
-//                  if want to put date right under name, comment out this and remove hstack
-//                    if let date = post.task.date_completed {
-//
-//                      let timestamp = String(postViewModel.getTimestamp(time: date) ?? "")
-//                      Text(timestamp)
-//                            .font(.footnote)
-//                            .foregroundColor(.gray)
-//                            .padding(.trailing)
-//                            .padding(.bottom, 30)
-//                    }
-                   
-                    // MARK: Comment, Like and Time compontnets
+                    // MARK: Comment, Like
                     HStack(alignment: .bottom) {
                         likeButton(post: post, user: user)
                        
@@ -76,10 +64,7 @@ struct PostRowView: View {
                         commentButton(post: post, user: user)
                         
                         Spacer()
-                      
-//                      add a settings, more button
-                        
-                        
+
                     }
                        
                 }
@@ -148,7 +133,8 @@ struct PostRowView: View {
 
 struct PostComponent_Previews: PreviewProvider {
     static var previews: some View {
-        PostRowView(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
+        PostRowView(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())            .environmentObject(PostViewModel.mock())
+
 
     }
 }

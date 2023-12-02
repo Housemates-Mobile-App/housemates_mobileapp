@@ -128,7 +128,14 @@ class AuthViewModel: ObservableObject {
 extension AuthViewModel {
     static func mock() -> AuthViewModel {
         // Create and return a mock AuthViewModel with a mock user
-        let mockUser =  User(id: "test", first_name: "D", last_name: "G", phone_number: "test", email: "test", birthday: "test", group_id: "test")
+        let mockUser =  User(id: "xkP2L9pIp5cklnQDD4JYXv0Tow02",
+                             first_name: "Sean",
+                             last_name: "Pham",
+                             phone_number: "1234567899",
+                             email: "sean@gmail.com",
+                             birthday:  "01-01-2000",
+                             group_id: "wwyqNgGYFXMCpMcr9jvI",
+                             imageURLString: "https://firebasestorage.googleapis.com:443/v0/b/housemates-3b4be.appspot.com/o/E07030F1-2EDB-46EE-94E1-44C2C8F1D298.jpeg?alt=media&token=208753fd-eb63-4e47-b40e-7fb33ca7345d")
         let mockAuthViewModel = AuthViewModel()
         mockAuthViewModel.currentUser = mockUser
         return mockAuthViewModel

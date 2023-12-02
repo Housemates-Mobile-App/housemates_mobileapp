@@ -10,92 +10,49 @@ struct HomeView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var postViewModel : PostViewModel
-    @EnvironmentObject var taskViewModel : TaskViewModel
-    @State private var selectedTab = 0
+    
     var body: some View {
-    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
-    if let user = authViewModel.currentUser {
-      
-      VStack {
-        HStack {
-          Text("Housemates")
-              .font(.custom("Nunito-Bold", size: 26))
-             
-              .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-              .padding(.horizontal)
-              .padding(.top)
-          Spacer()
-        }
-        
-        
-       
+        if let user = authViewModel.currentUser {
           
-//          CustomTabBar(selectedTab: $selectedTab, tabs: [(icon: "person.3.fill", title: "Feed"), (icon: "person.fill", title: "Personal")])
-         
-
-        
-        if (selectedTab == 0) {
-//          // MARK - Home Page Header
-//          HStack {
-//            //                        Text("Housemates")
-//            //                            .font(.custom("Nunito-Bold", size: 24))
-//            //                            .padding()
-//            //                        Spacer()
-//
-//            // MARK - Horizontal Housemates Scroll View
-//            ScrollView(.horizontal, showsIndicators: false) {
-//              HStack(spacing: 15) {
-//                if let uid = user.id {
-//                  ForEach(userViewModel.getUserGroupmates(uid)) { user in
-//                    NavigationLink(destination: HousemateProfileView(housemate: user)) {
-//                      HousemateCircleComponent(housemate: user)
-//                    }.buttonStyle(PlainButtonStyle())
-//                  }
-//                }
-//              }
-//              .padding(.horizontal)
-//            }
-//          }
-
-          //MARK - Feed Content
-          List {
-            ScrollView(.horizontal, showsIndicators: false) {
-              HStack(spacing: 15) {
-                if let uid = user.id {
-                  ForEach(userViewModel.getUserGroupmates(uid)) { user in
-                    NavigationLink(destination: HousemateProfileView(housemate: user)) {
-                      HousemateCircleComponent(housemate: user)
-                    }.buttonStyle(PlainButtonStyle())
-                  }
+            VStack {
+                // MARK: Header
+                HStack {
+                    Text("Housemates")
+                        .font(.custom("Nunito-Bold", size: 26))
+                        .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                        .padding(.horizontal)
+                        .padding(.top)
+                    Spacer()
                 }
-              }
-              
-            }.offset(x: 0, y: -10)
-            
-//            added to make sure only shows for a specific group
-            if let group_id = user.group_id {
-              
-          
-            ForEach(postViewModel.getPostsForGroup(group_id)) { post in
-              // Jank ass way to get arrow to disappear (Stick it in ZStack)
-              ZStack {
-                NavigationLink(destination: PostDetailView(post: post, user: user)) {
-                }.opacity(0)
-                PostRowView(post: post, user: user)
-              }
+                
+                // MARK: Vertical Scroll View
+                ScrollView(.vertical) {
+                    // MARK: Horizontal Housemates Scroll View
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 15) {
+                            if let uid = user.id {
+                                ForEach(userViewModel.getUserGroupmates(uid)) { user in
+                                    NavigationLink(destination: HousemateProfileView(housemate: user)) {
+                                        HousemateCircleComponent(housemate: user)
+                                    }.buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                        }.padding(.horizontal)
+                         .padding(.bottom)
+                    }
+                    
+                    if let group_id = user.group_id {
+                        ForEach(postViewModel.getPostsForGroup(group_id)) { post in
+                            NavigationLink(destination: PostDetailView(post: post, user: user)) {
+                                PostRowView(post: post, user: user)
+                            }.buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                }
             }
-          }
-            
-          }.listStyle(InsetListStyle())
-          
-          Spacer()
+            Spacer()
         }
-        else {
-          Spacer()
-        }
-      }
     }
-  }
 }
 
 struct CustomTabBar: View {
