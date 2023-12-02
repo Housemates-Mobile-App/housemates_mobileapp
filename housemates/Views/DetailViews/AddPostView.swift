@@ -18,13 +18,48 @@ struct AddPostView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if let uiImage = image {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: .infinity)
-                        .padding(.top)
+//                if let uiImage = image {
+//                    Image(uiImage: uiImage)
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(maxWidth: .infinity)
+//                        .padding(.top)
+//                }
+                TabView {
+                    if let beforeImageUrl = task.beforeImageURL, let url = URL(string: beforeImageUrl) {
+                        VStack {
+                            AsyncImage(url: url) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                case .success(let image):
+                                    image.resizable()
+                                case .failure:
+                                    Image(systemName: "photo")
+                                @unknown default:
+                                    EmptyView()
+                                }
+                            }
+                            .scaledToFit()
+
+                            Text("Before")
+                                .font(.headline)
+                        }
+                    }
+
+                    if let afterImage = image {
+                        VStack {
+                            Image(uiImage: afterImage)
+                                .resizable()
+                                .scaledToFit()
+
+                            Text("After")
+                                .font(.headline)
+                        }
+                    }
                 }
+                .frame(height: 300)
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
 
                 TextField("Add a caption...", text: $caption)
                     .padding()

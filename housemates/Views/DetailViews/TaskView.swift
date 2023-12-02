@@ -240,17 +240,32 @@ struct TaskView: View {
     // MARK: - Claim Button
     private var claimButton: some View {
         Button("CLAIM", action: {
-          
-          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            if let uid = user.id {
-                taskViewModel.claimTask(task: task, user_id: uid)
-           
-            }
-          }
             
+          self.showCamera = true
           
+//          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//            if let uid = user.id {
+//                taskViewModel.claimTask(task: task, user_id: uid)
+//           
+//            }
+//          }
+            
         })
         .buttonStyle(ClaimButtonStyle())
+        .sheet(isPresented: $showCamera) {
+            CameraView(image: $capturedImage, isShown: $showCamera)
+        }
+        .onChange(of: capturedImage) { _ in
+            if let image = capturedImage {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                  if let uid = user.id {
+                      Task {
+                          await taskViewModel.claimTask(task: task, user_id: uid, image: image)
+                      }
+                  }
+                }
+            }
+        }
     }
 
     // MARK: - User Profile Image

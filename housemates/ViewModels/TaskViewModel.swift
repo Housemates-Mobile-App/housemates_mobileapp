@@ -10,6 +10,7 @@ import Combine
 import Firebase
 import FirebaseFirestoreSwift
 import FirebaseFirestore
+import FirebaseStorage
 
 class TaskViewModel: ObservableObject {
     private let taskRepository = TaskRepository()
@@ -101,9 +102,15 @@ class TaskViewModel: ObservableObject {
       return task.user_id == user_id
     }
 
-    func claimTask(task: task, user_id: String) {
+    func claimTask(task: task, user_id: String, image: UIImage) async {
+        guard let imageURL = await getPostPicURL(image: image) else {
+            print("Failed to upload image or get URL")
+            return
+        }
+        
         var task = task
         task.user_id = user_id
+        task.beforeImageURL = imageURL
         let formatter = DateFormatter()
         formatter.dateFormat = "MM.dd.yy h:mm a"
         let formattedDate = formatter.string(from: Date())
@@ -111,6 +118,28 @@ class TaskViewModel: ObservableObject {
         task.date_completed = nil
         task.status = .inProgress
         taskRepository.update(task)
+    }
+    
+    func getPostPicURL(image: UIImage) async -> String? {
+        let photoID = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("\(photoID).jpeg")
+        
+        guard let resizedImage = image.jpegData(compressionQuality: 0.2) else {
+            print("ERROR: Could not resize image")
+            return nil
+        }
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        do {
+            let _ = try await storageRef.putDataAsync(resizedImage, metadata: metadata)
+            let imageURL = try await storageRef.downloadURL()
+            return imageURL.absoluteString
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+            return nil
+        }
     }
     
     func completeTask(task: task) {

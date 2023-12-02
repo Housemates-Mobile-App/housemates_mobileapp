@@ -52,7 +52,7 @@ class PostViewModel: ObservableObject {
 
         // MARK: Create new post instance
         if let group_id = user.group_id {
-            let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [], imageURLString: imageURL, caption: caption)
+            let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [], afterImageURL: imageURL, caption: caption)
             create(post: post) // user_id in created_by field is non existent for some reason
             taskViewModel.completeTask(task: task)
         }
