@@ -7,12 +7,47 @@
 
 import Foundation
 import FirebaseFirestoreSwift
+import SwiftUI
 
-enum Recurrence: String, Codable {
-    case none = "Does Not Repeat"
-    case daily = "Every Day"
-    case weekly = "Every Week"
-    case monthly = "Every Month"
+enum Recurrence: String, SliderPickerItem, Codable, CaseIterable {
+    case none = "Never"
+    case daily = "Daily"
+    case weekly = "Weekly"
+    case monthly = "Monthly"
+    
+    var displayValue: String { self.rawValue }
+    
+    var color: Color {
+        switch self {
+        case .none:
+            return .gray
+        case .daily:
+            return .blue
+        case .weekly:
+            return .green
+        case .monthly:
+            return .orange
+        }
+    }
+}
+
+enum TaskPriority: String, SliderPickerItem, CaseIterable {
+    case low = "Low"
+    case medium = "Medium"
+    case high = "High"
+    
+    var displayValue: String { self.rawValue }
+    
+    var color: Color {
+        switch self {
+        case .low:
+            return .green
+        case .medium:
+            return .yellow
+        case .high:
+            return .red
+        }
+    }
 }
 
 struct task: Identifiable, Codable {
