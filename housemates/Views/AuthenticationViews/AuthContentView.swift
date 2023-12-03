@@ -22,7 +22,7 @@ struct AuthContentView: View {
                         Image(systemName: "checkmark.square.fill")
                         Text("Tasks")
                     }
-                
+
                 AmenityView()
                     .tabItem {
                         Image(systemName: "sofa.fill")

@@ -67,7 +67,6 @@ struct task: Identifiable, Codable {
     var recurrence: Recurrence
     var recurrenceStartDate: Date?
     var recurrenceEndDate: Date?
-
     var beforeImageURL: String?
     
     // MARK: Codable
@@ -86,7 +85,6 @@ struct task: Identifiable, Codable {
         case recurrence
         case recurrenceStartDate
         case recurrenceEndDate
-        
         case beforeImageURL
 
     }
