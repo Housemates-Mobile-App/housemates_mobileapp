@@ -36,49 +36,60 @@ struct PostRowView: View {
             
             // MARK: Post Header
             VStack(alignment: .leading, spacing: 10) {
-                HStack(alignment: .top, spacing: 5) {
-                    let imageURL = URL(string: post.created_by.imageURLString ?? "")
-                    
-                    // MARK: Profile Picture for post user
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 35, height: 35)
-                            .clipShape(Circle())
-                            .shadow(radius: 3)
-                    } placeholder: {
+                NavigationLink (destination: PostDetailView(post: post, user: user).toolbar(.hidden, for: .tabBar)) {
+                    HStack(alignment: .top, spacing: 5) {
+                        let imageURL = URL(string: post.created_by.imageURLString ?? "")
                         
-                        // MARK: Default user profile picture
-                        Image(systemName: "person.circle")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 35, height: 35)
-                            .clipShape(Circle())
-                            .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9)) // Off-white color
-                            .shadow(radius: 3)
-                    }
-                    
-                    // MARK: user info, timestamp, and completed task info
-                    if let date = post.task.date_completed {
-                        let timestamp = String(postViewModel.getTimestamp(time: date) ?? "")
-                        Text("**\(post.created_by.first_name)**")
-                            .font(.custom("Lato", size: 16.5))
-                            .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
-                            .padding(.top, 5)
-                            .padding(.leading, 7)
-                            .shadow(radius: 3)
-
+                        // MARK: Profile Picture for post user
+                        AsyncImage(url: imageURL) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 35, height: 35)
+                                .clipShape(Circle())
+                                .shadow(radius: 3)
+                        } placeholder: {
+                            
+                            // MARK: Default user profile picture
+                            Image(systemName: "person.circle")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 35, height: 35)
+                                .clipShape(Circle())
+                                .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9)) // Off-white color
+                                .shadow(radius: 3)
+                        }
                         
-                        Text(" \(timestamp) ago")
-                            .font(.custom("Lato", size: 16.5))
-                            .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9)) // Off-white color
-                            .padding(.top, 5)
-                            .shadow(radius: 3)
-
+                        // MARK: user info, timestamp, and completed task info
+                        if let date = post.task.date_completed {
+                            let timestamp = String(postViewModel.getTimestamp(time: date) ?? "")
+                            Text("**\(post.created_by.first_name)**")
+                                .font(.custom("Lato", size: 16.5))
+                                .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                                .padding(.top, 5)
+                                .padding(.leading, 7)
+                                .shadow(radius: 3)
+                            
+                            
+                            Text(" \(timestamp) ago")
+                                .font(.custom("Lato", size: 16.5))
+                                .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9)) // Off-white color
+                                .padding(.top, 5)
+                                .shadow(radius: 3)
+                            
+                            Image(systemName: "chevron.right")
+                                .font(.custom("Lato", size: 16.5))
+                                .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                                .padding(.top, 8)
+                                .padding(.leading, 6)
+                                .shadow(radius: 3)
+                            
+                        }
+                        
                     }
-                    
                 }
+                
+                
                 // MARK: Caption
                 if let caption = post.caption {
                     Text(caption)

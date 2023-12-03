@@ -23,16 +23,23 @@ struct PostDetailView: View {
                         .scaledToFill()
                         .frame(width: 65, height: 65)
                         .clipShape(Circle())
-                        .padding()
                 } placeholder: {
-                    
                     // MARK: Default user profile picture
-                    Image(systemName: "person.circle")
-                        .resizable()
-                        .scaledToFill()
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
                         .frame(width: 65, height: 65)
-                        .clipShape(Circle())
-                        .padding()
+                        .overlay(
+                            Text("\(post.created_by.first_name.prefix(1).capitalized + post.created_by.last_name.prefix(1).capitalized)")
+                              
+                                .font(.custom("Nunito-Bold", size: 30))
+                                .foregroundColor(.white)
+                        )
                 }
                 // MARK: Post details header
                 Text("**\(post.created_by.first_name)** completed **\(post.task.name)**")
