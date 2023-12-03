@@ -126,7 +126,6 @@ struct HousemateProfileView: View {
 
             }
         }.padding(15)
-         .toolbar(.hidden, for: .tabBar)
     }
 }
 

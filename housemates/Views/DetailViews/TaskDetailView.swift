@@ -89,8 +89,9 @@ struct TaskDetailView: View {
             }.padding()
                 .padding(.vertical, 10)
             
-        }
+        }.toolbar(.hidden, for: .tabBar)
     }
+
     
     func recurrenceText(for task: task) -> String {
         let formatter = DateFormatter()

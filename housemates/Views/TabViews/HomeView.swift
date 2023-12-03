@@ -31,7 +31,7 @@ struct HomeView: View {
     
     var body: some View {
         if let user = authViewModel.currentUser {
-            NavigationView {
+            NavigationStack {
                 VStack {
                     // MARK: Vertical Scroll View
                     ObservableScrollView(scrollOffset: self.$scrollOffset) {
@@ -41,13 +41,14 @@ struct HomeView: View {
                             HStack(spacing: 15) {
                                 if let uid = user.id {
                                     ForEach(userViewModel.getUserGroupmates(uid)) { user in
-                                        NavigationLink(destination: HousemateProfileView(housemate: user)) {
+                                        NavigationLink(destination: HousemateProfileView(housemate: user)                                         .toolbar(.hidden, for: .tabBar)
+                                        ) {
                                             HousemateCircleComponent(housemate: user)
                                         }.buttonStyle(PlainButtonStyle())
                                     }
                                 }
                             }.padding(.horizontal)
-                                .padding(.bottom)
+                             .padding(.bottom)
                         }
                         
                         if let group_id = user.group_id {
@@ -55,6 +56,7 @@ struct HomeView: View {
                                 PostRowView(post: post, user: user).padding(.bottom, 5)
                             }
                         }
+                    // This is causing some latency issues with the tab bar reappearing when exing housemate profile view
                     }.onChange(of: scrollOffset, perform: { scrollOfset in
                         let offset = scrollOfset + (self.hideNavigationBar ? 50 : 0)
                         if offset > 90 {
@@ -71,9 +73,7 @@ struct HomeView: View {
                         .navigationBarTitleDisplayMode(.inline)
                         .navigationBarHidden(hideNavigationBar)
                         .toolbar(.visible, for: .tabBar)
-
                 }
-
             }
         }
     }

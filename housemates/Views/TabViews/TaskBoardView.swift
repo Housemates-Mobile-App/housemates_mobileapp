@@ -11,7 +11,7 @@ struct TaskBoardView: View {
     var body: some View {
         // Check for current user
         if let user = authViewModel.currentUser {
-            NavigationView {
+            NavigationStack {
                 VStack {
                     // Header Section
                     taskHeader(user: user)
