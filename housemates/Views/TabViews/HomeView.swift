@@ -70,6 +70,8 @@ struct HomeView: View {
                     }).navigationTitle("Housemates")
                         .navigationBarTitleDisplayMode(.inline)
                         .navigationBarHidden(hideNavigationBar)
+                        .toolbar(.visible, for: .tabBar)
+
                 }
 
             }

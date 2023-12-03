@@ -55,7 +55,6 @@ struct CommentDetailView: View {
             .padding(.bottom)
             
         }.padding(.top)
-        .toolbar(.hidden, for: .tabBar)
     }
 }
 
