@@ -99,7 +99,7 @@ struct ProfileView: View {
                               .font(.custom("Nunito-Bold", size: 40))
                               .foregroundColor(.white)
                       )
-                  
+                      .padding(.top, 25)                  
                   
                 }
                 

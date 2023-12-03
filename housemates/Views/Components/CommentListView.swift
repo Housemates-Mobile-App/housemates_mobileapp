@@ -23,11 +23,21 @@ struct CommentListView: View {
             } placeholder: {
     
                 // MARK: Default user profile picture
-                Image(systemName: "person.circle")
-                    .resizable()
-                    .scaledToFill()
+                Circle()
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
                     .frame(width: 40, height: 40)
-                    .clipShape(Circle())
+                    .overlay(
+                        Text("\(comment.created_by.first_name.prefix(1).capitalized+comment.created_by.last_name.prefix(1).capitalized)")
+                          
+                            .font(.custom("Nunito-Bold", size: 20))
+                            .foregroundColor(.white)
+                    )
             }
             
             
