@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct AuthContentView: View {
+    @State var selection = 1
+
     var body: some View {
-        NavigationStack {
             TabView {
                 HomeView()
                     .tabItem {
@@ -35,11 +36,8 @@ struct AuthContentView: View {
                         Text("Profile")
                     }
             }
-        }
     }
 }
-
-
 
 //#Preview {
 //    AuthContentView()
