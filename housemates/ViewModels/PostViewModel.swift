@@ -47,6 +47,30 @@ class PostViewModel: ObservableObject {
         
         return defaultReactions
     }
+    
+    func removeReactionFromPost(post: Post, emoji: String, currUser: User) {
+        // Remove user_id from reactions list for emoji
+        var post = post
+        if var reactionList = post.reactions[emoji] {
+            reactionList.removeAll { $0 == currUser.id }
+            post.reactions[emoji] = reactionList
+        }
+
+        // Update post
+        postRepository.update(post)
+    }
+    
+    func reactToPost(post: Post, emoji: String, currUser: User) {
+        // Remove user_id from reactions list for emoji
+        var post = post
+        if var reactionList = post.reactions[emoji] {
+            reactionList.append(currUser.id!)
+            post.reactions[emoji] = reactionList
+        }
+
+        // Update post
+        postRepository.update(post)
+    }
 
     func sharePost(user: User, task: task, image: UIImage, caption: String) async {
         // MARK: Must update task instance to be uploaded in post struct in addition to updating task collection
