@@ -41,6 +41,8 @@
 		51EA51E72B09950F0098D342 /* GroupNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EA51E62B09950F0098D342 /* GroupNameView.swift */; };
 		51EA51E92B09951A0098D342 /* GroupAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EA51E82B09951A0098D342 /* GroupAddressView.swift */; };
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
+		818F59AD2B1C302A003E66E8 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818F59AC2B1C302A003E66E8 /* DashboardView.swift */; };
+		818F59AF2B1C3810003E66E8 /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818F59AE2B1C3810003E66E8 /* DateValue.swift */; };
 		81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */; };
 		81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29E12AFF56C400748D58 /* FilterView.swift */; };
 		81E659F62B08852E00B77EE4 /* SlidingTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 81E659F52B08852E00B77EE4 /* SlidingTabView */; };
@@ -195,6 +197,8 @@
 		51EA51E62B09950F0098D342 /* GroupNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNameView.swift; sourceTree = "<group>"; };
 		51EA51E82B09951A0098D342 /* GroupAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupAddressView.swift; sourceTree = "<group>"; };
 		816C30272AF49D59004F1771 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		818F59AC2B1C302A003E66E8 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		818F59AE2B1C3810003E66E8 /* DateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
 		81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHousematesView.swift; sourceTree = "<group>"; };
 		81CF29E12AFF56C400748D58 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		81E9ED522B05EDA000A258A8 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
@@ -402,6 +406,7 @@
 				8AE8FF9E2AF41F2B003AD997 /* HomeView.swift */,
 				8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */,
 				8AE8FFA02AF41F36003AD997 /* AmenityView.swift */,
+				818F59AC2B1C302A003E66E8 /* DashboardView.swift */,
 			);
 			path = TabViews;
 			sourceTree = "<group>";
@@ -502,6 +507,7 @@
 				8AD6ED252AF197D3006B56B6 /* Amentity.swift */,
 				8AEE92CD2AF19978006AECD3 /* Comment.swift */,
 				515939D32AFF37B2004C31BB /* TaskData.swift */,
+				818F59AE2B1C3810003E66E8 /* DateValue.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -787,10 +793,12 @@
 				8AE8FF992AF4113B003AD997 /* AuthContentView.swift in Sources */,
 				8AD6ED2B2AF19832006B56B6 /* PostDataRepository.swift in Sources */,
 				ADD11A662AFAFA54001861A0 /* TaskDataRepository.swift in Sources */,
+				818F59AF2B1C3810003E66E8 /* DateValue.swift in Sources */,
 				8AE8FFA52AF41F6B003AD997 /* ProfileView.swift in Sources */,
 				81E9ED692B06E0B800A258A8 /* TaskDetailView.swift in Sources */,
 				515939D02AFF31C0004C31BB /* TaskSelectionBox.swift in Sources */,
 				8AB780D52B06EEDF0072B065 /* CommentListView.swift in Sources */,
+				818F59AD2B1C302A003E66E8 /* DashboardView.swift in Sources */,
 				8AF5495A2B0585C300EB28CC /* PostDetailView.swift in Sources */,
 				5138709F2AF562DD007A83B4 /* HousemateProfileView.swift in Sources */,
 				8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */,
@@ -972,7 +980,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 79WMU8S839;
+				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -990,7 +998,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates10";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1006,7 +1014,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 79WMU8S839;
+				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -1024,7 +1032,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates10";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
