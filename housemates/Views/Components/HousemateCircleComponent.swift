@@ -19,23 +19,30 @@ struct HousemateCircleComponent: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .clipShape(Circle())
-                    .frame(width: 50, height: 50)
+                    .frame(width: 58, height: 58)
 //                    .padding(.bottom, 2.5)
             } placeholder: {
     
-                // MARK: Default user profile picture
-                Image(systemName: "person.circle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .clipShape(Circle())
-                    .frame(width: 50, height: 50)
-                    .foregroundColor(.gray)
-//                    .padding(.bottom, 2.5)
+                Circle()
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: 58, height: 58)
+                    .overlay(
+                        Text("\(housemate.first_name.prefix(1).capitalized + housemate.last_name.prefix(1).capitalized)")
+                          
+                            .font(.custom("Nunito-Bold", size: 25))
+                            .foregroundColor(.white)
+                    )
             }
             
             Text("\(housemate.first_name.lowercased()) \(housemate.last_name.first?.lowercased() ?? "")")
                 
-                .font(.custom("Lato", size: 12))
+                .font(.custom("Lato", size: 13))
         }
      
 //        .padding(.vertical, 10)
