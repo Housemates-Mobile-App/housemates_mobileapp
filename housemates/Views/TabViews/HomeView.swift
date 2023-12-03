@@ -6,11 +6,13 @@ import Foundation
 import SwiftUI
 import SwiftUITrackableScrollView
 
-
 struct HomeView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var postViewModel : PostViewModel
+    
+    @State var scrollOffset: CGFloat = CGFloat.zero
+    @State var hideNavigationBar: Bool = false
     
     // MARK: https://www.hackingwithswift.com/forums/swiftui/custom-font-in-navigation-title-and-back-button/22989 To change stlye of navigationTitle
     
@@ -32,7 +34,7 @@ struct HomeView: View {
             NavigationView {
                 VStack {
                     // MARK: Vertical Scroll View
-                    ScrollView(.vertical) {
+                    ObservableScrollView(scrollOffset: self.$scrollOffset) {
                        
                         // MARK: Horizontal Housemates Scroll View
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -53,13 +55,67 @@ struct HomeView: View {
                                 PostRowView(post: post, user: user).padding(.bottom, 5)
                             }
                         }
-                    }
-                }.navigationTitle("Housemates")
-                 .navigationBarTitleDisplayMode(.inline)
+                    }.onChange(of: scrollOffset, perform: { scrollOfset in
+                        let offset = scrollOfset + (self.hideNavigationBar ? 50 : 0)
+                        if offset > 90 {
+                            withAnimation(.easeIn(duration: 1), {
+                                self.hideNavigationBar = true
+                            })
+                        }
+                        if offset < 70 {
+                            withAnimation(.easeIn(duration: 1), {
+                                self.hideNavigationBar = false
+                            })
+                        }
+                    }).navigationTitle("Housemates")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarHidden(hideNavigationBar)
+                }
+
+            }
+        }
+    }
+    
+    // MARK: https://stackoverflow.com/questions/62142773/hide-navigation-bar-on-scroll-in-swiftui
+    struct ScrollViewOffsetPreferenceKey: PreferenceKey {
+        typealias Value = CGFloat
+        static var defaultValue = CGFloat.zero
+        static func reduce(value: inout Value, nextValue: () -> Value) {
+            value += nextValue()
+        }
+    }
+
+    struct ObservableScrollView<Content>: View where Content : View {
+        @Namespace var scrollSpace
+        @Binding var scrollOffset: CGFloat
+        let content: () -> Content
+        
+        init(scrollOffset: Binding<CGFloat>,
+             @ViewBuilder content: @escaping () -> Content) {
+            _scrollOffset = scrollOffset
+            self.content = content
+        }
+        
+        var body: some View {
+            ScrollView {
+                    content()
+                        .background(GeometryReader { geo in
+                            let offset = -geo.frame(in: .named(scrollSpace)).minY
+                            Color.clear
+                                .preference(key: ScrollViewOffsetPreferenceKey.self,
+                                            value: offset)
+                        })
+                
+            }
+            .coordinateSpace(name: scrollSpace)
+            .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
+                scrollOffset = value
             }
         }
     }
 }
+
+
 
 
 struct HomeView_Previews: PreviewProvider {
