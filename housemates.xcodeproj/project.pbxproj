@@ -43,6 +43,8 @@
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
 		81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */; };
 		81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29E12AFF56C400748D58 /* FilterView.swift */; };
+		81DBF1992B1E4AD1002DF472 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBF1982B1E4AD1002DF472 /* DashboardView.swift */; };
+		81DBF19B2B1E4AE1002DF472 /* DateValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DBF19A2B1E4AE1002DF472 /* DateValue.swift */; };
 		81E659F62B08852E00B77EE4 /* SlidingTabView in Frameworks */ = {isa = PBXBuildFile; productRef = 81E659F52B08852E00B77EE4 /* SlidingTabView */; };
 		81E9ED532B05EDA000A258A8 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E9ED522B05EDA000A258A8 /* Font.swift */; };
 		81E9ED562B05F15500A258A8 /* Nunito-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED552B05F15500A258A8 /* Nunito-VariableFont_wght.ttf */; };
@@ -199,6 +201,8 @@
 		816C30272AF49D59004F1771 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHousematesView.swift; sourceTree = "<group>"; };
 		81CF29E12AFF56C400748D58 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		81DBF1982B1E4AD1002DF472 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		81DBF19A2B1E4AE1002DF472 /* DateValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValue.swift; sourceTree = "<group>"; };
 		81E9ED522B05EDA000A258A8 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		81E9ED552B05F15500A258A8 /* Nunito-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		81E9ED572B05F25C00A258A8 /* Nunito-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Black.ttf"; sourceTree = "<group>"; };
@@ -406,6 +410,7 @@
 				8AE8FF9E2AF41F2B003AD997 /* HomeView.swift */,
 				8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */,
 				8AE8FFA02AF41F36003AD997 /* AmenityView.swift */,
+				81DBF1982B1E4AD1002DF472 /* DashboardView.swift */,
 			);
 			path = TabViews;
 			sourceTree = "<group>";
@@ -507,6 +512,7 @@
 				8AEE92CD2AF19978006AECD3 /* Comment.swift */,
 				515939D32AFF37B2004C31BB /* TaskData.swift */,
 				8AE4D8752B1D7FF60073DBD8 /* Emoji.swift */,
+				81DBF19A2B1E4AE1002DF472 /* DateValue.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -756,6 +762,8 @@
 				8AE8FF9D2AF41F1A003AD997 /* TabBar.swift in Sources */,
 				8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */,
 				51802D932B08CE8100B4EE9A /* EmailView.swift in Sources */,
+				81DBF19B2B1E4AE1002DF472 /* DateValue.swift in Sources */,
+				81DBF1992B1E4AD1002DF472 /* DashboardView.swift in Sources */,
 				81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */,
 				51B3976A2B01FF2600A0AF2A /* SliderPicker.swift in Sources */,
 				51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */,

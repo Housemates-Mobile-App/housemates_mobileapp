@@ -24,9 +24,9 @@ struct AuthContentView: View {
                         Text("Tasks")
                     }
 
-                AmenityView()
+                DashboardView()
                     .tabItem {
-                        Image(systemName: "sofa.fill")
+                        Image(systemName: "chart.pie.fill")
                         Text("Amentities")
                     }
                 
