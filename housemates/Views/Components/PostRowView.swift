@@ -20,7 +20,7 @@ struct PostRowView: View {
         ZStack(alignment: .topLeading) {
             // MARK: Background Card
             RoundedRectangle(cornerRadius: 25)
-                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0).opacity(0.4))
                 .frame(width: 380, height: 555) // Adjust the width and height as needed
                 .padding(.leading, 10)
             
@@ -179,7 +179,7 @@ struct PostRowView: View {
                                 .padding(.trailing, 5)
                                 .font(.custom("Lato", size: 16))
                                 .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
-                                .shadow(radius: 3)
+                                .shadow(radius: 7)
                         }
                     }
             }.padding(8)
@@ -188,8 +188,8 @@ struct PostRowView: View {
             .background(
                 RoundedRectangle(cornerRadius: 18)
                     .fill((post.reactions[emoji]?.contains(where: { $0 == currUser.id }))! ?
-                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.50) :
-                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.25))
+                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.65) :
+                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.50))
             )
             .cornerRadius(15)
     }
