@@ -104,9 +104,9 @@ struct AddTaskView: View {
     }
     .alert(isPresented: $showAlert) {
         if (editableTask != nil) {
-            Alert(title: Text(alertMessage.isEmpty ? "Editing task..." : alertMessage))
+            return Alert(title: Text(alertMessage.isEmpty ? "Editing task..." : alertMessage))
         } else {
-            Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
+            return Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
         }
     }
   }
