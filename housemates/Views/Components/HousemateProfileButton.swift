@@ -12,6 +12,7 @@ struct HousemateProfileButton: View {
     var title: String
     var iconStr: String
     var urlScheme: String
+    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
         
     var body: some View {
         VStack {
@@ -21,18 +22,18 @@ struct HousemateProfileButton: View {
                 }
             }) {
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(.white)
-                    .frame(width: 58, height: 51)
-                    .shadow(color: Color(.black).opacity(0.5), radius: 2, x: 0, y: 2)
+                    .fill(deepPurple)
+                    .frame(width: 126, height: 40)
                     .overlay(
-                        VStack(spacing: 5) {
-                            Image(iconStr)
+                        HStack(spacing: 10) {
+                            Image(systemName: iconStr)
                                 .resizable()
                                 .frame(width: 24, height: 24)
+                                .foregroundColor(.white)
                             
                             Text(title)
-                                .foregroundColor(.black.opacity(0.75))
-                                .font(.system(size: 12))
+                                .foregroundColor(.white)
+                                .font(.custom("Lato-Bold", size: 13))
                                 .bold()
                         }
                     )
@@ -41,6 +42,6 @@ struct HousemateProfileButton: View {
     }
 }
 
-//#Preview {
-//    HousemateProfileButton(phoneNumber: "1234567890", title: "Call", iconStr: "phone", urlScheme:"tel")
-//}
+#Preview {
+    HousemateProfileButton(phoneNumber: "1234567890", title: "Call", iconStr: "phone.fill", urlScheme:"tel")
+}

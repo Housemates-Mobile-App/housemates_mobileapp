@@ -12,120 +12,101 @@ struct HousemateProfileView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var taskViewModel : TaskViewModel
     let housemate: User
+    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     var body: some View {
-        VStack(spacing: 10) {
-            VStack(alignment: .center) {
-                //image
-                let imageURL = URL(string: housemate.imageURLString ?? "")
-                
-                AsyncImage(url: imageURL) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 100, height: 100)
-                        .clipShape(Circle())
-                } placeholder: {
-                    // Default user profile picture
-                    Circle()
-                        .fill(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
+        ZStack {
+            //wave
+            VStack {
+                NewWave()
+                    .fill(deepPurple)
+                    .frame(height: 150)
+                Spacer()
+            }.edgesIgnoringSafeArea(.top)
+            
+            VStack(spacing: 10) {
+                VStack(alignment: .center) {
+                    //image
+                    let imageURL = URL(string: housemate.imageURLString ?? "")
+                    
+                    AsyncImage(url: imageURL) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                    } placeholder: {
+                        // Default user profile picture
+                        Circle()
+                            .fill(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
                             )
-                        )
-                        .frame(width: 100, height: 100)
-                        .overlay(
-                            Text("\(housemate.first_name.prefix(1).capitalized + housemate.last_name.prefix(1).capitalized)")
-                              
-                                .font(.custom("Nunito-Bold", size: 40))
-                                .foregroundColor(.white)
-                        )
-                }
-                
-                Text("\(housemate.first_name) \(housemate.last_name)")
-                    .font(.system(size: 26))
-                    .bold()
-                    .foregroundColor(.black)
-                
-                HStack(spacing: 20) {
-                    HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Call", iconStr: "phone", urlScheme:"tel")
-                    HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Text", iconStr: "message", urlScheme:"sms")
-                }
-            }
-            
-            VStack (alignment: .leading) {
-                HStack {
-                    Image("entrance")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 29, height: 32)
-                    Text("Joined June 15")
-                        .font(.system(size: 16))
-                        .foregroundColor(Color(red: 0x7E / 255.0, green: 0x7E / 255.0, blue: 0x7E / 255.0))
-                    Spacer()
-                }
-                HStack {
-                    Image("birthday")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 29, height: 32)
-                    Text("Birthday on Oct 5")
-                        .font(.system(size: 16))
-                        .foregroundColor(Color(red: 0x7E / 255.0, green: 0x7E / 255.0, blue: 0x7E / 255.0))
-                }
-            }.padding(.top, 20)
-            
-            Divider()
-            
-            HStack() {
-                Text("Tasks This Week")
-                    .font(.system(size:22))
-                    .bold()
-                Spacer()
-            }.padding(.top, 10)
-            VStack(alignment: .leading) {
-                
-                //chart
-                Chart {
-                    ForEach(hardcodedTaskDataPoints) { dataPoint in
-                        LineMark (
-                            x: .value("day", dataPoint.day),
-                            y: .value("total tasks", dataPoint.totalTasks)
-                        )
-                        .interpolationMethod(.catmullRom)
-                        .foregroundStyle(Color(red: 0.439, green: 0.298, blue: 1.0))
-                        .symbol() {
-                            Circle()
-                                .fill(Color(red: 0.439, green: 0.298, blue: 1.0))
-                                .frame(width:15)
-                        }
+                            .frame(width: 100, height: 100)
+                            .overlay(
+                                Text("\(housemate.first_name.prefix(1).capitalized + housemate.last_name.prefix(1).capitalized)")
+                                
+                                    .font(.custom("Nunito-Bold", size: 40))
+                                    .foregroundColor(.white)
+                            )
                     }
-                }.chartYAxis() {
-                    AxisMarks(position: .leading)
-                }
+                    
+                    Text("\(housemate.first_name) \(housemate.last_name)")
+                        .font(.system(size: 26))
+                        .bold()
+                        .foregroundColor(.black)
+                    
+                    HStack(spacing: 20) {
+                        HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Call", iconStr: "phone.fill", urlScheme:"tel")
+                        HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Text", iconStr: "message.fill", urlScheme:"sms")
+                    }
+                }.padding(.bottom, 20)
                 
-            }.padding(15)
-                .frame(width: 350, height: 200)
-                .overlay(RoundedRectangle(cornerRadius: 15).stroke(.black.opacity(0.3), lineWidth: 2))
-            
-            HStack() {
-                Text("Stats")
-                    .font(.system(size:22))
-                    .bold()
+                HStack {
+                    VStack {
+                        Text("\(taskViewModel.getNumCompletedTasksForUser(housemate.id!))")
+                            .font(.system(size: 32))
+                            .foregroundColor(deepPurple)
+                            .bold()
+                        Text("Completed")
+                            .font(.system(size: 12))
+                    }
+                    .padding(.horizontal)
+                    .frame(minWidth: 75, minHeight: 25)
+                    
+                    VStack {
+                        Text("\(taskViewModel.getNumPendingTasksForUser(housemate.id!))")
+                            .foregroundColor(deepPurple)
+                            .font(.system(size: 32))
+                            .bold()
+                        Text("Pending")
+                            .font(.system(size: 12))
+                    }
+                    .padding(.horizontal)
+                    .frame(minWidth: 75, minHeight: 25)
+                    
+                    
+                }.padding(25)
+                    .background(
+                      RoundedRectangle(cornerRadius: 16)
+                          .stroke(Color.gray, lineWidth: 2)
+                    )
+
+                
+                HStack() {
+                    Text("Recent Activity")
+                        .font(.custom("Lato-Bold", size: 22))
+                        .bold()
+                }.padding(.top, 10)
+                
                 Spacer()
-            }.padding(.top, 10)
-            
-            HStack(spacing: 20) {
-
-                // card 1
-                FlashcardComponent(front: statCardFront(mainText:"\(taskViewModel.getCompletedTasksForUser(housemate.id!).count)", subText:"completed"), back: statCardBack(mainText:"Clean Dish", subText:"recently done", iconStr:"dalle1"))
                 
-                // card 2
-                FlashcardComponent(front: statCardFront(mainText:"\(taskViewModel.getPendingTasksForUser(housemate.id!).count)", subText:"pending"), back: statCardBack(mainText:"Wash Counter", subText:"most urgent", iconStr:"dalle2"))
-
-            }
-        }.padding(15)
+            }.padding(.top, 20)
+//            .padding(15)
+            .border(.red)
+        }
     }
 }
 
