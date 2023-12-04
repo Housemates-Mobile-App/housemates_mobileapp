@@ -34,26 +34,53 @@ class PostViewModel: ObservableObject {
         postRepository.create(post)
     }
     
+    func addReactionAndReact(post : Post, emoji: String, user: User) {
+        var updatedPost = post
+
+       if var existingReactions = updatedPost.reactions[emoji] {
+           return
+
+       } else {
+           // Emoji key doesn't exist, create a new list
+           if let user_id = user.id {
+               updatedPost.reactions[emoji] = [user_id]
+           }
+       }
+
+       // Update post
+       postRepository.update(updatedPost)
+    }
+    
     func createDefaultReactions() -> [String: [String]] {
         let heartEmoji = "❤️"
         let laughingEmoji = "😂"
-        let wtfEmoji = "😮"
+        let barfEmoji = "🤮"
+        let thumbsUp = "👍"
         
         let defaultReactions: [String: [String]] = [
             heartEmoji: [],
             laughingEmoji: [],
-            wtfEmoji: []
+            barfEmoji: [],
+            thumbsUp : []
         ]
         
         return defaultReactions
     }
     
     func removeReactionFromPost(post: Post, emoji: String, currUser: User) {
+        let defaultReactions = ["❤️", "😂", "🤮", "👍"]
+        
         // Remove user_id from reactions list for emoji
         var post = post
         if var reactionList = post.reactions[emoji] {
             reactionList.removeAll { $0 == currUser.id }
-            post.reactions[emoji] = reactionList
+            
+            // If length of reaction list is now 0 and emoji is not in default reactions, remove emoji from reactions
+            if reactionList.isEmpty && !defaultReactions.contains(emoji) {
+                post.reactions.removeValue(forKey: emoji)
+            } else {
+                post.reactions[emoji] = reactionList
+            }
         }
 
         // Update post
