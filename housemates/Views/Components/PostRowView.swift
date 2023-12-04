@@ -16,14 +16,9 @@ struct PostRowView: View {
     
     let post : Post
     let user : User
+    
     var body: some View {
         ZStack(alignment: .topLeading) {
-            // MARK: Background Card
-            RoundedRectangle(cornerRadius: 25)
-                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0).opacity(0.4))
-                .frame(width: 380, height: 555) // Adjust the width and height as needed
-                .padding(.leading, 10)
-            
             // MARK: Post images (after image is required but before image is optional)
             if let afterImageURL = post.afterImageURL,
                let afterPostURL = URL(string: afterImageURL) {
@@ -115,15 +110,16 @@ struct PostRowView: View {
                 // MARK: Add or view comment button
                 HStack(alignment: .bottom, spacing: 12) {
                     commentButton(post: post, user: user)
-                }.padding(.bottom, 15)
+                }.offset(y: -20)
                  .padding(.leading, 5)
 
                 // MARK: Bottom Section for reactions
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
-                        ForEach(post.reactions.sorted(by: { $0.key < $1.key }), id: \.key) { emoji, users in
+                        ForEach(postViewModel.nonEmptyReactions(post: post).sorted(by: { $0.value.count > $1.value.count }), id: \.key) { emoji, users in
                             reactionButton(emoji: emoji, currUser: user, post: post)
                         }
+
                         // MARK: Add reaction emoji button
                         addReactionButton(post: post, user: user)
                     }
@@ -149,7 +145,7 @@ struct PostRowView: View {
         .cornerRadius(15)
         .background(
             RoundedRectangle(cornerRadius: 18)
-                .fill(Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.25))
+                .fill(Color(.gray).opacity(0.15))
         ).emojiPicker(
             isPresented: $isEmojiPopoverPresented,
             selectedEmoji: $selectedEmoji,
@@ -172,13 +168,14 @@ struct PostRowView: View {
             }) {
                
                     Text(emoji)
-                        .font(.system(size: 20))
+                        .font(.system(size: 16))
+                                                                                                                      
                     if let users = post.reactions[emoji] {
                         if !users.isEmpty {
                             Text("\(users.count)")
                                 .padding(.trailing, 5)
-                                .font(.custom("Lato", size: 16))
-                                .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                                .font(.custom("Lato", size: 13))
+                                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                                 .shadow(radius: 7)
                         }
                     }
@@ -188,8 +185,8 @@ struct PostRowView: View {
             .background(
                 RoundedRectangle(cornerRadius: 18)
                     .fill((post.reactions[emoji]?.contains(where: { $0 == currUser.id }))! ?
-                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.65) :
-                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.50))
+                          Color(.gray).opacity(0.15) :
+                        Color(.gray).opacity(0.40))
             )
             .cornerRadius(15)
     }
@@ -234,13 +231,18 @@ struct PostRowView: View {
                 isCommentDetailSheetPresented = true
             }) {
                 if !post.comments.isEmpty {
-                    Text(String("View comments"))
-                        .font(.custom("Lato", size: 18))
-                        .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
-                       
+                    if post.comments.count == 1 {
+                        Text("View comment")
+                            .font(.custom("Lato", size: 16))
+                            .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                    } else {
+                        Text("View all \(post.comments.count) comments")
+                            .font(.custom("Lato", size: 16))
+                            .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                    }
                 } else {
-                    Text(String("Add a comment..."))
-                        .font(.custom("Lato", size: 18))
+                    Text("Add a comment...")
+                        .font(.custom("Lato", size: 16))
                         .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
                 }
             }
@@ -258,7 +260,8 @@ struct PostRowView: View {
 
 struct PostComponent_Previews: PreviewProvider {
     static var previews: some View {
-        PostRowView(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())            .environmentObject(PostViewModel.mock())
+        PostRowView(post: PostViewModel.mockPost(), user: UserViewModel.mockUser())
+            .environmentObject(PostViewModel.mock())
 
 
     }
