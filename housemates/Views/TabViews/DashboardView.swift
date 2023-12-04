@@ -3,13 +3,14 @@
 //  housemates
 //
 //  Created by Bernard Sheng on 12/2/23.
-//
+//  Foundation of the code: https://www.youtube.com/watch?v=UZI2dvLoPr8&t=802s&ab_channel=Kavsoft
 
 import SwiftUI
 
 struct DashboardView: View {
   @EnvironmentObject var taskViewModel: TaskViewModel
   @EnvironmentObject var authViewModel: AuthViewModel
+  @EnvironmentObject var userViewModel: UserViewModel
   @State private var selectedTab = 0
   @State var currMonth: Int = 0
   @State var currDay: Date = Date()
@@ -192,13 +193,67 @@ struct DashboardView: View {
     
     
     
+    
         
     
   }
   
+  private func userProfileImage(for user: User) -> some View {
+      AsyncImage(url: URL(string: user.imageURLString ?? "")) { image in
+          image.resizable()
+      } placeholder: {
+          Image(systemName: "person.circle").resizable()
+      }
+      .aspectRatio(contentMode: .fill)
+      .frame(width: 35, height: 35)
+      .clipShape(Circle())
+      .overlay(Circle().stroke(Color.white, lineWidth: 2))
+      .padding(5)
+  }
   
-  
-  
+  private func taskCard(task: task, user: User) -> some View {
+//    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
+    VStack {
+      
+      
+      
+      if let uid = task.user_id {
+        if let user = userViewModel.getUserByID(uid) {
+          ZStack {
+            Image(task.icon ?? "moon")
+              .resizable()
+              .aspectRatio(contentMode: .fill)
+              .frame(width: 65, height: 65)
+              
+              
+//              .overlay(Circle().stroke(Color.purple, lineWidth: 2))
+              .padding(7.5)
+           
+              .background(Color(red: 0.439, green: 0.298, blue: 1.0))
+              .clipShape(Circle())
+              
+            
+            userProfileImage(for: user)
+              .offset(x: 35, y: 35)
+          }
+          Text(task.name)
+            .font(.custom("Lato-Bold", size: 15))
+          Text("Completed by \(user.first_name) \(user.last_name)")
+            .font(.custom("Lato", size: 12))
+            .foregroundColor(Color.gray)
+            
+        }
+        
+        
+      }
+      
+    }
+    .padding()
+    .background(
+      RoundedRectangle(cornerRadius: 16)
+        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 3))
+        
+  }
   private func calendar(completed: [task], user: User) -> some View {
     
 //    calendar title
@@ -254,6 +309,7 @@ struct DashboardView: View {
         }
         
         let cols = Array(repeating: GridItem(.flexible()), count: 7)
+        
         LazyVGrid(columns: cols, spacing: 10) {
           ForEach(extract()) { value in
             cardView(value: value, completed: completed)
@@ -279,14 +335,21 @@ struct DashboardView: View {
       if completed.contains(where: { task in
           isSameDay(task: task, currDate: currDay)
       }) {
-        
-          ForEach(completed.filter({ task in
+          
+        ScrollView(.horizontal, showsIndicators: false) {
+          
+          HStack {
+            
+            
+            ForEach(completed.filter({ task in
               isSameDay(task: task, currDate: currDay)
-          }), id: \.id) { task in
-            TaskView(task: task, user: user)
-              .padding(.horizontal)
+            }), id: \.id) { task in
+              taskCard(task: task, user: user)
+                .padding(.horizontal)
               
+            }
           }
+        }
       } else {
           Text("Nothing here, complete a task!!")
           .frame(maxWidth: .infinity, alignment: .leading)
