@@ -34,6 +34,71 @@ class PostViewModel: ObservableObject {
         postRepository.create(post)
     }
     
+    func addReactionAndReact(post : Post, emoji: String, user: User) {
+        var updatedPost = post
+
+       if var existingReactions = updatedPost.reactions[emoji] {
+           return
+
+       } else {
+           // Emoji key doesn't exist, create a new list
+           if let user_id = user.id {
+               updatedPost.reactions[emoji] = [user_id]
+           }
+       }
+
+       // Update post
+       postRepository.update(updatedPost)
+    }
+    
+    func createDefaultReactions() -> [String: [String]] {
+        let heartEmoji = "❤️"
+        let laughingEmoji = "😂"
+        let barfEmoji = "🤮"
+        let thumbsUp = "👍"
+        
+        let defaultReactions: [String: [String]] = [
+            heartEmoji: [],
+            laughingEmoji: [],
+            barfEmoji: [],
+            thumbsUp : []
+        ]
+        
+        return defaultReactions
+    }
+    
+    func removeReactionFromPost(post: Post, emoji: String, currUser: User) {
+        let defaultReactions = ["❤️", "😂", "🤮", "👍"]
+        
+        // Remove user_id from reactions list for emoji
+        var post = post
+        if var reactionList = post.reactions[emoji] {
+            reactionList.removeAll { $0 == currUser.id }
+            
+            // If length of reaction list is now 0 and emoji is not in default reactions, remove emoji from reactions
+            if reactionList.isEmpty && !defaultReactions.contains(emoji) {
+                post.reactions.removeValue(forKey: emoji)
+            } else {
+                post.reactions[emoji] = reactionList
+            }
+        }
+
+        // Update post
+        postRepository.update(post)
+    }
+    
+    func reactToPost(post: Post, emoji: String, currUser: User) {
+        // Remove user_id from reactions list for emoji
+        var post = post
+        if var reactionList = post.reactions[emoji] {
+            reactionList.append(currUser.id!)
+            post.reactions[emoji] = reactionList
+        }
+
+        // Update post
+        postRepository.update(post)
+    }
+
     func sharePost(user: User, task: task, image: UIImage, caption: String) async {
         // MARK: Must update task instance to be uploaded in post struct in addition to updating task collection
 //        var imageURL = getPostPicURL(image: image)
@@ -52,7 +117,7 @@ class PostViewModel: ObservableObject {
 
         // MARK: Create new post instance
         if let group_id = user.group_id {
-            let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [], afterImageURL: imageURL, caption: caption)
+            let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [], reactions: createDefaultReactions(), afterImageURL: imageURL, caption: caption)
             create(post: post) // user_id in created_by field is non existent for some reason
             taskViewModel.completeTask(task: task)
         }
@@ -170,8 +235,8 @@ extension PostViewModel {
         let formattedDate = formatter.string(from: Date())
         let mockUser =  User(id: "test", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
         let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, priority: "High", recurrence: .none)
-        let mockPosts = [Post(task: mockTask, group_id: "test", created_by: mockUser, num_likes: 0, num_comments: 0, liked_by: [], comments: [])]
         let mockPostViewModel = PostViewModel()
+        let mockPosts = [Post(task: mockTask, group_id: "test", created_by: mockUser, num_likes: 0, num_comments: 0, liked_by: [], comments: [], reactions: mockPostViewModel.createDefaultReactions() )]
         mockPostViewModel.posts = mockPosts
         return mockPostViewModel
     }
@@ -183,7 +248,7 @@ extension PostViewModel {
         let mockUser =  User(id: "test", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
         let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, priority: "High", recurrence: .none, beforeImageURL: "https://firebasestorage.googleapis.com:443/v0/b/housemates-3b4be.appspot.com/o/C11387A8-885C-4634-91F5-2E76C0278B71.jpeg?alt=media&token=01c5d456-5726-4eb3-a579-46ae25822151")
         let comment = Comment(text: "This is an example comment", date_created: formattedDate , created_by: mockUser)
-        return Post(task: mockTask, group_id: "test", created_by: mockUser, num_likes: 0, num_comments: 1, liked_by: [], comments: [comment], afterImageURL: "https://firebasestorage.googleapis.com:443/v0/b/housemates-3b4be.appspot.com/o/06F408B1-8D76-499A-8DB9-222FCBA5662A.jpeg?alt=media&token=7a49c9fe-5f89-47fa-bdbe-05b9734a7f99",
+        return Post(task: mockTask, group_id: "test", created_by: mockUser, num_likes: 0, num_comments: 1, liked_by: [], comments: [comment], reactions: PostViewModel().createDefaultReactions(), afterImageURL: "https://firebasestorage.googleapis.com:443/v0/b/housemates-3b4be.appspot.com/o/06F408B1-8D76-499A-8DB9-222FCBA5662A.jpeg?alt=media&token=7a49c9fe-5f89-47fa-bdbe-05b9734a7f99",
         caption: "just coded this shit")
     }
     

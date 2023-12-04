@@ -19,7 +19,7 @@ struct Post: Identifiable, Codable {
     var num_comments: Int
     var liked_by: [String]
     var comments: [Comment]
-//    var beforeImageURL: String?
+    var reactions: [String: [String]]
     var afterImageURL: String?
     var caption: String?
     
@@ -33,7 +33,7 @@ struct Post: Identifiable, Codable {
         case num_comments
         case liked_by
         case comments
-//        case beforeImageURL
+        case reactions
         case afterImageURL
         case caption
     }

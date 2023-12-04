@@ -115,6 +115,7 @@
 		8AD6ED362AF1991F006B56B6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8AD6ED352AF1991F006B56B6 /* FirebaseFirestore */; };
 		8AD6ED382AF1991F006B56B6 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 8AD6ED372AF1991F006B56B6 /* FirebaseFirestoreCombine-Community */; };
 		8AD6ED3A2AF1991F006B56B6 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8AD6ED392AF1991F006B56B6 /* FirebaseFirestoreSwift */; };
+		8AE4D8762B1D7FF60073DBD8 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE4D8752B1D7FF60073DBD8 /* Emoji.swift */; };
 		8AE8FF952AF41101003AD997 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF942AF41101003AD997 /* LoginView.swift */; };
 		8AE8FF972AF4110E003AD997 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF962AF4110E003AD997 /* RegistrationView.swift */; };
 		8AE8FF992AF4113B003AD997 /* AuthContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF982AF4113B003AD997 /* AuthContentView.swift */; };
@@ -227,6 +228,7 @@
 		8AD6ED252AF197D3006B56B6 /* Amentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Amentity.swift; sourceTree = "<group>"; };
 		8AD6ED282AF1980D006B56B6 /* GroupDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDataRepository.swift; sourceTree = "<group>"; };
 		8AD6ED2A2AF19832006B56B6 /* PostDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDataRepository.swift; sourceTree = "<group>"; };
+		8AE4D8752B1D7FF60073DBD8 /* Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		8AE8FF942AF41101003AD997 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		8AE8FF962AF4110E003AD997 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		8AE8FF982AF4113B003AD997 /* AuthContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthContentView.swift; sourceTree = "<group>"; };
@@ -502,6 +504,7 @@
 				8AD6ED252AF197D3006B56B6 /* Amentity.swift */,
 				8AEE92CD2AF19978006AECD3 /* Comment.swift */,
 				515939D32AFF37B2004C31BB /* TaskData.swift */,
+				8AE4D8752B1D7FF60073DBD8 /* Emoji.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -772,6 +775,7 @@
 				512246752B034E6B006C3F23 /* FlashcardComponent.swift in Sources */,
 				5188F2242B02AC47001B1AA0 /* GroupViewModel.swift in Sources */,
 				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
+				8AE4D8762B1D7FF60073DBD8 /* Emoji.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,
 				51802D8F2B08CE6900B4EE9A /* DateOfBirthView.swift in Sources */,
 				51EA51E72B09950F0098D342 /* GroupNameView.swift in Sources */,
@@ -984,7 +988,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1018,7 +1022,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

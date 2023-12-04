@@ -9,28 +9,39 @@ import SwiftUI
 
 struct PostRowView: View {
     @EnvironmentObject var postViewModel : PostViewModel
+    @State private var isEmojiPopoverPresented: Bool = false
     @State var isCommentDetailSheetPresented = false
     
     let post : Post
     let user : User
     var body: some View {
         ZStack(alignment: .topLeading) {
-            // MARK: Post images
-            if let beforeImageURL = post.task.beforeImageURL,
-               let afterImageURL = post.afterImageURL,
-               let beforePostURL = URL(string: beforeImageURL),
-               let afterPostURL = URL(string: afterImageURL){
-                
-                TabView {
-                   // Display before image
-                   PostPictureView(postURL: beforePostURL)
-                   // Display after images
-                   PostPictureView(postURL: afterPostURL)
-               }
-                
-                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
-               .frame(width: 400, height: 490) // Set the width and height to the dimensions of PostPictureView
+            // MARK: Background Card
+            RoundedRectangle(cornerRadius: 25)
+                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                .frame(width: 380, height: 555) // Adjust the width and height as needed
+                .padding(.leading, 10)
+            
+            // MARK: Post images (after image is required but before image is optional)
+            if let afterImageURL = post.afterImageURL,
+               let afterPostURL = URL(string: afterImageURL) {
+
+                if let beforeImageURL = post.task.beforeImageURL,
+                   let beforePostURL = URL(string: beforeImageURL) {
+
+                    TabView {
+                        PostPictureView(postURL: beforePostURL)
+                        PostPictureView(postURL: afterPostURL)
+                    }
+                    .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
+                    .frame(width: 400, height: 490)
+
+                } else {
+                    PostPictureView(postURL: afterPostURL)
+                        .frame(width: 400, height: 490)
+                }
             }
+
            
             
             
@@ -83,9 +94,7 @@ struct PostRowView: View {
                                 .padding(.top, 8)
                                 .padding(.leading, 6)
                                 .shadow(radius: 3)
-                            
                         }
-                        
                     }
                 }
                 
@@ -101,24 +110,87 @@ struct PostRowView: View {
                 }
                 Spacer()
                 
-               
-                // MARK: Bottom Section that has comment and like buttons
+                // MARK: Add or view comment button
                 HStack(alignment: .bottom, spacing: 12) {
-                    likeButton(post: post, user: user)
-                    
-                    // MARK: Comment Button
                     commentButton(post: post, user: user)
-    
-                }.padding(.top, 100)
-                .padding(.leading, 5)
-                
+                }.padding(.bottom, 15)
+                 .padding(.leading, 5)
+
+                // MARK: Bottom Section for reactions
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        ForEach(post.reactions.sorted(by: { $0.key < $1.key }), id: \.key) { emoji, users in
+                            reactionButton(emoji: emoji, currUser: user, post: post)
+                        }
+                        // MARK: Add reaction emoji button
+                        addReactionButton(post: post, user: user)
+                    }
+                }
             }
             .padding(.all, 15)
             .padding(.leading, 7)
+        }.frame(height: 555) // Set the height of the ZStack
+    }
+    
+    // MARK: Add reaction
+    private func addReactionButton(post: Post, user: User) -> some View {
+        
+        Button(action: {
+            self.isEmojiPopoverPresented = true
+        }) {
+            Image(systemName: "plus")
+                .font(.system(size: 20))
+        }
+        .padding(8)
+        .padding(.leading, 5)
+        .padding(.trailing, 5)
+        .cornerRadius(15)
+        .background(
+            RoundedRectangle(cornerRadius: 18)
+                .fill(Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.25))
+        )
+        .popover(isPresented: $isEmojiPopoverPresented) {
+            EmojiSelectorView(post: post, user: user)
+                .frame(minWidth: 300, maxHeight: 300)
+                .presentationCompactAdaptation(.popover)
         }
     }
     
-
+    // MARK: Reaction button
+    private func reactionButton(emoji: String, currUser: User, post: Post) -> some View {
+        Button(action: {
+                if let users = post.reactions[emoji] {
+                        if users.contains(where: { $0 == currUser.id }) {
+                            postViewModel.removeReactionFromPost(post: post, emoji: emoji, currUser: currUser)
+                    } else {
+                            postViewModel.reactToPost(post: post, emoji: emoji, currUser: currUser)
+                    }
+                }
+            }) {
+               
+                    Text(emoji)
+                        .font(.system(size: 20))
+                    if let users = post.reactions[emoji] {
+                        if !users.isEmpty {
+                            Text("\(users.count)")
+                                .padding(.trailing, 5)
+                                .font(.custom("Lato", size: 16))
+                                .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                                .shadow(radius: 3)
+                        }
+                    }
+            }.padding(8)
+            .padding(.leading, 5)
+            .padding(.trailing, 5)
+            .background(
+                RoundedRectangle(cornerRadius: 18)
+                    .fill((post.reactions[emoji]?.contains(where: { $0 == currUser.id }))! ?
+                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.50) :
+                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.25))
+            )
+            .cornerRadius(15)
+    }
+    
     // MARK: Like / Unlike Button
     private func likeButton(post: Post, user: User) -> some View {
       HStack(spacing: 2.5) {
@@ -158,17 +230,19 @@ struct PostRowView: View {
             Button(action: {
                 isCommentDetailSheetPresented = true
             }) {
-                Image(systemName: "bubble.right")
-                    .font(.system(size: 25))
-                    .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                if !post.comments.isEmpty {
+                    Text(String("View comments"))
+                        .font(.custom("Lato", size: 18))
+                        .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                       
+                } else {
+                    Text(String("Add a comment..."))
+                        .font(.custom("Lato", size: 18))
+                        .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                }
             }
             
-            if !post.comments.isEmpty {
-                Text(String(post.num_comments))
-                    .font(.custom("Lato", size: 18))
-                    .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
-                   
-            }
+            
         }.sheet(isPresented: $isCommentDetailSheetPresented) {
                 CommentDetailView(post: post, user: user)
                 .presentationDetents([.medium, .large])
@@ -178,7 +252,35 @@ struct PostRowView: View {
     }
 }
 
+struct EmojiSelectorView: View {
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var postViewModel : PostViewModel
 
+    let columns = [GridItem(.adaptive(minimum: 44), spacing: 10)]
+    let emojis: [String] = Emoji().examples()
+    let post : Post
+    let user : User
+    var body: some View {
+        VStack(alignment: .leading) {
+            ScrollView {
+                LazyVGrid(columns: columns) {
+                    ForEach(emojis, id: \.self) { emoji in
+                        ZStack {
+                            Text(emoji)
+                                .font(.title)
+                                .padding(5)
+                                .onTapGesture {
+                                    postViewModel.addReactionAndReact(post: post, emoji: emoji, user: user)
+                                    dismiss()
+                             }
+                        }
+                    }
+                }.padding()
+            }
+        }
+        .padding(.vertical)
+    }
+}
 
 struct PostComponent_Previews: PreviewProvider {
     static var previews: some View {
