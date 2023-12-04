@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import MCEmojiPicker
 
 struct PostRowView: View {
     @EnvironmentObject var postViewModel : PostViewModel
     @State private var isEmojiPopoverPresented: Bool = false
     @State var isCommentDetailSheetPresented = false
+    @State private var selectedEmoji = "🍑" // Default value
     
     let post : Post
     let user : User
@@ -18,7 +20,7 @@ struct PostRowView: View {
         ZStack(alignment: .topLeading) {
             // MARK: Background Card
             RoundedRectangle(cornerRadius: 25)
-                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0).opacity(0.4))
                 .frame(width: 380, height: 555) // Adjust the width and height as needed
                 .padding(.leading, 10)
             
@@ -136,7 +138,7 @@ struct PostRowView: View {
     private func addReactionButton(post: Post, user: User) -> some View {
         
         Button(action: {
-            self.isEmojiPopoverPresented = true
+            self.isEmojiPopoverPresented.toggle()
         }) {
             Image(systemName: "plus")
                 .font(.system(size: 20))
@@ -148,11 +150,12 @@ struct PostRowView: View {
         .background(
             RoundedRectangle(cornerRadius: 18)
                 .fill(Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.25))
-        )
-        .popover(isPresented: $isEmojiPopoverPresented) {
-            EmojiSelectorView(post: post, user: user)
-                .frame(minWidth: 300, maxHeight: 300)
-                .presentationCompactAdaptation(.popover)
+        ).emojiPicker(
+            isPresented: $isEmojiPopoverPresented,
+            selectedEmoji: $selectedEmoji,
+            arrowDirection: .down
+        ).onChange(of: selectedEmoji) { newEmoji in
+            postViewModel.addReactionAndReact(post: post, emoji: newEmoji, user: user)
         }
     }
     
@@ -176,7 +179,7 @@ struct PostRowView: View {
                                 .padding(.trailing, 5)
                                 .font(.custom("Lato", size: 16))
                                 .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
-                                .shadow(radius: 3)
+                                .shadow(radius: 7)
                         }
                     }
             }.padding(8)
@@ -185,8 +188,8 @@ struct PostRowView: View {
             .background(
                 RoundedRectangle(cornerRadius: 18)
                     .fill((post.reactions[emoji]?.contains(where: { $0 == currUser.id }))! ?
-                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.50) :
-                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.25))
+                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.65) :
+                        Color(red: 0.95, green: 0.95, blue: 0.95).opacity(0.50))
             )
             .cornerRadius(15)
     }
@@ -252,35 +255,6 @@ struct PostRowView: View {
     }
 }
 
-struct EmojiSelectorView: View {
-    @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var postViewModel : PostViewModel
-
-    let columns = [GridItem(.adaptive(minimum: 44), spacing: 10)]
-    let emojis: [String] = Emoji().examples()
-    let post : Post
-    let user : User
-    var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView {
-                LazyVGrid(columns: columns) {
-                    ForEach(emojis, id: \.self) { emoji in
-                        ZStack {
-                            Text(emoji)
-                                .font(.title)
-                                .padding(5)
-                                .onTapGesture {
-                                    postViewModel.addReactionAndReact(post: post, emoji: emoji, user: user)
-                                    dismiss()
-                             }
-                        }
-                    }
-                }.padding()
-            }
-        }
-        .padding(.vertical)
-    }
-}
 
 struct PostComponent_Previews: PreviewProvider {
     static var previews: some View {

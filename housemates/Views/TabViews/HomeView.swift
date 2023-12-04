@@ -11,8 +11,9 @@ struct HomeView: View {
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var postViewModel : PostViewModel
     
-    @State var scrollOffset: CGFloat = CGFloat.zero
-    @State var hideNavigationBar: Bool = false
+    @State var isHiding : Bool = false
+    @State var scrollOffset : CGFloat = 0
+    @State var threshHold : CGFloat = 0
     
     // MARK: https://www.hackingwithswift.com/forums/swiftui/custom-font-in-navigation-title-and-back-button/22989 To change stlye of navigationTitle
     
@@ -34,8 +35,8 @@ struct HomeView: View {
             NavigationStack {
                 VStack {
                     // MARK: Vertical Scroll View
-                    ObservableScrollView(scrollOffset: self.$scrollOffset) {
-                       
+                    ScrollView(.vertical) {
+                        
                         // MARK: Horizontal Housemates Scroll View
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 15) {
@@ -48,7 +49,7 @@ struct HomeView: View {
                                     }
                                 }
                             }.padding(.horizontal)
-                             .padding(.bottom)
+                                .padding(.bottom)
                         }
                         
                         if let group_id = user.group_id {
@@ -56,64 +57,62 @@ struct HomeView: View {
                                 PostRowView(post: post, user: user).padding(.bottom, 5)
                             }
                         }
-                    // This is causing some latency issues with the tab bar reappearing when exing housemate profile view
-                    }.onChange(of: scrollOffset, perform: { scrollOfset in
-                        let offset = scrollOfset + (self.hideNavigationBar ? 50 : 0)
-                        if offset > 90 {
-                            withAnimation(.easeIn(duration: 1), {
-                                self.hideNavigationBar = true
-                            })
+                        
+                        // MARK: reads position of stuff to display nav and tool bars
+                        GeometryReader { proxy in
+                            Color.clear
+                                .changeOverlayOnScroll(
+                                    proxy: proxy,
+                                    offsetHolder: $scrollOffset,
+                                    thresHold: $threshHold,
+                                    toggle: $isHiding
+                                )
                         }
-                        if offset < 70 {
-                            withAnimation(.easeIn(duration: 1), {
-                                self.hideNavigationBar = false
-                            })
-                        }
-                    }).navigationTitle("Housemates")
+                    }.navigationTitle("Housemates")
                         .navigationBarTitleDisplayMode(.inline)
-                        .navigationBarHidden(hideNavigationBar)
-                        .toolbar(.visible, for: .tabBar)
+                        .coordinateSpace(name: "scroll")
+                        .toolbar(isHiding ? .hidden : .visible, for: .navigationBar)
+                        .toolbar(isHiding ? .hidden : .visible, for: .tabBar)
                 }
             }
         }
     }
-    
-    // MARK: https://stackoverflow.com/questions/62142773/hide-navigation-bar-on-scroll-in-swiftui
-    struct ScrollViewOffsetPreferenceKey: PreferenceKey {
-        typealias Value = CGFloat
-        static var defaultValue = CGFloat.zero
-        static func reduce(value: inout Value, nextValue: () -> Value) {
-            value += nextValue()
-        }
-    }
+}
 
-    struct ObservableScrollView<Content>: View where Content : View {
-        @Namespace var scrollSpace
-        @Binding var scrollOffset: CGFloat
-        let content: () -> Content
-        
-        init(scrollOffset: Binding<CGFloat>,
-             @ViewBuilder content: @escaping () -> Content) {
-            _scrollOffset = scrollOffset
-            self.content = content
-        }
-        
-        var body: some View {
-            ScrollView {
-                    content()
-                        .background(GeometryReader { geo in
-                            let offset = -geo.frame(in: .named(scrollSpace)).minY
-                            Color.clear
-                                .preference(key: ScrollViewOffsetPreferenceKey.self,
-                                            value: offset)
-                        })
-                
-            }
-            .coordinateSpace(name: scrollSpace)
-            .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
-                scrollOffset = value
-            }
-        }
+// Source: https://stackoverflow.com/questions/76551783/swiftui-hiding-tabbar-and-navigationbar-on-scroll
+extension View {
+    
+    func changeOverlayOnScroll(
+        proxy : GeometryProxy,
+        offsetHolder : Binding<CGFloat>,
+        thresHold : Binding<CGFloat>,
+        toggle: Binding<Bool>
+    ) -> some View {
+        self
+            .onChange(
+                of: proxy.frame(in: .named("scroll")).minY
+            ) { newValue in
+                // Set current offset
+                offsetHolder.wrappedValue = abs(newValue)
+                // If current offset is going downward we hide overlay after 200 px.
+                if offsetHolder.wrappedValue > thresHold.wrappedValue + 200 {
+                    // We set thresh hold to current offset so we can remember on next iterations.
+                    thresHold.wrappedValue = offsetHolder.wrappedValue
+                    // Hide overlay
+                    withAnimation(.easeIn(duration: 1), {
+                        toggle.wrappedValue = false
+                    })
+                    
+                    // If current offset is going upward we show overlay again after 200 px
+                }else if offsetHolder.wrappedValue < thresHold.wrappedValue - 200 {
+                    // Save current offset to threshhold
+                    thresHold.wrappedValue = offsetHolder.wrappedValue
+                    // Show overlay
+                    withAnimation(.easeIn(duration: 1), {
+                        toggle.wrappedValue = true
+                    })
+                }
+         }
     }
 }
 
