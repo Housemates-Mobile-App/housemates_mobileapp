@@ -34,6 +34,17 @@ class PostViewModel: ObservableObject {
         postRepository.create(post)
     }
     
+    func nonEmptyReactions(post: Post) -> [String: [String]] {
+        let reactions = post.reactions
+        
+        // Filter out key-value pairs where value is an empty list
+        let nonEmptyReactions = reactions.filter { _, users in
+            return !users.isEmpty
+        }
+        
+        return nonEmptyReactions
+    }
+    
     func addReactionAndReact(post : Post, emoji: String, user: User) {
         var updatedPost = post
 
