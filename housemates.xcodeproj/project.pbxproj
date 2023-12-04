@@ -153,6 +153,7 @@
 		ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */; };
 		ADD11A662AFAFA54001861A0 /* TaskDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */; };
 		ADD11A682AFC3FCB001861A0 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A672AFC3FCB001861A0 /* AddTaskView.swift */; };
+		C171E1FB2B1E408100AE41EC /* NewWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C171E1FA2B1E408100AE41EC /* NewWave.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -257,6 +258,7 @@
 		ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataRepository.swift; sourceTree = "<group>"; };
 		ADD11A672AFC3FCB001861A0 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		C171E1FA2B1E408100AE41EC /* NewWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWave.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -520,6 +522,7 @@
 		8AD6ED1A2AF19732006B56B6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C171E1F72B1E403400AE41EC /* Shapes */,
 				8A1C9D592AF9A54000552F45 /* DetailViews */,
 				8A1C9D582AF9A52200552F45 /* Components */,
 				8A1C9D572AF9A4D800552F45 /* TabViews */,
@@ -550,6 +553,14 @@
 				ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */,
 			);
 			path = DataRepositories;
+			sourceTree = "<group>";
+		};
+		C171E1F72B1E403400AE41EC /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				C171E1FA2B1E408100AE41EC /* NewWave.swift */,
+			);
+			path = Shapes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -756,6 +767,7 @@
 				8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */,
 				AD95E0E02B168AD700577DAB /* CameraView.swift in Sources */,
 				8AD6ED292AF1980D006B56B6 /* GroupDataRepository.swift in Sources */,
+				C171E1FB2B1E408100AE41EC /* NewWave.swift in Sources */,
 				8AE8FF9B2AF4114B003AD997 /* InputView.swift in Sources */,
 				51802D8B2B08CD4300B4EE9A /* FirstNameView.swift in Sources */,
 				8AD6ED212AF19796006B56B6 /* Task.swift in Sources */,
