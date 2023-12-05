@@ -25,6 +25,7 @@ struct housematesApp: App {
     @StateObject var userViewModel = UserViewModel()
     @StateObject var groupViewModel = GroupViewModel()
     @StateObject var postViewModel = PostViewModel()
+    
 
     var body: some Scene {
         WindowGroup {

@@ -4,7 +4,6 @@
 //
 import Foundation
 import SwiftUI
-import SwiftUITrackableScrollView
 
 struct HomeView: View {
     @EnvironmentObject var authViewModel : AuthViewModel

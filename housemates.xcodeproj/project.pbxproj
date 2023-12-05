@@ -123,7 +123,6 @@
 		8AE8FF972AF4110E003AD997 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF962AF4110E003AD997 /* RegistrationView.swift */; };
 		8AE8FF992AF4113B003AD997 /* AuthContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF982AF4113B003AD997 /* AuthContentView.swift */; };
 		8AE8FF9B2AF4114B003AD997 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF9A2AF4114B003AD997 /* InputView.swift */; };
-		8AE8FF9D2AF41F1A003AD997 /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF9C2AF41F1A003AD997 /* TabBar.swift */; };
 		8AE8FF9F2AF41F2B003AD997 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FF9E2AF41F2B003AD997 /* HomeView.swift */; };
 		8AE8FFA12AF41F36003AD997 /* AmenityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FFA02AF41F36003AD997 /* AmenityView.swift */; };
 		8AE8FFA32AF41F47003AD997 /* TaskBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */; };
@@ -239,7 +238,6 @@
 		8AE8FF962AF4110E003AD997 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		8AE8FF982AF4113B003AD997 /* AuthContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthContentView.swift; sourceTree = "<group>"; };
 		8AE8FF9A2AF4114B003AD997 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
-		8AE8FF9C2AF41F1A003AD997 /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		8AE8FF9E2AF41F2B003AD997 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8AE8FFA02AF41F36003AD997 /* AmenityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmenityView.swift; sourceTree = "<group>"; };
 		8AE8FFA22AF41F47003AD997 /* TaskBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBoardView.swift; sourceTree = "<group>"; };
@@ -422,7 +420,6 @@
 			children = (
 				8AE8FF9A2AF4114B003AD997 /* InputView.swift */,
 				81CF29E12AFF56C400748D58 /* FilterView.swift */,
-				8AE8FF9C2AF41F1A003AD997 /* TabBar.swift */,
 				51B20F372AFACD8E006FC5F7 /* JoinCreateCard.swift */,
 				8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */,
 				5155A1792AFDC6D500832E51 /* AllHousematesCard.swift */,
@@ -771,7 +768,6 @@
 				8AE8FF9B2AF4114B003AD997 /* InputView.swift in Sources */,
 				51802D8B2B08CD4300B4EE9A /* FirstNameView.swift in Sources */,
 				8AD6ED212AF19796006B56B6 /* Task.swift in Sources */,
-				8AE8FF9D2AF41F1A003AD997 /* TabBar.swift in Sources */,
 				8AEE92CE2AF19978006AECD3 /* Comment.swift in Sources */,
 				51802D932B08CE8100B4EE9A /* EmailView.swift in Sources */,
 				81DBF19B2B1E4AE1002DF472 /* DateValue.swift in Sources */,
