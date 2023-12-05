@@ -17,36 +17,51 @@ struct CustomCameraView: View {
     var body: some View {
         ZStack {
             CustomCameraViewRepresentable(image: $image, isPresented: $isPresented, takePhoto: $takePhoto)
+                .edgesIgnoringSafeArea(.all)
+            
             VStack {
                 Spacer()
-                HStack {
+                
+                VStack {
+                    Text("Take a picture now, you'll see your hard work after!")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.black.opacity(0.75))
+                        .cornerRadius(10)
+                        .padding(.bottom, 25)
+                    
+                    Button(action: {
+                        self.takePhoto = true
+                    }) {
+                        ZStack {
+                            Circle()
+                                .fill(Color.white)
+                                .frame(width: 75, height: 75)
+                            Circle()
+                                .stroke(Color.white, lineWidth: 5)
+                                .frame(width: 85, height: 85)
+                        }
+                    }
+                    .padding(.bottom, 30)
+                    
                     Button(action: {
                         isPresented = false
                     }) {
                         Text("Skip")
+                            .font(.headline)
                             .foregroundColor(.white)
-                            .padding()
-                            .background(Color.gray.opacity(0.7))
+                            .padding(.horizontal, 30)
+                            .padding(.vertical, 10)
+                            .background(Color.black.opacity(0.5))
                             .clipShape(Capsule())
                     }
-                    Spacer()
-                    Button(action: {
-                        self.takePhoto = true  // This will trigger the camera to take a photo
-                    }) {
-                        Circle()
-                            .fill(Color.white)
-                            .frame(width: 70, height: 70)
-                            .overlay(
-                                Circle()
-                                    .stroke(Color.white, lineWidth: 2)
-                            )
-                    }
                 }
-                .padding(.bottom, 20)
             }
         }
     }
 }
+
 
 // MARK: - Custom Camera View Controller
 class CustomCameraViewController: UIViewController {
