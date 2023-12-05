@@ -154,6 +154,7 @@
 		ADD11A662AFAFA54001861A0 /* TaskDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */; };
 		ADD11A682AFC3FCB001861A0 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A672AFC3FCB001861A0 /* AddTaskView.swift */; };
 		C171E1FB2B1E408100AE41EC /* NewWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C171E1FA2B1E408100AE41EC /* NewWave.swift */; };
+		C171E1FD2B1E7DDB00AE41EC /* taskCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C171E1FC2B1E7DDB00AE41EC /* taskCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -259,6 +260,7 @@
 		ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataRepository.swift; sourceTree = "<group>"; };
 		ADD11A672AFC3FCB001861A0 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		C171E1FA2B1E408100AE41EC /* NewWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWave.swift; sourceTree = "<group>"; };
+		C171E1FC2B1E7DDB00AE41EC /* taskCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -437,6 +439,7 @@
 				51802D962B08D33E00B4EE9A /* ProgressBar.swift */,
 				AD95E0DF2B168AD700577DAB /* CameraView.swift */,
 				8AEF99022B1BFE2000C68907 /* PostPictureView.swift */,
+				C171E1FC2B1E7DDB00AE41EC /* taskCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -768,6 +771,7 @@
 				AD95E0E02B168AD700577DAB /* CameraView.swift in Sources */,
 				8AD6ED292AF1980D006B56B6 /* GroupDataRepository.swift in Sources */,
 				C171E1FB2B1E408100AE41EC /* NewWave.swift in Sources */,
+				C171E1FD2B1E7DDB00AE41EC /* taskCard.swift in Sources */,
 				8AE8FF9B2AF4114B003AD997 /* InputView.swift in Sources */,
 				51802D8B2B08CD4300B4EE9A /* FirstNameView.swift in Sources */,
 				8AD6ED212AF19796006B56B6 /* Task.swift in Sources */,

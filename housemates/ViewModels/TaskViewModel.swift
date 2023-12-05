@@ -70,6 +70,31 @@ class TaskViewModel: ObservableObject {
         return self.tasks.filter { $0.user_id == user_id && $0.status == .inProgress}
     }
     
+    func getRecentCompletedTasksForUser(_ user_id: String) -> [task] {
+        let completedTasks = getCompletedTasksForUser(user_id)
+        
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: currentDate)!
+        let eightDaysAgo = calendar.date(byAdding: .day, value: -8, to: currentDate)!
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM.dd.yy h:mm a"
+//        let formattedDate = formatter.string(from: Date())
+        
+        let completedFilteredTasks = completedTasks.filter {
+            task in {
+                guard let completionDate = task.date_completed else { return false }
+                
+                return dateFormatter.date(from: completionDate) ?? eightDaysAgo >= sevenDaysAgo
+            }()
+        }
+        
+        return completedFilteredTasks
+        
+    }
+    
+    
     // Function to unclaim tasks for a user who leaves a group
     func unclaimTasksForUserLeavingGroup(uid: String) {
         tasks

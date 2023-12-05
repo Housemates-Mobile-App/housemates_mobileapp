@@ -44,7 +44,7 @@ struct ProfileView: View {
                   VStack {
                       NewWave()
                           .fill(deepPurple)
-                          .frame(height: 150)
+                          .frame(height: 170)
                       Spacer()
                   }.edgesIgnoringSafeArea(.top)
                     
@@ -98,7 +98,7 @@ struct ProfileView: View {
                               Circle()
                                   .fill(
                                     LinearGradient(
-                                        gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                                        gradient: Gradient(colors: [Color(red: 0.6, green: 0.6, blue: 0.6), Color(red: 0.8, green: 0.8, blue: 0.8)]),
                                         startPoint: .topLeading,
                                         endPoint: .bottomTrailing
                                     )
@@ -145,9 +145,11 @@ struct ProfileView: View {
                       if let group_name = group_name {
                           Text(group_name)
                               .font(.custom("Lato", size: 24))
+                              .padding(.bottom, 15)
                       } else {
                           Text("Group Name: N/A")
                               .font(.custom("Lato", size: 24))
+                              .padding(.bottom, 15)
                       }
                       
                       //              Text("\(group?.name ?? "None")")
@@ -156,36 +158,44 @@ struct ProfileView: View {
                       
                       
                       
-                      HStack {
-                          VStack {
-                              Text("\(taskViewModel.getNumCompletedTasksForUser(user.id!))")
-                                  .font(.system(size: 32))
-                                  .foregroundColor(deepPurple)
-                                  .bold()
-                              Text("Completed")
-                                  .font(.system(size: 12))
+                      VStack(spacing: 10) {
+
+                          HStack(spacing: 20) {
+                              VStack {
+                                  Text("\(taskViewModel.getNumCompletedTasksForUser(user.id!))")
+                                      .font(.system(size: 32))
+                                      .foregroundColor(deepPurple)
+                                      .bold()
+                                  Text("Completed")
+                                      .font(.custom("Lato", size: 15))
+                                      
+                              }
+                              .padding(30)
+                              .padding(.leading, 30)
+                              .frame(maxWidth: .infinity, minHeight: 25)
+                              
+                              VStack {
+                                  Text("\(taskViewModel.getNumPendingTasksForUser(user.id!))")
+                                      .foregroundColor(deepPurple)
+                                      .font(.system(size: 32))
+                                      .bold()
+                                  Text("Pending")
+                                      .font(.custom("Lato", size: 15))
+                                      
+                              }
+                              .padding(30)
+                              .padding(.trailing, 30)
+                              .frame(maxWidth: .infinity, minHeight: 25)
+                              
+                              
                           }
-                          .padding(.horizontal)
-                          .frame(minWidth: 75, minHeight: 25)
-                          
-                          VStack {
-                              Text("\(taskViewModel.getNumPendingTasksForUser(user.id!))")
-                                  .foregroundColor(deepPurple)
-                                  .font(.system(size: 32))
-                                  .bold()
-                              Text("Pending")
-                                  .font(.system(size: 12))
-                          }
-                          .padding(.horizontal)
-                          .frame(minWidth: 75, minHeight: 25)
-                          
-                          
-                      }.padding(25)
+                          .frame(maxWidth: .infinity)
                           .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.gray, lineWidth: 2)
+                                .stroke(Color.gray.opacity(0.5), lineWidth: 2)
                           )
-                          .padding(25)
+                          
+                      }.padding(.horizontal, 20)
                       
                       
                       Spacer()
@@ -233,7 +243,7 @@ struct ProfileView: View {
               }
             }
             }
-        }
+    }
     }
 
 
