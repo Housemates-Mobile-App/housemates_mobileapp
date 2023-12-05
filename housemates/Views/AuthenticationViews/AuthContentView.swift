@@ -174,7 +174,7 @@ struct BottomBar: View {
         }
     }
 }
-
-#Preview {
-    AuthContentView()
-}
+//
+//#Preview {
+//    AuthContentView()
+//}
