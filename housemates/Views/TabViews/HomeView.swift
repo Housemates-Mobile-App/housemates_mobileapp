@@ -9,7 +9,7 @@ struct HomeView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var postViewModel : PostViewModel
-    @EnvironmentObject var tabBarViewModel : TabBarViewModel
+//    @EnvironmentObject var tabBarViewModel : TabBarViewModel
     
     @State var hide = false
     @State var scrollOffset : CGFloat = 0
@@ -65,14 +65,14 @@ struct HomeView: View {
                                     proxy: proxy,
                                     offsetHolder: $scrollOffset,
                                     thresHold: $threshHold,
-                                    toggle: $tabBarViewModel.hideTabBar
+                                    toggle: $hide
 
                                 )
                         }
                     }.navigationTitle("Housemates")
                         .navigationBarTitleDisplayMode(.inline)
                         .coordinateSpace(name: "scroll")
-                        .toolbar(tabBarViewModel.hideTabBar ? .hidden : .visible, for: .navigationBar)
+                        .toolbar(hide ? .hidden : .visible, for: .navigationBar)
                 }
             }
         }

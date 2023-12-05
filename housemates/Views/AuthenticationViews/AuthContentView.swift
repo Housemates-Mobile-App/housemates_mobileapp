@@ -44,8 +44,6 @@ struct AuthContentView: View {
                     .clipShape(Circle())
                     .offset(y: -5)
                     .shadow(radius: 1)
-            } else if tabBarViewModel.hideTabBar == true {
-                EmptyView()
             }
         }.sheet(isPresented: $tabBarViewModel.showTaskSelectionView) {
             TaskSelectionView(user: authViewModel.currentUser!)
