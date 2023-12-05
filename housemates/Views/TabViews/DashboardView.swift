@@ -46,7 +46,7 @@ struct DashboardView: View {
               Spacer()
             }.padding()
             
-            StatsView()
+            StatsView(statHeight: 400)
             
             Spacer()
           }
