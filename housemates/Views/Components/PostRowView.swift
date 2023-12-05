@@ -44,7 +44,7 @@ struct PostRowView: View {
             
             // MARK: Post Header
             VStack(alignment: .leading, spacing: 10) {
-                NavigationLink (destination: PostDetailView(post: post, user: user).toolbar(.hidden, for: .tabBar)) {
+                NavigationLink (destination: PostDetailView(post: post, user: user)) {
                     HStack(alignment: .top, spacing: 5) {
                         let imageURL = URL(string: post.created_by.imageURLString ?? "")
                         

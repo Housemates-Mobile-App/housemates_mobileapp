@@ -9,6 +9,10 @@ import SwiftUI
 
 struct AuthContentView: View {
     @State var selected = 0
+    @EnvironmentObject var tabBarViewModel : TabBarViewModel
+    @EnvironmentObject var taskViewModel: TaskViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
+
     var body: some View {
       
             
@@ -27,19 +31,25 @@ struct AuthContentView: View {
 
             }
             
-            BottomBar(selected : $selected).padding()
-                .padding(.horizontal, 22)
-                .background(CurvedShape())
-            
-            Button(action: {
+            if tabBarViewModel.hideTabBar == false {
+                BottomBar(selected : $selected).padding()
+                    .padding(.horizontal, 22)
+                    .background(CurvedShape())
                 
-            }) {
-                Image(systemName: "plus").padding(18)
-                    .foregroundColor(.white)
-            }.background(Color(red: 0.439, green: 0.298, blue: 1.0))
-                .clipShape(Circle())
-                .offset(y: -20)
-                .shadow(radius: 5)
+                Button(action: {
+                    tabBarViewModel.showTaskSelectionView = true
+                }) {
+                    Image(systemName: "plus").padding(18)
+                        .foregroundColor(.white)
+                }.background(Color(red: 0.439, green: 0.298, blue: 1.0))
+                    .clipShape(Circle())
+                    .offset(y: -20)
+                    .shadow(radius: 5)
+            }
+        }.sheet(isPresented: $tabBarViewModel.showTaskSelectionView) {
+            TaskSelectionView(user: authViewModel.currentUser!)
+        }.onAppear {
+            taskViewModel.setupRecurringTaskReset()
         }
         
     }

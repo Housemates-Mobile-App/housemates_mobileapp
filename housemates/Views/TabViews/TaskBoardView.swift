@@ -3,8 +3,8 @@ import SwiftUI
 struct TaskBoardView: View {
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var tabBarViewModel : TabBarViewModel
     @State private var selected: String = "All Tasks"
-    @State private var showTaskSelectionView = false
     private var unknownDate = Date.distantPast
 
 
@@ -20,10 +20,6 @@ struct TaskBoardView: View {
                     mainContent(user: user)
 
                 }
-            }.sheet(isPresented: $showTaskSelectionView) {
-                TaskSelectionView(showTaskSelectionView: $showTaskSelectionView, user: user)
-            }.onAppear {
-                taskViewModel.setupRecurringTaskReset()
             }
         }
     }
@@ -49,7 +45,7 @@ struct TaskBoardView: View {
     // Add Task Button
     private func addTaskButton(user: User) -> some View {
         Button(action: {
-                showTaskSelectionView = true
+                tabBarViewModel.showTaskSelectionView = true
            }) {
                Image(systemName: "plus")
                    .font(.headline)

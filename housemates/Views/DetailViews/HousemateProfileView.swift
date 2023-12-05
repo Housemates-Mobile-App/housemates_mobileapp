@@ -11,6 +11,8 @@ import Charts
 struct HousemateProfileView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var taskViewModel : TaskViewModel
+    @EnvironmentObject var tabBarViewModel : TabBarViewModel
+
     let housemate: User
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     var body: some View {
@@ -106,6 +108,12 @@ struct HousemateProfileView: View {
             }.padding(.top, 20)
 //            .padding(15)
             .border(.red)
+        }.onAppear {
+            tabBarViewModel.hideTabBar = true
+        }.onDisappear {
+            withAnimation(.easeIn(duration: 0.2), {
+                tabBarViewModel.hideTabBar = false
+            })
         }
     }
 }
