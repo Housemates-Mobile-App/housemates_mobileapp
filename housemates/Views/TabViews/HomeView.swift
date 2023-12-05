@@ -11,6 +11,7 @@ struct HomeView: View {
     @EnvironmentObject var postViewModel : PostViewModel
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
     
+    @State var hide = false
     @State var scrollOffset : CGFloat = 0
     @State var threshHold : CGFloat = 0
     
@@ -101,16 +102,18 @@ extension View {
                     withAnimation(.easeIn(duration: 0.2), {
                         toggle.wrappedValue = false
                     })
+                }
                     
-                    // If current offset is going upward we show overlay again after 200 px
-                }else if offsetHolder.wrappedValue < thresHold.wrappedValue - 250 {
+                // If current offset is going upward we show overlay again after 200 px
+                if offsetHolder.wrappedValue < thresHold.wrappedValue - 250 {
                     // Save current offset to threshhold
                     thresHold.wrappedValue = offsetHolder.wrappedValue
                     // Hide overlay
-                    withAnimation(.easeOut(duration: 0.2), {
+                    withAnimation(.easeOut(duration: 1), {
                         toggle.wrappedValue = true
                     })
                 }
+                
          }
     }
 }
