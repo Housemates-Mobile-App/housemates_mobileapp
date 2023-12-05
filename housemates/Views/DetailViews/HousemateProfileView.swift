@@ -11,20 +11,26 @@ import Charts
 struct HousemateProfileView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var taskViewModel : TaskViewModel
+    @Environment(\.presentationMode) var presentationMode
     let housemate: User
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     var body: some View {
+        let recentTasks = taskViewModel.getRecentCompletedTasksForUser(housemate.id ?? "")
         ZStack {
             //wave
             VStack {
                 NewWave()
                     .fill(deepPurple)
-                    .frame(height: 150)
+                    .frame(height: 170)
                 Spacer()
             }.edgesIgnoringSafeArea(.top)
             
-            VStack(spacing: 10) {
+            VStack(spacing: 30) {
                 VStack(alignment: .center) {
+//                    Image(systemName:"gear")
+//                        .foregroundColor(.clear)
+//                        .font(.system(size: 18))
+//                        .padding()
                     //image
                     let imageURL = URL(string: housemate.imageURLString ?? "")
                     
@@ -39,7 +45,7 @@ struct HousemateProfileView: View {
                         Circle()
                             .fill(
                                 LinearGradient(
-                                    gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                                    gradient: Gradient(colors: [Color(red: 0.6, green: 0.6, blue: 0.6), Color(red: 0.8, green: 0.8, blue: 0.8)]),
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
@@ -62,52 +68,107 @@ struct HousemateProfileView: View {
                         HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Call", iconStr: "phone.fill", urlScheme:"tel")
                         HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Text", iconStr: "message.fill", urlScheme:"sms")
                     }
-                }.padding(.bottom, 20)
+                }.padding(.top, 28)
                 
-                HStack {
-                    VStack {
-                        Text("\(taskViewModel.getNumCompletedTasksForUser(housemate.id!))")
-                            .font(.system(size: 32))
-                            .foregroundColor(deepPurple)
-                            .bold()
-                        Text("Completed")
-                            .font(.system(size: 12))
+                VStack (spacing: 25) {
+                    VStack(spacing: 10) {
+                        HStack() {
+                            Text("Task Stats")
+                                .font(.custom("Lato-Bold", size: 22))
+                                .bold()
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        HStack(spacing: 20) {
+                            VStack {
+                                Text("\(taskViewModel.getNumCompletedTasksForUser(housemate.id!))")
+                                    .font(.system(size: 32))
+                                    .foregroundColor(deepPurple)
+                                    .bold()
+                                Text("Completed")
+                                    .font(.custom("Lato", size: 15))
+                                    .frame(minWidth: 50)
+                                
+                            }
+                            .padding(30)
+                            .padding(.leading, 30)
+                            .frame(maxWidth: .infinity, minHeight: 25)
+                            
+                            VStack {
+                                Text("\(taskViewModel.getNumPendingTasksForUser(housemate.id!))")
+                                    .foregroundColor(deepPurple)
+                                    .font(.system(size: 32))
+                                    .bold()
+                                Text("Pending")
+                                    .font(.custom("Lato", size: 15))
+                                    .frame(minWidth: 50)
+                                
+                            }
+                            .padding(30)
+                            .padding(.trailing, 30)
+                            .frame(maxWidth: .infinity, minHeight: 25)
+                            
+                            
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Color.gray.opacity(0.5), lineWidth: 2)
+                        )
+                        
                     }
-                    .padding(.horizontal)
-                    .frame(minWidth: 75, minHeight: 25)
                     
-                    VStack {
-                        Text("\(taskViewModel.getNumPendingTasksForUser(housemate.id!))")
-                            .foregroundColor(deepPurple)
-                            .font(.system(size: 32))
-                            .bold()
-                        Text("Pending")
-                            .font(.system(size: 12))
+                    VStack(spacing: 10) {
+                        HStack() {
+                            Text("Recent Activity")
+                                .font(.custom("Lato-Bold", size: 22))
+                                .bold()
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        if (!recentTasks.isEmpty) {
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                
+                                HStack {
+                                    
+                                    
+                                    ForEach(recentTasks) {task in
+                                        taskCard(task: task, user: housemate)
+                                            .padding(.horizontal)
+                                        
+                                    }
+                                }
+                            }
+                        } else {
+                            Text("There's no recent activity...")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .font(.custom("Lato", size: 15))
+                        }
+                        
+                        Spacer()
                     }
-                    .padding(.horizontal)
-                    .frame(minWidth: 75, minHeight: 25)
-                    
-                    
-                }.padding(25)
-                    .background(
-                      RoundedRectangle(cornerRadius: 16)
-                          .stroke(Color.gray, lineWidth: 2)
-                    )
-
-                
-                HStack() {
-                    Text("Recent Activity")
-                        .font(.custom("Lato-Bold", size: 22))
-                        .bold()
-                }.padding(.top, 10)
-                
-                Spacer()
-                
-            }.padding(.top, 20)
-//            .padding(15)
-            .border(.red)
+                }.padding(.horizontal, 20)
+            }
+            .navigationBarBackButtonHidden(true)
+                .navigationBarItems(leading: backButton())
+            
         }
     }
+    private func backButton() -> some View {
+        Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            HStack {
+                Image(systemName: "chevron.left")
+                    .foregroundColor(.white)
+                    .font(.system(size:18))
+                    .bold()
+                    .padding(.vertical)
+            }
+        }
+    }
+
 }
 
 private func statCardFront(mainText: String, subText: String) -> some View {
