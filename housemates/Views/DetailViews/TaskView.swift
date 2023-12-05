@@ -263,8 +263,8 @@ struct TaskView: View {
             
         })
         .buttonStyle(ClaimButtonStyle())
-        .sheet(isPresented: $showCamera) {
-            CameraView(image: $capturedImage, isShown: $showCamera)
+        .fullScreenCover(isPresented: $showCamera) {
+            CustomCameraView(image: $capturedImage, isPresented: $showCamera)
         }
         .onChange(of: capturedImage) { _ in
             if let image = capturedImage {
