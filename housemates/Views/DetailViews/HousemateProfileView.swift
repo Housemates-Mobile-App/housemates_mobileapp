@@ -11,9 +11,10 @@ import Charts
 struct HousemateProfileView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var taskViewModel : TaskViewModel
-    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
 
+    @Environment(\.presentationMode) var presentationMode
+    
     let housemate: User
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     var body: some View {

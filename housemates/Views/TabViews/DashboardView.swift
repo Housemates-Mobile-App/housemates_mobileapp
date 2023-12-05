@@ -276,7 +276,7 @@ struct DashboardView: View {
           
         ScrollView(.horizontal, showsIndicators: false) {
           
-          HStack {
+          HStack(spacing: 0) {
             
             
             ForEach(completed.filter({ task in
