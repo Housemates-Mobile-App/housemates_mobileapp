@@ -12,6 +12,8 @@ struct HousemateProfileView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var taskViewModel : TaskViewModel
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var tabBarViewModel : TabBarViewModel
+
     let housemate: User
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     var body: some View {
@@ -152,7 +154,12 @@ struct HousemateProfileView: View {
             }
             .navigationBarBackButtonHidden(true)
                 .navigationBarItems(leading: backButton())
-            
+        }.onAppear {
+            tabBarViewModel.hideTabBar = true
+        }.onDisappear {
+            withAnimation(.easeIn(duration: 0.2), {
+                tabBarViewModel.hideTabBar = false
+            })
         }
     }
     private func backButton() -> some View {

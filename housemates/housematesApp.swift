@@ -25,6 +25,9 @@ struct housematesApp: App {
     @StateObject var userViewModel = UserViewModel()
     @StateObject var groupViewModel = GroupViewModel()
     @StateObject var postViewModel = PostViewModel()
+    @StateObject var tabBarViewModel = TabBarViewModel()
+    
+    @State var hideTabBar: Bool = false
 
     var body: some Scene {
         WindowGroup {
@@ -34,6 +37,7 @@ struct housematesApp: App {
                 .environmentObject(userViewModel)
                 .environmentObject(groupViewModel)
                 .environmentObject(postViewModel)
+                .environmentObject(tabBarViewModel)
         }
     }
 }

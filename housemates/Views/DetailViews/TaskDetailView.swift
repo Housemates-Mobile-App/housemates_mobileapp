@@ -3,6 +3,8 @@ import SwiftUI
 struct TaskDetailView: View {
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var userViewModel: UserViewModel
+    @EnvironmentObject var tabBarViewModel : TabBarViewModel
+
     let currUser: User
     let currTask: task
     
@@ -25,7 +27,7 @@ struct TaskDetailView: View {
                   Spacer()
                   
                   if (currTask.status == .unclaimed) {
-                    NavigationLink(destination: AddTaskView(taskIconStringHardcoded: currTask.icon ?? "dalle2", taskNameHardcoded: currTask.name, user: currUser, showTaskSelectionView: .constant(false), editableTask: currTask)) {
+                    NavigationLink(destination: AddTaskView(taskIconStringHardcoded: currTask.icon ?? "dalle2", taskNameHardcoded: currTask.name, user: currUser, editableTask: currTask)) {
                       Label("", systemImage: "pencil")
                         .font(.system(size: 25))
                         .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
@@ -92,7 +94,13 @@ struct TaskDetailView: View {
             }.padding()
                 .padding(.vertical, 10)
             
-        }.toolbar(.hidden, for: .tabBar)
+        }.onAppear {
+            tabBarViewModel.hideTabBar = true
+        }.onDisappear {
+            withAnimation(.easeIn(duration: 0.2), {
+                tabBarViewModel.hideTabBar = false
+            })
+        }
     }
 
     

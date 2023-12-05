@@ -9,6 +9,9 @@ import SwiftUI
 
 struct PostDetailView: View {
     @EnvironmentObject var postViewModel : PostViewModel
+    @EnvironmentObject var tabBarViewModel : TabBarViewModel
+
+
     @State private var newComment: String = ""
     let post : Post
     let user : User
@@ -108,7 +111,13 @@ struct PostDetailView: View {
             }
             .padding(.bottom)
             
-        }.toolbar(.hidden, for: .tabBar)
+        }.onAppear {
+            tabBarViewModel.hideTabBar = true
+        }.onDisappear {
+            withAnimation(.easeIn(duration: 0.2), {
+                tabBarViewModel.hideTabBar = false
+            })
+        }
     }
     
     

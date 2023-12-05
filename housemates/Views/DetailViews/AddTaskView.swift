@@ -5,8 +5,8 @@ struct AddTaskView: View {
   let taskNameHardcoded: String
   let user: User
   @EnvironmentObject var taskViewModel: TaskViewModel
-  @Binding var showTaskSelectionView: Bool
-  
+  @EnvironmentObject var tabBarViewModel: TabBarViewModel
+    
   @Environment(\.presentationMode) var presentationMode
   @State private var showAlert = false
   @State private var alertMessage = ""
@@ -192,7 +192,7 @@ struct AddTaskView: View {
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
       showAlert = false
       presentationMode.wrappedValue.dismiss()
-      showTaskSelectionView = false
+      tabBarViewModel.showTaskSelectionView = false
     }
   }
   
@@ -236,8 +236,9 @@ struct AddTaskView: View {
   struct AddTaskView_Previews: PreviewProvider {
     static var previews: some View {
       AddTaskView(taskIconStringHardcoded: "trash.fill", taskNameHardcoded: "Clean Dishes",
-                  user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"), showTaskSelectionView: .constant(true))
+                  user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"))
       .environmentObject(TaskViewModel())
+      .environmentObject(TabBarViewModel.mock())
     }
   }
 }

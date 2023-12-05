@@ -4,14 +4,13 @@
 //
 import Foundation
 import SwiftUI
-import SwiftUITrackableScrollView
 
-struct HomeView: View {
+struct HomeView: View {    
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var postViewModel : PostViewModel
+    @EnvironmentObject var tabBarViewModel : TabBarViewModel
     
-    @State var isHiding : Bool = false
     @State var scrollOffset : CGFloat = 0
     @State var threshHold : CGFloat = 0
     
@@ -42,7 +41,7 @@ struct HomeView: View {
                             HStack(spacing: 15) {
                                 if let uid = user.id {
                                     ForEach(userViewModel.getUserGroupmates(uid)) { user in
-                                        NavigationLink(destination: HousemateProfileView(housemate: user)                                         .toolbar(.hidden, for: .tabBar)
+                                        NavigationLink(destination: HousemateProfileView(housemate: user)
                                         ) {
                                             HousemateCircleComponent(housemate: user)
                                         }.buttonStyle(PlainButtonStyle())
@@ -65,14 +64,14 @@ struct HomeView: View {
                                     proxy: proxy,
                                     offsetHolder: $scrollOffset,
                                     thresHold: $threshHold,
-                                    toggle: $isHiding
+                                    toggle: $tabBarViewModel.hideTabBar
+
                                 )
                         }
                     }.navigationTitle("Housemates")
                         .navigationBarTitleDisplayMode(.inline)
                         .coordinateSpace(name: "scroll")
-                        .toolbar(isHiding ? .hidden : .visible, for: .navigationBar)
-                        .toolbar(isHiding ? .hidden : .visible, for: .tabBar)
+                        .toolbar(tabBarViewModel.hideTabBar ? .hidden : .visible, for: .navigationBar)
                 }
             }
         }
@@ -95,20 +94,20 @@ extension View {
                 // Set current offset
                 offsetHolder.wrappedValue = abs(newValue)
                 // If current offset is going downward we hide overlay after 200 px.
-                if offsetHolder.wrappedValue > thresHold.wrappedValue + 200 {
+                if offsetHolder.wrappedValue > thresHold.wrappedValue + 250 {
                     // We set thresh hold to current offset so we can remember on next iterations.
                     thresHold.wrappedValue = offsetHolder.wrappedValue
-                    // Hide overlay
-                    withAnimation(.easeIn(duration: 1), {
+                    // Show overlay
+                    withAnimation(.easeIn(duration: 0.2), {
                         toggle.wrappedValue = false
                     })
                     
                     // If current offset is going upward we show overlay again after 200 px
-                }else if offsetHolder.wrappedValue < thresHold.wrappedValue - 200 {
+                }else if offsetHolder.wrappedValue < thresHold.wrappedValue - 250 {
                     // Save current offset to threshhold
                     thresHold.wrappedValue = offsetHolder.wrappedValue
-                    // Show overlay
-                    withAnimation(.easeIn(duration: 1), {
+                    // Hide overlay
+                    withAnimation(.easeOut(duration: 0.2), {
                         toggle.wrappedValue = true
                     })
                 }

@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct TaskSelectionView: View {
     @EnvironmentObject var taskViewModel : TaskViewModel
-    @Binding var showTaskSelectionView: Bool
+    @EnvironmentObject var tabBarViewModel : TabBarViewModel
     @State private var searchTask: String = ""
     @State private var filteredHouseworkTaskData : [TaskData] = hardcodedHouseworkTaskData
     @State private var filteredIndoorTaskData : [TaskData] = hardcodedIndoorTaskData
@@ -57,7 +57,7 @@ struct TaskSelectionView: View {
                 }
                 Spacer()
                 
-                NavigationLink(destination: AddTaskView(taskIconStringHardcoded: "", taskNameHardcoded: "", user: user, showTaskSelectionView: $showTaskSelectionView)) {
+                NavigationLink(destination: AddTaskView(taskIconStringHardcoded: "", taskNameHardcoded: "", user: user)) {
                     Text("Add a Custom Task +")
                         .font(.custom("Nunito-Bold", size: 18))
                         .bold()
@@ -95,7 +95,7 @@ struct TaskSelectionView: View {
                       HStack(spacing: 0) {
                        
                             ForEach(0..<min(3, taskData.count - i), id: \.self) { j in
-                                NavigationLink(destination: AddTaskView(taskIconStringHardcoded: taskData[i + j].taskIcon, taskNameHardcoded: taskData[i + j].taskName, user: user, showTaskSelectionView: $showTaskSelectionView)) {
+                                NavigationLink(destination: AddTaskView(taskIconStringHardcoded: taskData[i + j].taskIcon, taskNameHardcoded: taskData[i + j].taskName, user: user)) {
                                     TaskSelectionBox(taskIconString: taskData[i + j].taskIcon, taskName: taskData[i + j].taskName)
                                     .frame(width: (UIScreen.main.bounds.width - 25) / 3)
                                 }
@@ -133,7 +133,8 @@ struct TaskSelectionView: View {
 
 struct TaskSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskSelectionView(showTaskSelectionView: Binding.constant(false), user: UserViewModel.mockUser())
+        TaskSelectionView(user: UserViewModel.mockUser())
             .environmentObject(TaskViewModel())
+            .environmentObject(TabBarViewModel.mockShowTaskSelection())
     }
 }
