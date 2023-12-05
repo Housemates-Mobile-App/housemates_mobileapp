@@ -39,6 +39,16 @@ class UserViewModel: ObservableObject {
         }
         return self.users.filter { $0.group_id == groupID && $0.id != uid }
     }
+  
+    func getGroupCount(_ uid: String) -> Int {
+        guard let currentUser = self.users.first(where: { $0.id == uid }), let groupID = currentUser.group_id else {
+            return 0
+        }
+      var groupmates = self.users.filter { $0.group_id == groupID && $0.id != uid }
+      // did this so currentUser would appear at the very end.
+      groupmates.append(currentUser)
+      return groupmates.count
+    }
     
     func getUserGroupmatesInclusive(_ uid: String) -> [User] {
         guard let currentUser = self.users.first(where: { $0.id == uid }), let groupID = currentUser.group_id else {

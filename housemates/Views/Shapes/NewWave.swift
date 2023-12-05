@@ -22,8 +22,8 @@ struct NewWave: Shape {
     }
 }
 
-#Preview {
-    NewWave()
-        .stroke(Color.red, lineWidth: 5)
-        .frame(height: 200)
-}
+//#Preview {
+//    NewWave()
+//        .stroke(Color.red, lineWidth: 5)
+//        .frame(height: 200)
+//}
