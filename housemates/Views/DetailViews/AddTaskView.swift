@@ -16,10 +16,20 @@ struct AddTaskView: View {
   @State private var recurrence: Recurrence = .none
   @State private var recurrenceStartDate: Date = Date()
   @State private var recurrenceEndDate: Date = Date()
+  @State private var showingSheet = false
+    @State private var taskIconStringNew: String
     
   var editableTask: task?
   
   let elements: [TaskPriority] = TaskPriority.allCases
+    
+    init(taskIconStringHardcoded: String, taskNameHardcoded: String, user: User, editableTask: task? = nil) {
+        _taskIconStringNew = State(initialValue: taskIconStringHardcoded)
+        self.taskIconStringHardcoded = taskIconStringHardcoded
+        self.taskNameHardcoded = taskNameHardcoded
+        self.user = user
+        self.editableTask = editableTask
+      }
   
   var body: some View {
     ScrollView {
@@ -30,22 +40,36 @@ struct AddTaskView: View {
           .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
           
           
-        
-        if taskIconStringHardcoded.count > 0 {
-          Image(taskIconStringHardcoded)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 100, height: 100)
-            .foregroundColor(.gray)
-            .padding(5)
-        } else {
-          Image(systemName: "person.circle")
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 100, height: 100)
-            .foregroundColor(.gray)
-            .padding(5)
-        }
+          ZStack {
+              if taskIconStringNew.count > 0 {
+                  Image(taskIconStringNew)
+                      .resizable()
+                      .aspectRatio(contentMode: .fill)
+                      .frame(width: 100, height: 100)
+                      .foregroundColor(.gray)
+                      .padding(5)
+              } else {
+                  Image(systemName: "person.circle")
+                      .resizable()
+                      .aspectRatio(contentMode: .fill)
+                      .frame(width: 100, height: 100)
+                      .foregroundColor(.gray)
+                      .padding(5)
+              }
+
+              Button(action: {
+                  showingSheet.toggle()
+              }) {
+                  Image(systemName: "pencil.circle.fill")
+                      .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                      .background(Circle().fill(Color.white))
+                      .font(.system(size: 24))
+              }
+              .offset(x: 35, y: 35)
+              .sheet(isPresented: $showingSheet) {
+                  SheetView()
+              }
+          }
         
         
         NewInputView(text: $taskName, title: "Task Name", placeholder: "Add a task name!")
@@ -166,7 +190,7 @@ struct AddTaskView: View {
       date_started: nil,
       date_completed: nil,
       priority: priority.rawValue,
-      icon: taskIconStringHardcoded,
+      icon: taskIconStringNew,
       recurrence: recurrence,
       recurrenceStartDate: (recurrence != .none) ? recurrenceStartDate : nil,
       recurrenceEndDate: (recurrence != .none) ? recurrenceEndDate : nil)
@@ -180,7 +204,7 @@ struct AddTaskView: View {
 //    }
       
       if let editableTask = editableTask {
-          taskViewModel.editTask(task: editableTask, name: taskName, description: taskDescription, priority: priority.rawValue, icon: taskIconStringHardcoded, recurrence: recurrence, recurrenceStartDate: recurrenceStartDate, recurrenceEndDate: recurrenceEndDate)
+          taskViewModel.editTask(task: editableTask, name: taskName, description: taskDescription, priority: priority.rawValue, icon: taskIconStringNew, recurrence: recurrence, recurrenceStartDate: recurrenceStartDate, recurrenceEndDate: recurrenceEndDate)
           alertMessage = "Task edited successfully."
       } else {
           taskViewModel.create(task: newTask)
@@ -232,13 +256,76 @@ struct AddTaskView: View {
       }
       
   }
-  
-  struct AddTaskView_Previews: PreviewProvider {
-    static var previews: some View {
-      AddTaskView(taskIconStringHardcoded: "trash.fill", taskNameHardcoded: "Clean Dishes",
-                  user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"))
-      .environmentObject(TaskViewModel())
-      .environmentObject(TabBarViewModel.mock())
+    
+    struct SheetView: View {
+        @Environment(\.dismiss) var dismiss
+        @Binding var taskIconStr: String
+
+        var body: some View {
+            VStack {
+                Text("Select Icon")
+                
+                if taskIconStr.count > 0 {
+                    Image(taskIconStr)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 100, height: 100)
+                        .foregroundColor(.gray)
+                        .padding(5)
+                } else {
+                    Image(systemName: "person.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 100, height: 100)
+                        .foregroundColor(.gray)
+                        .padding(5)
+                }
+                
+                
+            }
+        }
     }
+    private func fullTaskCategoryView(taskData: [TaskData]) -> some View {
+        @Binding var selectedCategory: String?
+      var categorizedTaskDict = Dictionary(grouping: taskData, by: { $0.taskCategory })
+      
+        return VStack() {
+
+            ForEach(0..<taskData.count, id: \.self) { i in
+                if i % 3 == 0 {
+                  HStack(spacing: 0) {
+                   
+                        ForEach(0..<min(3, taskData.count - i), id: \.self) { j in
+                            NavigationLink(destination: AddTaskView(taskIconStringHardcoded: taskData[i + j].taskIcon, taskNameHardcoded: taskData[i + j].taskName, user: user)) {
+                                TaskSelectionBox(taskIconString: taskData[i + j].taskIcon, taskName: taskData[i + j].taskName)
+                                .frame(width: (UIScreen.main.bounds.width - 25) / 3)
+                            }
+                        }
+                    
+//                        adds plcaceholder to fix spacing when filetering tasks
+                    if taskData.count - i < 3 {
+                        ForEach(0..<(3 - (taskData.count - i)), id: \.self) { _ in
+                            Rectangle()
+                                .foregroundColor(Color.clear) // Invisible
+                                .frame(width: (UIScreen.main.bounds.width - 25) / 3)
+                        }
+                    }
+                       
+                    }.frame(width: UIScreen.main.bounds.width - 25)
+                }
+            }
+            
+        }
+    }
+  
+  
+}
+
+struct AddTaskView_Previews: PreviewProvider {
+  static var previews: some View {
+    AddTaskView(taskIconStringHardcoded: "trash.fill", taskNameHardcoded: "Clean Dishes",
+                user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"))
+    .environmentObject(TaskViewModel())
+    .environmentObject(TabBarViewModel.mock())
   }
 }
