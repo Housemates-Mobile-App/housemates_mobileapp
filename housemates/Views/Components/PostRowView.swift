@@ -7,6 +7,7 @@
 
 import SwiftUI
 import MCEmojiPicker
+import CachedAsyncImage
 
 struct PostRowView: View {
     @EnvironmentObject var postViewModel : PostViewModel
@@ -49,7 +50,7 @@ struct PostRowView: View {
                         let imageURL = URL(string: post.created_by.imageURLString ?? "")
                         
                         // MARK: Profile Picture for post user
-                        AsyncImage(url: imageURL) { image in
+                        CachedAsyncImage(url: imageURL) { image in
                             image
                                 .resizable()
                                 .scaledToFill()
@@ -58,14 +59,22 @@ struct PostRowView: View {
                                 .shadow(radius: 3)
                         } placeholder: {
                             
-                            // MARK: Default user profile picture
-                            Image(systemName: "person.circle")
-                                .resizable()
-                                .scaledToFill()
+                            
+                            Circle()
+                                .fill(
+                                  LinearGradient(
+                                      gradient: Gradient(colors: [Color(red: 0.6, green: 0.6, blue: 0.6), Color(red: 0.8, green: 0.8, blue: 0.8)]),
+                                      startPoint: .topLeading,
+                                      endPoint: .bottomTrailing
+                                  )
+                                )
                                 .frame(width: 35, height: 35)
-                                .clipShape(Circle())
-                                .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9)) // Off-white color
-                                .shadow(radius: 3)
+                                .overlay(
+                                  Text("\(user.first_name.prefix(1).capitalized+user.last_name.prefix(1).capitalized)")
+                                  
+                                      .font(.custom("Nunito-Bold", size: 17))
+                                      .foregroundColor(.white)
+                                )
                         }
                         
                         // MARK: user info, timestamp, and completed task info

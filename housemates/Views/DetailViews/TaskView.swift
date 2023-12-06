@@ -1,4 +1,5 @@
 import SwiftUI
+import CachedAsyncImage
 
 struct TaskView: View {
     let task: task
@@ -279,7 +280,7 @@ struct TaskView: View {
 
     // MARK: - User Profile Image
     private func userProfileImage(for user: User) -> some View {
-        AsyncImage(url: URL(string: user.imageURLString ?? "")) { image in
+        CachedAsyncImage(url: URL(string: user.imageURLString ?? "")) { image in
             image.resizable()
         } placeholder: {
             Image(systemName: "person.circle").resizable()

@@ -8,6 +8,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct TaskHousematesView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
@@ -23,7 +24,7 @@ struct TaskHousematesView: View {
               let imageURL = URL(string: mate.imageURLString ?? "")
               
               
-              AsyncImage(url: imageURL) {
+                CachedAsyncImage(url: imageURL) {
                 image in image
                   .resizable()
                   .aspectRatio(contentMode: .fill)
