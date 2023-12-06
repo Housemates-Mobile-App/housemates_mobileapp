@@ -50,7 +50,7 @@ struct HomeView: View {
                                 }
                             }.padding(.horizontal)
                                 .padding(.bottom)
-                        }
+                        }.padding(.top, 10)
                         
                         if let group_id = user.group_id {
                             ForEach(postViewModel.getPostsForGroup(group_id)) { post in

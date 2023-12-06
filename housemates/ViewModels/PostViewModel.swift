@@ -69,8 +69,8 @@ class PostViewModel: ObservableObject {
         let thumbsUp = "👍"
         
         let defaultReactions: [String: [String]] = [
-            heartEmoji: [],
-            laughingEmoji: [],
+            heartEmoji: ["x"],
+            laughingEmoji: ["x"],
             barfEmoji: [],
             thumbsUp : []
         ]
@@ -79,15 +79,13 @@ class PostViewModel: ObservableObject {
     }
     
     func removeReactionFromPost(post: Post, emoji: String, currUser: User) {
-        let defaultReactions = ["❤️", "😂", "🤮", "👍"]
-        
         // Remove user_id from reactions list for emoji
         var post = post
         if var reactionList = post.reactions[emoji] {
             reactionList.removeAll { $0 == currUser.id }
             
             // If length of reaction list is now 0 and emoji is not in default reactions, remove emoji from reactions
-            if reactionList.isEmpty && !defaultReactions.contains(emoji) {
+            if reactionList.isEmpty {
                 post.reactions.removeValue(forKey: emoji)
             } else {
                 post.reactions[emoji] = reactionList
@@ -128,7 +126,7 @@ class PostViewModel: ObservableObject {
 
         // MARK: Create new post instance
         if let group_id = user.group_id {
-            let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [], reactions: createDefaultReactions(), afterImageURL: imageURL, caption: caption)
+            let post = Post(task: task, group_id: group_id, created_by: user, num_likes: 0, num_comments: 0, liked_by: [], comments: [], reactions: [String: [String]](), afterImageURL: imageURL, caption: caption)
             create(post: post) // user_id in created_by field is non existent for some reason
             taskViewModel.completeTask(task: task)
         }

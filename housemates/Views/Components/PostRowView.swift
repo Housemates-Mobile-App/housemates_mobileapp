@@ -14,7 +14,9 @@ struct PostRowView: View {
     @State private var isEmojiPopoverPresented: Bool = false
     @State var isCommentDetailSheetPresented = false
     @State private var selectedEmoji = "🍑" // Default value
-    
+    @State private var selectedTabIndex = 0 // Initial tab index
+    @State private var reactionBar = false
+
     let post : Post
     let user : User
     
@@ -27,22 +29,21 @@ struct PostRowView: View {
                 if let beforeImageURL = post.task.beforeImageURL,
                    let beforePostURL = URL(string: beforeImageURL) {
 
-                    TabView {
+                    TabView (selection: $selectedTabIndex) {
                         PostPictureView(postURL: beforePostURL)
+                            .tag(0)
+            
                         PostPictureView(postURL: afterPostURL)
+                            .tag(1)
                     }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
                     .frame(width: 400, height: 490)
-
                 } else {
                     PostPictureView(postURL: afterPostURL)
                         .frame(width: 400, height: 490)
                 }
             }
 
-           
-            
-            
             // MARK: Post Header
             VStack(alignment: .leading, spacing: 10) {
                 NavigationLink (destination: PostDetailView(post: post, user: user)) {
@@ -57,6 +58,7 @@ struct PostRowView: View {
                                 .frame(width: 35, height: 35)
                                 .clipShape(Circle())
                                 .shadow(radius: 3)
+                                .padding(.trailing, 3)
                         } placeholder: {
                             
                             
@@ -75,32 +77,43 @@ struct PostRowView: View {
                                       .font(.custom("Nunito-Bold", size: 17))
                                       .foregroundColor(.white)
                                 )
+                                .padding(.trailing, 3)
+
                         }
                         
                         // MARK: user info, timestamp, and completed task info
-                        if let date = post.task.date_completed {
-                            let timestamp = String(postViewModel.getTimestamp(time: date) ?? "")
-                            Text("**\(post.created_by.first_name)**")
-                                .font(.custom("Lato", size: 16.5))
+                        ZStack(alignment: .leading) {
+                            
+                            // MARK: Top text
+                            HStack {
+                                if let date = post.task.date_completed {
+                                    let timestamp = String(postViewModel.getTimestamp(time: date) ?? "")
+                                    Text("**\(post.created_by.first_name)**")
+                                        .font(.custom("Lato", size: 16))
+                                        .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                                        .shadow(radius: 1)
+                                    
+                                    Text("\(timestamp) ago")
+                                        .font(.custom("Lato", size: 16))
+                                        .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9))
+                                        .shadow(radius: 3)
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .font(.custom("Lato", size: 16))
+                                        .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                                        .shadow(radius: 3)
+                                }
+                            }
+                            
+                            
+                            // MARK: Bottom Text
+                            
+                            Text(" \(selectedTabIndex == 0 ? "Before:" : "After:")  \(post.task.name)")
+                                .font(.custom("Lato", size: 13.5))
                                 .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
-                                .padding(.top, 5)
-                                .padding(.leading, 7)
                                 .shadow(radius: 3)
-                            
-                            
-                            Text(" \(timestamp) ago")
-                                .font(.custom("Lato", size: 16.5))
-                                .foregroundColor(Color(red: 0.9, green: 0.9, blue: 0.9)) // Off-white color
-                                .padding(.top, 5)
-                                .shadow(radius: 3)
-                            
-                            Image(systemName: "chevron.right")
-                                .font(.custom("Lato", size: 16.5))
-                                .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
-                                .padding(.top, 8)
-                                .padding(.leading, 6)
-                                .shadow(radius: 3)
-                        }
+                                .offset(x: -3, y: 20)
+                        } .offset(y: -2)
                     }
                 }
                 
@@ -117,26 +130,58 @@ struct PostRowView: View {
                 Spacer()
                 
                 // MARK: Add or view comment button
-                HStack(alignment: .bottom, spacing: 12) {
-                    commentButton(post: post, user: user)
-                }.offset(y: -20)
-                 .padding(.leading, 5)
-
-                // MARK: Bottom Section for reactions
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(postViewModel.nonEmptyReactions(post: post).sorted(by: { $0.value.count > $1.value.count }), id: \.key) { emoji, users in
-                            reactionButton(emoji: emoji, currUser: user, post: post)
-                        }
-
-                        // MARK: Add reaction emoji button
-                        addReactionButton(post: post, user: user)
-                    }
-                }
+                HStack {
+                        commentButton(post: post, user: user).offset(x: 4, y: 2)
+                        
+                        Spacer()
+                        
+                        toggleReactionsButton(post: post, user: user)
+                }.offset(y: -36)
+            
             }
             .padding(.all, 15)
             .padding(.leading, 7)
-        }.frame(height: 555) // Set the height of the ZStack
+            
+        
+            // MARK: Bottom Section for reactions
+        
+           VStack(spacing: 6) {
+               ForEach(postViewModel.nonEmptyReactions(post: post).sorted(by: {if $0.value.count == $1.value.count {
+                   return $0.key < $1.key // Sort by key (chronological order)
+               } else {
+                   return $0.value.count < $1.value.count
+               } }), id: \.key) { emoji, users in
+                   reactionButton(emoji: emoji, currUser: user, post: post)
+                       .rotationEffect(.degrees(180))
+               }
+               Spacer()
+
+           }.rotationEffect(.degrees(180)) // Invert the content
+            .frame(maxWidth: .infinity, alignment: .trailing) // Align to the trailing edge
+            .padding(.trailing, 20) // Adjust the position with padding
+            .padding(.bottom, 89)
+              
+
+        }.frame(height: 525) // Set the height of the ZStack
+          
+    }
+    
+    private func toggleReactionsButton(post: Post, user: User) -> some View {
+        Button(action: {
+            self.isEmojiPopoverPresented.toggle()
+
+        }) {
+            Image(systemName: "face.smiling.inverse")
+                .font(.system(size: 23))
+                .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                .shadow(radius: 2)
+        }.emojiPicker(
+            isPresented: $isEmojiPopoverPresented,
+            selectedEmoji: $selectedEmoji,
+            arrowDirection: .down
+        ).onChange(of: selectedEmoji) { newEmoji in
+            postViewModel.addReactionAndReact(post: post, emoji: newEmoji, user: user)
+        }.padding(.trailing, 12)
     }
     
     // MARK: Add reaction
@@ -177,25 +222,23 @@ struct PostRowView: View {
             }) {
                
                     Text(emoji)
-                        .font(.system(size: 16))
+                    .font(.system(size: 18)).offset(x: 3)
                                                                                                                       
                     if let users = post.reactions[emoji] {
                         if !users.isEmpty {
                             Text("\(users.count)")
                                 .padding(.trailing, 5)
-                                .font(.custom("Lato", size: 13))
-                                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                                .shadow(radius: 7)
+                                .font(.custom("Lato", size: 15))
+                                .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
                         }
                     }
-            }.padding(8)
-            .padding(.leading, 5)
-            .padding(.trailing, 5)
+            }.padding(6)
+
             .background(
                 RoundedRectangle(cornerRadius: 18)
                     .fill((post.reactions[emoji]?.contains(where: { $0 == currUser.id }))! ?
-                          Color(.gray).opacity(0.15) :
-                        Color(.gray).opacity(0.40))
+                          Color(.white).opacity(0.48) :
+                        Color(.white).opacity(0.13))
             )
             .cornerRadius(15)
     }
@@ -242,16 +285,16 @@ struct PostRowView: View {
                 if !post.comments.isEmpty {
                     if post.comments.count == 1 {
                         Text("View comment")
-                            .font(.custom("Lato", size: 16))
+                            .font(.custom("Lato", size: 15))
                             .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
                     } else {
                         Text("View all \(post.comments.count) comments")
-                            .font(.custom("Lato", size: 16))
+                            .font(.custom("Lato", size: 15))
                             .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
                     }
                 } else {
                     Text("Add a comment...")
-                        .font(.custom("Lato", size: 16))
+                        .font(.custom("Lato", size: 15))
                         .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
                 }
             }
