@@ -50,7 +50,7 @@ struct taskCard: View {
           
         }
         .padding()
-        .frame(minWidth: 200)
+        .frame(minWidth: 150)
         .overlay(
           RoundedRectangle(cornerRadius: 16)
             .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 2))

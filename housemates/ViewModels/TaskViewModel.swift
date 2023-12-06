@@ -93,6 +93,80 @@ class TaskViewModel: ObservableObject {
         return completedFilteredTasks
         
     }
+  
+  func getCompletedTasksForUserByDay(_ user_id: String, timeframe: String) -> [task] {
+      let completedTasks = getCompletedTasksForUser(user_id)
+      
+      let currentDate = Date()
+      let calendar = Calendar.current
+      
+      var startDate: Date
+    
+      switch timeframe {
+      case "Today":
+          startDate = calendar.date(byAdding: .day, value: -1, to: currentDate)!
+      case "Last Week":
+          startDate = calendar.date(byAdding: .day, value: -7, to: currentDate)!
+      case "Last Month":
+          startDate = calendar.date(byAdding: .month, value: -1, to: currentDate)!
+      default:
+        return completedTasks
+          
+      }
+      
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "MM.dd.yy h:mm a"
+
+      let completedFilteredTasks = completedTasks.filter {
+          guard let completionDateStr = $0.date_completed,
+                let completionDate = dateFormatter.date(from: completionDateStr) else {
+              return false
+          }
+          
+          return completionDate >= startDate
+      }
+      
+    return completedFilteredTasks
+  }
+  
+  func getCompletedTasksForGroupByDay(_ group_id: String, timeframe: String) -> [task] {
+      let completedTasks = getCompletedTasksForGroup(group_id)
+      
+      let currentDate = Date()
+      let calendar = Calendar.current
+      
+      var startDate: Date
+    
+      switch timeframe {
+      case "Today":
+          startDate = calendar.date(byAdding: .day, value: -1, to: currentDate)!
+      case "Last Week":
+          startDate = calendar.date(byAdding: .day, value: -7, to: currentDate)!
+      case "Last Month":
+          startDate = calendar.date(byAdding: .month, value: -1, to: currentDate)!
+      default:
+        return completedTasks
+          
+      }
+      
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "MM.dd.yy h:mm a"
+
+      let completedFilteredTasks = completedTasks.filter {
+          guard let completionDateStr = $0.date_completed,
+                let completionDate = dateFormatter.date(from: completionDateStr) else {
+              return false
+          }
+          
+          return completionDate >= startDate
+      }
+      
+    return completedFilteredTasks
+  }
+
+  
+  
+ 
     
     
     // Function to unclaim tasks for a user who leaves a group

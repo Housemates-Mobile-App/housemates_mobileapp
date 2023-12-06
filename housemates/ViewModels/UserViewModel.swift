@@ -50,6 +50,46 @@ class UserViewModel: ObservableObject {
         groupmates.append(currentUser)
         return groupmates
     }
+  
+    func getUserGroupmatesInclusiveByTask(_ uid: String, _ taskViewModel: TaskViewModel) -> [User] {
+      guard let currentUser = self.users.first(where: { $0.id == uid }), let groupID = currentUser.group_id else {
+          return []
+      }
+      
+      var groupmates = self.users.filter { $0.group_id == groupID }
+      
+        groupmates.sort {
+          guard let id1 = $0.id, let id2 = $1.id else { return false }
+            return taskViewModel.getNumCompletedTasksForUser(id1) > taskViewModel.getNumCompletedTasksForUser(id2)
+          }
+          
+        return groupmates
+  
+     
+//      need to create a functino to get groupmates by task
+//      return groupmates
+  }
+  
+  func getUserGroupmatesInclusiveByTaskTime(_ uid: String, _ taskViewModel: TaskViewModel, timeframe: String) -> [User] {
+    guard let currentUser = self.users.first(where: { $0.id == uid }), let groupID = currentUser.group_id else {
+        return []
+    }
+    
+    var groupmates = self.users.filter { $0.group_id == groupID }
+    
+      groupmates.sort {
+        guard let id1 = $0.id, let id2 = $1.id else { return false }
+        return taskViewModel.getCompletedTasksForUserByDay(id1, timeframe: timeframe).count > taskViewModel.getCompletedTasksForUserByDay(id2, timeframe: timeframe).count
+        }
+        
+      return groupmates
+
+   
+//      need to create a functino to get groupmates by task
+//      return groupmates
+}
+  
+  
     
     func joinGroup(group_code: String, uid: String) async {
         // Fetch the user object by ID

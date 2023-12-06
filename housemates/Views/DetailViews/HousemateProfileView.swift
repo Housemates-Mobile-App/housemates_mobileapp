@@ -63,7 +63,7 @@ struct HousemateProfileView: View {
                     }
                     
                     Text("\(housemate.first_name) \(housemate.last_name)")
-                        .font(.system(size: 26))
+                        .font(.custom("Nunito-Bold", size: 26))
                         .bold()
                         .foregroundColor(.black)
                     
@@ -75,27 +75,23 @@ struct HousemateProfileView: View {
                 
                 VStack (spacing: 25) {
                     VStack(spacing: 10) {
-                        HStack() {
-                            Text("Task Stats")
-                                .font(.custom("Lato-Bold", size: 22))
-                                .bold()
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        HStack(spacing: 20) {
+                        
+                      HStack(spacing: 45) {
                             VStack {
                                 Text("\(taskViewModel.getNumCompletedTasksForUser(housemate.id!))")
                                     .font(.system(size: 32))
                                     .foregroundColor(deepPurple)
                                     .bold()
-                                Text("Completed")
+                                Text("Complete")
                                     .font(.custom("Lato", size: 15))
-                                    .frame(minWidth: 50)
+                                    .frame(minWidth: 55)
                                 
                             }
-                            .padding(30)
-                            .padding(.leading, 30)
-                            .frame(maxWidth: .infinity, minHeight: 25)
+//                            .padding(30)
+                            .padding(.leading, 50)
+                            .padding(.vertical, 25)
+//                            .frame(maxWidth: .infinity, minHeight: 25)
                             
                             VStack {
                                 Text("\(taskViewModel.getNumPendingTasksForUser(housemate.id!))")
@@ -104,28 +100,32 @@ struct HousemateProfileView: View {
                                     .bold()
                                 Text("Pending")
                                     .font(.custom("Lato", size: 15))
-                                    .frame(minWidth: 50)
+                                    .frame(minWidth: 55)
                                 
                             }
-                            .padding(30)
-                            .padding(.trailing, 30)
-                            .frame(maxWidth: .infinity, minHeight: 25)
+//                            .padding(30)
+                            .padding(.trailing, 50)
+                            .padding(.vertical, 25)
+//                            .frame(maxWidth: .infinity, minHeight: 25)
                             
                             
                         }
-                        .frame(maxWidth: .infinity)
+//                        .frame(maxWidth: 250)
                         .background(
                             RoundedRectangle(cornerRadius: 16)
                                 .stroke(Color.gray.opacity(0.5), lineWidth: 2)
                         )
                         
+                        
                     }
                     
-                    VStack(spacing: 10) {
+                    VStack() {
                         HStack() {
                             Text("Recent Activity")
-                                .font(.custom("Lato-Bold", size: 22))
+                                .font(.custom("Nunito-Bold", size: 22))
+                                
                                 .bold()
+                            
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
@@ -138,7 +138,7 @@ struct HousemateProfileView: View {
                                     
                                     ForEach(recentTasks) {task in
                                         taskCard(task: task, user: housemate)
-                                            .padding(.horizontal)
+                                            
                                         
                                     }
                                 }
@@ -150,7 +150,7 @@ struct HousemateProfileView: View {
                         }
                         
                         Spacer()
-                    }
+                    }.padding(.horizontal)
                 }.padding(.horizontal, 20)
             }
             .navigationBarBackButtonHidden(true)
