@@ -223,26 +223,13 @@ struct TaskView: View {
             Button(action: {
                 // Handle button tap action here
                 // Navigate to AddPostView or perform any other action
-                isAddPostViewActive = true
                 showCamera = true
+                isAddPostViewActive = true
             }) {
                 Text("DONE")
             }
             .fullScreenCover(isPresented: $showCamera) {
-                BeforeCameraView(image: $capturedImage, isPresented: $showCamera, onClaimTask: { takenImage in
-                    if let image = takenImage {
-                        // Claim the task with the image
-                        Task {
-                            await taskViewModel.claimTask(task: task, user_id: user.id ?? "", image: image)
-                        }
-                    } else {
-                        // Claim the task without the image
-                        Task {
-                            await taskViewModel.claimTask(task: task, user_id: user.id ?? "", image: nil)
-                        }
-                    }
-                }
-                )
+                AfterCameraView(image: $capturedImage, isPresented: $showCamera)
             }
             .onChange(of: capturedImage) { _ in
                 if let _ = capturedImage {

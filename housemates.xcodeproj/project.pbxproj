@@ -150,6 +150,7 @@
 		8AF549582B0584C800EB28CC /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF549572B0584C800EB28CC /* AddPostView.swift */; };
 		8AF5495A2B0585C300EB28CC /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF549592B0585C300EB28CC /* PostDetailView.swift */; };
 		AD7F57F12B1FF26E0023D476 /* BeforeCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7F57F02B1FF26E0023D476 /* BeforeCameraView.swift */; };
+		AD7F57F52B1FF8130023D476 /* AfterCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7F57F42B1FF8130023D476 /* AfterCameraView.swift */; };
 		AD95E0E02B168AD700577DAB /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95E0DF2B168AD700577DAB /* CameraView.swift */; };
 		ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */; };
 		ADD11A662AFAFA54001861A0 /* TaskDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */; };
@@ -257,6 +258,7 @@
 		8AF549572B0584C800EB28CC /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		8AF549592B0585C300EB28CC /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		AD7F57F02B1FF26E0023D476 /* BeforeCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeforeCameraView.swift; sourceTree = "<group>"; };
+		AD7F57F42B1FF8130023D476 /* AfterCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterCameraView.swift; sourceTree = "<group>"; };
 		AD95E0DF2B168AD700577DAB /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataRepository.swift; sourceTree = "<group>"; };
@@ -443,6 +445,7 @@
 				8AEF99022B1BFE2000C68907 /* PostPictureView.swift */,
 				C171E1FC2B1E7DDB00AE41EC /* taskCard.swift */,
 				AD7F57F02B1FF26E0023D476 /* BeforeCameraView.swift */,
+				AD7F57F42B1FF8130023D476 /* AfterCameraView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -775,6 +778,7 @@
 				AD95E0E02B168AD700577DAB /* CameraView.swift in Sources */,
 				8AD6ED292AF1980D006B56B6 /* GroupDataRepository.swift in Sources */,
 				C171E1FB2B1E408100AE41EC /* NewWave.swift in Sources */,
+				AD7F57F52B1FF8130023D476 /* AfterCameraView.swift in Sources */,
 				C171E1FD2B1E7DDB00AE41EC /* taskCard.swift in Sources */,
 				8AE8FF9B2AF4114B003AD997 /* InputView.swift in Sources */,
 				51802D8B2B08CD4300B4EE9A /* FirstNameView.swift in Sources */,

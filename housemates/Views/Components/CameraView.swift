@@ -120,3 +120,12 @@ struct CustomCameraViewRepresentable: UIViewControllerRepresentable {
         }
     }
 }
+
+struct SafeAreaInsets {
+    static var top: CGFloat {
+        UIApplication.shared.windows.first { $0.isKeyWindow }?.safeAreaInsets.top ?? 0
+    }
+    static var bottom: CGFloat {
+        UIApplication.shared.windows.first { $0.isKeyWindow }?.safeAreaInsets.bottom ?? 0
+    }
+}
