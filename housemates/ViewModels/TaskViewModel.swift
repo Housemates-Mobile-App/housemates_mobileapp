@@ -123,10 +123,19 @@ class TaskViewModel: ObservableObject {
       return task.user_id == user_id
     }
 
-    func claimTask(task: task, user_id: String, image: UIImage) async {
-        guard let imageURL = await getPostPicURL(image: image) else {
-            print("Failed to upload image or get URL")
-            return
+    func claimTask(task: task, user_id: String, image: UIImage?) async {
+//        guard let imageURL = await getPostPicURL(image: image) else {
+//            print("Failed to upload image or get URL")
+//            return
+//        }
+//        
+        var imageURL: String?
+        if let image = image {
+            imageURL = await getPostPicURL(image: image)
+            guard imageURL != nil else {
+                print("Failed to upload image or get URL")
+                return
+            }
         }
         
         var task = task

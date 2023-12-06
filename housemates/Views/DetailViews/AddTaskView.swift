@@ -113,8 +113,8 @@ struct AddTaskView: View {
   
   
   private func addTask() {
-    guard !taskName.isEmpty && !taskDescription.isEmpty else {
-      alertMessage = "Task name or description cannot be empty."
+    guard !taskName.isEmpty else {
+      alertMessage = "Task name cannot be empty."
       showAlert = true
       return
     }
