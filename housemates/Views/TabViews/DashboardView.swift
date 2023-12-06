@@ -12,6 +12,7 @@ struct DashboardView: View {
   @EnvironmentObject var authViewModel: AuthViewModel
   @EnvironmentObject var userViewModel: UserViewModel
   @State private var selectedTab = 0
+  
   @State var currMonth: Int = 0
   @State var currDay: Date = Date()
   let days: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -23,29 +24,31 @@ struct DashboardView: View {
             Text("Dashboard")
               .font(.custom("Nunito-Bold", size: 26))
               .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-              .padding()
+              .padding([.top, .horizontal])
+              .padding(.bottom, 2.5)
       
         
           
-          CustomTabBar(selectedTab: $selectedTab, tabs: [(icon: "person.3.fill", title: "Statistics"), (icon: "person.fill", title: "Calendar")])
+          CustomTabBar(selectedTab: $selectedTab)
           
           if selectedTab == 0 {
             
             
             
-            HStack {
-              Text("Your Pending Tasks")
-                .font(.custom("Lato-Bold", size: 15))
-              Spacer()
-            }.padding()
+//            HStack {
+//              Text("Your Pending Tasks")
+//                .font(.custom("Lato-Bold", size: 15))
+//              Spacer()
+//            }.padding()
             
             
-            HStack {
-              Text("Statistics")
-                .font(.custom("Lato-Bold", size: 15))
-              Spacer()
-            }.padding()
+//            HStack {
+//              Text("Statistics")
+//                .font(.custom("Lato-Bold", size: 15))
+//              Spacer()
+//            }.padding(.horizontal)
             
+            StatsView(statHeight: UIScreen.main.bounds.size.width)
             Spacer()
           }
           
@@ -233,7 +236,7 @@ struct DashboardView: View {
               .font(.custom("Lato-Bold", size: 15))
           }
           
-        }.padding()
+        }.padding(.vertical)
         
         HStack {
           ForEach(days, id: \.self) { day in
@@ -269,21 +272,22 @@ struct DashboardView: View {
       Text("Completed Tasks")
         .frame(maxWidth: .infinity, alignment: .leading)
         .font(.custom("Lato-Bold", size: 15))
-        .padding()
+        .padding(.vertical)
+        
       if completed.contains(where: { task in
           isSameDay(task: task, currDate: currDay)
       }) {
           
         ScrollView(.horizontal, showsIndicators: false) {
           
-          HStack(spacing: 0) {
+          HStack() {
             
             
             ForEach(completed.filter({ task in
               isSameDay(task: task, currDate: currDay)
             }), id: \.id) { task in
               taskCard(task: task, user: user)
-                .padding(.horizontal)
+                
               
             }
           }
@@ -292,14 +296,13 @@ struct DashboardView: View {
           Text("Nothing here, complete a task!!")
           .frame(maxWidth: .infinity, alignment: .leading)
           .font(.custom("Lato", size: 15))
-          .padding(.horizontal)
+          
       }
 
       
       
     }
     .padding()
-    
     .onChange(of: currMonth) { newVal in
       currDay = getCurrMonth()
       
@@ -309,43 +312,96 @@ struct DashboardView: View {
 
   }
 }
-
-struct CustomTabBar: View {
-    @Binding var selectedTab: Int
-    let tabs: [(icon: String, title: String)]
-    @Namespace private var namespace
+//reference: https://www.youtube.com/watch?v=Zv1jw__VKTo&ab_channel=Kavsoft
+struct CustomTabBar : View {
+    
+    @Binding var selectedTab : Int
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
-    var body: some View {
-        HStack {
-            ForEach(0..<tabs.count, id: \.self) { index in
-                Button(action: {
-                    withAnimation(.easeInOut) {
-                        self.selectedTab = index
-                    }
-                }) {
-                    VStack {
-                      HStack {
-                        Image(systemName: tabs[index].icon)
-                        Text(tabs[index].title)
-                          .font(.custom("Nunito-Bold", size: 15))
-                      }
-                     
-                        if selectedTab == index {
-                            deepPurple.frame(height: 2)
-                                .matchedGeometryEffect(id: "tabIndicator", in: namespace)
-                        } else {
-                            Color.clear.frame(height: 2)
-                        }
-                    }
-                }
-                .foregroundColor(self.selectedTab == index ? deepPurple : .gray)
-            }
-        }
-        .padding([.horizontal])
-        .background(Color.white)
+    var body : some View{
         
+        HStack{
+            
+            Button(action: {
+                
+                self.selectedTab = 0
+                
+            }) {
+                
+              Image(systemName: "chart.bar.fill")
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .padding(.vertical,10)
+                    .padding(.horizontal,25)
+                    .background(self.selectedTab == 0 ? Color.white : Color.clear)
+                    .clipShape(Capsule())
+            }
+            .foregroundColor(self.selectedTab == 0 ? deepPurple : .gray.opacity(0.5))
+            
+            Button(action: {
+                
+                self.selectedTab = 1
+                
+            }) {
+                
+              Image(systemName: "calendar")
+                .resizable()
+                .frame(width: 20, height: 20)
+                .padding(.vertical,10)
+                .padding(.horizontal,25)
+                .background(self.selectedTab == 1 ? Color.white : Color.clear)
+                .clipShape(Capsule())
+            }
+            .foregroundColor(self.selectedTab == 1 ? deepPurple : .gray.opacity(0.5))
+            
+            }.padding(8)
+        .background(.gray.opacity(0.1))
+            .clipShape(Capsule())
+            
     }
 }
+
+
+
+
+
+
+
+//struct CustomTabBar: View {
+//    @Binding var selectedTab: Int
+//    let tabs: [(icon: String, title: String)]
+//    @Namespace private var namespace
+//    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
+//    var body: some View {
+//        HStack {
+//            ForEach(0..<tabs.count, id: \.self) { index in
+//                Button(action: {
+//                    withAnimation(.easeInOut) {
+//                        self.selectedTab = index
+//                    }
+//                }) {
+//                    VStack {
+//                      HStack {
+//                        Image(systemName: tabs[index].icon)
+//                        Text(tabs[index].title)
+//                          .font(.custom("Nunito-Bold", size: 15))
+//                      }
+//
+//                        if selectedTab == index {
+//                            deepPurple.frame(height: 2)
+//                                .matchedGeometryEffect(id: "tabIndicator", in: namespace)
+//                        } else {
+//                            Color.clear.frame(height: 2)
+//                        }
+//                    }
+//                }
+//                .foregroundColor(self.selectedTab == index ? deepPurple : .gray)
+//            }
+//        }
+//        .padding([.horizontal])
+//        .background(Color.white)
+//
+//    }
+//}
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
         DashboardView()
