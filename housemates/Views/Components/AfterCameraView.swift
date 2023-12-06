@@ -41,8 +41,8 @@ struct AfterImagePreviewView: View {
     var onDismiss: () -> Void
     
     var body: some View {
-        ZStack { // Use ZStack to ensure the background covers everything
-            Color.black.edgesIgnoringSafeArea(.all) // Set the entire background to black
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
 
             VStack {
                 if let uiImage = image {
@@ -52,20 +52,20 @@ struct AfterImagePreviewView: View {
                         .edgesIgnoringSafeArea(.all)
                 }
                 
-                HStack(spacing: 20) { // Added spacing between buttons
+                HStack(spacing: 20) {
                     Button("Retake") {
                         self.showPreview = false
                         self.image = nil
                     }
                     .font(.custom("Nunito-Bold", size: 17))
-                    .frame(width: 100, height: 30) // Set buttons to same width
+                    .frame(width: 100, height: 30)
                     .padding()
-                    .background(Color.white) // White background fill
-                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Purple font color
+                    .background(Color.white)
+                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                     .clipShape(Capsule())
                     .overlay(
                         Capsule()
-                        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5) // Purple outline
+                        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5)
                     )
                     
                     Button("Use Photo") {
@@ -73,17 +73,17 @@ struct AfterImagePreviewView: View {
                         onDismiss()
                     }
                     .font(.custom("Nunito-Bold", size: 17))
-                    .frame(width: 100, height: 30) // Set buttons to same width
+                    .frame(width: 100, height: 30)
                     .padding()
-                    .background(Color.white) // White background fill
-                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Purple font color
+                    .background(Color.white)
+                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                     .clipShape(Capsule())
                     .overlay(
                         Capsule()
-                        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5) // Purple outline
+                        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5)
                     )
                 }
-                .padding() // Add padding if necessary
+                .padding()
             }
             .background(Color.black)
             .edgesIgnoringSafeArea(.all)

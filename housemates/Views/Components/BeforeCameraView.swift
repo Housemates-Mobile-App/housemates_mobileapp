@@ -27,7 +27,7 @@ struct BeforeCameraView: View {
                 // This is the camera UI
 //                CustomCameraInterfaceView(image: $image, showPreview: $showPreview, takePhoto: takePhoto, onClaimTask: onClaimTask)
                 BeforeCustomCameraInterfaceView(image: $image, showPreview: $showPreview, takePhoto: takePhoto, onDismiss: {
-                    isPresented = false // Dismiss the camera view
+                    isPresented = false 
                 })
             }
         }
@@ -102,8 +102,8 @@ struct BeforeImagePreviewView: View {
 //    let onClaimTask: (UIImage?) -> Void
     
     var body: some View {
-        ZStack { // Use ZStack to ensure the background covers everything
-            Color.black.edgesIgnoringSafeArea(.all) // Set the entire background to black
+        ZStack {
+            Color.black.edgesIgnoringSafeArea(.all)
 
             VStack {
                 if let uiImage = image {
@@ -113,37 +113,37 @@ struct BeforeImagePreviewView: View {
                         .edgesIgnoringSafeArea(.all)
                 }
                 
-                HStack(spacing: 20) { // Added spacing between buttons
+                HStack(spacing: 20) {
                     Button("Retake") {
                         self.showPreview = false
                         self.image = nil
                     }
                     .font(.custom("Nunito-Bold", size: 17))
-                    .frame(width: 100, height: 30) // Set buttons to same width
+                    .frame(width: 100, height: 30)
                     .padding()
-                    .background(Color.white) // White background fill
-                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Purple font color
+                    .background(Color.white)
+                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                     .clipShape(Capsule())
                     .overlay(
                         Capsule()
-                        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5) // Purple outline
+                        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5)
                     )
                     
                     Button("Use Photo") {
                         self.isPresented = false
                     }
                     .font(.custom("Nunito-Bold", size: 17))
-                    .frame(width: 100, height: 30) // Set buttons to same width
+                    .frame(width: 100, height: 30)
                     .padding()
-                    .background(Color.white) // White background fill
-                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Purple font color
+                    .background(Color.white)
+                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                     .clipShape(Capsule())
                     .overlay(
                         Capsule()
-                        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5) // Purple outline
+                        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5)
                     )
                 }
-                .padding() // Add padding if necessary
+                .padding()
             }
             .background(Color.black)
             .edgesIgnoringSafeArea(.all)
@@ -261,7 +261,6 @@ struct BeforeCustomCameraInterfaceView: View {
                 CustomCameraViewRepresentable(image: $image, isPresented: $showPreview, takePhoto: $takePhoto)
 
                 VStack {
-                    // "Before" label and "Take a picture now" prompt at the top, centered
                     VStack (spacing: -10) {
                         Text("Take a picture now, you'll see your hard work after!")
                             .font(.custom("Nunito-Bold", size: 17))
