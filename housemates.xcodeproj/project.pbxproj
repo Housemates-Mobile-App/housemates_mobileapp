@@ -58,6 +58,7 @@
 		81E9ED672B05F61B00A258A8 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED652B05F61B00A258A8 /* Lato-Regular.ttf */; };
 		81E9ED692B06E0B800A258A8 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E9ED682B06E0B800A258A8 /* TaskDetailView.swift */; };
 		81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EC60C02AFE024000A1B753 /* GraphView.swift */; };
+		8A02F5FE2B1FF854002341C7 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8A02F5FD2B1FF854002341C7 /* CachedAsyncImage */; };
 		8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */; };
 		8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */; };
 		8A61D96F2B1DC318003A3494 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8A61D96E2B1DC318003A3494 /* MCEmojiPicker */; };
@@ -297,6 +298,7 @@
 				8AF0A4012AF9D40B00A79110 /* FirebaseDatabaseSwift in Frameworks */,
 				8AA3B8DB2AF9D4680064CFD6 /* FirebaseInAppMessaging-Beta in Frameworks */,
 				8AA3B8C12AF9D4680064CFD6 /* FirebaseAppCheck in Frameworks */,
+				8A02F5FE2B1FF854002341C7 /* CachedAsyncImage in Frameworks */,
 				8AA3B8C52AF9D4680064CFD6 /* FirebaseAuth in Frameworks */,
 				8AA3B8D12AF9D4680064CFD6 /* FirebaseFirestore in Frameworks */,
 				8AF0A3FF2AF9D40B00A79110 /* FirebaseDatabase in Frameworks */,
@@ -659,6 +661,7 @@
 				512D1EAE2B033B6E007A388A /* SwiftUITrackableScrollView */,
 				81E659F52B08852E00B77EE4 /* SlidingTabView */,
 				8A61D96E2B1DC318003A3494 /* MCEmojiPicker */,
+				8A02F5FD2B1FF854002341C7 /* CachedAsyncImage */,
 			);
 			productName = housemates;
 			productReference = 8AD6ED052AF1969C006B56B6 /* housemates.app */;
@@ -698,6 +701,7 @@
 				512D1EAD2B033B6E007A388A /* XCRemoteSwiftPackageReference "trackable-scroll-view" */,
 				81E659F42B08852E00B77EE4 /* XCRemoteSwiftPackageReference "SlidingTabView" */,
 				8A61D96D2B1DC318003A3494 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
+				8A02F5FC2B1FF854002341C7 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 8AD6ED062AF1969C006B56B6 /* Products */;
 			projectDirPath = "";
@@ -1121,6 +1125,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		8A02F5FC2B1FF854002341C7 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 		8A61D96D2B1DC318003A3494 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/izyumkin/MCEmojiPicker";
@@ -1154,6 +1166,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 81E659F42B08852E00B77EE4 /* XCRemoteSwiftPackageReference "SlidingTabView" */;
 			productName = SlidingTabView;
+		};
+		8A02F5FD2B1FF854002341C7 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A02F5FC2B1FF854002341C7 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
 		};
 		8A61D96E2B1DC318003A3494 /* MCEmojiPicker */ = {
 			isa = XCSwiftPackageProductDependency;

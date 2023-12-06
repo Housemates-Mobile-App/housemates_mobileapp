@@ -5,6 +5,7 @@
 //  Created by Daniel Fransesco Gunawan on 11/9/23.
 //
 import SwiftUI
+import CachedAsyncImage
 
 struct AllHousematesView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
@@ -58,7 +59,7 @@ struct AllHousematesView: View {
                 VStack {
                     let imageURL = URL(string: userWithNextBirthday?.imageURLString ?? "")
                     
-                    AsyncImage(url: imageURL) { image in
+                    CachedAsyncImage(url: imageURL) { image in
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)

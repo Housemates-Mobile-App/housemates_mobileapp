@@ -1,4 +1,5 @@
 import SwiftUI
+import CachedAsyncImage
 
 struct TaskDetailView: View {
     @EnvironmentObject var taskViewModel: TaskViewModel
@@ -49,7 +50,7 @@ struct TaskDetailView: View {
                   .font(.custom("Lato-Regular", size: 14))
                   .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
                 
-                AsyncImage(url: imageURL) { image in
+                  CachedAsyncImage(url: imageURL) { image in
                   image
                     .resizable()
                     .aspectRatio(contentMode: .fill)

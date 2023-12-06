@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import CachedAsyncImage
 
 enum ActiveAlert: Identifiable {
     case leaveGroup, signOut
@@ -82,7 +83,7 @@ struct ProfileView: View {
                           
                           let imageURL = URL(string: user.imageURLString ?? "")
                           
-                          AsyncImage(url: imageURL) { image in
+                          CachedAsyncImage(url: imageURL) { image in
                               image
                                   .resizable()
                                   .aspectRatio(contentMode: .fill)
@@ -104,6 +105,7 @@ struct ProfileView: View {
                                     )
                                   )
                                   .frame(width: 100, height: 100)
+                                  .overlay(Circle().stroke(Color.white, lineWidth: 2))
                                   .overlay(
                                     Text("\(user.first_name.prefix(1).capitalized+user.last_name.prefix(1).capitalized)")
                                     

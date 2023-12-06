@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct taskCard: View {
     @EnvironmentObject var userViewModel: UserViewModel
@@ -59,7 +60,7 @@ struct taskCard: View {
        
     }
     private func userProfileImage(for user: User) -> some View {
-        AsyncImage(url: URL(string: user.imageURLString ?? "")) { image in
+        CachedAsyncImage(url: URL(string: user.imageURLString ?? "")) { image in
             image.resizable()
         } placeholder: {
           Circle()
