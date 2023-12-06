@@ -11,7 +11,7 @@ import CachedAsyncImage
 struct PostPictureView: View {
     let postURL: URL
     var body: some View {
-        CachedAsyncImage(url: postURL) { image in
+        AsyncImage(url: postURL) { image in
             image
                 .resizable()
                 .scaledToFill()
@@ -25,7 +25,7 @@ struct PostPictureView: View {
                 .progressViewStyle(CircularProgressViewStyle(tint: .gray))
                 .frame(width: 380, height: 490)
                 .cornerRadius(25)
-                .overlay(Color.black.opacity(0.23).clipShape(RoundedRectangle(cornerRadius: 25))) // Adjust opacity as needed
+                .overlay(Color.black.opacity(0.1).clipShape(RoundedRectangle(cornerRadius: 25))) // Adjust opacity as needed
         }
     }
 }
@@ -33,3 +33,4 @@ struct PostPictureView: View {
 //#Preview {
 //    PostPictureView()
 //}
+
