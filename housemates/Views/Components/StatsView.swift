@@ -15,7 +15,7 @@ struct StatsView: View {
     let statHeight: CGFloat
     @State var barHeight = 0
     @State private var showDropdown: Bool = false
-    @State private var selectedGraph: String = "Last Month"
+    @State private var selectedGraph: String = "All Time"
     @State private var selectedUser: String? = nil
     @State private var animation: Bool = false
     
@@ -55,127 +55,13 @@ struct StatsView: View {
              VStack(alignment: .leading, spacing: 15) {
               
               
-              
               //            col(user: user, maxVal: maxVal)
                let groupMates = userViewModel.getUserGroupmatesInclusiveByTaskTime(user_id, taskViewModel, timeframe: selectedGraph)
               
+              
              
               ForEach(groupMates) { mate in
-                HStack() {
-                  if let member_id = mate.id {
-                    
-                    let imageURL = URL(string: mate.imageURLString ?? "")
-                    
-                    AsyncImage(url: imageURL) { image in
-                      image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 40, height: 40)
-                        .clipShape(Circle())
-                    } placeholder: {
-                      // Default user profile picture
-                      Circle()
-                        .fill(
-                          LinearGradient(
-                            gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                          )
-                        )
-                        .frame(width: 40, height: 40)
-                        .overlay(
-                          Text("\(mate.first_name.prefix(1).capitalized + mate.last_name.prefix(1).capitalized)")
-                          
-                            .font(.custom("Nunito-Bold", size: 26))
-                            .foregroundColor(.white)
-                        )
-                    }.padding(.horizontal)
-               
-                      
-                      let numTasks: [task] = getNumTasks(member_id: member_id)
-                      
-                      
-                      if numTasks.count != 0 {
-                        
-                        
-                        let barHeight: CGFloat = getBarHeight(member_id: member_id, maxVal: maxVal, statHeight: statHeight)
-                        
-                        //                    creates the bar on the graph
-                        Button(action: {
-                          self.selectedUser = member_id
-                          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                  withAnimation {
-                                      self.selectedUser = member_id
-                                      self.animation = false
-                                  }
-                              }
-                          
-                          
-                        }) {
-                          ZStack(alignment: .leading) {
-                            
-                            
-  //                          MAKES THE BAR AND ALSO MAKES IT SO THE END IS STRAIGHT
-                            
-                          
-                            RoundedRectangle(cornerRadius: 12)
-
-                              .frame(width: barHeight, height: 32.5)
-                              .foregroundColor(animation ? .white : deepPurple)
-
-                              
-                            
-                            
-                            
-                            Rectangle()
-                              .foregroundColor(animation ? .white : deepPurple)
-                              .frame(width: barHeight / 2, height: 32.5)
-                              
-                            
-                              .padding(.vertical, 3.5)
-                          }
-                        }
-                        
-                        
-                        
-                        
-                        //                        .overlay(RoundedRectangle(cornerRadius: 5)
-                        //                          .stroke(lightPurple, lineWidth: 2))
-                        //                        .padding(.horizontal)
-                        
-                       
-                        
-                        
-                        
-                      }
-                      
-                    
-                    
-                    
-                    
-                    
-                    Text("\(numTasks.count)")
-                      .font(.custom("Lato-Bold", size: 16))
-                      .foregroundColor(deepPurple)
-                      .padding(.trailing)
-                    
-                    
-                    
-                    
-                    //                    .frame(height: getBarHeight(member_id: member_id, maxVal: maxVal, statHeight: statHeight))
-                    //                    .frame(height: barHeight)
-                    //                  VStack {
-                    //                    Text("\(mate.first_name)")
-                    //
-                    //                  }
-                    //                  .frame(height: barHeight)
-                  }
-                  
-                
-                 
-                  
-                Spacer()
-                }
+                GraphForUser(mate: mate, maxVal: maxVal, groupMates: groupMates)
               }
               
             }
@@ -228,6 +114,30 @@ struct StatsView: View {
 //                 .foregroundColor(lightPurple)
 //             }.frame(maxWidth: .infinity)
 //             creates the box around
+             VStack {
+              
+               if let selected = selectedUser {
+                 if let user = userViewModel.getUserByID(selected) {
+                   Text("\(user.first_name)'s Completed Tasks")
+                     .frame(maxWidth: .infinity, alignment: .leading)
+                     .font(.custom("Nunito-Bold", size: 15))
+                   Text("\(selectedGraph) • \(getPercentageForUser(member_id: selected, maxVal: maxVal))%")
+                     .frame(maxWidth: .infinity, alignment: .leading)
+                     .font(.custom("Lato", size: 12))
+                   
+                  
+                 }
+               }
+               else {
+                 Text("Select to See Completed Tasks")
+                   .frame(maxWidth: .infinity, alignment: .leading)
+                   .font(.custom("Nunito-Bold", size: 15))
+               }
+             }.padding()
+             
+             completedTasks()
+               .padding(.horizontal)
+//             add to  vstack here the completed
           }
           
         }
@@ -240,7 +150,156 @@ struct StatsView: View {
     }
   
   
+  private func GraphForUser(mate: User, maxVal: CGFloat, groupMates: [User]) -> some View{
+    HStack() {
+      if let member_id = mate.id {
+        
+        let imageURL = URL(string: mate.imageURLString ?? "")
+        
+        AsyncImage(url: imageURL) { image in
+          image
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 40, height: 40)
+            .clipShape(Circle())
+        } placeholder: {
+          // Default user profile picture
+          Circle()
+            .fill(
+              LinearGradient(
+                gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+              )
+            )
+            .frame(width: 40, height: 40)
+            .overlay(
+              Text("\(mate.first_name.prefix(1).capitalized + mate.last_name.prefix(1).capitalized)")
+              
+                .font(.custom("Nunito-Bold", size: 18))
+                .foregroundColor(.white)
+            )
+        }.padding(.horizontal)
+   
+          
+          let numTasks: [task] = getNumTasks(member_id: member_id)
+          
+          
+          if numTasks.count != 0 {
+            
+            
+            let barHeight: CGFloat = getBarHeight(member_id: member_id, maxVal: maxVal, statHeight: statHeight)
+            
+            //                    creates the bar on the graph
+            Button(action: {
+              self.selectedUser = member_id
+              DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                      withAnimation {
+                          self.selectedUser = member_id
+                          
+                      }
+                  }
+              
+              
+            }) {
+              ZStack(alignment: .leading) {
+                
+                
+//                          MAKES THE BAR AND ALSO MAKES IT SO THE END IS STRAIGHT
+                
+              
+                RoundedRectangle(cornerRadius: 5)
 
+                  .frame(width: barHeight, height: 32.5)
+                  .foregroundColor(deepPurple.opacity(calculateOpacity(mateIndex: CGFloat(userViewModel.getGroupmateIndex(member_id, in: groupMates) ?? 0))))
+
+                  
+                
+                
+                
+//                            Rectangle()
+//                              .foregroundColor(animation ? .white : deepPurple)
+//                              .frame(width: barHeight / 2, height: 32.5)
+//
+//
+                  .padding(.vertical, 3.5)
+              }
+            }
+            
+            
+            
+            
+            //                        .overlay(RoundedRectangle(cornerRadius: 5)
+            //                          .stroke(lightPurple, lineWidth: 2))
+            //                        .padding(.horizontal)
+            
+           
+            
+            
+            
+          }
+          
+        
+        
+        
+        
+        
+        Text("\(numTasks.count)")
+          .font(.custom("Lato-Bold", size: 16))
+          .foregroundColor(deepPurple)
+          .padding(.trailing)
+        
+        
+        
+        
+        //                    .frame(height: getBarHeight(member_id: member_id, maxVal: maxVal, statHeight: statHeight))
+        //                    .frame(height: barHeight)
+        //                  VStack {
+        //                    Text("\(mate.first_name)")
+        //
+        //                  }
+        //                  .frame(height: barHeight)
+      }
+      
+    
+     
+      
+    Spacer()
+    }
+  }
+  
+  
+  private func completedTasks() -> some View {
+      VStack {
+          if let user_id = selectedUser {
+              completedTasksView(for: user_id)
+          }
+      }
+  }
+
+  private func completedTasksView(for userId: String) -> some View {
+      let tasks = taskViewModel.getCompletedTasksForUserByDay(userId, timeframe: selectedGraph)
+
+      return ScrollView(.horizontal, showsIndicators: false) {
+          HStack {
+              ForEach(tasks) { task in
+                  if let user = userViewModel.getUserByID(userId) {
+                    
+                    taskCard(task: task, user: user)
+                    
+                  }
+              }
+          }
+      }
+  }
+
+
+  
+  private func calculateOpacity(mateIndex: CGFloat) -> Double {
+    let minOpacity: CGFloat = 0.2
+    let increment: CGFloat = 0.25
+    return max(minOpacity, 1.0 - (increment * mateIndex))
+  }
   
   private func getNumTasks(member_id: String) -> [task] {
     
@@ -252,64 +311,14 @@ struct StatsView: View {
     
   }
   
-//  need to fix this function to get bar height based on time frmae
-  private func col(user: User, maxVal: CGFloat) -> some View {
-    VStack {
-      
-      if let user_id = user.id {
-        
-      
-      let groupMates = userViewModel.getUserGroupmatesInclusive(user_id)
-      
-      
-        ForEach(groupMates) { mate in
-          VStack {
-            
-          
-          
-            if let member_id = mate.id {
-              let imageURL = URL(string: mate.imageURLString ?? "")
-              
-              AsyncImage(url: imageURL) { image in
-                image
-                  .resizable()
-                  .aspectRatio(contentMode: .fill)
-                  .frame(width: 50, height: 50)
-                  .clipShape(Circle())
-              } placeholder: {
-//              default prof
-                Circle()
-                  .fill(
-                    LinearGradient(
-                      gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
-                      startPoint: .topLeading,
-                      endPoint: .bottomTrailing
-                    )
-                  )
-                  .frame(width: 50, height: 50)
-                  .overlay(
-                    Text("\(mate.first_name.prefix(1).capitalized + mate.last_name.prefix(1).capitalized)")
-                    
-                      .font(.custom("Nunito-Bold", size: 26))
-                      .foregroundColor(.white)
-                  )
-              }
-              
-              Text("\(taskViewModel.getNumCompletedTasksForUser(member_id))")
-            }
-              
-            }
-            
-            
-          }
-        }
-      }
-      
-      
-      
-      
+  private func getPercentageForUser(member_id: String, maxVal: CGFloat) -> Int {
+    let num: Int = taskViewModel.getCompletedTasksForUserByDay(member_id, timeframe: selectedGraph).count
+    let percent: CGFloat = CGFloat(num) / CGFloat(maxVal)
+    return Int(percent * 100)
     
-    }
+  }
+  
+
 }
 
 //struct StatsView_Previews: PreviewProvider {

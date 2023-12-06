@@ -13,48 +13,60 @@ struct taskCard: View {
     var user: User
     
     var body: some View {
-        VStack {
+      
+        
+       
           
           
+      
+   
           
-          if let uid = task.user_id {
-            if let user = userViewModel.getUserByID(uid) {
-              ZStack(alignment: .bottomTrailing) {
-                Image(task.icon ?? "moon")
-                  .resizable()
-                  .aspectRatio(contentMode: .fill)
-                  .frame(width: 65, height: 65)
-                  
-                  
-    //              .overlay(Circle().stroke(Color.purple, lineWidth: 2))
-                  .padding(7.5)
-               
-                  .background(Color(red: 0.439, green: 0.298, blue: 1.0))
-                  .clipShape(Circle())
-                  
-                
-                userProfileImage(for: user)
-                  .offset(x: 10, y: 10)
-             
-              }
-              Text(task.name)
-                .font(.custom("Lato-Bold", size: 15))
-              Text("\(user.first_name) \(user.last_name)")
-                .font(.custom("Lato", size: 12))
-                .foregroundColor(Color.gray)
-                
-            }
+          
+      VStack {
+        
+        
+        
+        if let uid = task.user_id {
+          if let user = userViewModel.getUserByID(uid) {
             
+            ZStack(alignment: .bottomTrailing) {
+              Image(task.icon ?? "moon")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 65, height: 65)
+              
+              
+              //              .overlay(Circle().stroke(Color.purple, lineWidth: 2))
+                .padding(7.5)
+              
+                .background(Color(red: 0.439, green: 0.298, blue: 1.0))
+                .clipShape(Circle())
+              
+              
+              userProfileImage(for: user)
+                .offset(x: 10, y: 10)
+              
+            }
+            Text(task.name)
+              .font(.custom("Lato-Bold", size: 15))
+            Text("\(user.first_name) \(user.last_name)")
+              .font(.custom("Lato", size: 12))
+              .foregroundColor(Color.gray)
             
           }
           
         }
-        .padding()
-        .frame(minWidth: 150)
-        .overlay(
-          RoundedRectangle(cornerRadius: 16)
-            .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 2))
-        .padding(2)
+        }.padding()
+          .frame(minWidth: 150)
+          .overlay(
+            RoundedRectangle(cornerRadius: 16)
+              .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 2))
+          .padding(2)
+        
+          
+          
+        
+      
         
        
     }

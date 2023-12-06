@@ -89,6 +89,15 @@ class UserViewModel: ObservableObject {
 //      return groupmates
 }
   
+  func getGroupmateIndex(_ uid: String, in users: [User]) -> Int? {
+      
+    return users.firstIndex { user in
+            user.id == uid
+    }
+    
+      
+  }
+  
   
     
     func joinGroup(group_code: String, uid: String) async {
