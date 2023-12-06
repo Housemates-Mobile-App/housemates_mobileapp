@@ -11,6 +11,7 @@ struct TaskView: View {
     @State private var showCamera = false
     @State private var capturedImage: UIImage?
     @Environment(\.editMode) var editMode
+    @State private var navigateToAddPostView = false
     
     var body: some View {
       
@@ -225,21 +226,27 @@ struct TaskView: View {
                 // Handle button tap action here
                 // Navigate to AddPostView or perform any other action
                 showCamera = true
-                isAddPostViewActive = true
+//                isAddPostViewActive = true
             }) {
                 Text("DONE")
             }
             .fullScreenCover(isPresented: $showCamera) {
-                AfterCameraView(image: $capturedImage, isPresented: $showCamera)
+                AfterCameraView(image: $capturedImage, isPresented: $showCamera, onDismiss: {
+//                    isAddPostViewActive = false 
+                    navigateToAddPostView = capturedImage != nil
+                })
+//                AfterCameraView(image: $capturedImage,
+//                    isPresented: $showCamera)
             }
-            .onChange(of: capturedImage) { _ in
-                if let _ = capturedImage {
+            .onChange(of: capturedImage) { newImage in
+                if newImage != nil && !showCamera {
+                    // Navigate to AddPostView only if a new image is captured and the camera view is not visible
                     isAddPostViewActive = true
                 }
             }
             .buttonStyle(DoneButtonStyle())
             .background(
-                NavigationLink(destination: AddPostView(task: task, user: user, image: capturedImage), isActive: $isAddPostViewActive) {
+                NavigationLink(destination: AddPostView(task: task, user: user, image: capturedImage), isActive: $navigateToAddPostView) {
                         EmptyView()
                     }
                     .hidden()
@@ -252,7 +259,8 @@ struct TaskView: View {
     // MARK: - Claim Button
     private var claimButton: some View {
         Button("CLAIM", action: {
-          self.showCamera = true
+            taskViewModel.claimTask(task: task, user_id: user.id ?? "")
+//          self.showCamera = true
 //          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
 //            if let uid = user.id {
 //                taskViewModel.claimTask(task: task, user_id: uid)
@@ -261,22 +269,22 @@ struct TaskView: View {
 //          }
         })
         .buttonStyle(ClaimButtonStyle())
-        .fullScreenCover(isPresented: $showCamera) {
-            BeforeCameraView(image: $capturedImage, isPresented: $showCamera, onClaimTask: { takenImage in
-                if let image = takenImage {
-                    // Claim the task with the image
-                    Task {
-                        await taskViewModel.claimTask(task: task, user_id: user.id ?? "", image: image)
-                    }
-                } else {
-                    // Claim the task without the image
-                    Task {
-                        await taskViewModel.claimTask(task: task, user_id: user.id ?? "", image: nil)
-                    }
-                }
-            }
-            )
-        }
+//        .fullScreenCover(isPresented: $showCamera) {
+//            BeforeCameraView(image: $capturedImage, isPresented: $showCamera, onClaimTask: { takenImage in
+//                if let image = takenImage {
+//                    // Claim the task with the image
+//                    Task {
+//                        await taskViewModel.claimTask(task: task, user_id: user.id ?? "", image: image)
+//                    }
+//                } else {
+//                    // Claim the task without the image
+//                    Task {
+//                        await taskViewModel.claimTask(task: task, user_id: user.id ?? "", image: nil)
+//                    }
+//                }
+//            }
+//            )
+//        }
 //        .onChange(of: capturedImage) { _ in
 //            if let image = capturedImage {
 //                  if let uid = user.id {
@@ -327,6 +335,25 @@ struct ClaimButtonStyle: ButtonStyle {
             .padding(.vertical, 5)
             .background(deepPurple)
             .cornerRadius(16)
+    }
+}
+
+protocol CameraActionDelegate {
+    func didRetakePhoto()
+    func didCompleteCameraAction()
+}
+
+extension TaskView: CameraActionDelegate {
+    func didRetakePhoto() {
+        // Handle retake action
+        isAddPostViewActive = false
+    }
+
+    func didCompleteCameraAction() {
+        // Handle completion of camera action
+        if capturedImage != nil {
+            isAddPostViewActive = true
+        }
     }
 }
 

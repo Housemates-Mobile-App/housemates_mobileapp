@@ -16,17 +16,17 @@ struct BeforeCameraView: View {
     @Binding var isPresented: Bool
     @State private var takePhoto = false
     @State private var showPreview = false
-    var onClaimTask: (UIImage?) -> Void
+//    var onClaimTask: (UIImage?) -> Void
     
     var body: some View {
         ZStack {
-            if showPreview, let capturedImage = image {
+            if showPreview {
                 // When a photo is taken, show the preview
-                BeforeImagePreviewView(image: capturedImage, isPresented: $isPresented, showPreview: $showPreview, onClaimTask: onClaimTask)
+                BeforeImagePreviewView(image: $image, isPresented: $isPresented, showPreview: $showPreview)//, onClaimTask: onClaimTask)
             } else {
                 // This is the camera UI
 //                CustomCameraInterfaceView(image: $image, showPreview: $showPreview, takePhoto: takePhoto, onClaimTask: onClaimTask)
-                BeforeCustomCameraInterfaceView(image: $image, showPreview: $showPreview, takePhoto: takePhoto, onClaimTask: onClaimTask, onDismiss: {
+                BeforeCustomCameraInterfaceView(image: $image, showPreview: $showPreview, takePhoto: takePhoto, onDismiss: {
                     isPresented = false // Dismiss the camera view
                 })
             }
@@ -96,38 +96,57 @@ struct BeforeCameraView: View {
 
 // MARK: - Image Preview View
 struct BeforeImagePreviewView: View {
-    let image: UIImage
+    @Binding var image: UIImage?
     @Binding var isPresented: Bool
     @Binding var showPreview: Bool
-    let onClaimTask: (UIImage?) -> Void
+//    let onClaimTask: (UIImage?) -> Void
     
     var body: some View {
-        VStack {
-            Image(uiImage: image)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .edgesIgnoringSafeArea(.all)
-            
-            HStack {
-                Button("Retake") {
-                    // Resets the preview state to retake photo
-                    self.showPreview = false
+        ZStack { // Use ZStack to ensure the background covers everything
+            Color.black.edgesIgnoringSafeArea(.all) // Set the entire background to black
+
+            VStack {
+                if let uiImage = image {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .edgesIgnoringSafeArea(.all)
                 }
-                .padding()
-                .background(Color.red)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
                 
-                Button("Use Photo") {
-                    // Sets the main view to the captured image and dismisses the camera
-                    onClaimTask(image)
-                    self.isPresented = false
+                HStack(spacing: 20) { // Added spacing between buttons
+                    Button("Retake") {
+                        self.showPreview = false
+                        self.image = nil
+                    }
+                    .font(.custom("Nunito-Bold", size: 17))
+                    .frame(width: 100, height: 30) // Set buttons to same width
+                    .padding()
+                    .background(Color.white) // White background fill
+                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Purple font color
+                    .clipShape(Capsule())
+                    .overlay(
+                        Capsule()
+                        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5) // Purple outline
+                    )
+                    
+                    Button("Use Photo") {
+                        self.isPresented = false
+                    }
+                    .font(.custom("Nunito-Bold", size: 17))
+                    .frame(width: 100, height: 30) // Set buttons to same width
+                    .padding()
+                    .background(Color.white) // White background fill
+                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Purple font color
+                    .clipShape(Capsule())
+                    .overlay(
+                        Capsule()
+                        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5) // Purple outline
+                    )
                 }
-                .padding()
-                .background(Color.green)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
+                .padding() // Add padding if necessary
             }
+            .background(Color.black)
+            .edgesIgnoringSafeArea(.all)
         }
     }
 }
@@ -234,70 +253,79 @@ struct BeforeCustomCameraInterfaceView: View {
     @Binding var image: UIImage?
     @Binding var showPreview: Bool
     @State var takePhoto: Bool
-    var onClaimTask: (UIImage?) -> Void
+//    var onClaimTask: (UIImage?) -> Void
     var onDismiss: () -> Void
 
     var body: some View {
-        ZStack {
-            // Camera preview
-            CustomCameraViewRepresentable(image: $image, isPresented: $showPreview, takePhoto: $takePhoto)
+            ZStack {
+                CustomCameraViewRepresentable(image: $image, isPresented: $showPreview, takePhoto: $takePhoto)
 
-            // Overlay content
-            VStack {
-                // "Before" label and "Back" button at the top
-                HStack {
-                    Text("Before")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding(.leading)
-                        .shadow(radius: 10)
+                VStack {
+                    // "Before" label and "Take a picture now" prompt at the top, centered
+                    VStack (spacing: -10) {
+                        Text("Take a picture now, you'll see your hard work after!")
+                            .font(.custom("Nunito-Bold", size: 17))
+                            .foregroundColor(.white)
+                            .padding([.leading, .trailing], 10)
+                            .padding([.top, .bottom], 10)
+                            .cornerRadius(10)
+                            .shadow(radius: 10)
+                        Text("Before")
+                            .font(.custom("Nunito-Bold", size: 26))
+                            .fontWeight(.bold)
+                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                            .shadow(radius: 10)
+                    }
+                    .background(LinearGradient(gradient: Gradient(colors: [.black.opacity(0.7), .clear]), startPoint: .top, endPoint: .bottom))
+                    .padding(.top, SafeAreaInsets.top + 30)
+                    .frame(maxWidth: .infinity, alignment: .center)
 
                     Spacer()
 
-                    Button(action: onDismiss) {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .padding(.trailing)
-                            .shadow(radius: 10)
+                    // Capture button
+                    Button(action: {
+                        self.takePhoto = true
+                    }) {
+                        CaptureButton()
                     }
+                    .padding(.bottom, SafeAreaInsets.bottom + 20)
+                    
+                    //SKip Button
+                    //                Button(action: {
+                    ////                    onClaimTask(nil)
+                    //                    self.showPreview = false
+                    //                }) {
+                    //                    SkipButton()
+                    //                }
+                    //                .padding(.bottom, SafeAreaInsets.bottom + 20)
                 }
-                .padding(.top, SafeAreaInsets.top)
-                .background(LinearGradient(gradient: Gradient(colors: [.black.opacity(0.7), .clear]), startPoint: .top, endPoint: .bottom))
+                .edgesIgnoringSafeArea(.all)
 
-                Spacer()
+                // "Back" button at the top right
+                VStack {
+                    HStack {
+                        Spacer()
 
-                // "Take a picture now" prompt
-                Text("Take a picture now, you'll see your hard work after!")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.black.opacity(0.75))
-                    .cornerRadius(10)
-                    .shadow(radius: 10)
-                    .padding(.bottom, 25)
+                        Button(action: onDismiss) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding(.trailing)
+                                .shadow(radius: 10)
+                        }
+                    }
+                    .padding(.top, SafeAreaInsets.top)
+                    .padding(.trailing)
+                    .background(LinearGradient(gradient: Gradient(colors: [.black.opacity(0.7), .clear]), startPoint: .top, endPoint: .bottom))
 
-                // Capture button
-                Button(action: {
-                    self.takePhoto = true
-                }) {
-                    CaptureButton()
+                    Spacer()
                 }
-
-                // Skip button
-                Button(action: {
-                    onClaimTask(nil)
-                    self.showPreview = false
-                }) {
-                    SkipButton()
-                }
-                .padding(.bottom, SafeAreaInsets.bottom + 20)
             }
+            .background(Color.black)
+            .edgesIgnoringSafeArea(.all)
         }
-        .edgesIgnoringSafeArea(.all) // Make sure it covers the whole screen
-    }
-
+    
+    
     struct CaptureButton: View {
         var body: some View {
             ZStack {
@@ -305,7 +333,7 @@ struct BeforeCustomCameraInterfaceView: View {
                     .fill(Color.white)
                     .frame(width: 75, height: 75)
                 Circle()
-                    .stroke(Color.white, lineWidth: 5)
+                    .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5)
                     .frame(width: 85, height: 85)
             }
         }

@@ -42,7 +42,7 @@ class CustomCameraViewController: UIViewController {
         
         // Add preview layer.
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.videoGravity = .resizeAspectFill
+        previewLayer.videoGravity = .resizeAspect
         view.layer.addSublayer(previewLayer)
     }
     
