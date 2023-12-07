@@ -22,7 +22,7 @@ struct ActivityView: View {
             }
         }
     }
-      
+          
         
     let user: User
     var body: some View {
@@ -31,18 +31,28 @@ struct ActivityView: View {
         let activityList = postViewModel.getActivityListFromActivities(activities : activities)
         
         VStack(alignment: .leading, spacing: 10) {
-            ScrollView(.vertical) {
-                ForEach(Array(postList.enumerated()), id: \.offset) { index, post in
-                    let activity = activityList[index]
-                    if let comment = activity as? Comment {
-                        CommentActivityView(comment: comment, post: post)
-                    } else if let reaction = activity as? Reaction {
-                        ReactionActivityView(reaction: reaction, post: post)
+            if activityList.isEmpty {
+                Spacer()
+                Text("No Recent Activity")
+                    .foregroundColor(.gray)
+                    .font(.custom("Nunito-Bold", size: 23))
+                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                Spacer()
+            } else {
+                ScrollView(.vertical) {
+                    ForEach(Array(postList.enumerated()), id: \.offset) { index, post in
+                        let activity = activityList[index]
+                        if let comment = activity as? Comment {
+                            CommentActivityView(comment: comment, post: post)
+                        } else if let reaction = activity as? Reaction {
+                            ReactionActivityView(reaction: reaction, post: post)
+                        }
                     }
                 }
-                Spacer()
             }
-        }.padding(.top, 5)
+        }
+        .padding(.top, 5)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: btnBack)
         .onAppear {
@@ -52,8 +62,8 @@ struct ActivityView: View {
                 tabBarViewModel.hideTabBar = false
             })
         }
-                
     }
+
 }
 
 #Preview {
