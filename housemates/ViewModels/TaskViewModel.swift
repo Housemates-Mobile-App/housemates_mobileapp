@@ -148,6 +148,24 @@ class TaskViewModel: ObservableObject {
         task.status = .inProgress
         taskRepository.update(task)
     }
+  
+  func undoTask(task: task, user_id: String) {
+//        guard let imageURL = await getPostPicURL(image: image) else {
+//            print("Failed to upload image or get URL")
+//            return
+//        }
+//
+      
+      var task = task
+      task.user_id = nil
+      task.beforeImageURL = nil
+      task.date_started = nil
+      task.date_completed = nil
+      
+      task.status = .unclaimed
+      taskRepository.update(task)
+  }
+  
     
     
     

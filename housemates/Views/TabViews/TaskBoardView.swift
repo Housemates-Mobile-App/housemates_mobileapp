@@ -161,12 +161,36 @@ struct TaskBoardView: View {
   private func taskRow(task: task, user: User) -> some View {
       TaskView(task: task, user: user)
           .swipeActions {
-              Button(role: .destructive) {
+           
+          
+            if let user_id = user.id {
+              
+            
+              
+              if task.status == .unclaimed || (task.status == .inProgress && task.user_id == user_id) {
+              
+              
+                Button(role: .destructive) {
                   taskViewModel.destroy(task: task)
-              } label: {
+                } label: {
                   Label("Delete", systemImage: "trash")
-                    .foregroundColor(.red)
+                }
               }
+                
+            
+            
+              if task.status == .inProgress && task.user_id == user_id {
+                
+                
+                Button() {
+                  taskViewModel.undoTask(task: task, user_id: user_id)
+                } label: {
+                  Label("Claim", systemImage: "arrowshape.turn.up.backward.fill")
+                  
+                }.tint(Color(red: 0.439, green: 0.298, blue: 1.0))
+              }
+            }
+            
             
           }
     }

@@ -48,7 +48,7 @@ struct DashboardView: View {
 //              Spacer()
 //            }.padding(.horizontal)
             
-            StatsView(statHeight: UIScreen.main.bounds.size.width)
+            StatsView(statHeight: UIScreen.main.bounds.size.width - 10)
             Spacer()
           }
           
@@ -133,6 +133,7 @@ struct DashboardView: View {
   @ViewBuilder
   func cardView(value: DateValue, completed: [task]) -> some View {
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
+    let darkPurple = Color(red: 0.439 * 0.5, green: 0.298 * 0.5, blue: 1.0 * 0.5)
     let lightPurple = Color(red: 0.439 * 3, green: 0.298 * 3, blue: 1.0 * 3)
    
     VStack {
@@ -160,7 +161,7 @@ struct DashboardView: View {
                 )
               .overlay(
                   RoundedRectangle(cornerRadius: 5)
-                    .stroke(SameDaySelect(calDate: value.date, currDate: currDay) ? lightPurple : .clear, lineWidth: 3)
+                    .stroke(SameDaySelect(calDate: value.date, currDate: currDay) ?  darkPurple : .clear, lineWidth: 3)
               )
               
               
@@ -184,7 +185,7 @@ struct DashboardView: View {
                 )
               .overlay(
                   RoundedRectangle(cornerRadius: 5)
-                    .stroke(SameDaySelect(calDate: value.date, currDate: currDay) ? lightPurple : .clear, lineWidth: 3)
+                    .stroke(SameDaySelect(calDate: value.date, currDate: currDay) ? deepPurple.opacity(0.5) : .clear, lineWidth: 3)
               )
 //
               
