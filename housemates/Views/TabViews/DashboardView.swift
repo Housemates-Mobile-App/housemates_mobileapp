@@ -287,7 +287,7 @@ struct DashboardView: View {
             ForEach(completed.filter({ task in
               isSameDay(task: task, currDate: currDay)
             }), id: \.id) { task in
-              taskCard(task: task, user: user)
+                taskCard(task: task, user: user)
                 
               
             }
