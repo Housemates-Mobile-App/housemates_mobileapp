@@ -161,8 +161,7 @@ struct ProfileView: View {
                       
                       
                       VStack(spacing: 10) {
-
-                          HStack(spacing: 20) {
+                          HStack(spacing: 45) {
                               VStack {
                                   Text("\(taskViewModel.getNumCompletedTasksForUser(user.id!))")
                                       .font(.system(size: 32))
@@ -170,11 +169,12 @@ struct ProfileView: View {
                                       .bold()
                                   Text("Completed")
                                       .font(.custom("Lato", size: 15))
-                                      
+                                      .frame(minWidth: 55)
+                                  
                               }
-                              .padding(30)
-                              .padding(.leading, 30)
-                              .frame(maxWidth: .infinity, minHeight: 25)
+                              .padding(.leading, 50)
+                              .padding(.vertical, 25)
+  //                            .frame(maxWidth: .infinity, minHeight: 25)
                               
                               VStack {
                                   Text("\(taskViewModel.getNumPendingTasksForUser(user.id!))")
@@ -183,21 +183,20 @@ struct ProfileView: View {
                                       .bold()
                                   Text("Pending")
                                       .font(.custom("Lato", size: 15))
-                                      
+                                      .frame(minWidth: 55)
+                                  
                               }
-                              .padding(30)
-                              .padding(.trailing, 30)
-                              .frame(maxWidth: .infinity, minHeight: 25)
+                              .padding(.trailing, 50)
+                              .padding(.vertical, 25)
                               
                               
                           }
-                          .frame(maxWidth: .infinity)
                           .background(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.gray.opacity(0.5), lineWidth: 2)
+                              RoundedRectangle(cornerRadius: 16)
+                                  .stroke(Color.gray.opacity(0.5), lineWidth: 2)
                           )
                           
-                      }.padding(.horizontal, 20)
+                      }
                       
                       
                       Spacer()
