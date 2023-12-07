@@ -1,4 +1,6 @@
 import SwiftUI
+import UIKit
+import FirebaseStorage
 
 struct AddTaskView: View {
   let taskIconStringHardcoded: String
@@ -16,36 +18,64 @@ struct AddTaskView: View {
   @State private var recurrence: Recurrence = .none
   @State private var recurrenceStartDate: Date = Date()
   @State private var recurrenceEndDate: Date = Date()
+  @State private var showingSheet = false
+  @State private var taskIconStringNew: String
+  @State private var showCamera = false
+  @State private var image: UIImage?
     
   var editableTask: task?
+
   
   let elements: [TaskPriority] = TaskPriority.allCases
+    
+    init(taskIconStringHardcoded: String, taskNameHardcoded: String, user: User, editableTask: task? = nil) {
+        let iconString = taskIconStringHardcoded.isEmpty ? "defaultTask" : taskIconStringHardcoded
+        _taskIconStringNew = State(initialValue: iconString)
+        self.taskIconStringHardcoded = taskIconStringHardcoded
+        self.taskNameHardcoded = taskNameHardcoded
+        self.user = user
+        self.editableTask = editableTask
+      }
   
   var body: some View {
     ScrollView {
-      VStack(spacing: 20) {
+      VStack(alignment: .leading, spacing: 10) {
           Text((editableTask != nil) ? "Edit Task" : "Add Task")
           
           .font(.custom("Nunito-Bold", size: 26))
           .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
           
           
-        
-        if taskIconStringHardcoded.count > 0 {
-          Image(taskIconStringHardcoded)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 100, height: 100)
-            .foregroundColor(.gray)
-            .padding(5)
-        } else {
-          Image(systemName: "person.circle")
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 100, height: 100)
-            .foregroundColor(.gray)
-            .padding(5)
-        }
+          ZStack {
+              if taskIconStringNew.count > 0 {
+                  Image(taskIconStringNew)
+                      .resizable()
+                      .aspectRatio(contentMode: .fill)
+                      .frame(width: 100, height: 100)
+                      .foregroundColor(.gray)
+                      .padding(5)
+              } else {
+                  Image(systemName: "person.circle")
+                      .resizable()
+                      .aspectRatio(contentMode: .fill)
+                      .frame(width: 100, height: 100)
+                      .foregroundColor(.gray)
+                      .padding(5)
+              }
+
+              Button(action: {
+                  showingSheet.toggle()
+              }) {
+                  Image(systemName: "pencil.circle.fill")
+                      .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                      .background(Circle().fill(Color.white))
+                      .font(.system(size: 24))
+              }
+              .offset(x: 35, y: 35)
+              .sheet(isPresented: $showingSheet) {
+                  SheetView(taskIconStr: $taskIconStringNew)
+              }
+          }
         
         
         NewInputView(text: $taskName, title: "Task Name", placeholder: "Add a task name!")
@@ -74,7 +104,51 @@ struct AddTaskView: View {
           recurrenceStartDate: $recurrenceStartDate,
           recurrenceEndDate: $recurrenceEndDate)
           
-        Button(action: addTask) {
+          
+          if recurrence == .none {
+              HStack {
+                  ZStack {
+                      if let capturedImage = image {
+                          // Show the captured image
+                          Image(uiImage: capturedImage)
+                              .resizable()
+                              .scaledToFit()
+                              .frame(width: 100, height: 100)
+                      } else {
+                          // Show a gray box
+                          Rectangle()
+                              .fill(Color.gray)
+                              .frame(width: 100, height: 100)
+
+                          // Camera icon
+                          Image(systemName: "camera.fill")
+                              .font(.largeTitle)
+                              .foregroundColor(.white)
+                              .onTapGesture {
+                                  showCamera = true
+                              }
+                      }
+                  }
+                  .fullScreenCover(isPresented: $showCamera) {
+                      BeforeCameraView(image: $image, isPresented: $showCamera)
+                  }
+
+                  // Text changes based on whether an image has been captured
+                  Text(image == nil ? "Take a Before photo!" : "Before photo taken")
+                      .font(.custom("Nunito-Bold", size: 17))
+                      .foregroundColor(Color.gray)
+              }
+              .padding(.leading)
+          }
+          
+          Spacer()
+        
+          
+          Button(action: {
+              Task {
+                  await addTask()
+              }
+          }) {
             Text((editableTask != nil) ? "Edit Task" : "Add Task")
             .font(.system(size: 18))
             .bold()
@@ -109,10 +183,11 @@ struct AddTaskView: View {
             return Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
         }
     }
+    .padding(.horizontal)
   }
   
   
-  private func addTask() {
+    private func addTask() async {
     guard !taskName.isEmpty else {
       alertMessage = "Task name cannot be empty."
       showAlert = true
@@ -147,15 +222,21 @@ struct AddTaskView: View {
             return
         }
     }
-    
-//    print("Task Name: \(taskName)")
-//    print("Task Description: \(taskDescription)")
-//    print("Priority: \(priority.rawValue)")
-//    gets current date
+
     let formatter = DateFormatter()
     formatter.dateFormat = "MM.dd.yy h:mm a"
     let formattedDate = formatter.string(from: Date())
     
+    var imageURL: String?
+        
+    if let image = image {
+        imageURL = await getPostPicURL(image: image)
+        guard imageURL != nil else {
+            print("Failed to upload image or get URL")
+            return
+        }
+    }
+        
     let newTask = housemates.task(
       name: taskName,
       group_id: user.group_id ?? "",
@@ -166,24 +247,19 @@ struct AddTaskView: View {
       date_started: nil,
       date_completed: nil,
       priority: priority.rawValue,
-      icon: taskIconStringHardcoded,
+      icon: taskIconStringNew,
       recurrence: recurrence,
       recurrenceStartDate: (recurrence != .none) ? recurrenceStartDate : nil,
-      recurrenceEndDate: (recurrence != .none) ? recurrenceEndDate : nil)
+      recurrenceEndDate: (recurrence != .none) ? recurrenceEndDate : nil,
+      beforeImageURL: imageURL
+      )
     
-//    if taskViewModel.tasks.contains(where: { $0.name == newTask.name }) {
-//      alertMessage = "Task already exists."
-//      showAlert = true
-//      return
-//    } else{
-//      taskViewModel.create(task: newTask)
-//    }
-      
+
       if let editableTask = editableTask {
-          taskViewModel.editTask(task: editableTask, name: taskName, description: taskDescription, priority: priority.rawValue, icon: taskIconStringHardcoded, recurrence: recurrence, recurrenceStartDate: recurrenceStartDate, recurrenceEndDate: recurrenceEndDate)
+          taskViewModel.editTask(task: editableTask, name: taskName, description: taskDescription, priority: priority.rawValue, icon: taskIconStringNew, recurrence: recurrence, recurrenceStartDate: recurrenceStartDate, recurrenceEndDate: recurrenceEndDate)
           alertMessage = "Task edited successfully."
       } else {
-          taskViewModel.create(task: newTask)
+        taskViewModel.create(task: newTask)
           alertMessage = "Task added successfully."
       }
     
@@ -233,12 +309,123 @@ struct AddTaskView: View {
       
   }
   
-  struct AddTaskView_Previews: PreviewProvider {
-    static var previews: some View {
-      AddTaskView(taskIconStringHardcoded: "trash.fill", taskNameHardcoded: "Clean Dishes",
-                  user: User(user_id: "L9pIp5cklnQDD4JYXv0Tow02", first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"))
-      .environmentObject(TaskViewModel())
-      .environmentObject(TabBarViewModel.mock())
+    struct SheetView: View {
+        @Binding var taskIconStr: String
+        @Environment(\.dismiss) var dismiss
+        var allTaskData = hardcodedFullTaskData
+        let maxIconsPerRow = 5
+        
+        // Grouping tasks by category
+        private var groupedTaskData: [String: [TaskData]] {
+            Dictionary(grouping: allTaskData, by: { $0.taskCategory! })
+        }
+
+        var body: some View {
+            VStack {
+                VStack {
+                    ZStack {
+                        Text("Select Icon")
+                            .font(.custom("Nunito-Bold", size: 24))
+                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                            .padding(.top, 15)
+                        HStack {
+                            Spacer()
+                            Button("Done"){
+                                dismiss()
+                            }
+                            .font(.custom("Lato-Bold", size: 18))
+                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                            .padding(.top, 15)
+                            .padding(.trailing, 10)
+                            
+                        }
+                    }
+                    
+                    if taskIconStr.count > 0 {
+                        Image(taskIconStr)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 100, height: 100)
+                            .foregroundColor(.gray)
+                            .padding(5)
+                    } else {
+                        Image(systemName: "person.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 100, height: 100)
+                            .foregroundColor(.gray)
+                            .padding(5)
+                    }
+                }
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        //multiple rows of all the possible options, where selected one is highlighted and appears in prev vstack
+                        ForEach(groupedTaskData.keys.sorted(), id: \.self) { category in
+                            VStack(alignment: .leading) {
+                                Text(category)
+                                    .font(.custom("Lato-Bold", size: 15))
+                                VStack (spacing: 15) {
+                                    ForEach(0..<((groupedTaskData[category]?.count ?? 0) + maxIconsPerRow - 1) / maxIconsPerRow, id: \.self) { rowIndex in
+                                        HStack (spacing: 15) {
+                                            ForEach(0..<maxIconsPerRow, id: \.self) { columnIndex in
+                                                let index = rowIndex * maxIconsPerRow + columnIndex
+                                                if index < (groupedTaskData[category]?.count ?? 0) {
+                                                    let taskData = groupedTaskData[category]![index]
+                                                    Image(taskData.taskIcon)
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fit)
+                                                        .frame(width: (UIScreen.main.bounds.width - 90) / 5)
+                                                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(taskIconStr == taskData.taskIcon ? Color(red: 0.439, green: 0.298, blue: 1.0) : .gray, lineWidth: taskIconStr == taskData.taskIcon ? 4 : 1))
+                                                        .onTapGesture {
+                                                            taskIconStr = taskData.taskIcon
+                                                        }
+                                                } else {
+                                                    Rectangle()
+                                                        .foregroundColor(Color.clear)
+                                                        .frame(width: (UIScreen.main.bounds.width - 90) / 5)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }.frame(width: UIScreen.main.bounds.width - 25)
+                        }
+                    }
+                }
+            }.padding(10)
+        }
+
     }
+    func getPostPicURL(image: UIImage) async -> String? {
+        let photoID = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("\(photoID).jpeg")
+        
+        guard let resizedImage = image.jpegData(compressionQuality: 0.2) else {
+            print("ERROR: Could not resize image")
+            return nil
+        }
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        do {
+            let _ = try await storageRef.putDataAsync(resizedImage, metadata: metadata)
+            let imageURL = try await storageRef.downloadURL()
+            return imageURL.absoluteString
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+            return nil
+        }
+    }
+  
+}
+
+struct AddTaskView_Previews: PreviewProvider {
+  static var previews: some View {
+    AddTaskView(taskIconStringHardcoded: "trash", taskNameHardcoded: "Clean Dishes",
+                user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"))
+    .environmentObject(TaskViewModel())
+    .environmentObject(TabBarViewModel.mock())
   }
 }

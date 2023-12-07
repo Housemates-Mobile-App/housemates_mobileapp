@@ -10,7 +10,6 @@ import Combine
 import Firebase
 import FirebaseFirestoreSwift
 import FirebaseFirestore
-import FirebaseStorage
 import SwiftUI
 
 
@@ -123,24 +122,24 @@ class TaskViewModel: ObservableObject {
       return task.user_id == user_id
     }
 
-    func claimTask(task: task, user_id: String, image: UIImage?) async {
+    func claimTask(task: task, user_id: String) { //, image: UIImage?) async {
 //        guard let imageURL = await getPostPicURL(image: image) else {
 //            print("Failed to upload image or get URL")
 //            return
 //        }
 //        
-        var imageURL: String?
-        if let image = image {
-            imageURL = await getPostPicURL(image: image)
-            guard imageURL != nil else {
-                print("Failed to upload image or get URL")
-                return
-            }
-        }
+//        var imageURL: String?
+//        if let image = image {
+//            imageURL = await getPostPicURL(image: image)
+//            guard imageURL != nil else {
+//                print("Failed to upload image or get URL")
+//                return
+//            }
+//        }
         
         var task = task
         task.user_id = user_id
-        task.beforeImageURL = imageURL
+//        task.beforeImageURL = imageURL
         let formatter = DateFormatter()
         formatter.dateFormat = "MM.dd.yy h:mm a"
         let formattedDate = formatter.string(from: Date())
@@ -149,28 +148,26 @@ class TaskViewModel: ObservableObject {
         task.status = .inProgress
         taskRepository.update(task)
     }
+  
+  func undoTask(task: task, user_id: String) {
+//        guard let imageURL = await getPostPicURL(image: image) else {
+//            print("Failed to upload image or get URL")
+//            return
+//        }
+//
+      
+      var task = task
+      task.user_id = nil
+      task.beforeImageURL = nil
+      task.date_started = nil
+      task.date_completed = nil
+      
+      task.status = .unclaimed
+      taskRepository.update(task)
+  }
+  
     
-    func getPostPicURL(image: UIImage) async -> String? {
-        let photoID = UUID().uuidString
-        let storageRef = Storage.storage().reference().child("\(photoID).jpeg")
-        
-        guard let resizedImage = image.jpegData(compressionQuality: 0.2) else {
-            print("ERROR: Could not resize image")
-            return nil
-        }
-        
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpg"
-        
-        do {
-            let _ = try await storageRef.putDataAsync(resizedImage, metadata: metadata)
-            let imageURL = try await storageRef.downloadURL()
-            return imageURL.absoluteString
-        } catch {
-            print("ERROR: \(error.localizedDescription)")
-            return nil
-        }
-    }
+    
     
     func completeTask(task: task) {
         var task = task
