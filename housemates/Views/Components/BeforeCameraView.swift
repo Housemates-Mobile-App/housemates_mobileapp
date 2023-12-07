@@ -284,15 +284,15 @@ struct BeforeCustomCameraInterfaceView: View {
                     Spacer()
 
                         CaptureButton()
-                            .onTapGesture {
-                                self.takePhoto = true
-                            }
+                        .onTapGesture {
+                            self.takePhoto = true
+                        }
 
                         FlipButton()
-                            .onTapGesture {
-                                flipCamera.toggle()
-                            }
-                            .padding(.bottom, SafeAreaInsets.bottom + 20)
+                        .onTapGesture {
+                            flipCamera.toggle()
+                        }
+                        .padding(.bottom, SafeAreaInsets.bottom + 20)
                     
                     //SKip Button
                     //                Button(action: {
