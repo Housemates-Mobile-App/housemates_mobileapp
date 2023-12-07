@@ -12,6 +12,7 @@ struct CommentActivityView: View {
     @EnvironmentObject var postViewModel : PostViewModel
 
     let comment: Comment
+    let post: Post
     var body: some View {
         HStack {
             let imageURL = URL(string: comment.created_by.imageURLString ?? "")
@@ -56,12 +57,36 @@ struct CommentActivityView: View {
                 .foregroundColor(.gray)
             
             Spacer()
+            
+            if let afterImageURL = post.afterImageURL,
+               let afterPostURL = URL(string: afterImageURL) {
+                NavigationLink (destination: PostDetailView(post: post, user: comment.created_by)) {
+                    CachedAsyncImage(url: afterPostURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 47, height: 47)
+                            .cornerRadius(10)
+                            .padding(.trailing, 6)
+                            .clipped()
+                        
+                    } placeholder: {
+                        
+                        // MARK: Loading wheel as a placeholder
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                            .frame(width: 47, height: 47)
+                            .padding(.trailing, 5)
+                        
+                    }
+                }
+            }
         }.padding(.leading, 10)
-         .padding(.all, 5)
+         .padding(.all, 6)
     }
 }
 
 #Preview {
-    CommentActivityView(comment: PostViewModel.mockComment())
+    CommentActivityView(comment: PostViewModel.mockComment(), post: PostViewModel.mockPost())
         .environmentObject(PostViewModel.mock())
 }

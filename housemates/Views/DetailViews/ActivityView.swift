@@ -26,16 +26,18 @@ struct ActivityView: View {
         
     let user: User
     var body: some View {
-        let activity = postViewModel.getActivity(user: user)
+        let activities = postViewModel.getActivity(user: user)
+        let postList = postViewModel.getPostListFromActivities(activities: activities)
+        let activityList = postViewModel.getActivityListFromActivities(activities : activities)
         
         VStack(alignment: .leading, spacing: 10) {
             ScrollView(.vertical) {
-                ForEach(0..<activity.count, id:\.self) { index in
-                    let item = activity[index]
-                    if let comment = item as? Comment {
-                        CommentActivityView(comment: comment)
-                    } else if let reaction = item as? Reaction {
-                        ReactionActivityView(reaction: reaction)
+                ForEach(Array(postList.enumerated()), id: \.offset) { index, post in
+                    let activity = activityList[index]
+                    if let comment = activity as? Comment {
+                        CommentActivityView(comment: comment, post: post)
+                    } else if let reaction = activity as? Reaction {
+                        ReactionActivityView(reaction: reaction, post: post)
                     }
                 }
                 Spacer()

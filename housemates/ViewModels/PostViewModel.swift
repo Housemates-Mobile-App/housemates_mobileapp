@@ -51,9 +51,27 @@ class PostViewModel: ObservableObject {
         return defaultReactions
     }
     
+    func getPostListFromActivities(activities: [(Post, Any)] ) -> [Post] {
+        var posts = [Post]()
+        for item in activities {
+            let post = item.0
+            posts.append(post)
+        }
+        return posts
+    }
+    
+    func getActivityListFromActivities(activities: [(Post, Any)] ) -> [Any] {
+        var activityList = [Any]()
+        for item in activities {
+            let activity = item.1
+            activityList.append(activity)
+        }
+        return activityList
+    }
+    
     // Gets a list of comments and reactions by user in reverse chronolgoical order
-    func getActivity(user: User) -> [Any] {
-        var activity = [Any]()
+    func getActivity(user: User) -> [(Post, Any)] {
+        var activity = [(Post, Any)]()
         
         // Get posts by user
         let posts = posts.filter{ $0.created_by.user_id == user.id }
@@ -65,20 +83,28 @@ class PostViewModel: ObservableObject {
             // Get reactions for post excluding that of current user
             let reactions = post.reactions.filter{ $0.created_by.user_id != user.id}
             
-            activity += comments + reactions
+            for comment in comments {
+                activity.append((post, comment))
+            }
+            
+            for reaction in reactions {
+                activity.append((post, reaction))
+            }
+//            activity += comments + reactions
         }
         
         // Convert date strings to Date objects
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM.dd.yy h:mm a"
         
-        activity = activity.sorted { (item1, item2) -> Bool in
-            if let date1 = dateFormatter.date(from : ((item1 as? Comment)?.date_created ?? (item1 as? Reaction)?.date_created)!),
-               let date2 = dateFormatter.date(from: ((item2 as? Comment)?.date_created ?? (item2 as? Reaction)?.date_created)!) {
-                return date1 > date2
-            }
-            return false
-        }
+        // TODO: SORTING
+//        activity = activity.sorted { (item1, item2) -> Bool in
+//            if let date1 = dateFormatter.date(from : ((item1 as? Comment)?.date_created ?? (item1 as? Reaction)?.date_created)!),
+//               let date2 = dateFormatter.date(from: ((item2 as? Comment)?.date_created ?? (item2 as? Reaction)?.date_created)!) {
+//                return date1 > date2
+//            }
+//            return false
+//        }
         
         return activity
     }
