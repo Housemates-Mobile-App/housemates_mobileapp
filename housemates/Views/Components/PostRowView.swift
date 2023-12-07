@@ -16,6 +16,7 @@ struct PostRowView: View {
     @State private var selectedEmoji = "🍑" // Default value
     @State private var selectedTabIndex = 0 // Initial tab index
     @State private var reactionBar = false
+    @State private var hideWidgets = false
 
     let post : Post
     let user : User
@@ -162,8 +163,7 @@ struct PostRowView: View {
             .padding(.bottom, 89)
               
 
-        }.frame(height: 525) // Set the height of the ZStack
-          
+        }.frame(height: 525) // Set the height of the ZStack          
     }
     
     private func toggleReactionsButton(post: Post, user: User) -> some View {
