@@ -1,4 +1,6 @@
 import SwiftUI
+import UIKit
+import FirebaseStorage
 
 struct AddTaskView: View {
   let taskIconStringHardcoded: String
@@ -16,6 +18,8 @@ struct AddTaskView: View {
   @State private var recurrence: Recurrence = .none
   @State private var recurrenceStartDate: Date = Date()
   @State private var recurrenceEndDate: Date = Date()
+  @State private var showCamera = false
+  @State private var image: UIImage?
     
   var editableTask: task?
   
@@ -23,7 +27,7 @@ struct AddTaskView: View {
   
   var body: some View {
     ScrollView {
-      VStack(spacing: 20) {
+      VStack(alignment: .leading, spacing: 10) {
           Text((editableTask != nil) ? "Edit Task" : "Add Task")
           
           .font(.custom("Nunito-Bold", size: 26))
@@ -74,7 +78,51 @@ struct AddTaskView: View {
           recurrenceStartDate: $recurrenceStartDate,
           recurrenceEndDate: $recurrenceEndDate)
           
-        Button(action: addTask) {
+          
+          if recurrence == .none {
+              HStack {
+                  ZStack {
+                      if let capturedImage = image {
+                          // Show the captured image
+                          Image(uiImage: capturedImage)
+                              .resizable()
+                              .scaledToFit()
+                              .frame(width: 100, height: 100)
+                      } else {
+                          // Show a gray box
+                          Rectangle()
+                              .fill(Color.gray)
+                              .frame(width: 100, height: 100)
+
+                          // Camera icon
+                          Image(systemName: "camera.fill")
+                              .font(.largeTitle)
+                              .foregroundColor(.white)
+                              .onTapGesture {
+                                  showCamera = true
+                              }
+                      }
+                  }
+                  .fullScreenCover(isPresented: $showCamera) {
+                      BeforeCameraView(image: $image, isPresented: $showCamera)
+                  }
+
+                  // Text changes based on whether an image has been captured
+                  Text(image == nil ? "Take a Before photo!" : "Before photo taken")
+                      .font(.custom("Nunito-Bold", size: 17))
+                      .foregroundColor(Color.gray)
+              }
+              .padding(.leading)
+          }
+          
+          Spacer()
+        
+          
+          Button(action: {
+              Task {
+                  await addTask()
+              }
+          }) {
             Text((editableTask != nil) ? "Edit Task" : "Add Task")
             .font(.system(size: 18))
             .bold()
@@ -109,10 +157,11 @@ struct AddTaskView: View {
             return Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
         }
     }
+    .padding(.horizontal)
   }
   
   
-  private func addTask() {
+    private func addTask() async {
     guard !taskName.isEmpty else {
       alertMessage = "Task name cannot be empty."
       showAlert = true
@@ -147,15 +196,21 @@ struct AddTaskView: View {
             return
         }
     }
-    
-//    print("Task Name: \(taskName)")
-//    print("Task Description: \(taskDescription)")
-//    print("Priority: \(priority.rawValue)")
-//    gets current date
+
     let formatter = DateFormatter()
     formatter.dateFormat = "MM.dd.yy h:mm a"
     let formattedDate = formatter.string(from: Date())
     
+    var imageURL: String?
+        
+    if let image = image {
+        imageURL = await getPostPicURL(image: image)
+        guard imageURL != nil else {
+            print("Failed to upload image or get URL")
+            return
+        }
+    }
+        
     let newTask = housemates.task(
       name: taskName,
       group_id: user.group_id ?? "",
@@ -169,21 +224,16 @@ struct AddTaskView: View {
       icon: taskIconStringHardcoded,
       recurrence: recurrence,
       recurrenceStartDate: (recurrence != .none) ? recurrenceStartDate : nil,
-      recurrenceEndDate: (recurrence != .none) ? recurrenceEndDate : nil)
+      recurrenceEndDate: (recurrence != .none) ? recurrenceEndDate : nil,
+      beforeImageURL: imageURL
+      )
     
-//    if taskViewModel.tasks.contains(where: { $0.name == newTask.name }) {
-//      alertMessage = "Task already exists."
-//      showAlert = true
-//      return
-//    } else{
-//      taskViewModel.create(task: newTask)
-//    }
-      
+
       if let editableTask = editableTask {
           taskViewModel.editTask(task: editableTask, name: taskName, description: taskDescription, priority: priority.rawValue, icon: taskIconStringHardcoded, recurrence: recurrence, recurrenceStartDate: recurrenceStartDate, recurrenceEndDate: recurrenceEndDate)
           alertMessage = "Task edited successfully."
       } else {
-          taskViewModel.create(task: newTask)
+        taskViewModel.create(task: newTask)
           alertMessage = "Task added successfully."
       }
     
@@ -241,4 +291,26 @@ struct AddTaskView: View {
       .environmentObject(TabBarViewModel.mock())
     }
   }
+    
+    func getPostPicURL(image: UIImage) async -> String? {
+        let photoID = UUID().uuidString
+        let storageRef = Storage.storage().reference().child("\(photoID).jpeg")
+        
+        guard let resizedImage = image.jpegData(compressionQuality: 0.2) else {
+            print("ERROR: Could not resize image")
+            return nil
+        }
+        
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        do {
+            let _ = try await storageRef.putDataAsync(resizedImage, metadata: metadata)
+            let imageURL = try await storageRef.downloadURL()
+            return imageURL.absoluteString
+        } catch {
+            print("ERROR: \(error.localizedDescription)")
+            return nil
+        }
+    }
 }
