@@ -40,6 +40,8 @@
 		51D9B3332B06AB470091EBCD /* startView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D9B3322B06AB470091EBCD /* startView.swift */; };
 		51EA51E72B09950F0098D342 /* GroupNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EA51E62B09950F0098D342 /* GroupNameView.swift */; };
 		51EA51E92B09951A0098D342 /* GroupAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EA51E82B09951A0098D342 /* GroupAddressView.swift */; };
+		81013D5A2B2132CC00EE8ACD /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81013D592B2132CC00EE8ACD /* StatsView.swift */; };
+		81013D5C2B21339D00EE8ACD /* GraphFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81013D5B2B21339D00EE8ACD /* GraphFilterView.swift */; };
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
 		81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */; };
 		81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29E12AFF56C400748D58 /* FilterView.swift */; };
@@ -203,6 +205,8 @@
 		51D9B3322B06AB470091EBCD /* startView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = startView.swift; sourceTree = "<group>"; };
 		51EA51E62B09950F0098D342 /* GroupNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNameView.swift; sourceTree = "<group>"; };
 		51EA51E82B09951A0098D342 /* GroupAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupAddressView.swift; sourceTree = "<group>"; };
+		81013D592B2132CC00EE8ACD /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		81013D5B2B21339D00EE8ACD /* GraphFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphFilterView.swift; sourceTree = "<group>"; };
 		816C30272AF49D59004F1771 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHousematesView.swift; sourceTree = "<group>"; };
 		81CF29E12AFF56C400748D58 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -448,6 +452,8 @@
 				C171E1FC2B1E7DDB00AE41EC /* taskCard.swift */,
 				AD7F57F02B1FF26E0023D476 /* BeforeCameraView.swift */,
 				AD7F57F42B1FF8130023D476 /* AfterCameraView.swift */,
+				81013D592B2132CC00EE8ACD /* StatsView.swift */,
+				81013D5B2B21339D00EE8ACD /* GraphFilterView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -808,6 +814,7 @@
 				8AE8FFA12AF41F36003AD997 /* AmenityView.swift in Sources */,
 				51802D8D2B08CE4C00B4EE9A /* LastNameView.swift in Sources */,
 				5155A17A2AFDC6D500832E51 /* AllHousematesCard.swift in Sources */,
+				81013D5A2B2132CC00EE8ACD /* StatsView.swift in Sources */,
 				ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */,
 				8AF549582B0584C800EB28CC /* AddPostView.swift in Sources */,
 				8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */,
@@ -837,6 +844,7 @@
 				8AB780D52B06EEDF0072B065 /* CommentListView.swift in Sources */,
 				8AF5495A2B0585C300EB28CC /* PostDetailView.swift in Sources */,
 				5138709F2AF562DD007A83B4 /* HousemateProfileView.swift in Sources */,
+				81013D5C2B21339D00EE8ACD /* GraphFilterView.swift in Sources */,
 				8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */,
 				5155A17C2AFDC6ED00832E51 /* AllHousematesView.swift in Sources */,
 				8AD6ED1F2AF1977D006B56B6 /* Group.swift in Sources */,
@@ -1016,7 +1024,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = H9CQ7WA25J;
+				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -1034,7 +1042,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates1";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates23";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1050,7 +1058,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = H9CQ7WA25J;
+				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -1068,7 +1076,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates1";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates23";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
