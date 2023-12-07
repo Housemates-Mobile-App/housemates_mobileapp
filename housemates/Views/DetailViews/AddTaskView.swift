@@ -424,7 +424,7 @@ struct AddTaskView: View {
 struct AddTaskView_Previews: PreviewProvider {
   static var previews: some View {
     AddTaskView(taskIconStringHardcoded: "trash", taskNameHardcoded: "Clean Dishes",
-                user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"))
+                user: User(user_id: "asdf", first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"))
     .environmentObject(TaskViewModel())
     .environmentObject(TabBarViewModel.mock())
   }
