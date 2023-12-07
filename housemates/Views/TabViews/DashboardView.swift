@@ -18,60 +18,37 @@ struct DashboardView: View {
   let days: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     var body: some View {
       if let user = authViewModel.currentUser {
-        let completed = taskViewModel.getCompletedTasksForGroup(user.group_id)
-        VStack(spacing: 0) {
-         
-            Text("Dashboard")
-              .font(.custom("Nunito-Bold", size: 26))
-              .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-              .padding([.top, .horizontal])
-              .padding(.bottom, 2.5)
-      
-        
-          
-          CustomTabBar(selectedTab: $selectedTab)
-          
-          if selectedTab == 0 {
-            
-            
-            
-//            HStack {
-//              Text("Your Pending Tasks")
-//                .font(.custom("Lato-Bold", size: 15))
-//              Spacer()
-//            }.padding()
-            
-            
-//            HStack {
-//              Text("Statistics")
-//                .font(.custom("Lato-Bold", size: 15))
-//              Spacer()
-//            }.padding(.horizontal)
-            
-            StatsView(statHeight: UIScreen.main.bounds.size.width - 10)
-            Spacer()
+          NavigationStack {
+              let completed = taskViewModel.getCompletedTasksForGroup(user.group_id)
+              VStack(spacing: 0) {
+                  
+                  Text("Dashboard")
+                      .font(.custom("Nunito-Bold", size: 26))
+                      .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                      .padding([.top, .horizontal])
+                      .padding(.bottom, 2.5)
+                  
+                  
+                  
+                  CustomTabBar(selectedTab: $selectedTab)
+                  
+                  if selectedTab == 0 {
+                      
+                      StatsView(statHeight: UIScreen.main.bounds.size.width - 10)
+                      Spacer()
+                  }
+                  
+                  if selectedTab == 1 {
+                      ScrollView {
+                          
+                          
+                          calendar(completed: completed, user: user)
+                      }
+                      Spacer()
+                  }
+              }
           }
-          
-          if selectedTab == 1 {
-            ScrollView {
-              
-              
-              calendar(completed: completed, user: user)
-            }
-            Spacer()
-          }
-         
-          
-         
-        }
-        
-        
-        
-        
-        
       }
-      
-        
     }
   
   private func getCurrMonth() -> Date {
@@ -287,8 +264,9 @@ struct DashboardView: View {
             ForEach(completed.filter({ task in
               isSameDay(task: task, currDate: currDay)
             }), id: \.id) { task in
-                taskCard(task: task, user: user)
-                
+                NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                    taskCard(task: task, user: user)
+                }
               
             }
           }
