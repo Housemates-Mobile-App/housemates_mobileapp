@@ -65,7 +65,6 @@ class GroupRepository: ObservableObject {
     
        func filterGroupsByID(_ id: String) -> Group? {
            var group: Group?
-           
            var groups = self.groups.filter{$0.id == id}
            
            if !groups.isEmpty {

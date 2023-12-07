@@ -26,7 +26,7 @@ struct ProfileView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var userViewModel: UserViewModel
-    @ObservedObject var groupRepository = GroupRepository()
+    @EnvironmentObject var groupViewModel: GroupViewModel
     @State private var allowLocation: Bool = true
     @State private var group: Group?
     @State private var group_code: String?
@@ -205,7 +205,7 @@ struct ProfileView: View {
                       
                       
                   }.onAppear {
-                      group = groupRepository.filterGroupsByID(user.group_id!)
+                      group = groupViewModel.getGroupByID(user.group_id!)
                       group_name = group?.name
                       group_code = group?.code
                   }
@@ -252,7 +252,6 @@ struct ProfileView: View {
 struct SettingsView: View {
     var user: User
     @ObservedObject var authViewModel: AuthViewModel
-    @ObservedObject var groupRepository: GroupRepository
 
     @State private var group: Group?
     @State private var group_code: String?
@@ -275,15 +274,6 @@ struct SettingsView: View {
                 }
             }
         }
-        .onAppear {
-            loadGroupData()
-        }
-    }
-
-    private func loadGroupData() {
-        group = groupRepository.filterGroupsByID(user.group_id!)
-        group_code = group?.code
-        
     }
 }
 
@@ -309,6 +299,7 @@ struct ProfileView_Previews: PreviewProvider {
               .environmentObject(AuthViewModel.mock())
               .environmentObject(TaskViewModel())
               .environmentObject(UserViewModel())
+              .environmentObject(GroupViewModel())
       }
   }
 }
