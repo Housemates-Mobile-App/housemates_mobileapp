@@ -137,10 +137,8 @@ struct HousemateProfileView: View {
                                     
                                     
                                     ForEach(recentTasks) {task in
-                                        NavigationLink(destination: TaskDetailView(currUser: housemate, currTask:task)) {
-                                            taskCard(task: task, user: housemate)
-                                                .padding(.horizontal)
-                                        }
+                                        taskCard(task: task, user: housemate)
+                                            .padding(.horizontal)
                                         
                                     }
                                 }

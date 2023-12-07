@@ -287,9 +287,7 @@ struct DashboardView: View {
             ForEach(completed.filter({ task in
               isSameDay(task: task, currDate: currDay)
             }), id: \.id) { task in
-//                NavigationLink(destination: TaskDetailView(currUser: userViewModel.getUserByID(task.user_id ?? ""), currTask:task)) {
-                    taskCard(task: task, user: user)
-//                }
+                taskCard(task: task, user: user)
                 
               
             }
