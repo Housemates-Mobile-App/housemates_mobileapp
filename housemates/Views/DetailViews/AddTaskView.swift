@@ -27,7 +27,7 @@ struct AddTaskView: View {
   
   var body: some View {
     ScrollView {
-      VStack(spacing: 10) {
+      VStack(alignment: .leading, spacing: 10) {
           Text((editableTask != nil) ? "Edit Task" : "Add Task")
           
           .font(.custom("Nunito-Bold", size: 26))
@@ -78,25 +78,45 @@ struct AddTaskView: View {
           recurrenceStartDate: $recurrenceStartDate,
           recurrenceEndDate: $recurrenceEndDate)
           
-        HStack {
-            Button(action: { showCamera = true }) {
-                Image(systemName: "camera.fill")
-                  .font(.largeTitle)
-                  .foregroundColor(.blue)
+          
+          if recurrence == .none {
+              HStack {
+                  ZStack {
+                      if let capturedImage = image {
+                          // Show the captured image
+                          Image(uiImage: capturedImage)
+                              .resizable()
+                              .scaledToFit()
+                              .frame(width: 100, height: 100)
+                      } else {
+                          // Show a gray box
+                          Rectangle()
+                              .fill(Color.gray)
+                              .frame(width: 100, height: 100)
+
+                          // Camera icon
+                          Image(systemName: "camera.fill")
+                              .font(.largeTitle)
+                              .foregroundColor(.white)
+                              .onTapGesture {
+                                  showCamera = true
+                              }
+                      }
+                  }
+                  .fullScreenCover(isPresented: $showCamera) {
+                      BeforeCameraView(image: $image, isPresented: $showCamera)
+                  }
+
+                  // Text changes based on whether an image has been captured
+                  Text(image == nil ? "Take a Before photo!" : "Before photo taken")
+                      .font(.custom("Nunito-Bold", size: 17))
+                      .foregroundColor(Color.gray)
               }
-              .fullScreenCover(isPresented: $showCamera) {
-                  BeforeCameraView(image: $image, isPresented: $showCamera)
-            }
-              .padding()
-            
-            if image != nil {
-                  Image(uiImage: image!)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100, height: 100)
-                    .padding()
-                }
-        }
+              .padding(.leading)
+          }
+          
+          Spacer()
+        
           
           Button(action: {
               Task {
@@ -137,6 +157,7 @@ struct AddTaskView: View {
             return Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
         }
     }
+    .padding(.horizontal)
   }
   
   

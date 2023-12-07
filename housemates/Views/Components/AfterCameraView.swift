@@ -15,6 +15,7 @@ struct AfterCameraView: View {
     @State private var takePhoto = false
     @State private var showPreview = false
     var onDismiss: () -> Void
+    @State private var flipCamera = false
     
     var body: some View {
         ZStack {
@@ -24,7 +25,7 @@ struct AfterCameraView: View {
             } else {
                 // This is the camera UI
 //                CustomCameraInterfaceView(image: $image, showPreview: $showPreview, takePhoto: takePhoto, onClaimTask: onClaimTask)
-                AfterCustomCameraInterfaceView(image: $image, showPreview: $showPreview, takePhoto: takePhoto, onDismiss: {
+                AfterCustomCameraInterfaceView(image: $image, showPreview: $showPreview, takePhoto: takePhoto, flipCamera: $flipCamera, onDismiss: {
                     isPresented = false
                     onDismiss()// Dismiss the camera view
                 })
@@ -95,11 +96,15 @@ struct AfterCustomCameraInterfaceView: View {
     @Binding var image: UIImage?
     @Binding var showPreview: Bool
     @State var takePhoto: Bool
+    @Binding var flipCamera: Bool
+
     var onDismiss: () -> Void
+    
 
     var body: some View {
             ZStack {
-                CustomCameraViewRepresentable(image: $image, isPresented: $showPreview, takePhoto: $takePhoto)
+//                CustomCameraViewRepresentable(image: $image, isPresented: $showPreview, takePhoto: $takePhoto)
+                CustomCameraViewRepresentable(image: $image, isPresented: $showPreview, takePhoto: $takePhoto, flipCamera: $flipCamera)
 
                 VStack {
                     VStack (spacing: -10) {
@@ -123,10 +128,14 @@ struct AfterCustomCameraInterfaceView: View {
                     Spacer()
 
                     // Capture button
-                    Button(action: {
+                    CaptureButton()
+                    .onTapGesture {
                         self.takePhoto = true
-                    }) {
-                        CaptureButton()
+                    }
+
+                    FlipButton()
+                    .onTapGesture {
+                        flipCamera.toggle()
                     }
                     .padding(.bottom, SafeAreaInsets.bottom + 20)
                     
@@ -156,18 +165,6 @@ struct AfterCustomCameraInterfaceView: View {
             .background(Color.black)
             .edgesIgnoringSafeArea(.all)
         }
-    struct CaptureButton: View {
-        var body: some View {
-            ZStack {
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 75, height: 75)
-                Circle()
-                    .stroke(Color.purple, lineWidth: 5)
-                    .frame(width: 85, height: 85)
-            }
-        }
-    }
 }
 
 

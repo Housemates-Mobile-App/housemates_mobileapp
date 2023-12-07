@@ -77,16 +77,45 @@ class CustomCameraViewController: UIViewController {
         let settings = AVCapturePhotoSettings()
         photoOutput.capturePhoto(with: settings, delegate: self)
     }
+    
+    func switchCamera() {
+        guard AVCaptureDevice.devices(for: .video).count > 1 else {
+            print("The device does not have more than one camera.")
+            return
+        }
+
+        captureSession.beginConfiguration()
+        defer { captureSession.commitConfiguration() }
+
+        guard let currentInput = captureSession.inputs.first as? AVCaptureDeviceInput else { return }
+        captureSession.removeInput(currentInput)
+
+        let newCameraDirection: AVCaptureDevice.Position = (currentInput.device.position == .back) ? .front : .back
+
+        guard let newCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: newCameraDirection),
+              let newVideoInput = try? AVCaptureDeviceInput(device: newCameraDevice) else { return }
+
+        if captureSession.canAddInput(newVideoInput) {
+            captureSession.addInput(newVideoInput)
+        }
+    }
+
 }
 
 // MARK: - AVCapturePhotoCaptureDelegate
 extension CustomCameraViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation(),
-              let image = UIImage(data: imageData) else {
+              var image = UIImage(data: imageData) else {
             onPhotoCapture?(nil)
             return
         }
+        
+        // Check if the current camera is front-facing and flip the image if needed
+        if let currentInput = captureSession.inputs.first as? AVCaptureDeviceInput, currentInput.device.position == .front {
+            image = UIImage(cgImage: image.cgImage!, scale: image.scale, orientation: .leftMirrored)
+        }
+        
         onPhotoCapture?(image)
     }
 }
@@ -95,7 +124,8 @@ extension CustomCameraViewController: AVCapturePhotoCaptureDelegate {
 struct CustomCameraViewRepresentable: UIViewControllerRepresentable {
     @Binding var image: UIImage?
     @Binding var isPresented: Bool
-    @Binding var takePhoto: Bool  // A binding to control when to take a photo
+    @Binding var takePhoto: Bool
+    @Binding var flipCamera: Bool
 
     func makeUIViewController(context: Context) -> CustomCameraViewController {
         let controller = CustomCameraViewController()
@@ -118,6 +148,14 @@ struct CustomCameraViewRepresentable: UIViewControllerRepresentable {
 //                self.takePhoto = false  // Reset the state after taking the photo
 //            }
         }
+        
+        if flipCamera {
+            uiViewController.switchCamera()
+            // Reset the state after flipping the camera
+            DispatchQueue.main.async {
+                self.flipCamera = false
+            }
+        }
     }
 }
 
@@ -127,5 +165,29 @@ struct SafeAreaInsets {
     }
     static var bottom: CGFloat {
         UIApplication.shared.windows.first { $0.isKeyWindow }?.safeAreaInsets.bottom ?? 0
+    }
+}
+
+struct FlipButton: View {
+    var body: some View {
+        Image(systemName: "camera.rotate")
+            .font(.title)
+            .foregroundColor(.white)
+            .padding()
+            .background(Color.gray.opacity(0.7))
+            .clipShape(Circle())
+    }
+}
+
+struct CaptureButton: View {
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(Color.white)
+                .frame(width: 75, height: 75)
+            Circle()
+                .stroke(Color.purple, lineWidth: 5)
+                .frame(width: 85, height: 85)
+        }
     }
 }

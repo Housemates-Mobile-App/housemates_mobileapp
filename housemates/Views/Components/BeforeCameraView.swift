@@ -16,6 +16,8 @@ struct BeforeCameraView: View {
     @Binding var isPresented: Bool
     @State private var takePhoto = false
     @State private var showPreview = false
+    @State private var flipCamera = false
+
 //    var onClaimTask: (UIImage?) -> Void
     
     var body: some View {
@@ -25,9 +27,8 @@ struct BeforeCameraView: View {
                 BeforeImagePreviewView(image: $image, isPresented: $isPresented, showPreview: $showPreview)//, onClaimTask: onClaimTask)
             } else {
                 // This is the camera UI
-//                CustomCameraInterfaceView(image: $image, showPreview: $showPreview, takePhoto: takePhoto, onClaimTask: onClaimTask)
-                BeforeCustomCameraInterfaceView(image: $image, showPreview: $showPreview, takePhoto: takePhoto, onDismiss: {
-                    isPresented = false 
+                BeforeCustomCameraInterfaceView(image: $image, showPreview: $showPreview, takePhoto: takePhoto, flipCamera: $flipCamera, onDismiss: {
+                    isPresented = false
                 })
             }
         }
@@ -254,11 +255,12 @@ struct BeforeCustomCameraInterfaceView: View {
     @Binding var showPreview: Bool
     @State var takePhoto: Bool
 //    var onClaimTask: (UIImage?) -> Void
+    @Binding var flipCamera: Bool
     var onDismiss: () -> Void
 
     var body: some View {
             ZStack {
-                CustomCameraViewRepresentable(image: $image, isPresented: $showPreview, takePhoto: $takePhoto)
+                CustomCameraViewRepresentable(image: $image, isPresented: $showPreview, takePhoto: $takePhoto, flipCamera: $flipCamera)
 
                 VStack {
                     VStack (spacing: -10) {
@@ -281,13 +283,16 @@ struct BeforeCustomCameraInterfaceView: View {
 
                     Spacer()
 
-                    // Capture button
-                    Button(action: {
-                        self.takePhoto = true
-                    }) {
                         CaptureButton()
-                    }
-                    .padding(.bottom, SafeAreaInsets.bottom + 20)
+                            .onTapGesture {
+                                self.takePhoto = true
+                            }
+
+                        FlipButton()
+                            .onTapGesture {
+                                flipCamera.toggle()
+                            }
+                            .padding(.bottom, SafeAreaInsets.bottom + 20)
                     
                     //SKip Button
                     //                Button(action: {
@@ -324,30 +329,17 @@ struct BeforeCustomCameraInterfaceView: View {
             .edgesIgnoringSafeArea(.all)
         }
     
+//    struct SkipButton: View {
+//        var body: some View {
+//            Text("Skip")
+//                .font(.headline)
+//                .foregroundColor(.white)
+//                .padding(.horizontal, 30)
+//                .padding(.vertical, 10)
+//                .background(Color.black.opacity(0.5))
+//                .clipShape(Capsule())
+//        }
+//    }
     
-    struct CaptureButton: View {
-        var body: some View {
-            ZStack {
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 75, height: 75)
-                Circle()
-                    .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5)
-                    .frame(width: 85, height: 85)
-            }
-        }
-    }
-    
-    struct SkipButton: View {
-        var body: some View {
-            Text("Skip")
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding(.horizontal, 30)
-                .padding(.vertical, 10)
-                .background(Color.black.opacity(0.5))
-                .clipShape(Capsule())
-        }
-    }
 }
 
