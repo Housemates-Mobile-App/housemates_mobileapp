@@ -308,7 +308,7 @@ struct AddTaskView: View {
       }
       
   }
-    
+  
     struct SheetView: View {
         @Binding var taskIconStr: String
         @Environment(\.dismiss) var dismiss
@@ -395,6 +395,7 @@ struct AddTaskView: View {
                 }
             }.padding(10)
         }
+
     }
     func getPostPicURL(image: UIImage) async -> String? {
         let photoID = UUID().uuidString

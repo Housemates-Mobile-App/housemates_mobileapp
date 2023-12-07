@@ -12,6 +12,7 @@ struct HomeView: View {
 //    @EnvironmentObject var tabBarViewModel : TabBarViewModel
     
     @State var hide = false
+    @State private var showActivityView = false
     @State var scrollOffset : CGFloat = 0
     @State var threshHold : CGFloat = 0
     
@@ -52,10 +53,21 @@ struct HomeView: View {
                                 .padding(.bottom)
                         }.padding(.top, 10)
                         
+                        
                         if let group_id = user.group_id {
-                            ForEach(postViewModel.getPostsForGroup(group_id)) { post in
-                                PostRowView(post: post, user: user).padding(.bottom, 5)
-                            }
+                            let group_posts = postViewModel.getPostsForGroup(group_id)
+                            
+                                if group_posts.isEmpty {
+                                    Text("Complete a task to see posts!")
+                                        .font(.custom("Lato", size: 17))
+                                        .padding(45)
+                                    
+                                } else {
+                                    ForEach(group_posts) { post in
+                                        PostRowView(post: post, user: user).padding(.bottom, 5)
+                                    }
+                                }
+                            
                         }
                         
                         // MARK: reads position of stuff to display nav and tool bars
@@ -73,6 +85,24 @@ struct HomeView: View {
                         .navigationBarTitleDisplayMode(.inline)
                         .coordinateSpace(name: "scroll")
                         .toolbar(hide ? .hidden : .visible, for: .navigationBar)
+                        .background(
+                               NavigationLink(destination: ActivityView(user: user), isActive: $showActivityView) {
+                                 EmptyView()
+                               }
+                           )
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                NavigationLink(destination: ActivityView(user: user)) {
+                                    Button(action: {
+                                        self.showActivityView = true
+                                    }) {
+                                        Image(systemName: "tray.full.fill") // Use an appropriate system icon
+                                    }
+                                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Customize the color if needed
+                                }
+                                
+                            }
+                        }
                 }
             }
         }

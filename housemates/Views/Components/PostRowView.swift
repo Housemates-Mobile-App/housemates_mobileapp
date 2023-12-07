@@ -16,10 +16,11 @@ struct PostRowView: View {
     @State private var selectedEmoji = "🍑" // Default value
     @State private var selectedTabIndex = 0 // Initial tab index
     @State private var reactionBar = false
+    @State private var reactionDict: [String: [String]] = [:]
+
 
     let post : Post
     let user : User
-    
     var body: some View {
         ZStack(alignment: .topLeading) {
             // MARK: Post images (after image is required but before image is optional)
@@ -146,7 +147,7 @@ struct PostRowView: View {
             // MARK: Bottom Section for reactions
         
            VStack(spacing: 6) {
-               ForEach(postViewModel.nonEmptyReactions(post: post).sorted(by: {if $0.value.count == $1.value.count {
+               ForEach(postViewModel.reactionDict(post: post).sorted(by: {if $0.value.count == $1.value.count {
                    return $0.key < $1.key // Sort by key (chronological order)
                } else {
                    return $0.value.count < $1.value.count
@@ -163,7 +164,6 @@ struct PostRowView: View {
               
 
         }.frame(height: 525) // Set the height of the ZStack
-          
     }
     
     private func toggleReactionsButton(post: Post, user: User) -> some View {
@@ -211,35 +211,38 @@ struct PostRowView: View {
     
     // MARK: Reaction button
     private func reactionButton(emoji: String, currUser: User, post: Post) -> some View {
-        Button(action: {
-                if let users = post.reactions[emoji] {
-                        if users.contains(where: { $0 == currUser.id }) {
-                            postViewModel.removeReactionFromPost(post: post, emoji: emoji, currUser: currUser)
-                    } else {
-                            postViewModel.reactToPost(post: post, emoji: emoji, currUser: currUser)
-                    }
+        let numReacts = post.reactions.filter{ $0.emoji == emoji }.count
+        let userReactedToPost = post.reactions.contains { $0.created_by.user_id == currUser.id && $0.emoji == emoji }
+        let backgroundColor = userReactedToPost ? Color(.white).opacity(0.48) : Color(.white).opacity(0.13)
+        
+        return Button(action: {
+                // If user has already reacted, show remove react button
+                if userReactedToPost {
+                        postViewModel.removeReactionFromPost(post: post, emoji: emoji, currUser: currUser)
+                
+                // If user has has not reacted, show react button
+                } else {
+                        postViewModel.reactToPost(post: post, emoji: emoji, currUser: currUser)
                 }
+                
             }) {
                
                     Text(emoji)
                     .font(.system(size: 18)).offset(x: 3)
                                                                                                                       
-                    if let users = post.reactions[emoji] {
-                        if !users.isEmpty {
-                            Text("\(users.count)")
-                                .padding(.trailing, 5)
-                                .font(.custom("Lato", size: 15))
-                                .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
-                        }
-                    }
+               
+                    Text("\(numReacts)")
+                        .padding(.trailing, 5)
+                        .font(.custom("Lato", size: 15))
+                        .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                
+                    
             }.padding(6)
 
             .background(
                 RoundedRectangle(cornerRadius: 18)
-                    .fill((post.reactions[emoji]?.contains(where: { $0 == currUser.id }))! ?
-                          Color(.white).opacity(0.48) :
-                        Color(.white).opacity(0.13))
-            )
+                    .fill(backgroundColor)
+                )
             .cornerRadius(15)
     }
     

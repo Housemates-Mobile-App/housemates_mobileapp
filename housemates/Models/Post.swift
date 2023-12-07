@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct Post: Identifiable, Codable {
-    
     // MARK: Fields
     @DocumentID var id: String?
     var task: task
@@ -19,7 +18,7 @@ struct Post: Identifiable, Codable {
     var num_comments: Int
     var liked_by: [String]
     var comments: [Comment]
-    var reactions: [String: [String]]
+    var reactions: [Reaction]
     var afterImageURL: String?
     var caption: String?
     
@@ -36,6 +35,5 @@ struct Post: Identifiable, Codable {
         case reactions
         case afterImageURL
         case caption
-    }
-    
+    }    
 }

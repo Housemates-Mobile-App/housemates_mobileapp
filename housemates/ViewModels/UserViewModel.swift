@@ -160,6 +160,7 @@ extension UserViewModel {
     static func mock() -> UserViewModel {
         // Create and return a mock AuthViewModel with a mock user
         let mockUsers =  [User(id: "xkP2L9pIp5cklnQDD4JYXv0Tow02",
+                               user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02",
                                first_name: "Sean",
                                last_name: "Pham",
                                phone_number: "1234567899",
@@ -168,6 +169,7 @@ extension UserViewModel {
                                group_id: "wwyqNgGYFXMCpMcr9jvI",
                                imageURLString: "https://firebasestorage.googleapis.com:443/v0/b/housemates-3b4be.appspot.com/o/E07030F1-2EDB-46EE-94E1-44C2C8F1D298.jpeg?alt=media&token=208753fd-eb63-4e47-b40e-7fb33ca7345d"),
                           User(id: "test2",
+                               user_id: "test2",
                                first_name: "test2",
                                last_name: "test2",
                                phone_number: "test2",
@@ -181,6 +183,7 @@ extension UserViewModel {
     
     static func mockUser() -> User {
         return User(id: "xkP2L9pIp5cklnQDD4JYXv0Tow02",
+                    user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02",
                     first_name: "Sean",
                     last_name: "Pham",
                     phone_number: "1234567899",
