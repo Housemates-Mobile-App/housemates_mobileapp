@@ -17,7 +17,7 @@ struct AddTaskView: View {
   @State private var recurrenceStartDate: Date = Date()
   @State private var recurrenceEndDate: Date = Date()
   @State private var showingSheet = false
-    @State private var taskIconStringNew: String
+  @State private var taskIconStringNew: String
     
   var editableTask: task?
 
@@ -25,7 +25,8 @@ struct AddTaskView: View {
   let elements: [TaskPriority] = TaskPriority.allCases
     
     init(taskIconStringHardcoded: String, taskNameHardcoded: String, user: User, editableTask: task? = nil) {
-        _taskIconStringNew = State(initialValue: taskIconStringHardcoded)
+        let iconString = taskIconStringHardcoded.isEmpty ? "defaultTask" : taskIconStringHardcoded
+        _taskIconStringNew = State(initialValue: iconString)
         self.taskIconStringHardcoded = taskIconStringHardcoded
         self.taskNameHardcoded = taskNameHardcoded
         self.user = user
@@ -324,19 +325,21 @@ struct AddTaskView: View {
                                                     Image(taskData.taskIcon)
                                                         .resizable()
                                                         .aspectRatio(contentMode: .fit)
-                                                        .frame(width: (UIScreen.main.bounds.width - 80) / 5)
+                                                        .frame(width: (UIScreen.main.bounds.width - 90) / 5)
                                                         .overlay(RoundedRectangle(cornerRadius: 10).stroke(taskIconStr == taskData.taskIcon ? Color(red: 0.439, green: 0.298, blue: 1.0) : .gray, lineWidth: taskIconStr == taskData.taskIcon ? 4 : 1))
                                                         .onTapGesture {
                                                             taskIconStr = taskData.taskIcon
                                                         }
                                                 } else {
-                                                    Spacer()
+                                                    Rectangle()
+                                                        .foregroundColor(Color.clear)
+                                                        .frame(width: (UIScreen.main.bounds.width - 90) / 5)
                                                 }
                                             }
                                         }
                                     }
                                 }
-                            }
+                            }.frame(width: UIScreen.main.bounds.width - 25)
                         }
                     }
                 }
