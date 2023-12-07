@@ -51,17 +51,39 @@ class PostViewModel: ObservableObject {
         return defaultReactions
     }
     
-//    // Gets a list of comments and reactions by user in reverse chronolgoical order
-//    func getActivity(for: User) {
-//        var activity = [Any]()
-//        
-//        // Get posts by user
-//        let posts = posts.filter{ $0. == emoji }.count
-//        
-//        // Iterate through posts
-//        
-//        return activity
-//    }
+    // Gets a list of comments and reactions by user in reverse chronolgoical order
+    func getActivity(user: User) -> [Any] {
+        var activity = [Any]()
+        
+        // Get posts by user
+        let posts = posts.filter{ $0.created_by.user_id == user.id }
+        
+        for post in posts {
+            // Get comments for post excluding that current user
+            let comments = post.comments.filter{ $0.created_by.user_id != user.id}
+            
+            // Get reactions for post excluding that of current user
+            let reactions = post.reactions.filter{ $0.created_by.user_id != user.id}
+            
+            activity += comments + reactions
+        }
+        
+        // Convert date strings to Date objects
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM.dd.yy h:mm a"
+        
+        activity = activity.sorted { (item1, item2) -> Bool in
+            if let date1 = dateFormatter.date(from : ((item1 as? Comment)?.date_created ?? (item1 as? Reaction)?.date_created)!),
+               let date2 = dateFormatter.date(from: ((item2 as? Comment)?.date_created ?? (item2 as? Reaction)?.date_created)!) {
+                return date1 > date2
+            }
+            return false
+        }
+        
+        return activity
+    }
+    
+    
     func reactionDict(post: Post) -> [String: [String]] {
         // Parse reactions list from post
         let reactions = post.reactions
@@ -92,8 +114,12 @@ class PostViewModel: ObservableObject {
         var updatedPost = post
         var reactions = post.reactions
         
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.dd.yy h:mm a"
+        let formattedDate = formatter.string(from: Date())
+        
         if let uid = user.id {
-            let newReaction = Reaction(emoji: emoji, created_by: user, date_created: Date())
+            let newReaction = Reaction(emoji: emoji, created_by: user, date_created: formattedDate)
             updatedPost.reactions.append(newReaction)
         }
         
@@ -118,8 +144,12 @@ class PostViewModel: ObservableObject {
         var updatedPost = post
         var reactions = post.reactions
         
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.dd.yy h:mm a"
+        let formattedDate = formatter.string(from: Date())
+        
         if let uid = currUser.id {
-            let newReaction = Reaction(emoji: emoji, created_by: currUser, date_created: Date())
+            let newReaction = Reaction(emoji: emoji, created_by: currUser, date_created: formattedDate)
             updatedPost.reactions.append(newReaction)
         }
         
@@ -263,7 +293,7 @@ extension PostViewModel {
         let formattedDate = formatter.string(from: Date())
         let mockUser =  User(id: "test", user_id: "test", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
         let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, priority: "High", recurrence: .none)
-        let mockReaction = Reaction(emoji: "🍑", created_by: mockUser, date_created: Date())
+        let mockReaction = Reaction(emoji: "🍑", created_by: mockUser, date_created: formattedDate)
         let mockPostViewModel = PostViewModel()
         let mockPosts = [Post(task: mockTask, group_id: "test", created_by: mockUser, num_likes: 0, num_comments: 0, liked_by: [], comments: [], reactions: [mockReaction])]
         mockPostViewModel.posts = mockPosts
@@ -277,7 +307,7 @@ extension PostViewModel {
         let mockUser =  User(id: "test", user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
         let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, priority: "High", recurrence: .none, beforeImageURL: "https://firebasestorage.googleapis.com:443/v0/b/housemates-3b4be.appspot.com/o/C11387A8-885C-4634-91F5-2E76C0278B71.jpeg?alt=media&token=01c5d456-5726-4eb3-a579-46ae25822151")
         let comment = Comment(text: "This is an example comment", date_created: formattedDate , created_by: mockUser)
-        let mockReaction = Reaction(emoji: "🍑", created_by: mockUser, date_created: Date())
+        let mockReaction = Reaction(emoji: "🍑", created_by: mockUser, date_created: formattedDate)
         return Post(task: mockTask, group_id: "test", created_by: mockUser, num_likes: 0, num_comments: 1, liked_by: [], comments: [comment], reactions: [mockReaction], afterImageURL: "https://firebasestorage.googleapis.com:443/v0/b/housemates-3b4be.appspot.com/o/06F408B1-8D76-499A-8DB9-222FCBA5662A.jpeg?alt=media&token=7a49c9fe-5f89-47fa-bdbe-05b9734a7f99",
         caption: "just coded this shit")
     }
@@ -289,6 +319,15 @@ extension PostViewModel {
         let mockUser =  User(id: "test", user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
         return  Comment(text: "This is an example comment", date_created: formattedDate , created_by: mockUser)
 
+    }
+    
+    static func mockReaction() -> Reaction {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.dd.yy h:mm a"
+        let formattedDate = formatter.string(from: Date())
+        let mockUser =  User(id: "test", user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
+        let mockReaction = Reaction(emoji: "🍑", created_by: mockUser, date_created: formattedDate)
+        return mockReaction
     }
 }
 

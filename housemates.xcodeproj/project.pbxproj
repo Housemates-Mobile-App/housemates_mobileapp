@@ -62,6 +62,9 @@
 		81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EC60C02AFE024000A1B753 /* GraphView.swift */; };
 		8A02F5FE2B1FF854002341C7 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8A02F5FD2B1FF854002341C7 /* CachedAsyncImage */; };
 		8A16D4E22B214343006D1805 /* Reactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D4E12B214343006D1805 /* Reactions.swift */; };
+		8A16D4E42B21709F006D1805 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D4E32B21709F006D1805 /* ActivityView.swift */; };
+		8A16D4E62B219101006D1805 /* CommentActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D4E52B219101006D1805 /* CommentActivityView.swift */; };
+		8A16D4E82B21913A006D1805 /* ReactionActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D4E72B21913A006D1805 /* ReactionActivityView.swift */; };
 		8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */; };
 		8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */; };
 		8A61D96F2B1DC318003A3494 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8A61D96E2B1DC318003A3494 /* MCEmojiPicker */; };
@@ -227,6 +230,9 @@
 		81E9ED682B06E0B800A258A8 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		81EC60C02AFE024000A1B753 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		8A16D4E12B214343006D1805 /* Reactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactions.swift; sourceTree = "<group>"; };
+		8A16D4E32B21709F006D1805 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		8A16D4E52B219101006D1805 /* CommentActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentActivityView.swift; sourceTree = "<group>"; };
+		8A16D4E72B21913A006D1805 /* ReactionActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionActivityView.swift; sourceTree = "<group>"; };
 		8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailView.swift; sourceTree = "<group>"; };
 		8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -474,6 +480,9 @@
 				8AF549592B0585C300EB28CC /* PostDetailView.swift */,
 				81E9ED682B06E0B800A258A8 /* TaskDetailView.swift */,
 				8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */,
+				8A16D4E32B21709F006D1805 /* ActivityView.swift */,
+				8A16D4E52B219101006D1805 /* CommentActivityView.swift */,
+				8A16D4E72B21913A006D1805 /* ReactionActivityView.swift */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -810,6 +819,7 @@
 				816C30282AF49D59004F1771 /* TaskView.swift in Sources */,
 				51B397682B01FB8000A0AF2A /* NewInputView.swift in Sources */,
 				81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */,
+				8A16D4E82B21913A006D1805 /* ReactionActivityView.swift in Sources */,
 				8AE8FF9F2AF41F2B003AD997 /* HomeView.swift in Sources */,
 				81E9ED532B05EDA000A258A8 /* Font.swift in Sources */,
 				8AF358422AF4B2BA0009B93C /* JoinGroupView.swift in Sources */,
@@ -817,6 +827,7 @@
 				8AD6ED242AF197BD006B56B6 /* Post.swift in Sources */,
 				8AE8FFA12AF41F36003AD997 /* AmenityView.swift in Sources */,
 				51802D8D2B08CE4C00B4EE9A /* LastNameView.swift in Sources */,
+				8A16D4E42B21709F006D1805 /* ActivityView.swift in Sources */,
 				5155A17A2AFDC6D500832E51 /* AllHousematesCard.swift in Sources */,
 				81013D5A2B2132CC00EE8ACD /* StatsView.swift in Sources */,
 				ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */,
@@ -825,6 +836,7 @@
 				512246752B034E6B006C3F23 /* FlashcardComponent.swift in Sources */,
 				5188F2242B02AC47001B1AA0 /* GroupViewModel.swift in Sources */,
 				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
+				8A16D4E62B219101006D1805 /* CommentActivityView.swift in Sources */,
 				8AE4D8762B1D7FF60073DBD8 /* Emoji.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,
 				51802D8F2B08CE6900B4EE9A /* DateOfBirthView.swift in Sources */,

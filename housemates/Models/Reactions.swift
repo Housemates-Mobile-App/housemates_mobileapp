@@ -14,7 +14,7 @@ struct Reaction: Identifiable, Codable {
     var id = UUID()
     var emoji: String
     var created_by: User
-    var date_created: Date
+    var date_created: String
     
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
