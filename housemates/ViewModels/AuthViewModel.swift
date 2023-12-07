@@ -57,7 +57,7 @@ class AuthViewModel: ObservableObject {
         do {
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             self.userSession = result.user
-            let user = User(id: result.user.uid, first_name: first_name, last_name: last_name, phone_number: phone_number, email: email, birthday: birthday)
+            let user = User(id: result.user.uid, user_id: result.user.uid, first_name: first_name, last_name: last_name, phone_number: phone_number, email: email, birthday: birthday)
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id!).setData(encodedUser)
             await fetchUser()
@@ -129,6 +129,7 @@ extension AuthViewModel {
     static func mock() -> AuthViewModel {
         // Create and return a mock AuthViewModel with a mock user
         let mockUser =  User(id: "xkP2L9pIp5cklnQDD4JYXv0Tow02",
+                             user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02",
                              first_name: "Sean",
                              last_name: "Pham",
                              phone_number: "1234567899",

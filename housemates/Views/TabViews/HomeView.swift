@@ -52,10 +52,21 @@ struct HomeView: View {
                                 .padding(.bottom)
                         }.padding(.top, 10)
                         
+                        
                         if let group_id = user.group_id {
-                            ForEach(postViewModel.getPostsForGroup(group_id)) { post in
-                                PostRowView(post: post, user: user).padding(.bottom, 5)
-                            }
+                            let group_posts = postViewModel.getPostsForGroup(group_id)
+                            
+                                if group_posts.isEmpty {
+                                    Text("Complete a task to see posts!")
+                                        .font(.custom("Lato", size: 17))
+                                        .padding(45)
+                                    
+                                } else {
+                                    ForEach(group_posts) { post in
+                                        PostRowView(post: post, user: user).padding(.bottom, 5)
+                                    }
+                                }
+                            
                         }
                         
                         // MARK: reads position of stuff to display nav and tool bars

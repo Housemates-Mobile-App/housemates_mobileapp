@@ -12,6 +12,7 @@ struct User: Identifiable, Codable {
     
     // MARK: Fields
     @DocumentID var id: String?
+    var user_id: String // Added for parent structs such as posts, tasks, comments
     var first_name: String
     var last_name: String
     var is_home: Bool?
@@ -24,6 +25,7 @@ struct User: Identifiable, Codable {
     // MARK: Codable
     enum CodingKeys: String, CodingKey {
         case id
+        case user_id
         case first_name
         case last_name
         case is_home

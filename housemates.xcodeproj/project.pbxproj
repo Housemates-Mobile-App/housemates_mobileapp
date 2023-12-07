@@ -61,6 +61,7 @@
 		81E9ED692B06E0B800A258A8 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E9ED682B06E0B800A258A8 /* TaskDetailView.swift */; };
 		81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EC60C02AFE024000A1B753 /* GraphView.swift */; };
 		8A02F5FE2B1FF854002341C7 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8A02F5FD2B1FF854002341C7 /* CachedAsyncImage */; };
+		8A16D4E22B214343006D1805 /* Reactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D4E12B214343006D1805 /* Reactions.swift */; };
 		8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */; };
 		8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */; };
 		8A61D96F2B1DC318003A3494 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8A61D96E2B1DC318003A3494 /* MCEmojiPicker */; };
@@ -225,6 +226,7 @@
 		81E9ED652B05F61B00A258A8 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		81E9ED682B06E0B800A258A8 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		81EC60C02AFE024000A1B753 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		8A16D4E12B214343006D1805 /* Reactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactions.swift; sourceTree = "<group>"; };
 		8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailView.swift; sourceTree = "<group>"; };
 		8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -531,6 +533,7 @@
 				515939D32AFF37B2004C31BB /* TaskData.swift */,
 				8AE4D8752B1D7FF60073DBD8 /* Emoji.swift */,
 				81DBF19A2B1E4AE1002DF472 /* DateValue.swift */,
+				8A16D4E12B214343006D1805 /* Reactions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -784,6 +787,7 @@
 				5188F2262B030DAF001B1AA0 /* HousemateCircleComponent.swift in Sources */,
 				8A7F0AC02AFD407900F7B76B /* UserViewModel.swift in Sources */,
 				AD7F57F12B1FF26E0023D476 /* BeforeCameraView.swift in Sources */,
+				8A16D4E22B214343006D1805 /* Reactions.swift in Sources */,
 				8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */,
 				AD95E0E02B168AD700577DAB /* CameraView.swift in Sources */,
 				8AD6ED292AF1980D006B56B6 /* GroupDataRepository.swift in Sources */,
@@ -1024,7 +1028,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 5V6283R8D6;
+				DEVELOPMENT_TEAM = 79WMU8S839;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -1042,7 +1046,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates23";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1058,7 +1062,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 5V6283R8D6;
+				DEVELOPMENT_TEAM = 79WMU8S839;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -1076,7 +1080,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates23";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
