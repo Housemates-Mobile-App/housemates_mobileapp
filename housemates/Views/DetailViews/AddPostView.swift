@@ -13,6 +13,7 @@ struct AddPostView: View {
     let user: User
     let image: UIImage?
     @State private var caption: String = ""
+    @EnvironmentObject var tabBarViewModel : TabBarViewModel
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var postViewModel: PostViewModel
     
@@ -83,6 +84,14 @@ struct AddPostView: View {
             }
             .navigationBarTitle("New Post", displayMode: .inline)
             .padding(.bottom, 50)
+            .onAppear {
+                tabBarViewModel.hideTabBar = true
+            }
+            .onDisappear {
+                withAnimation(.easeIn(duration: 0.2), {
+                    tabBarViewModel.hideTabBar = false
+                })
+            }
         }
     }
 
