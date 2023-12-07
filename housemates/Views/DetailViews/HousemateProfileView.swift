@@ -126,7 +126,10 @@ struct HousemateProfileView: View {
                                 
                                 HStack {
                                     ForEach(recentTasks) {task in
-                                        taskCard(task: task, user: housemate)
+                                        NavigationLink(destination: TaskDetailView(currUser: housemate, currTask:task)) {
+                                            
+                                            taskCard(task: task, user: housemate)
+                                        }
                                     }
                                 }
                             }
