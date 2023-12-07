@@ -8,7 +8,7 @@
 import Foundation
 
 // for taskSelection
-struct TaskData {
+struct TaskData : Hashable {
     var taskIcon: String
     var taskName: String
     var taskCategory: String?
@@ -20,7 +20,6 @@ let hardcodedHouseworkTaskData: [TaskData] = [
     TaskData(taskIcon: "dining", taskName: "Wipe Table"),
     TaskData(taskIcon: "trash", taskName: "Take out Trash"),
     TaskData(taskIcon: "dust", taskName: "Sweep Floor"),
-    TaskData(taskIcon: "living room", taskName: "Clean Sofa"),
 ]
 
 let hardcodedIndoorTaskData: [TaskData] = [
@@ -48,19 +47,29 @@ let hardcodedFullTaskData: [TaskData] = [
     TaskData(taskIcon: "trash", taskName: "Take out Trash", taskCategory: "housework"),
     TaskData(taskIcon: "dust", taskName: "Sweep Floor", taskCategory: "housework"),
     TaskData(taskIcon: "living room", taskName: "Clean Sofa", taskCategory: "housework"),
+    TaskData(taskIcon: "mirror", taskName: "Clean Mirror", taskCategory: "housework"),
+    TaskData(taskIcon: "window", taskName: "Clean Window", taskCategory: "housework"),
     
     TaskData(taskIcon: "recycle", taskName: "Recycle", taskCategory: "indoor"),
     TaskData(taskIcon: "chef", taskName: "Prep Meals", taskCategory: "indoor"),
+    TaskData(taskIcon: "food1", taskName: "Prep Meals", taskCategory: "indoor"),
+    TaskData(taskIcon: "food2", taskName: "Prep Meals", taskCategory: "indoor"),
     TaskData(taskIcon: "fridge", taskName: "Clean Fridge", taskCategory: "indoor"),
     TaskData(taskIcon: "toilet", taskName: "Scrub Toilet", taskCategory: "indoor"),
     TaskData(taskIcon: "laundry", taskName: "Do Laundry", taskCategory: "indoor"),
     TaskData(taskIcon: "tub", taskName: "Clean Shower", taskCategory: "indoor"),
+    TaskData(taskIcon: "door", taskName: "Clean Door", taskCategory: "indoor"),
+    TaskData(taskIcon: "dog", taskName: "Walk Dog", taskCategory: "indoor"),
+    TaskData(taskIcon: "cat", taskName: "Walk Cat", taskCategory: "indoor"),
     
     TaskData(taskIcon: "plants", taskName: "Water Plants", taskCategory: "outdoor"),
+    TaskData(taskIcon: "plants2", taskName: "Water Plants", taskCategory: "outdoor"),
     TaskData(taskIcon: "shopping", taskName: "Get Groceries", taskCategory: "outdoor"),
     TaskData(taskIcon: "package", taskName: "Get Packages", taskCategory: "outdoor"),
     TaskData(taskIcon: "bills", taskName: "Pay Bills", taskCategory: "outdoor"),
+    TaskData(taskIcon: "bills2", taskName: "Pay Bills", taskCategory: "outdoor"),
     TaskData(taskIcon: "car", taskName: "Wash Car", taskCategory: "outdoor"),
+    TaskData(taskIcon: "car 1", taskName: "Wash Car", taskCategory: "outdoor"),
     TaskData(taskIcon: "drinks", taskName: "Get Drinks", taskCategory: "outdoor"),
 ]
 

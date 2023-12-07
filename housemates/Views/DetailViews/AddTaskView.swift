@@ -20,6 +20,7 @@ struct AddTaskView: View {
     @State private var taskIconStringNew: String
     
   var editableTask: task?
+
   
   let elements: [TaskPriority] = TaskPriority.allCases
     
@@ -67,7 +68,7 @@ struct AddTaskView: View {
               }
               .offset(x: 35, y: 35)
               .sheet(isPresented: $showingSheet) {
-                  SheetView()
+                  SheetView(taskIconStr: $taskIconStringNew)
               }
           }
         
@@ -258,63 +259,88 @@ struct AddTaskView: View {
   }
     
     struct SheetView: View {
-        @Environment(\.dismiss) var dismiss
         @Binding var taskIconStr: String
+        @Environment(\.dismiss) var dismiss
+        var allTaskData = hardcodedFullTaskData
+        let maxIconsPerRow = 5
+        
+        // Grouping tasks by category
+        private var groupedTaskData: [String: [TaskData]] {
+            Dictionary(grouping: allTaskData, by: { $0.taskCategory! })
+        }
 
         var body: some View {
             VStack {
-                Text("Select Icon")
-                
-                if taskIconStr.count > 0 {
-                    Image(taskIconStr)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 100, height: 100)
-                        .foregroundColor(.gray)
-                        .padding(5)
-                } else {
-                    Image(systemName: "person.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 100, height: 100)
-                        .foregroundColor(.gray)
-                        .padding(5)
-                }
-                
-                
-            }
-        }
-    }
-    private func fullTaskCategoryView(taskData: [TaskData]) -> some View {
-        @Binding var selectedCategory: String?
-      var categorizedTaskDict = Dictionary(grouping: taskData, by: { $0.taskCategory })
-      
-        return VStack() {
-
-            ForEach(0..<taskData.count, id: \.self) { i in
-                if i % 3 == 0 {
-                  HStack(spacing: 0) {
-                   
-                        ForEach(0..<min(3, taskData.count - i), id: \.self) { j in
-                            NavigationLink(destination: AddTaskView(taskIconStringHardcoded: taskData[i + j].taskIcon, taskNameHardcoded: taskData[i + j].taskName, user: user)) {
-                                TaskSelectionBox(taskIconString: taskData[i + j].taskIcon, taskName: taskData[i + j].taskName)
-                                .frame(width: (UIScreen.main.bounds.width - 25) / 3)
+                VStack {
+                    ZStack {
+                        Text("Select Icon")
+                            .font(.custom("Nunito-Bold", size: 24))
+                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                            .padding(.top, 15)
+                        HStack {
+                            Spacer()
+                            Button("Done"){
+                                dismiss()
                             }
-                        }
-                    
-//                        adds plcaceholder to fix spacing when filetering tasks
-                    if taskData.count - i < 3 {
-                        ForEach(0..<(3 - (taskData.count - i)), id: \.self) { _ in
-                            Rectangle()
-                                .foregroundColor(Color.clear) // Invisible
-                                .frame(width: (UIScreen.main.bounds.width - 25) / 3)
+                            .font(.custom("Lato-Bold", size: 18))
+                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                            .padding(.top, 15)
+                            .padding(.trailing, 10)
+                            
                         }
                     }
-                       
-                    }.frame(width: UIScreen.main.bounds.width - 25)
+                    
+                    if taskIconStr.count > 0 {
+                        Image(taskIconStr)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 100, height: 100)
+                            .foregroundColor(.gray)
+                            .padding(5)
+                    } else {
+                        Image(systemName: "person.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 100, height: 100)
+                            .foregroundColor(.gray)
+                            .padding(5)
+                    }
                 }
-            }
-            
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack {
+                        //multiple rows of all the possible options, where selected one is highlighted and appears in prev vstack
+                        ForEach(groupedTaskData.keys.sorted(), id: \.self) { category in
+                            VStack(alignment: .leading) {
+                                Text(category)
+                                    .font(.custom("Lato-Bold", size: 15))
+                                VStack (spacing: 15) {
+                                    ForEach(0..<((groupedTaskData[category]?.count ?? 0) + maxIconsPerRow - 1) / maxIconsPerRow, id: \.self) { rowIndex in
+                                        HStack (spacing: 15) {
+                                            ForEach(0..<maxIconsPerRow, id: \.self) { columnIndex in
+                                                let index = rowIndex * maxIconsPerRow + columnIndex
+                                                if index < (groupedTaskData[category]?.count ?? 0) {
+                                                    let taskData = groupedTaskData[category]![index]
+                                                    Image(taskData.taskIcon)
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fit)
+                                                        .frame(width: (UIScreen.main.bounds.width - 80) / 5)
+                                                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(taskIconStr == taskData.taskIcon ? Color(red: 0.439, green: 0.298, blue: 1.0) : .gray, lineWidth: taskIconStr == taskData.taskIcon ? 4 : 1))
+                                                        .onTapGesture {
+                                                            taskIconStr = taskData.taskIcon
+                                                        }
+                                                } else {
+                                                    Spacer()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }.padding(10)
         }
     }
   
@@ -323,7 +349,7 @@ struct AddTaskView: View {
 
 struct AddTaskView_Previews: PreviewProvider {
   static var previews: some View {
-    AddTaskView(taskIconStringHardcoded: "trash.fill", taskNameHardcoded: "Clean Dishes",
+    AddTaskView(taskIconStringHardcoded: "trash", taskNameHardcoded: "Clean Dishes",
                 user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"))
     .environmentObject(TaskViewModel())
     .environmentObject(TabBarViewModel.mock())

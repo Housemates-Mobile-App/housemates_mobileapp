@@ -60,12 +60,12 @@ struct ProfileView: View {
                               Button {
                                   activeAlert = .leaveGroup
                               } label: {
-                                  Label("Leave Group", systemImage: "door")
+                                  Text("Leave Group")
                               }
                               Button(role: .destructive) {
                                   activeAlert = .signOut
                               } label: {
-                                  Label("Sign Out", systemImage: "door")
+                                  Text("Sign Out")
                               }
                           } label: {
 //                              Label("settings", systemImage: "gearshape.fill")
