@@ -111,7 +111,7 @@ struct TaskDetailView: View {
         
         switch task.recurrence {
         case .none:
-            return "Doesn't repeat"
+            return "Doesn't Repeat"
 
         case .daily:
             return "Daily"
