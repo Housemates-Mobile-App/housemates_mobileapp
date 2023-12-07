@@ -391,7 +391,7 @@ struct AddTaskView: View {
                                 }
                             }.frame(width: UIScreen.main.bounds.width - 25)
                         }
-                    }a
+                    }
                 }
             }.padding(10)
         }
