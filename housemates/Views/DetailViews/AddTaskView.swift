@@ -391,23 +391,11 @@ struct AddTaskView: View {
                                 }
                             }.frame(width: UIScreen.main.bounds.width - 25)
                         }
-                    }
+                    }a
                 }
             }.padding(10)
         }
     }
-  
-  
-}
-
-struct AddTaskView_Previews: PreviewProvider {
-  static var previews: some View {
-    AddTaskView(taskIconStringHardcoded: "trash", taskNameHardcoded: "Clean Dishes",
-                user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"))
-    .environmentObject(TaskViewModel())
-    .environmentObject(TabBarViewModel.mock())
-  }
-    
     func getPostPicURL(image: UIImage) async -> String? {
         let photoID = UUID().uuidString
         let storageRef = Storage.storage().reference().child("\(photoID).jpeg")
@@ -429,4 +417,14 @@ struct AddTaskView_Previews: PreviewProvider {
             return nil
         }
     }
+  
+}
+
+struct AddTaskView_Previews: PreviewProvider {
+  static var previews: some View {
+    AddTaskView(taskIconStringHardcoded: "trash", taskNameHardcoded: "Clean Dishes",
+                user: User(first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000"))
+    .environmentObject(TaskViewModel())
+    .environmentObject(TabBarViewModel.mock())
+  }
 }
