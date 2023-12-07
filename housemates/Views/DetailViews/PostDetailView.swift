@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct PostDetailView: View {
     @EnvironmentObject var postViewModel : PostViewModel
@@ -20,7 +21,7 @@ struct PostDetailView: View {
           VStack(spacing: 0) {
                 let imageURL = URL(string: post.created_by.imageURLString ?? "")
                 
-                AsyncImage(url: imageURL) { image in
+              CachedAsyncImage(url: imageURL) { image in
                     image
                         .resizable()
                         .scaledToFill()

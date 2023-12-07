@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CachedAsyncImage
 struct CommentListView: View {
     let comment: Comment
     var body: some View {
@@ -14,7 +14,7 @@ struct CommentListView: View {
         HStack(alignment: .top, spacing: 10) {
             let imageURL = URL(string: comment.created_by.imageURLString ?? "")
             
-            AsyncImage(url: imageURL) { image in
+            CachedAsyncImage(url: imageURL) { image in
                 image
                     .resizable()
                     .scaledToFill()

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import CachedAsyncImage
 struct HousemateCircleComponent: View {
     let housemate: User
     
@@ -14,7 +14,7 @@ struct HousemateCircleComponent: View {
         VStack {
             let imageURL = URL(string: housemate.imageURLString ?? "")
             
-            AsyncImage(url: imageURL) { image in
+            CachedAsyncImage(url: imageURL) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fill)

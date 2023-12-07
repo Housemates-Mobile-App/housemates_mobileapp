@@ -40,6 +40,8 @@
 		51D9B3332B06AB470091EBCD /* startView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D9B3322B06AB470091EBCD /* startView.swift */; };
 		51EA51E72B09950F0098D342 /* GroupNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EA51E62B09950F0098D342 /* GroupNameView.swift */; };
 		51EA51E92B09951A0098D342 /* GroupAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EA51E82B09951A0098D342 /* GroupAddressView.swift */; };
+		81013D5A2B2132CC00EE8ACD /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81013D592B2132CC00EE8ACD /* StatsView.swift */; };
+		81013D5C2B21339D00EE8ACD /* GraphFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81013D5B2B21339D00EE8ACD /* GraphFilterView.swift */; };
 		816C30282AF49D59004F1771 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816C30272AF49D59004F1771 /* TaskView.swift */; };
 		81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */; };
 		81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81CF29E12AFF56C400748D58 /* FilterView.swift */; };
@@ -58,6 +60,7 @@
 		81E9ED672B05F61B00A258A8 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81E9ED652B05F61B00A258A8 /* Lato-Regular.ttf */; };
 		81E9ED692B06E0B800A258A8 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E9ED682B06E0B800A258A8 /* TaskDetailView.swift */; };
 		81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81EC60C02AFE024000A1B753 /* GraphView.swift */; };
+		8A02F5FE2B1FF854002341C7 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8A02F5FD2B1FF854002341C7 /* CachedAsyncImage */; };
 		8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */; };
 		8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */; };
 		8A61D96F2B1DC318003A3494 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8A61D96E2B1DC318003A3494 /* MCEmojiPicker */; };
@@ -149,6 +152,8 @@
 		8AF358442AF4B2E20009B93C /* CreateGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF358432AF4B2E20009B93C /* CreateGroupView.swift */; };
 		8AF549582B0584C800EB28CC /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF549572B0584C800EB28CC /* AddPostView.swift */; };
 		8AF5495A2B0585C300EB28CC /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF549592B0585C300EB28CC /* PostDetailView.swift */; };
+		AD7F57F12B1FF26E0023D476 /* BeforeCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7F57F02B1FF26E0023D476 /* BeforeCameraView.swift */; };
+		AD7F57F52B1FF8130023D476 /* AfterCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7F57F42B1FF8130023D476 /* AfterCameraView.swift */; };
 		AD95E0E02B168AD700577DAB /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95E0DF2B168AD700577DAB /* CameraView.swift */; };
 		ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */; };
 		ADD11A662AFAFA54001861A0 /* TaskDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */; };
@@ -200,6 +205,8 @@
 		51D9B3322B06AB470091EBCD /* startView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = startView.swift; sourceTree = "<group>"; };
 		51EA51E62B09950F0098D342 /* GroupNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupNameView.swift; sourceTree = "<group>"; };
 		51EA51E82B09951A0098D342 /* GroupAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupAddressView.swift; sourceTree = "<group>"; };
+		81013D592B2132CC00EE8ACD /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		81013D5B2B21339D00EE8ACD /* GraphFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphFilterView.swift; sourceTree = "<group>"; };
 		816C30272AF49D59004F1771 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		81CF29DF2AFEDA1E00748D58 /* TaskHousematesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskHousematesView.swift; sourceTree = "<group>"; };
 		81CF29E12AFF56C400748D58 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -255,6 +262,8 @@
 		8AF358432AF4B2E20009B93C /* CreateGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupView.swift; sourceTree = "<group>"; };
 		8AF549572B0584C800EB28CC /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		8AF549592B0585C300EB28CC /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
+		AD7F57F02B1FF26E0023D476 /* BeforeCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeforeCameraView.swift; sourceTree = "<group>"; };
+		AD7F57F42B1FF8130023D476 /* AfterCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterCameraView.swift; sourceTree = "<group>"; };
 		AD95E0DF2B168AD700577DAB /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataRepository.swift; sourceTree = "<group>"; };
@@ -297,6 +306,7 @@
 				8AF0A4012AF9D40B00A79110 /* FirebaseDatabaseSwift in Frameworks */,
 				8AA3B8DB2AF9D4680064CFD6 /* FirebaseInAppMessaging-Beta in Frameworks */,
 				8AA3B8C12AF9D4680064CFD6 /* FirebaseAppCheck in Frameworks */,
+				8A02F5FE2B1FF854002341C7 /* CachedAsyncImage in Frameworks */,
 				8AA3B8C52AF9D4680064CFD6 /* FirebaseAuth in Frameworks */,
 				8AA3B8D12AF9D4680064CFD6 /* FirebaseFirestore in Frameworks */,
 				8AF0A3FF2AF9D40B00A79110 /* FirebaseDatabase in Frameworks */,
@@ -440,6 +450,10 @@
 				AD95E0DF2B168AD700577DAB /* CameraView.swift */,
 				8AEF99022B1BFE2000C68907 /* PostPictureView.swift */,
 				C171E1FC2B1E7DDB00AE41EC /* taskCard.swift */,
+				AD7F57F02B1FF26E0023D476 /* BeforeCameraView.swift */,
+				AD7F57F42B1FF8130023D476 /* AfterCameraView.swift */,
+				81013D592B2132CC00EE8ACD /* StatsView.swift */,
+				81013D5B2B21339D00EE8ACD /* GraphFilterView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -659,6 +673,7 @@
 				512D1EAE2B033B6E007A388A /* SwiftUITrackableScrollView */,
 				81E659F52B08852E00B77EE4 /* SlidingTabView */,
 				8A61D96E2B1DC318003A3494 /* MCEmojiPicker */,
+				8A02F5FD2B1FF854002341C7 /* CachedAsyncImage */,
 			);
 			productName = housemates;
 			productReference = 8AD6ED052AF1969C006B56B6 /* housemates.app */;
@@ -698,6 +713,7 @@
 				512D1EAD2B033B6E007A388A /* XCRemoteSwiftPackageReference "trackable-scroll-view" */,
 				81E659F42B08852E00B77EE4 /* XCRemoteSwiftPackageReference "SlidingTabView" */,
 				8A61D96D2B1DC318003A3494 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
+				8A02F5FC2B1FF854002341C7 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 8AD6ED062AF1969C006B56B6 /* Products */;
 			projectDirPath = "";
@@ -767,10 +783,12 @@
 				8AF358442AF4B2E20009B93C /* CreateGroupView.swift in Sources */,
 				5188F2262B030DAF001B1AA0 /* HousemateCircleComponent.swift in Sources */,
 				8A7F0AC02AFD407900F7B76B /* UserViewModel.swift in Sources */,
+				AD7F57F12B1FF26E0023D476 /* BeforeCameraView.swift in Sources */,
 				8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */,
 				AD95E0E02B168AD700577DAB /* CameraView.swift in Sources */,
 				8AD6ED292AF1980D006B56B6 /* GroupDataRepository.swift in Sources */,
 				C171E1FB2B1E408100AE41EC /* NewWave.swift in Sources */,
+				AD7F57F52B1FF8130023D476 /* AfterCameraView.swift in Sources */,
 				C171E1FD2B1E7DDB00AE41EC /* taskCard.swift in Sources */,
 				8AE8FF9B2AF4114B003AD997 /* InputView.swift in Sources */,
 				51802D8B2B08CD4300B4EE9A /* FirstNameView.swift in Sources */,
@@ -796,6 +814,7 @@
 				8AE8FFA12AF41F36003AD997 /* AmenityView.swift in Sources */,
 				51802D8D2B08CE4C00B4EE9A /* LastNameView.swift in Sources */,
 				5155A17A2AFDC6D500832E51 /* AllHousematesCard.swift in Sources */,
+				81013D5A2B2132CC00EE8ACD /* StatsView.swift in Sources */,
 				ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */,
 				8AF549582B0584C800EB28CC /* AddPostView.swift in Sources */,
 				8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */,
@@ -825,6 +844,7 @@
 				8AB780D52B06EEDF0072B065 /* CommentListView.swift in Sources */,
 				8AF5495A2B0585C300EB28CC /* PostDetailView.swift in Sources */,
 				5138709F2AF562DD007A83B4 /* HousemateProfileView.swift in Sources */,
+				81013D5C2B21339D00EE8ACD /* GraphFilterView.swift in Sources */,
 				8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */,
 				5155A17C2AFDC6ED00832E51 /* AllHousematesView.swift in Sources */,
 				8AD6ED1F2AF1977D006B56B6 /* Group.swift in Sources */,
@@ -1004,7 +1024,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 79WMU8S839;
+				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -1022,7 +1042,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates23";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1038,7 +1058,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = 79WMU8S839;
+				DEVELOPMENT_TEAM = 5V6283R8D6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -1056,7 +1076,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates23";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1121,6 +1141,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		8A02F5FC2B1FF854002341C7 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 		8A61D96D2B1DC318003A3494 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/izyumkin/MCEmojiPicker";
@@ -1154,6 +1182,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 81E659F42B08852E00B77EE4 /* XCRemoteSwiftPackageReference "SlidingTabView" */;
 			productName = SlidingTabView;
+		};
+		8A02F5FD2B1FF854002341C7 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A02F5FC2B1FF854002341C7 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
 		};
 		8A61D96E2B1DC318003A3494 /* MCEmojiPicker */ = {
 			isa = XCSwiftPackageProductDependency;

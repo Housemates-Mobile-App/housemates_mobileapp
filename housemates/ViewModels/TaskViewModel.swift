@@ -10,7 +10,6 @@ import Combine
 import Firebase
 import FirebaseFirestoreSwift
 import FirebaseFirestore
-import FirebaseStorage
 import SwiftUI
 
 
@@ -123,15 +122,24 @@ class TaskViewModel: ObservableObject {
       return task.user_id == user_id
     }
 
-    func claimTask(task: task, user_id: String, image: UIImage) async {
-        guard let imageURL = await getPostPicURL(image: image) else {
-            print("Failed to upload image or get URL")
-            return
-        }
+    func claimTask(task: task, user_id: String) { //, image: UIImage?) async {
+//        guard let imageURL = await getPostPicURL(image: image) else {
+//            print("Failed to upload image or get URL")
+//            return
+//        }
+//        
+//        var imageURL: String?
+//        if let image = image {
+//            imageURL = await getPostPicURL(image: image)
+//            guard imageURL != nil else {
+//                print("Failed to upload image or get URL")
+//                return
+//            }
+//        }
         
         var task = task
         task.user_id = user_id
-        task.beforeImageURL = imageURL
+//        task.beforeImageURL = imageURL
         let formatter = DateFormatter()
         formatter.dateFormat = "MM.dd.yy h:mm a"
         let formattedDate = formatter.string(from: Date())
@@ -141,27 +149,7 @@ class TaskViewModel: ObservableObject {
         taskRepository.update(task)
     }
     
-    func getPostPicURL(image: UIImage) async -> String? {
-        let photoID = UUID().uuidString
-        let storageRef = Storage.storage().reference().child("\(photoID).jpeg")
-        
-        guard let resizedImage = image.jpegData(compressionQuality: 0.2) else {
-            print("ERROR: Could not resize image")
-            return nil
-        }
-        
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpg"
-        
-        do {
-            let _ = try await storageRef.putDataAsync(resizedImage, metadata: metadata)
-            let imageURL = try await storageRef.downloadURL()
-            return imageURL.absoluteString
-        } catch {
-            print("ERROR: \(error.localizedDescription)")
-            return nil
-        }
-    }
+    
     
     func completeTask(task: task) {
         var task = task
@@ -209,6 +197,76 @@ class TaskViewModel: ObservableObject {
 
       return nil
   }
+  
+  func getCompletedTasksForUserByDay(_ user_id: String, timeframe: String) -> [task] {
+       let completedTasks = getCompletedTasksForUser(user_id)
+
+       let currentDate = Date()
+       let calendar = Calendar.current
+
+       var startDate: Date
+
+       switch timeframe {
+       case "Today":
+           startDate = calendar.date(byAdding: .day, value: -1, to: currentDate)!
+       case "Last Week":
+           startDate = calendar.date(byAdding: .day, value: -7, to: currentDate)!
+       case "Last Month":
+           startDate = calendar.date(byAdding: .month, value: -1, to: currentDate)!
+       default:
+         return completedTasks
+
+       }
+
+       let dateFormatter = DateFormatter()
+       dateFormatter.dateFormat = "MM.dd.yy h:mm a"
+
+       let completedFilteredTasks = completedTasks.filter {
+           guard let completionDateStr = $0.date_completed,
+                 let completionDate = dateFormatter.date(from: completionDateStr) else {
+               return false
+           }
+
+           return completionDate >= startDate
+       }
+
+     return completedFilteredTasks
+   }
+
+   func getCompletedTasksForGroupByDay(_ group_id: String, timeframe: String) -> [task] {
+       let completedTasks = getCompletedTasksForGroup(group_id)
+
+       let currentDate = Date()
+       let calendar = Calendar.current
+
+       var startDate: Date
+
+       switch timeframe {
+       case "Today":
+           startDate = calendar.date(byAdding: .day, value: -1, to: currentDate)!
+       case "Last Week":
+           startDate = calendar.date(byAdding: .day, value: -7, to: currentDate)!
+       case "Last Month":
+           startDate = calendar.date(byAdding: .month, value: -1, to: currentDate)!
+       default:
+         return completedTasks
+
+       }
+
+       let dateFormatter = DateFormatter()
+       dateFormatter.dateFormat = "MM.dd.yy h:mm a"
+
+       let completedFilteredTasks = completedTasks.filter {
+           guard let completionDateStr = $0.date_completed,
+                 let completionDate = dateFormatter.date(from: completionDateStr) else {
+               return false
+           }
+
+           return completionDate >= startDate
+       }
+
+     return completedFilteredTasks
+   }
   
   
     func editTask(task: task, name: String? = nil, description: String? = nil, priority: String? = nil, icon: String? = nil, status: task.Status? = nil, recurrence: Recurrence? = nil, recurrenceStartDate: Date? = nil, recurrenceEndDate: Date? = nil) {

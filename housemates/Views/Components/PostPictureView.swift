@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct PostPictureView: View {
     let postURL: URL
@@ -24,6 +25,7 @@ struct PostPictureView: View {
                 .progressViewStyle(CircularProgressViewStyle(tint: .gray))
                 .frame(width: 380, height: 490)
                 .cornerRadius(25)
+                .overlay(Color.black.opacity(0.1).clipShape(RoundedRectangle(cornerRadius: 25))) // Adjust opacity as needed
         }
     }
 }
@@ -31,3 +33,4 @@ struct PostPictureView: View {
 //#Preview {
 //    PostPictureView()
 //}
+

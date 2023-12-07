@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct AddPostView: View {
     let task: task
@@ -28,7 +29,7 @@ struct AddPostView: View {
                 TabView {
                     if let beforeImageUrl = task.beforeImageURL, let url = URL(string: beforeImageUrl) {
                         VStack {
-                            AsyncImage(url: url) { phase in
+                            CachedAsyncImage(url: url) { phase in
                                 switch phase {
                                 case .empty:
                                     ProgressView()
