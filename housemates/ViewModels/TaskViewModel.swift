@@ -357,7 +357,7 @@ class TaskViewModel: ObservableObject {
         }
     }
     
-    private func taskNeedsReset(task: task, currentDate: Date) -> Bool {
+    func taskNeedsReset(task: task, currentDate: Date) -> Bool {
         guard let completionDate = task.date_completed, let startDate = task.recurrenceStartDate else {
             return false
         }

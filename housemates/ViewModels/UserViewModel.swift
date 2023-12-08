@@ -133,11 +133,9 @@ class UserViewModel: ObservableObject {
     }
     
     // did not do self.users here because already filtered [AllHousematesView]
-    func userWithNextBirthday(users: [User]) -> User? {
+    func userWithNextBirthday(users: [User], currentDate: Date = Date()) -> User? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
-        
-        let currentDate = Date()
         
         var daysLeftArray: [(Int, User)] = []
         
