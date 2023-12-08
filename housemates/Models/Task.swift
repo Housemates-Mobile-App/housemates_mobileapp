@@ -62,7 +62,7 @@ struct task: Identifiable, Codable {
     var date_created: String?
     var date_started: String?
     var date_completed: String?
-    var priority: String
+    var date_due: Date?
     var icon: String?
     var recurrence: Recurrence
     var recurrenceStartDate: Date?
@@ -80,7 +80,7 @@ struct task: Identifiable, Codable {
         case date_created
         case date_started
         case date_completed
-        case priority
+        case date_due
         case icon
         case recurrence
         case recurrenceStartDate

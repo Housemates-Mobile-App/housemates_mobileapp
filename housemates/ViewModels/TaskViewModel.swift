@@ -37,13 +37,36 @@ class TaskViewModel: ObservableObject {
       return self.tasks.filter { $0.group_id == group_id}
     }
 
-    func getUnclaimedTasksForGroup(_ group_id: String?) -> [task] {
-        guard let groupId = group_id else {
-            return []
-        }
+  func getUnclaimedTasksForGroup(_ group_id: String?) -> [task] {
+      guard let groupId = group_id else {
+          return []
+      }
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "MM.dd.yy h:mm a"
+    
+//    gets unclaimed
+      let unclaimed = self.tasks.filter { $0.group_id == groupId && $0.status == .unclaimed }
+    
+      let sortedUnclaimed = unclaimed.sorted { (task1, task2) -> Bool in
+          switch (task1.date_due, task2.date_due) {
+//            if date 1 and date 2 are valid
+          case let (date1?, date2?):
+              return date1 < date2
+//            if no due dates, sort by the date it was created
+          case (nil, nil):
+            guard let task1_create = task1.date_created, let task2_create = task2.date_created else {return false}
+            return dateFormatter.date(from: task1_create) ?? Date() < dateFormatter.date(from: task2_create) ?? Date()
+//            if task 1 has smt and task 2 doesnt, then put task 1 above
+          case (nil, _):
+              return false
+          case (_, nil):
+              return true
+          }
+      }
 
-        return self.tasks.filter { $0.group_id == groupId && $0.status == .unclaimed }
-    }
+      return sortedUnclaimed
+  }
+
 
     func getInProgressTasksForGroup(_ group_id: String?) -> [task] {
         guard let groupId = group_id else {
@@ -207,6 +230,31 @@ class TaskViewModel: ObservableObject {
       }
   }
   
+  func getTimestamp(time: Date) -> String? {
+      let completeDate = time
+      let now = Date()
+      let calendar = Calendar.current
+
+      let hourDifference = calendar.dateComponents([.hour], from: now, to: completeDate).hour ?? 0
+      let minuteDifference = calendar.dateComponents([.minute], from: now, to: completeDate).minute ?? 0
+    
+      
+      if calendar.isDateInToday(completeDate) || hourDifference < 24 {
+        return "Today"
+          
+      } else {
+          
+          let dayDifference = calendar.dateComponents([.day], from: now, to: completeDate).day ?? 0
+          if (dayDifference < 0) {
+            return "OVERDUE"
+          }
+          else if dayDifference == 1 {
+            return "Tomorrow"
+          }
+          return "\(dayDifference)d"
+      }
+  }
+  
   func getCompletedTasksForUserByDay(_ user_id: String, timeframe: String) -> [task] {
        let completedTasks = getCompletedTasksForUser(user_id)
 
@@ -278,7 +326,7 @@ class TaskViewModel: ObservableObject {
    }
   
   
-    func editTask(task: task, name: String? = nil, description: String? = nil, priority: String? = nil, icon: String? = nil, status: task.Status? = nil, recurrence: Recurrence? = nil, recurrenceStartDate: Date? = nil, recurrenceEndDate: Date? = nil) {
+    func editTask(task: task, name: String? = nil, description: String? = nil, date_due: Date? = nil, icon: String? = nil, status: task.Status? = nil, recurrence: Recurrence? = nil, recurrenceStartDate: Date? = nil, recurrenceEndDate: Date? = nil) {
         
         var taskToUpdate = task
 
@@ -289,8 +337,8 @@ class TaskViewModel: ObservableObject {
         if let description = description {
             taskToUpdate.description = description
         }
-        if let priority = priority {
-            taskToUpdate.priority = priority
+        if let date_due = date_due {
+            taskToUpdate.date_due = date_due
         }
         if let icon = icon {
             taskToUpdate.icon = icon
@@ -396,7 +444,7 @@ extension TaskViewModel {
                      date_created: nil,
                      date_started: nil,
                      date_completed: nil,
-                     priority: "test priority",
+                     date_due: nil,
                      recurrence: .none)
     }
     
@@ -410,7 +458,7 @@ extension TaskViewModel {
                               date_created: nil,
                               date_started: nil,
                               date_completed: nil,
-                              priority: "Test",
+                              date_due: nil,
                               recurrence: .none)
         
         let mockTaskViewModel = TaskViewModel()

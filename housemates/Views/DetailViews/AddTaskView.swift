@@ -14,8 +14,6 @@ struct AddTaskView: View {
   @State private var alertMessage = ""
   @State private var taskName: String = ""
   @State private var taskDescription: String = ""
-  @State private var priority: TaskPriority = .low
-  @State private var due: Bool = false
   @State private var dueDate: Date = Date()
   @State private var recurrence: Recurrence = .none
   @State private var recurrenceStartDate: Date = Date()
@@ -194,7 +192,7 @@ struct AddTaskView: View {
               }
           }) {
             Text((editableTask != nil) ? "Edit Task" : "Add Task")
-              .font(.custom("Lato-Bold", size: 18))
+              .font(.custom("Nunito-Bold", size: 18))
             .bold()
             .frame(maxWidth: .infinity, minHeight: 50)
             .background(Color(red: 0.439, green: 0.298, blue: 1.0))
@@ -213,7 +211,7 @@ struct AddTaskView: View {
       if let task = editableTask {
           self.taskName = task.name
           self.taskDescription = task.description
-          self.priority = TaskPriority(rawValue: task.priority) ?? .low
+          self.dueDate = task.date_due ?? Date()
           self.recurrence = task.recurrence
           self.recurrenceStartDate = task.recurrenceStartDate ?? Date()
           self.recurrenceEndDate = task.recurrenceEndDate ?? Date()
@@ -290,7 +288,7 @@ struct AddTaskView: View {
       date_created: formattedDate,
       date_started: nil,
       date_completed: nil,
-      priority: priority.rawValue,
+      date_due: (recurrence != .none) ? nil : dueDate,
       icon: taskIconStringNew,
       recurrence: recurrence,
       recurrenceStartDate: (recurrence != .none) ? recurrenceStartDate : nil,
@@ -300,7 +298,7 @@ struct AddTaskView: View {
     
 
       if let editableTask = editableTask {
-          taskViewModel.editTask(task: editableTask, name: taskName, description: taskDescription, priority: priority.rawValue, icon: taskIconStringNew, recurrence: recurrence, recurrenceStartDate: recurrenceStartDate, recurrenceEndDate: recurrenceEndDate)
+        taskViewModel.editTask(task: editableTask, name: taskName, description: taskDescription, date_due: dueDate, icon: taskIconStringNew, recurrence: recurrence, recurrenceStartDate: recurrenceStartDate, recurrenceEndDate: recurrenceEndDate)
           alertMessage = "Task edited successfully."
       } else {
         taskViewModel.create(task: newTask)

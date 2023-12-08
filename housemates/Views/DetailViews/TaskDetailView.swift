@@ -36,7 +36,7 @@ struct TaskDetailView: View {
                   }
                   
                   
-                }.padding(.bottom, 50)
+                }.padding(.bottom, 30)
                 
                 // make it dynamic.
                 Image(currTask.icon ?? "dalle2")
@@ -48,9 +48,18 @@ struct TaskDetailView: View {
                   .font(.custom("Lato-Bold", size: 18))
                 
                 if (currTask.status != .done) {
-                  Text("Claimed by \(assignee?.first_name ?? "Nobody")")
-                    .font(.custom("Lato-Regular", size: 14))
-                    .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                  if (assignee?.first_name == nil) {
+                    Text("Unclaimed")
+                      .font(.custom("Lato-Regular", size: 14))
+                      .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                    
+                  }
+                  else {
+                    Text("Claimed by \(assignee?.first_name ?? "Nobody")")
+                      .font(.custom("Lato-Regular", size: 14))
+                      .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                  }
+                 
                 }
                 else {
                   Text("Completed by \(assignee?.first_name ?? "Error)")")
@@ -79,6 +88,15 @@ struct TaskDetailView: View {
                   .padding(.vertical, 10)
                 
               }
+              
+              Text("Create Date")
+                  .font(.custom("Lato-Bold", size: 18))
+              Text(createdDateText(for: currTask))
+                  .font(.custom("Lato-Regular", size: 14))
+                  .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+              Divider()
+                  .padding(.vertical, 10)
+              
                 Text("Description")
                     .font(.custom("Lato-Bold", size: 18))
                 Text(currTask.description)
@@ -87,9 +105,9 @@ struct TaskDetailView: View {
                 Divider()
                     .padding(.vertical, 10)
                 
-                Text("Priority")
+                Text("Due Date")
                     .font(.custom("Lato-Bold", size: 18))
-                Text(currTask.priority)
+                Text("\(dueDateText(for: currTask))")
                     .font(.custom("Lato-Regular", size: 14))
                     .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
                 Divider()
@@ -140,6 +158,32 @@ struct TaskDetailView: View {
             return "Monthly on the \(ordinal) \(weekdayName)\(endDateText)"
         }
     }
+  
+  func dueDateText(for task: task) -> String {
+      let formatter = DateFormatter()
+      formatter.dateFormat = "MMM dd, yyyy" // Format for displaying the date
+      if let due_date = task.date_due {
+        return formatter.string(from: due_date)
+      } else {
+        return "No due dates for recurring tasks"
+      }
+  }
+  
+  func createdDateText(for task: task) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MM.dd.yy h:mm a"
+    
+     // Format for displaying the date
+    if let create_date = task.date_created {
+      guard let date = formatter.date(from: create_date) else {return "Invalid Date"}
+      formatter.dateFormat = "MMM dd, yyyy"
+      
+      return formatter.string(from: date)
+      
+    } else {
+      return "No Date Provided"
+    }
+  }
 
     func ordinalWeekday(for date: Date) -> (String, String) {
         let calendar = Calendar.current
