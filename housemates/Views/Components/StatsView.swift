@@ -202,28 +202,28 @@ struct StatsView: View {
               
               
             }) {
-              ZStack(alignment: .leading) {
+             
                 
                 
 //                          MAKES THE BAR AND ALSO MAKES IT SO THE END IS STRAIGHT
                 
               
-                RoundedRectangle(cornerRadius: 5)
+              RoundedRectangle(cornerRadius: 5)
+// bar height actually means bar width
+                .frame(width: barHeight, height: 32.5)
+                .foregroundColor(deepPurple.opacity(calculateOpacity(mateIndex: CGFloat(userViewModel.getGroupmateIndex(member_id, in: groupMates) ?? 0))))
 
-                  .frame(width: barHeight, height: 32.5)
-                  .foregroundColor(deepPurple.opacity(calculateOpacity(mateIndex: CGFloat(userViewModel.getGroupmateIndex(member_id, in: groupMates) ?? 0))))
-
-                  
                 
-                
-                
+              
+              
+              
 //                            Rectangle()
 //                              .foregroundColor(animation ? .white : deepPurple)
 //                              .frame(width: barHeight / 2, height: 32.5)
 //
 //
-                  .padding(.vertical, 3.5)
-              }
+                .padding(.vertical, 3.5)
+              
             }
             
             
@@ -321,8 +321,17 @@ struct StatsView: View {
 
 }
 
+
+
 //struct StatsView_Previews: PreviewProvider {
 //    static var previews: some View {
-//      StatsView(statHeight: 10, maxVal: 20)
+//       
+//        return StatsView(statHeight: 300)
+//            .environmentObject(mockTaskViewModel)
+//            .environmentObject(mockAuthViewModel)
+//            .environmentObject(mockUserViewModel)
 //    }
 //}
+
+
+

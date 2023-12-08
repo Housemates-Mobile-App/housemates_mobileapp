@@ -86,7 +86,7 @@ struct CommentActivityView: View {
     }
 }
 
-#Preview {
-    CommentActivityView(comment: PostViewModel.mockComment(), post: PostViewModel.mockPost())
-        .environmentObject(PostViewModel.mock())
-}
+//#Preview {
+//    CommentActivityView(comment: PostViewModel.mockComment(), post: PostViewModel.mockPost())
+//        .environmentObject(PostViewModel.mock())
+//}

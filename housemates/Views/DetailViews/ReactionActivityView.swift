@@ -86,7 +86,7 @@ struct ReactionActivityView: View {
     }
 }
 
-#Preview {
-    ReactionActivityView(reaction: PostViewModel.mockReaction(), post: PostViewModel.mockPost())
-        .environmentObject(PostViewModel.mock())
-}
+//#Preview {
+//    ReactionActivityView(reaction: PostViewModel.mockReaction(), post: PostViewModel.mockPost())
+//        .environmentObject(PostViewModel.mock())
+//}

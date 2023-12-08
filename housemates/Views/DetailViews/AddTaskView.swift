@@ -40,42 +40,46 @@ struct AddTaskView: View {
   var body: some View {
     ScrollView {
       VStack(alignment: .leading, spacing: 10) {
+        SwiftUI.Group {
+          
+          
           Text((editableTask != nil) ? "Edit Task" : "Add Task")
           
-          .font(.custom("Nunito-Bold", size: 26))
-          .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+            .font(.custom("Nunito-Bold", size: 26))
+            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
           
           
           ZStack {
-              if taskIconStringNew.count > 0 {
-                  Image(taskIconStringNew)
-                      .resizable()
-                      .aspectRatio(contentMode: .fill)
-                      .frame(width: 100, height: 100)
-                      .foregroundColor(.gray)
-                      .padding(5)
-              } else {
-                  Image(systemName: "person.circle")
-                      .resizable()
-                      .aspectRatio(contentMode: .fill)
-                      .frame(width: 100, height: 100)
-                      .foregroundColor(.gray)
-                      .padding(5)
-              }
-
-              Button(action: {
-                  showingSheet.toggle()
-              }) {
-                  Image(systemName: "pencil.circle.fill")
-                      .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                      .background(Circle().fill(Color.white))
-                      .font(.system(size: 24))
-              }
-              .offset(x: 35, y: 35)
-              .sheet(isPresented: $showingSheet) {
-                  SheetView(taskIconStr: $taskIconStringNew)
-              }
+            if taskIconStringNew.count > 0 {
+              Image(taskIconStringNew)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 100, height: 100)
+                .foregroundColor(.gray)
+                .padding(5)
+            } else {
+              Image(systemName: "person.circle")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 100, height: 100)
+                .foregroundColor(.gray)
+                .padding(5)
+            }
+            
+            Button(action: {
+              showingSheet.toggle()
+            }) {
+              Image(systemName: "pencil.circle.fill")
+                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                .background(Circle().fill(Color.white))
+                .font(.system(size: 24))
+            }
+            .offset(x: 35, y: 35)
+            .sheet(isPresented: $showingSheet) {
+              SheetView(taskIconStr: $taskIconStringNew)
+            }
           }
+        }
         
         
         NewInputView(text: $taskName, title: "Task Name", placeholder: "Add a task name!")
