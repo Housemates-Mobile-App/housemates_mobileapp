@@ -88,16 +88,16 @@ struct AddTaskView: View {
         NewInputView(text: $taskDescription, title: "Task Description", placeholder: "Write a description about the task!")
         
           HStack {
-              Text("Priority")
-                  .font(.custom("Lato-Bold", size: 18))
+              Text("Due Date?")
+                  .font(.custom("Lato-Bold", size: 16))
                   .padding(.horizontal)
               Spacer()
           }
-        SliderPicker(selectedItem: $priority)
+   
         
           HStack {
               Text("Repeats?")
-                  .font(.custom("Lato-Bold", size: 18))
+                  .font(.custom("Lato-Bold", size: 16))
                   .padding(.horizontal)
               Spacer()
           }
@@ -110,42 +110,45 @@ struct AddTaskView: View {
           
           
           if recurrence == .none {
-              HStack {
-                  ZStack {
-                      if let capturedImage = image {
-                          // Show the captured image
-                          Image(uiImage: capturedImage)
-                              .resizable()
-                              .scaledToFit()
-                              .frame(width: 100, height: 100)
-                      } else {
-                          // Show a gray box
-                          Rectangle()
-                              .fill(Color.gray)
-                              .frame(width: 100, height: 100)
-
-                          // Camera icon
-                          Image(systemName: "camera.fill")
-                              .font(.largeTitle)
-                              .foregroundColor(.white)
-                              .onTapGesture {
-                                  showCamera = true
-                              }
-                      }
-                  }
-                  .fullScreenCover(isPresented: $showCamera) {
-                      BeforeCameraView(image: $image, isPresented: $showCamera)
-                  }
+              VStack {
+                  
 
                   // Text changes based on whether an image has been captured
                   Text(image == nil ? "Take a Before photo!" : "Before photo taken")
-                      .font(.custom("Nunito-Bold", size: 17))
-                      .foregroundColor(Color.gray)
+                      .font(.custom("Lato-Bold", size: 16))
+                      .padding(.horizontal)
+                     
+                
+                ZStack {
+                    if let capturedImage = image {
+                        // Show the captured image
+                        Image(uiImage: capturedImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
+                    } else {
+                        // Show a gray box
+                      RoundedRectangle(cornerRadius: 10)
+                            .fill(Color.gray)
+                            .frame(width: 100, height: 100)
+
+                        // Camera icon
+                        Image(systemName: "camera.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                            .onTapGesture {
+                                showCamera = true
+                            }
+                    }
+                }
+                .fullScreenCover(isPresented: $showCamera) {
+                    BeforeCameraView(image: $image, isPresented: $showCamera)
+                }
               }
-              .padding(.leading)
+             
           }
           
-          Spacer()
+          
         
           
           Button(action: {
@@ -329,7 +332,7 @@ struct AddTaskView: View {
                 VStack {
                     ZStack {
                         Text("Select Icon")
-                            .font(.custom("Nunito-Bold", size: 24))
+                            .font(.custom("Lato-Bold", size: 24))
                             .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                             .padding(.top, 15)
                         HStack {

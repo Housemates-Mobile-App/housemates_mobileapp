@@ -233,38 +233,30 @@ class PostViewModel: ObservableObject {
   func getTimestamp(time: String) -> String? {
       let formatter = DateFormatter()
       formatter.dateFormat = "MM.dd.yy h:mm a"
-      formatter.locale = Locale(identifier: "en_US_POSIX") // Correct the locale identifier
+      formatter.locale = Locale(identifier: "en_US_POSIX")
       guard let completeDate = formatter.date(from: time) else {
           return nil
       }
 
       let now = Date()
       let calendar = Calendar.current
-      let dayDifference = calendar.dateComponents([.day], from: completeDate, to: now).day
-    
-      if calendar.isDateInToday(completeDate) || dayDifference == 0 {
-          let hourNow = calendar.component(.hour, from: now)
-          let hourOfCompleteDate = calendar.component(.hour, from: completeDate)
 
-          if hourNow == hourOfCompleteDate {
-              let minComponent = calendar.dateComponents([.minute], from: completeDate, to: now)
-              if let minuteDifference = minComponent.minute {
-                  return minuteDifference == 0 ? "<1m" : "\(minuteDifference)m"
-              }
+      let hourDifference = calendar.dateComponents([.hour], from: completeDate, to: now).hour ?? 0
+      let minuteDifference = calendar.dateComponents([.minute], from: completeDate, to: now).minute ?? 0
+    
+      if calendar.isDateInToday(completeDate) || hourDifference < 24 {
+          if hourDifference == 0 {
+              return minuteDifference == 0 ? "<1m" : "\(minuteDifference)m"
           } else {
-              let hourComponent = calendar.dateComponents([.hour], from: completeDate, to: now)
-              if let hourDifference = hourComponent.hour {
-                  return "\(hourDifference)h"
-              }
+              return "\(hourDifference)h"
           }
       } else {
-          if let dayDifference = calendar.dateComponents([.day], from: completeDate, to: now).day {
-              return "\(dayDifference)d"
-          }
+          
+          let dayDifference = calendar.dateComponents([.day], from: completeDate, to: now).day ?? 0
+          return "\(dayDifference)d"
       }
-
-      return nil
   }
+
     
     // Get list of posts for group in chronogical order
     func getPostsForGroup(_ group_id: String) -> [Post] {

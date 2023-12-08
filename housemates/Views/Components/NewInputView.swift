@@ -14,7 +14,7 @@ struct NewInputView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(title)
-                .font(.custom("Lato-Bold", size: 18))
+                .font(.custom("Lato-Bold", size: 16))
                 
                 
             

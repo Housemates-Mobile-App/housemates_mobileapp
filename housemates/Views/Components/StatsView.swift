@@ -39,7 +39,7 @@ struct StatsView: View {
                  
                  Text("Tasks Completed")
                    .frame(maxWidth: .infinity, alignment: .leading)
-                   .font(.custom("Nunito-Bold", size: 15))
+                   .font(.custom("Nunito-Bold", size: 16))
                  Text(selectedGraph)
                    .frame(maxWidth: .infinity, alignment: .leading)
                    .font(.custom("Lato", size: 12))

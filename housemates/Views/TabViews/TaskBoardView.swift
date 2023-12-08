@@ -74,7 +74,9 @@ struct TaskBoardView: View {
       let inProgressTasks = taskViewModel.getInProgressTasksForGroup(user.group_id)
       return List {
           if selected == "Unclaimed" || selected == "All Tasks" {
-              Section(header: Text("Unclaimed").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
+              Section(header: Text("Unclaimed")
+                .font(.custom("Nunito-Bold", size: 16))
+                .foregroundColor(.primary)) {
                 if (unclaimedTasks.count == 0) {
                     Text("No unclaimed tasks to display")
                         .font(.custom("Lato-Regular", size: 12))
@@ -98,7 +100,11 @@ struct TaskBoardView: View {
           }
 
           if selected == "In Progress" || selected == "All Tasks" {
-              Section(header: Text("In Progress").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
+              Section(header: Text("In Progress")
+                .font(.custom("Nunito-Bold", size: 16))
+                .foregroundColor(.primary)
+              
+              ) {
                   if (inProgressTasks.count == 0) {
                       Text("No in progress tasks to display")
                           .font(.custom("Lato-Regular", size: 12))
@@ -124,7 +130,9 @@ struct TaskBoardView: View {
           }
 
           if selected == "Completed" || selected == "All Tasks" {
-              Section(header: Text("Completed").font(.custom("Lato-Bold", size: 15)).foregroundColor(Color(red: 0.282, green: 0.282, blue: 0.282))) {
+              Section(header: Text("Completed")
+                .font(.custom("Nunito-Bold", size: 15))
+                .foregroundColor(.primary)) {
                   if (completedTasks.count == 0) {
                       Text("No completed tasks to display")
                           .font(.custom("Lato-Regular", size: 12))

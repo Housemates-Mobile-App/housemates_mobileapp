@@ -265,10 +265,11 @@ struct BeforeCustomCameraInterfaceView: View {
                 VStack {
                     VStack (spacing: -10) {
                         Text("Take a picture now, you'll see your hard work after!")
-                            .font(.custom("Nunito-Bold", size: 17))
+                            .font(.custom("Nunito-Bold", size: 15))
                             .foregroundColor(.white)
                             .padding([.leading, .trailing], 10)
-                            .padding([.top, .bottom], 10)
+                            .padding(.top)
+                            .padding(.bottom, 5)
                             .cornerRadius(10)
                             .shadow(radius: 10)
                         Text("Before")
@@ -276,6 +277,7 @@ struct BeforeCustomCameraInterfaceView: View {
                             .fontWeight(.bold)
                             .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                             .shadow(radius: 10)
+                            .padding()
                     }
                     .background(LinearGradient(gradient: Gradient(colors: [.black.opacity(0.7), .clear]), startPoint: .top, endPoint: .bottom))
                     .padding(.top, SafeAreaInsets.top + 30)
