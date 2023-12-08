@@ -15,6 +15,8 @@ struct AddTaskView: View {
   @State private var taskName: String = ""
   @State private var taskDescription: String = ""
   @State private var priority: TaskPriority = .low
+  @State private var due: Bool = false
+  @State private var dueDate: Date = Date()
   @State private var recurrence: Recurrence = .none
   @State private var recurrenceStartDate: Date = Date()
   @State private var recurrenceEndDate: Date = Date()
@@ -25,7 +27,7 @@ struct AddTaskView: View {
     
   var editableTask: task?
 
-  
+  let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
   let elements: [TaskPriority] = TaskPriority.allCases
     
     init(taskIconStringHardcoded: String, taskNameHardcoded: String, user: User, editableTask: task? = nil) {
@@ -47,37 +49,41 @@ struct AddTaskView: View {
           
             .font(.custom("Nunito-Bold", size: 26))
             .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+            .padding(.horizontal)
           
-          
-          ZStack {
-            if taskIconStringNew.count > 0 {
-              Image(taskIconStringNew)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 100, height: 100)
-                .foregroundColor(.gray)
-                .padding(5)
-            } else {
-              Image(systemName: "person.circle")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 100, height: 100)
-                .foregroundColor(.gray)
-                .padding(5)
+          HStack {
+            Spacer()
+            ZStack {
+              if taskIconStringNew.count > 0 {
+                Image(taskIconStringNew)
+                  .resizable()
+                  .aspectRatio(contentMode: .fill)
+                  .frame(width: 100, height: 100)
+                  .foregroundColor(.gray)
+                  .padding(5)
+              } else {
+                Image(systemName: "person.circle")
+                  .resizable()
+                  .aspectRatio(contentMode: .fill)
+                  .frame(width: 100, height: 100)
+                  .foregroundColor(.gray)
+                  .padding(5)
+              }
+              
+              Button(action: {
+                showingSheet.toggle()
+              }) {
+                Image(systemName: "pencil.circle.fill")
+                  .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                  .background(Circle().fill(Color.white))
+                  .font(.system(size: 24))
+              }
+              .offset(x: 35, y: 35)
+              .sheet(isPresented: $showingSheet) {
+                SheetView(taskIconStr: $taskIconStringNew)
+              }
             }
-            
-            Button(action: {
-              showingSheet.toggle()
-            }) {
-              Image(systemName: "pencil.circle.fill")
-                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                .background(Circle().fill(Color.white))
-                .font(.system(size: 24))
-            }
-            .offset(x: 35, y: 35)
-            .sheet(isPresented: $showingSheet) {
-              SheetView(taskIconStr: $taskIconStringNew)
-            }
+            Spacer()
           }
         }
         
@@ -86,21 +92,27 @@ struct AddTaskView: View {
         
         // for task description
         NewInputView(text: $taskDescription, title: "Task Description", placeholder: "Write a description about the task!")
+//        HStack {
+//            Text("Due Date?")
+//                .font(.custom("Lato-Bold", size: 18))
+//                .padding(.horizontal)
+//            Spacer()
+//        }
         
-          HStack {
-              Text("Due Date?")
-                  .font(.custom("Lato-Bold", size: 16))
-                  .padding(.horizontal)
-              Spacer()
-          }
-   
+//        SliderPicker(selectedItem: $due)
+        
         
           HStack {
               Text("Repeats?")
-                  .font(.custom("Lato-Bold", size: 16))
+                  .font(.custom("Lato-Bold", size: 18))
                   .padding(.horizontal)
               Spacer()
           }
+        
+        
+   
+        
+          
         SliderPicker(selectedItem: $recurrence)
       
         RecurrenceSection(
@@ -108,43 +120,68 @@ struct AddTaskView: View {
           recurrenceStartDate: $recurrenceStartDate,
           recurrenceEndDate: $recurrenceEndDate)
           
-          
+        
           if recurrence == .none {
+            HStack {
+              
+              Text("Due Date")
+                .font(.custom("Lato-Bold", size: 18))
+                .padding(.horizontal)
+              DatePicker(
+                "",
+                selection: $dueDate,
+                in: Date()...,
+                displayedComponents: [.date]
+              )
+              .datePickerStyle(CompactDatePickerStyle())
+              .padding(.horizontal)
+            }
+            HStack {
+              
+              Spacer()
               VStack {
-                  
-
-                  // Text changes based on whether an image has been captured
-                  Text(image == nil ? "Take a Before photo!" : "Before photo taken")
-                      .font(.custom("Lato-Bold", size: 16))
-                      .padding(.horizontal)
-                     
+                
+                
+                
+                
+                // Text changes based on whether an image has been captured
+//                HStack {
+//                  Text(image == nil ? "Take a \"Before\" photo!" : "Before photo taken")
+//                    .font(.custom("Lato-Bold", size: 18))
+//                    .padding(.horizontal)
+//                  Spacer()
+//                }
+                
+                
                 
                 ZStack {
-                    if let capturedImage = image {
-                        // Show the captured image
-                        Image(uiImage: capturedImage)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 100)
-                    } else {
-                        // Show a gray box
-                      RoundedRectangle(cornerRadius: 10)
-                            .fill(Color.gray)
-                            .frame(width: 100, height: 100)
-
-                        // Camera icon
-                        Image(systemName: "camera.fill")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
-                            .onTapGesture {
-                                showCamera = true
-                            }
-                    }
-                }
+                  if let capturedImage = image {
+                    // Show the captured image
+                    Image(uiImage: capturedImage)
+                      .resizable()
+                      .scaledToFit()
+                      .frame(width: 100, height: 100)
+                  } else {
+                    // Show a gray box
+                    Circle()
+                      .fill(Color.gray.opacity(0.25))
+                      .frame(width: 100, height: 100)
+                    
+                    // Camera icon
+                    Image(systemName: "camera.fill")
+                      .font(.largeTitle)
+                      .foregroundColor(.white)
+                      .onTapGesture {
+                        showCamera = true
+                      }
+                  }
+                }.padding([.horizontal, .bottom])
                 .fullScreenCover(isPresented: $showCamera) {
-                    BeforeCameraView(image: $image, isPresented: $showCamera)
+                  BeforeCameraView(image: $image, isPresented: $showCamera)
                 }
               }
+              Spacer()
+            }
              
           }
           
@@ -157,7 +194,7 @@ struct AddTaskView: View {
               }
           }) {
             Text((editableTask != nil) ? "Edit Task" : "Add Task")
-            .font(.system(size: 18))
+              .font(.custom("Lato-Bold", size: 18))
             .bold()
             .frame(maxWidth: .infinity, minHeight: 50)
             .background(Color(red: 0.439, green: 0.298, blue: 1.0))
@@ -190,7 +227,7 @@ struct AddTaskView: View {
             return Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
         }
     }
-    .padding(.horizontal)
+
   }
   
   
@@ -291,22 +328,59 @@ struct AddTaskView: View {
           
           if (recurrence != .none) {
               VStack(spacing: 16) {
+                HStack {
+                  Text("Start Date")
+                    .font(.custom("Lato", size: 18))
+                    .padding(.horizontal)
+                  DatePicker(
+                    "",
+                    selection: $recurrenceStartDate,
+                    displayedComponents: [.date]
+                  )
+                  .datePickerStyle(CompactDatePickerStyle())
+                  .padding(.horizontal)
+                }
+                HStack {
+                  
+                  Text("End Date")
+                    .padding()
+                    .font(.custom("Lato", size: 18))
+                  DatePicker(
+                    "",
+                    selection: $recurrenceEndDate,
+                    in: recurrenceStartDate...,
+                    displayedComponents: [.date]
+                  )
+                  .datePickerStyle(CompactDatePickerStyle())
+                  .padding(.horizontal)
+                }
+              }
+              .transition(.opacity.combined(with: .slide))
+          }
+      }
+      .padding(.top, 8)
+      }
+      
+  }
+  
+  struct DueDateSection: View {
+    @Binding var due: Bool
+    @Binding var dueDate: Date
+    
+    var body: some View {
+      VStack(spacing: 16) {
+          
+          if (due) {
+              VStack(spacing: 16) {
                   DatePicker(
                       "Start Date",
-                      selection: $recurrenceStartDate,
+                      selection: $dueDate,
                       displayedComponents: [.date]
                   )
                   .datePickerStyle(CompactDatePickerStyle())
                   .padding(.horizontal)
                   
-                  DatePicker(
-                      "End Date",
-                      selection: $recurrenceEndDate,
-                      in: recurrenceStartDate...,
-                      displayedComponents: [.date]
-                  )
-                  .datePickerStyle(CompactDatePickerStyle())
-                  .padding(.horizontal)
+                
               }
               .transition(.opacity.combined(with: .slide))
           }
