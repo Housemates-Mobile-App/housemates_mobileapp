@@ -22,12 +22,12 @@ struct InputView: View {
                 SecureField(placeholder, text: $text)
                     .font(.custom("Nunito", size: 22))
                     .padding(.horizontal)
-                    .padding(.vertical, 8)
+                    .padding(.vertical, 5)
             } else {
                 TextField(placeholder, text: $text)
                     .font(.custom("Nunito", size: 22))
                     .padding(.horizontal)
-                    .padding(.vertical, 7)
+                    .padding(.vertical, 5)
             }
         }
         .overlay(

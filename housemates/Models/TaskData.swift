@@ -20,6 +20,7 @@ let hardcodedHouseworkTaskData: [TaskData] = [
     TaskData(taskIcon: "dining", taskName: "Wipe Table"),
     TaskData(taskIcon: "trash", taskName: "Take out Trash"),
     TaskData(taskIcon: "dust", taskName: "Sweep Floor"),
+    TaskData(taskIcon: "dust", taskName: "Sweep Floor"),
 ]
 
 let hardcodedIndoorTaskData: [TaskData] = [

@@ -14,12 +14,15 @@ struct PostDetailView: View {
                 let afterImageURL = URL(string: post.afterImageURL ?? "")
                 // Post details header
                 VStack(alignment: .center) {
-                    Text("\(post.created_by.first_name)").bold().foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)).font(.custom("Nunito-Bold", size: 15))
-                    + Text(" completed ").font(.custom("Nunito", size: 15))
-                    + Text("\(post.task.name)").bold().foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)).font(.custom("Nunito-Bold", size: 15))
+                    Text("\(post.created_by.first_name)")
+                      .font(.custom("Nunito-Bold", size: 16))
+                    + Text(" completed ").font(.custom("Nunito", size: 16))
+                    + Text("\(post.task.name)")
+                      .font(.custom("Nunito-Bold", size: 16))
+                      
 
                     Text(post.task.date_completed!)
-                        .font(.custom("Nunito-Bold", size: 12))
+                        .font(.custom("Lato", size: 12))
                 }
                 
                 // Image
@@ -48,6 +51,7 @@ struct PostDetailView: View {
                                         }
                                         Text(description)
                                             .font(.headline)
+                                            .font(.custom("Lato", size: 12))
                                             .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                                     }
                                 }
@@ -83,33 +87,37 @@ struct PostDetailView: View {
                         }
                         .frame(height: 300)
                     }
+                  VStack(alignment: .center, spacing: -5) {
+                      // Image would go here - you'll need to implement this
+                      if post.task.description != "" {
+                          Text("Description: ").font(.custom("Nunito-Bold", size: 15))
+                          + Text("\(post.task.description)")
+                          .font(.custom("Nunito", size: 15))
+                      }
+                      
+                      Text("Priority: ").font(.custom("Nunito-Bold", size: 15))
+                      + Text("\(post.task.priority)")
+                      .font(.custom("Nunito", size: 15))
+    //                    Text("**Priority:** \(post.task.priority)")
+    //                        .font(.custom("Nunito-Bold", size: 15))
+    //                        .padding(.top, 2)
+                  }
+                  .padding([.top, .horizontal])
 
                 
                 
                 // Image, Description, and Priority
-                VStack(alignment: .center, spacing: -5) {
-                    // Image would go here - you'll need to implement this
-                    if post.task.description != "" {
-                        Text("Description: ").font(.custom("Nunito", size: 15))
-                        + Text("\(post.task.description)").bold().foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)).font(.custom("Nunito-Bold", size: 15))
-                    }
-                    
-                    Text("Priority: ").font(.custom("Nunito", size: 15))
-                    + Text("\(post.task.priority)").bold().foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)).font(.custom("Nunito-Bold", size: 15))
-//                    Text("**Priority:** \(post.task.priority)")
-//                        .font(.custom("Nunito-Bold", size: 15))
-//                        .padding(.top, 2)
-                }
-                .padding([.top, .horizontal])
+                
 
                 // Reactions, Comments, and Likes
                 HStack {
+                  
 //                    likeButton(post: post, user: user).foregroundColor(.black)
 //                    Text("\(post.num_likes) Likes")
 //                        .font(.custom("Lato", size: 15))
                     Spacer()
                     Image(systemName: "bubble.left")
-                    Text("\(post.num_comments) Comments")
+                  Text(post.num_comments > 0 ? "\(post.num_comments) Comments" : "\(post.num_comments) Comment")
                         .font(.custom("Nunito", size: 15))
                 }
                 .padding(.horizontal)

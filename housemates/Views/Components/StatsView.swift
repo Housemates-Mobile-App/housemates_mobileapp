@@ -39,7 +39,7 @@ struct StatsView: View {
                  
                  Text("Tasks Completed")
                    .frame(maxWidth: .infinity, alignment: .leading)
-                   .font(.custom("Nunito-Bold", size: 15))
+                   .font(.custom("Nunito-Bold", size: 16))
                  Text(selectedGraph)
                    .frame(maxWidth: .infinity, alignment: .leading)
                    .font(.custom("Lato", size: 12))
@@ -156,30 +156,42 @@ struct StatsView: View {
         
         let imageURL = URL(string: mate.imageURLString ?? "")
         
-        AsyncImage(url: imageURL) { image in
-          image
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 40, height: 40)
-            .clipShape(Circle())
-        } placeholder: {
-          // Default user profile picture
-          Circle()
-            .fill(
-              LinearGradient(
-                gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+        Button(action: {
+          self.selectedUser = member_id
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                  withAnimation {
+                      self.selectedUser = member_id
+                      
+                  }
+              }
+          
+          
+        }) {
+          AsyncImage(url: imageURL) { image in
+            image
+              .resizable()
+              .aspectRatio(contentMode: .fill)
+              .frame(width: 40, height: 40)
+              .clipShape(Circle())
+          } placeholder: {
+            // Default user profile picture
+            Circle()
+              .fill(
+                LinearGradient(
+                  gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                  startPoint: .topLeading,
+                  endPoint: .bottomTrailing
+                )
               )
-            )
-            .frame(width: 40, height: 40)
-            .overlay(
-              Text("\(mate.first_name.prefix(1).capitalized + mate.last_name.prefix(1).capitalized)")
-              
-                .font(.custom("Nunito-Bold", size: 18))
-                .foregroundColor(.white)
-            )
-        }.padding(.horizontal)
+              .frame(width: 40, height: 40)
+              .overlay(
+                Text("\(mate.first_name.prefix(1).capitalized + mate.last_name.prefix(1).capitalized)")
+                
+                  .font(.custom("Nunito-Bold", size: 18))
+                  .foregroundColor(.white)
+              )
+          }.padding(.horizontal)
+        }
    
           
           let numTasks: [task] = getNumTasks(member_id: member_id)

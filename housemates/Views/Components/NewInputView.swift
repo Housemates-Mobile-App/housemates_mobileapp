@@ -12,19 +12,19 @@ struct NewInputView: View {
     let placeholder: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 8) {
             Text(title)
                 .font(.custom("Lato-Bold", size: 18))
                 
                 
-            
             TextField(placeholder, text: $text)
-                .font(.custom("Lato", size: 16))
+                .font(.custom("Lato", size: 14))
                 .background(
                     RoundedRectangle(cornerRadius: 30)
                         .fill(.white)
                 )
-        }.padding()
+        }
+        .padding()
     }
 }
 

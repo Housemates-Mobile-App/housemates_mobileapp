@@ -46,9 +46,18 @@ struct TaskDetailView: View {
                 
                 Text(currTask.name)
                   .font(.custom("Lato-Bold", size: 18))
-                Text("Claimed by \(assignee?.first_name ?? "Nobody")")
-                  .font(.custom("Lato-Regular", size: 14))
-                  .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                
+                if (currTask.status != .done) {
+                  Text("Claimed by \(assignee?.first_name ?? "Nobody")")
+                    .font(.custom("Lato-Regular", size: 14))
+                    .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                }
+                else {
+                  Text("Completed by \(assignee?.first_name ?? "Error)")")
+                    .font(.custom("Lato-Regular", size: 14))
+                    .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                }
+                
                 
                   CachedAsyncImage(url: imageURL) { image in
                   image
