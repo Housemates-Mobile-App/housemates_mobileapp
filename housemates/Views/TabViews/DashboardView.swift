@@ -34,7 +34,7 @@ struct DashboardView: View {
                   
                   if selectedTab == 0 {
                       
-                      StatsView(statHeight: UIScreen.main.bounds.size.width - 10)
+                    StatsView(statHeight: UIScreen.main.bounds.size.width * 0.55)
                       Spacer()
                   }
                   
@@ -111,7 +111,7 @@ struct DashboardView: View {
   func cardView(value: DateValue, completed: [task]) -> some View {
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     let darkPurple = Color(red: 0.439 * 0.5, green: 0.298 * 0.5, blue: 1.0 * 0.5)
-    let lightPurple = Color(red: 0.439 * 3, green: 0.298 * 3, blue: 1.0 * 3)
+//    let lightPurple = Color(red: 0.439 * 3, green: 0.298 * 3, blue: 1.0 * 3)
    
     VStack {
       if value.day != -1 {
@@ -381,11 +381,11 @@ struct CustomTabBar : View {
 //
 //    }
 //}
-struct DashboardView_Previews: PreviewProvider {
-    static var previews: some View {
-        DashboardView()
-    }
-}
+//struct DashboardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DashboardView()
+//    }
+//}
 
 extension Date {
   func getAll() -> [Date] {

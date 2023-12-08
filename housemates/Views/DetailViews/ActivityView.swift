@@ -55,9 +55,9 @@ struct ActivityView: View {
                 
     }
 }
-
-#Preview {
-    ActivityView(user: UserViewModel.mockUser())
-        .environmentObject(PostViewModel.mock())
-        .environmentObject(TabBarViewModel.mock())
-}
+//
+//#Preview {
+//    ActivityView(user: UserViewModel.mockUser())
+//        .environmentObject(PostViewModel.mock())
+//        .environmentObject(TabBarViewModel.mock())
+//}
