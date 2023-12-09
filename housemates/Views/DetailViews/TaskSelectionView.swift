@@ -37,7 +37,7 @@ struct TaskSelectionView: View {
                         
                         TextField("What task do you want to add?", text: $searchTask)
                             .font(.custom("Lato", size: 14))
-                            .foregroundColor(Color.black)
+                            .foregroundColor(.primary.opacity(0.75))
                             .padding(.vertical, 10)
                             .background(Color.clear)
                             .onChange(of: searchTask, perform: { value in
@@ -78,7 +78,7 @@ struct TaskSelectionView: View {
       VStack() {
             Text(categoryName)
                 .font(.custom("Lato-Bold", size: 14))
-             
+                
                 .padding()
                 .lineLimit(1)
                 .frame(width: (UIScreen.main.bounds.width - 25), alignment: .leading)
@@ -87,7 +87,7 @@ struct TaskSelectionView: View {
                 Text("No \(categoryName.lowercased()) templates to display")
                     .padding()
                     .font(.custom("Lato-Regular", size: 12))
-                    .foregroundColor(.gray)
+                    .foregroundColor(.primary.opacity(0.75))
             }
             else {
                 ForEach(0..<taskData.count, id: \.self) { i in

@@ -361,7 +361,7 @@ struct CustomTabBar : View {
                     .frame(width: 20, height: 20)
                     .padding(.vertical,10)
                     .padding(.horizontal,25)
-                    .background(self.selectedTab == 0 ? Color.white : Color.clear)
+                    .background(self.selectedTab == 0 ? Color(UIColor.systemBackground).opacity(0.9) : Color.clear)
                     .clipShape(Capsule())
             }
             .foregroundColor(self.selectedTab == 0 ? deepPurple : .gray.opacity(0.5))
@@ -377,7 +377,7 @@ struct CustomTabBar : View {
                 .frame(width: 20, height: 20)
                 .padding(.vertical,10)
                 .padding(.horizontal,25)
-                .background(self.selectedTab == 1 ? Color.white : Color.clear)
+                .background(self.selectedTab == 1 ? Color(UIColor.systemBackground).opacity(0.9) : Color.clear)
                 .clipShape(Capsule())
             }
             .foregroundColor(self.selectedTab == 1 ? deepPurple : .gray.opacity(0.5))

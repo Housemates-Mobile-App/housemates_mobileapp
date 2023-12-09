@@ -26,7 +26,7 @@ struct TaskSelectionBox: View {
     private var taskNameView: some View {
         Text(taskName)
             .font(.system(size: 12))
-            .foregroundColor(Color(red: 0.3725, green: 0.3373, blue: 0.3373))
+            .foregroundColor(.primary.opacity(0.75))
             .frame(alignment: .center)
     }
 
