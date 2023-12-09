@@ -5,6 +5,8 @@ struct TaskBoardView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
     @State private var selected: String = "All Tasks"
+  @State private var isAnimating = false
+  let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     private var unknownDate = Date.distantPast
     
     init() {
@@ -190,6 +192,34 @@ struct TaskBoardView: View {
     // Individual Task Section
   private func taskRow(task: task, user: User) -> some View {
       TaskView(task: task, user: user)
+      .shadow(color: isAnimating && taskViewModel.recentID == task.id ? deepPurple.opacity(0.75) : Color.clear, radius: 10, x: 0, y: 0)
+            .onAppear {
+              if taskViewModel.recentID == task.id {
+                isAnimating = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                  isAnimating = false
+                }
+              }
+                
+            }
+//      .overlay(
+//        
+//          RoundedRectangle(cornerRadius: 5)
+//            
+//            .trim(from: 0, to: taskViewModel.recentID == task.id && isAnimating ? 1 : 0)
+//              .stroke(style: StrokeStyle(lineWidth: 3, lineCap: .round))
+//              .foregroundColor(deepPurple) // Use your desired color
+//              .animation(Animation.linear(duration: 1), value: isAnimating)
+//              
+//      )
+//      .onAppear {
+//          if taskViewModel.recentID == task.id {
+//              isAnimating = true
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                  isAnimating = false
+//              }
+//          }
+//      }
           .swipeActions {
            
           

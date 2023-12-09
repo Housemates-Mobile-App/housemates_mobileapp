@@ -17,6 +17,7 @@ class TaskViewModel: ObservableObject {
     private let taskRepository = TaskRepository()
     
     @Published var tasks: [task] = []
+    @Published var recentID: String?
     private var cancellables: Set<AnyCancellable> = []
 
     init() {
@@ -150,6 +151,13 @@ class TaskViewModel: ObservableObject {
     func isMyTask(task: task, user_id: String) -> Bool {
       return task.user_id == user_id
     }
+  
+  func highlight(task_id: String) {
+    self.recentID = task_id
+    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.recentID = nil
+            }
+  }
 
     func claimTask(task: task, user_id: String) { //, image: UIImage?) async {
 //        guard let imageURL = await getPostPicURL(image: image) else {
@@ -165,6 +173,8 @@ class TaskViewModel: ObservableObject {
 //                return
 //            }
 //        }
+      
+        
         
         var task = task
         task.user_id = user_id
@@ -175,6 +185,8 @@ class TaskViewModel: ObservableObject {
         task.date_started = formattedDate
         task.date_completed = nil
         task.status = .inProgress
+      
+      
         taskRepository.update(task)
     }
   
