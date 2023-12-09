@@ -187,6 +187,7 @@ struct AddTaskView: View {
               Task {
                   await addTask()
               }
+              tabBarViewModel.hideTabBar = false
           }) {
             Text((editableTask != nil) ? "Edit Task" : "Add Task")
               .font(.custom("Nunito-Bold", size: 18))
