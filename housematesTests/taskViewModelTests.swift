@@ -244,15 +244,15 @@ final class taskViewModelTests: XCTestCase {
 
         let now = Date()
         let oneHourAgo = Calendar.current.date(byAdding: .hour, value: -1, to: now)!
-        let oneSecondAgo = Calendar.current.date(byAdding: .second, value: -1, to: now)!
+        let oneMinuteAgo = Calendar.current.date(byAdding: .minute, value: -1, to: now)!
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: now)!
 
         let oneHourAgoString = dateFormatter.string(from: oneHourAgo)
-        let oneSecondAgoString = dateFormatter.string(from: oneSecondAgo)
+        let oneMinuteAgoString = dateFormatter.string(from: oneMinuteAgo)
         let yesterdayString = dateFormatter.string(from: yesterday)
 
         XCTAssertEqual(viewModel.getTimestamp(time: oneHourAgoString), "1h")
-        XCTAssertEqual(viewModel.getTimestamp(time: oneSecondAgoString), "<1m")
+        XCTAssertEqual(viewModel.getTimestamp(time: oneMinuteAgoString), "1m")
         XCTAssertEqual(viewModel.getTimestamp(time: yesterdayString), "1d")
     }
 
