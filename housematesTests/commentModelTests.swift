@@ -16,8 +16,8 @@ final class CommentModelTests: XCTestCase {
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        testUser1 = User(first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
-        testComment1 = Comment(text: 31, date_created: currentDate, created_by: testUser1)
+        testUser1 = User(user_id: "1", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
+        testComment1 = Comment(text: "hello", date_created: "1/1/2000", created_by: testUser1)
     }
 
     override func tearDownWithError() throws {
@@ -27,8 +27,8 @@ final class CommentModelTests: XCTestCase {
     }
     
     func testInitializeComment() {
-        XCTAssertEqual(testComment1.text, 31)
-        XCTAssertEqual(testComment1.date_created, currentDate)
+        XCTAssertEqual(testComment1.text, "hello")
+        XCTAssertEqual(testComment1.date_created, "1/1/2000")
         XCTAssertEqual(testComment1.created_by.first_name, "Daniel")
     }
 
