@@ -43,12 +43,7 @@ struct AddTaskView: View {
         SwiftUI.Group {
           
           
-          Text((editableTask != nil) ? "Edit Task" : "Add Task")
-          
-            .font(.custom("Nunito-Bold", size: 26))
-            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-            .padding(.horizontal)
-          
+      
           HStack {
             Spacer()
             ZStack {
@@ -89,7 +84,7 @@ struct AddTaskView: View {
         NewInputView(text: $taskName, title: "Task Name", placeholder: "Add a task name!")
         
         // for task description
-        NewInputView(text: $taskDescription, title: "Task Description", placeholder: "Write a description about the task!")
+        NewInputView(text: $taskDescription, title: "Description", placeholder: "Write a description about the task!")
 //        HStack {
 //            Text("Due Date?")
 //                .font(.custom("Lato-Bold", size: 18))
@@ -143,12 +138,14 @@ struct AddTaskView: View {
                 
                 
                 // Text changes based on whether an image has been captured
-//                HStack {
-//                  Text(image == nil ? "Take a \"Before\" photo!" : "Before photo taken")
-//                    .font(.custom("Lato-Bold", size: 18))
-//                    .padding(.horizontal)
-//                  Spacer()
-//                }
+                HStack {
+                  Spacer()
+                  Text(image == nil ? "Take a Before Photo!" : "Before Photo Taken")
+                    .font(.custom("Lato", size: 18))
+                    .padding(.top, 10)
+                    
+                  Spacer()
+                }
                 
                 
                 
@@ -203,9 +200,10 @@ struct AddTaskView: View {
         .buttonStyle(PlainButtonStyle())
         .padding(.bottom, 20)
       }
-      
-    }
+       
+    }.navigationTitle((editableTask != nil) ? "Edit Task" : "Add Task")
     .onAppear {
+      tabBarViewModel.hideTabBar = true
       taskName = taskNameHardcoded
             
       if let task = editableTask {

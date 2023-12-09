@@ -24,7 +24,8 @@ struct NewInputView: View {
                         .fill(.white)
                 )
         }
-        .padding()
+        .padding(.horizontal)
+        .padding(.vertical, 10)
     }
 }
 

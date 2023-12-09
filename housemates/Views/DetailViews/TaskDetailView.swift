@@ -20,24 +20,6 @@ struct TaskDetailView: View {
               SwiftUI.Group {
                 
                 
-                HStack {
-                  Text("Task Details")
-                    .font(.custom("Nunito-Bold", size: 26))
-                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                  
-                  Spacer()
-                  
-                  if (currTask.status == .unclaimed) {
-                    NavigationLink(destination: AddTaskView(taskIconStringHardcoded: currTask.icon ?? "dalle2", taskNameHardcoded: currTask.name, user: currUser, editableTask: currTask)) {
-                      Label("", systemImage: "pencil")
-                        .font(.system(size: 25))
-                        .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                    }
-                  }
-                  
-                  
-                }.padding(.bottom, 30)
-                
                 // make it dynamic.
                 Image(currTask.icon ?? "dalle2")
                   .resizable()
@@ -122,12 +104,22 @@ struct TaskDetailView: View {
             }.padding()
                 .padding(.vertical, 10)
             
+        }
+//        .padding(.top, 10)
+        .navigationTitle("Task Details")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if (currTask.status == .unclaimed) {
+                  NavigationLink(destination: AddTaskView(taskIconStringHardcoded: currTask.icon ?? "dalle2", taskNameHardcoded: currTask.name, user: currUser, editableTask: currTask)) {
+                    Label("", systemImage: "pencil")
+                      .font(.system(size: 25))
+                      .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                  }
+                }
+            }
         }.onAppear {
             tabBarViewModel.hideTabBar = true
-        }.onDisappear {
-            withAnimation(.easeIn(duration: 0.2), {
-                tabBarViewModel.hideTabBar = false
-            })
         }
     }
 

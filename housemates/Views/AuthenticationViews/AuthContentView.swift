@@ -32,7 +32,7 @@ struct AuthContentView: View {
             if tabBarViewModel.hideTabBar == false {
                 BottomBar(selected : $selected).padding()
                     .padding(.horizontal, 15)
-                    .background(CurvedShape().fill(Color.white).shadow(radius: 1))
+                    .background(CurvedShape().fill(Color(UIColor.systemBackground)).shadow(radius: 1))
                 
                 Button(action: {
                     tabBarViewModel.showTaskSelectionView = true

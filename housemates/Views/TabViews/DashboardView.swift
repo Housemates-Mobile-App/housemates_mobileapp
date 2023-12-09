@@ -23,14 +23,6 @@ struct DashboardView: View {
               let incompleted = taskViewModel.getIncompleteTasksForGroup(user.group_id)
               VStack(spacing: 0) {
                   
-                  Text("Dashboard")
-                      .font(.custom("Nunito-Bold", size: 26))
-                      .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                      .padding([.top, .horizontal])
-                      .padding(.bottom, 2.5)
-                  
-                  
-                  
                   CustomTabBar(selectedTab: $selectedTab)
                   
                   if selectedTab == 0 {
@@ -48,6 +40,8 @@ struct DashboardView: View {
                       Spacer()
                   }
               }
+              .navigationTitle("Dashboard")
+              .navigationBarTitleDisplayMode(.inline)
           }
       }
     }
