@@ -192,7 +192,22 @@ struct TaskBoardView: View {
     // Individual Task Section
   private func taskRow(task: task, user: User) -> some View {
       TaskView(task: task, user: user)
-      .shadow(color: isAnimating && taskViewModel.recentID == task.id ? deepPurple.opacity(0.75) : Color.clear, radius: 10, x: 0, y: 0)
+    
+//      .blur(radius: isAnimating && taskViewModel.recentID == task.id ? 0 : 5)
+//      .onAppear {
+//        if taskViewModel.recentID == task.id {
+//          isAnimating = true
+//          DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            isAnimating = false
+//          }
+//        }
+//          
+//      }
+//      .rotationEffect(.degrees(isAnimating && taskViewModel.recentID == task.id ? 45 : 0))
+    
+      .shadow(color: deepPurple.opacity(isAnimating && taskViewModel.recentID == task.id ? 0.75 : 0), radius: 5, x: 0, y: 0)
+                  .animation(Animation.easeInOut(duration: 1), value: isAnimating)
+                  
             .onAppear {
               if taskViewModel.recentID == task.id {
                 isAnimating = true
