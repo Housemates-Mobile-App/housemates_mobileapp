@@ -204,7 +204,6 @@ struct AddTaskView: View {
        
     }.navigationTitle((editableTask != nil) ? "Edit Task" : "Add Task")
     .onAppear {
-      tabBarViewModel.hideTabBar = true
       taskName = taskNameHardcoded
             
       if let task = editableTask {
