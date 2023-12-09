@@ -162,6 +162,7 @@
 		ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */; };
 		ADD11A662AFAFA54001861A0 /* TaskDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */; };
 		ADD11A682AFC3FCB001861A0 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD11A672AFC3FCB001861A0 /* AddTaskView.swift */; };
+		C113C9B52B250FB0004B8CF3 /* UsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C113C9B42B250FB0004B8CF3 /* UsernameView.swift */; };
 		C16775062B22ABB9000076F2 /* taskViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16775052B22ABB9000076F2 /* taskViewModelTests.swift */; };
 		C16775082B22B00A000076F2 /* userViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16775072B22B00A000076F2 /* userViewModelTests.swift */; };
 		C167750A2B22C459000076F2 /* postViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16775092B22C459000076F2 /* postViewModelTests.swift */; };
@@ -280,6 +281,7 @@
 		ADD11A632AFAFA3A001861A0 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDataRepository.swift; sourceTree = "<group>"; };
 		ADD11A672AFC3FCB001861A0 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		C113C9B42B250FB0004B8CF3 /* UsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameView.swift; sourceTree = "<group>"; };
 		C16775052B22ABB9000076F2 /* taskViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskViewModelTests.swift; sourceTree = "<group>"; };
 		C16775072B22B00A000076F2 /* userViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userViewModelTests.swift; sourceTree = "<group>"; };
 		C16775092B22C459000076F2 /* postViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postViewModelTests.swift; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				51802D902B08CE7400B4EE9A /* PhoneNumberView.swift */,
 				51802D922B08CE8100B4EE9A /* EmailView.swift */,
 				51802D942B08CE8A00B4EE9A /* PasswordView.swift */,
+				C113C9B42B250FB0004B8CF3 /* UsernameView.swift */,
 			);
 			path = RegistrationFlowViews;
 			sourceTree = "<group>";
@@ -828,6 +831,7 @@
 				81DBF1992B1E4AD1002DF472 /* DashboardView.swift in Sources */,
 				81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */,
 				51B3976A2B01FF2600A0AF2A /* SliderPicker.swift in Sources */,
+				C113C9B52B250FB0004B8CF3 /* UsernameView.swift in Sources */,
 				51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */,
 				81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */,
 				515939D42AFF37B2004C31BB /* TaskData.swift in Sources */,
