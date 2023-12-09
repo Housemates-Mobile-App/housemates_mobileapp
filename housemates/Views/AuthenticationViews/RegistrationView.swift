@@ -15,6 +15,7 @@ struct RegistrationView: View {
     @State private var dob = ""
     @State private var confirmPassword = ""
     @State private var password = ""
+    @State private var username = ""
     @State private var currentStep = 0
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var authViewModel : AuthViewModel
@@ -24,6 +25,7 @@ struct RegistrationView: View {
             Task {
                 try await authViewModel.createUser(
                     withEmail: email,
+                    username: username,
                     password: password,
                     first_name: fname,
                     last_name: lname,

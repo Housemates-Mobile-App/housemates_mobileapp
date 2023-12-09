@@ -73,7 +73,7 @@ struct AllHousematesCard: View {
 
 struct AllHousematesCard_Previews: PreviewProvider {
     static var previews: some View {
-        let user = User(user_id: "L9pIp5cklnQDD4JYXv0Tow02", first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000")
+        let user = User(user_id: "L9pIp5cklnQDD4JYXv0Tow02", username: "bobby123", first_name: "Bob", last_name: "Portis", phone_number: "9519012", email: "danielfg@gmail.com", birthday: "02/02/2000")
         AllHousematesCard(housemate:user)
             .environmentObject(AuthViewModel.mock())
             .environmentObject(UserViewModel())

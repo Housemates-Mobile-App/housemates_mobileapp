@@ -309,7 +309,7 @@ extension PostViewModel {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM.dd.yy h:mm a"
         let formattedDate = formatter.string(from: Date())
-        let mockUser =  User(id: "test", user_id: "test", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
+        let mockUser =  User(id: "test", user_id: "test", username: "test_username", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
         let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, recurrence: .none)
         let mockReaction = Reaction(emoji: "🍑", created_by: mockUser, date_created: formattedDate)
         let mockPostViewModel = PostViewModel()
@@ -322,7 +322,7 @@ extension PostViewModel {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM.dd.yy h:mm a"
         let formattedDate = formatter.string(from: Date())
-        let mockUser =  User(id: "test", user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
+        let mockUser =  User(id: "test", user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02", username: "tester", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
         let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, recurrence: .none, beforeImageURL: "https://firebasestorage.googleapis.com:443/v0/b/housemates-3b4be.appspot.com/o/C11387A8-885C-4634-91F5-2E76C0278B71.jpeg?alt=media&token=01c5d456-5726-4eb3-a579-46ae25822151")
         let comment = Comment(text: "This is an example comment", date_created: formattedDate , created_by: mockUser)
         let mockReaction = Reaction(emoji: "🍑", created_by: mockUser, date_created: formattedDate)
@@ -334,7 +334,7 @@ extension PostViewModel {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM.dd.yy h:mm a"
         let formattedDate = formatter.string(from: Date())
-        let mockUser =  User(id: "test", user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
+        let mockUser =  User(id: "test", user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02", username: "username", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
         return  Comment(text: "This is an example comment", date_created: formattedDate , created_by: mockUser)
 
     }
@@ -343,7 +343,7 @@ extension PostViewModel {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM.dd.yy h:mm a"
         let formattedDate = formatter.string(from: Date())
-        let mockUser =  User(id: "test", user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
+        let mockUser =  User(id: "test", user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02", username: "tester", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
         let mockReaction = Reaction(emoji: "🍑", created_by: mockUser, date_created: formattedDate)
         return mockReaction
     }
