@@ -44,7 +44,9 @@ struct TaskBoardView: View {
                             
                         }
                     }
-//                        .toolbar(hide ? .hidden : .visible, for: .navigationBar)
+                    .onAppear {
+                        tabBarViewModel.hideTabBar = false
+                    }
             }
         }
     }

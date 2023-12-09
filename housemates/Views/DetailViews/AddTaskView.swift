@@ -43,12 +43,7 @@ struct AddTaskView: View {
         SwiftUI.Group {
           
           
-          Text((editableTask != nil) ? "Edit Task" : "Add Task")
-          
-            .font(.custom("Nunito-Bold", size: 26))
-            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-            .padding(.horizontal)
-          
+      
           HStack {
             Spacer()
             ZStack {
@@ -205,9 +200,10 @@ struct AddTaskView: View {
         .buttonStyle(PlainButtonStyle())
         .padding(.bottom, 20)
       }
-      
-    }
+       
+    }.navigationTitle((editableTask != nil) ? "Edit Task" : "Add Task")
     .onAppear {
+      tabBarViewModel.hideTabBar = true
       taskName = taskNameHardcoded
             
       if let task = editableTask {
