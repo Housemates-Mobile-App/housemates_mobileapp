@@ -43,6 +43,7 @@ struct HousemateProfileView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 100, height: 100)
                             .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.white, lineWidth: 2))
                     } placeholder: {
                         // Default user profile picture
                         Circle()
@@ -60,6 +61,8 @@ struct HousemateProfileView: View {
                                     .font(.custom("Nunito-Bold", size: 40))
                                     .foregroundColor(.white)
                             )
+                            .overlay(Circle().stroke(Color.white, lineWidth: 2))
+
                     }
                     
                     Text("\(housemate.first_name) \(housemate.last_name)")
