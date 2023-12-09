@@ -153,14 +153,8 @@ struct PostDetailView: View {
                 }
                 .padding(.bottom)
                 
-            }
-            .onAppear {
+            }.onAppear {
                 tabBarViewModel.hideTabBar = true
-            }
-            .onDisappear {
-                withAnimation(.easeIn(duration: 0.2), {
-                    tabBarViewModel.hideTabBar = false
-                })
             }
         }
 

@@ -9,7 +9,7 @@ struct HomeView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var postViewModel : PostViewModel
-//    @EnvironmentObject var tabBarViewModel : TabBarViewModel
+    @EnvironmentObject var tabBarViewModel : TabBarViewModel
     
     @State var hide = false
     @State private var showActivityView = false
@@ -81,28 +81,22 @@ struct HomeView: View {
 
                                 )
                         }
+                      
                     }.navigationTitle("Housemates")
                         .navigationBarTitleDisplayMode(.inline)
                         .coordinateSpace(name: "scroll")
                         .toolbar(hide ? .hidden : .visible, for: .navigationBar)
-                        .background(
-                               NavigationLink(destination: ActivityView(user: user), isActive: $showActivityView) {
-                                 EmptyView()
-                               }
-                           )
                         .toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 NavigationLink(destination: ActivityView(user: user)) {
-                                    Button(action: {
-                                        self.showActivityView = true
-                                    }) {
                                         Image(systemName: "tray.full.fill") // Use an appropriate system icon
+                                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Customize the color if needed
+                                        }
+                            
                                     }
-                                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Customize the color if needed
-                                }
-                                
-                            }
-                        }
+                    }.onAppear {
+                        tabBarViewModel.hideTabBar = false
+                    }
                 }
             }
         }

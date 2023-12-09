@@ -150,10 +150,6 @@ struct HousemateProfileView: View {
                 .navigationBarItems(leading: backButton())
         }.onAppear {
             tabBarViewModel.hideTabBar = true
-        }.onDisappear {
-            withAnimation(.easeIn(duration: 0.2), {
-                tabBarViewModel.hideTabBar = false
-            })
         }
     }
     private func backButton() -> some View {
