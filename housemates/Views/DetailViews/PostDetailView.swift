@@ -95,11 +95,11 @@ struct PostDetailView: View {
                           .font(.custom("Nunito", size: 15))
                       }
                       
-                      Text("Priority: ").font(.custom("Nunito-Bold", size: 15))
-                      + Text("\(post.task.priority)")
-                      .font(.custom("Nunito", size: 15))
-    //                    Text("**Priority:** \(post.task.priority)")
-    //                        .font(.custom("Nunito-Bold", size: 15))
+//                      Text("Priority: ").font(.custom("Nunito-Bold", size: 15))
+//                      + Text("\(post.task.priority)")
+//                      .font(.custom("Nunito", size: 15))
+//    //                    Text("**Priority:** \(post.task.priority)")
+//    //                        .font(.custom("Nunito-Bold", size: 15))
     //                        .padding(.top, 2)
                   }
                   .padding([.top, .horizontal])

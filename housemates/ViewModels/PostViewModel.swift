@@ -310,7 +310,7 @@ extension PostViewModel {
         formatter.dateFormat = "MM.dd.yy h:mm a"
         let formattedDate = formatter.string(from: Date())
         let mockUser =  User(id: "test", user_id: "test", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
-        let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, priority: "High", recurrence: .none)
+        let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, recurrence: .none)
         let mockReaction = Reaction(emoji: "🍑", created_by: mockUser, date_created: formattedDate)
         let mockPostViewModel = PostViewModel()
         let mockPosts = [Post(task: mockTask, group_id: "test", created_by: mockUser, num_likes: 0, num_comments: 0, liked_by: [], comments: [], reactions: [mockReaction])]
@@ -323,7 +323,7 @@ extension PostViewModel {
         formatter.dateFormat = "MM.dd.yy h:mm a"
         let formattedDate = formatter.string(from: Date())
         let mockUser =  User(id: "test", user_id: "xkP2L9pIp5cklnQDD4JYXv0Tow02", first_name: "test", last_name: "test", phone_number: "test", email: "test", birthday: "test", group_id: "test")
-        let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, priority: "High", recurrence: .none, beforeImageURL: "https://firebasestorage.googleapis.com:443/v0/b/housemates-3b4be.appspot.com/o/C11387A8-885C-4634-91F5-2E76C0278B71.jpeg?alt=media&token=01c5d456-5726-4eb3-a579-46ae25822151")
+        let mockTask =  task(name: "Wash The Dishes", group_id: "test", user_id: "test", description: "Wash Dishes and put back into cabinets", status: .done, date_started: nil, date_completed: formattedDate, recurrence: .none, beforeImageURL: "https://firebasestorage.googleapis.com:443/v0/b/housemates-3b4be.appspot.com/o/C11387A8-885C-4634-91F5-2E76C0278B71.jpeg?alt=media&token=01c5d456-5726-4eb3-a579-46ae25822151")
         let comment = Comment(text: "This is an example comment", date_created: formattedDate , created_by: mockUser)
         let mockReaction = Reaction(emoji: "🍑", created_by: mockUser, date_created: formattedDate)
         return Post(task: mockTask, group_id: "test", created_by: mockUser, num_likes: 0, num_comments: 1, liked_by: [], comments: [comment], reactions: [mockReaction], afterImageURL: "https://firebasestorage.googleapis.com:443/v0/b/housemates-3b4be.appspot.com/o/06F408B1-8D76-499A-8DB9-222FCBA5662A.jpeg?alt=media&token=7a49c9fe-5f89-47fa-bdbe-05b9734a7f99",

@@ -97,34 +97,69 @@ struct TaskView: View {
           
           
         }
-        
+//        if task is unclaimed, needs to be fixed
         else {
           HStack(spacing: 2) {
             
-            if task.priority == "High" {
-              
-              Image(systemName: "alarm.waves.left.and.right.fill")
-                .font(.custom("Lato", size: 12))
-                .foregroundColor(.red)
-              Text("•")
-                .font(.custom("Lato", size: 8))
-                .foregroundColor(Color.black.opacity(0.25))
-              
+            if let due_date = task.date_due {
+              if let timestamp = taskViewModel.getTimestamp(time: due_date) {
+                if (timestamp == "Today" || timestamp == "Tomorrow") {
+                  
+                  
+                  Image(systemName: "alarm.waves.left.and.right.fill")
+                    .font(.custom("Lato", size: 12))
+                    .foregroundColor(.red)
+                  Text("•")
+                    .font(.custom("Lato", size: 8))
+                    .foregroundColor(Color.black.opacity(0.25))
+                }
+              }
             }
             
-            if let time = task.date_created {
-              if let timestamp = taskViewModel.getTimestamp(time: time) {
-                Text("Created \(timestamp) ago")
+            
+            if task.recurrence == .none {
+              
+              
+              if let due_date = task.date_due {
+                if let timestamp = taskViewModel.getTimestamp(time: due_date) {
+                  if timestamp == "OVERDUE" {
+                    Text("Due \(timestamp)")
+                      .font(.custom("Lato-Bold", size: 12))
+                      .foregroundColor(Color.red)
+                  }
+                  if timestamp == "Today" || timestamp == "Tomorrow" {
+                    Text("Due \(timestamp)")
+                      .font(.custom("Lato", size: 12))
+                      .foregroundColor(Color.black.opacity(0.5))
+                  }
+                  else {
+                    Text("Due in \(timestamp)")
+                      .font(.custom("Lato", size: 12))
+                      .foregroundColor(Color.black.opacity(0.5))
+                  }
+                }
+              }
+            }
+            
+            else {
+              
+              
+              
+              
+              if let time = task.date_created {
+                if let timestamp = taskViewModel.getTimestamp(time: time) {
+                  Text("Created \(timestamp) ago")
+                    .font(.custom("Lato", size: 12))
+                    .foregroundColor(Color.black.opacity(0.5))
+                }
+                
+              } else {
+                Text("Recurring")
                   .font(.custom("Lato", size: 12))
                   .foregroundColor(Color.black.opacity(0.5))
               }
-            
-            } else {
-              Text("Recurring")
-                .font(.custom("Lato", size: 12))
-                .foregroundColor(Color.black.opacity(0.5))
             }
-            }
+          }
           }
         
 //        if task.status != .done && task.priority == "High"{
@@ -139,55 +174,55 @@ struct TaskView: View {
     }
   
     // MARK: - Priority Label
-    @ViewBuilder
-    private var priorityLabel: some View {
- 
-        switch task.priority {
-          case "Low":
-          priorityTag(Color.green.opacity(0.75), Color.green)
-          case "Medium":
-          priorityTag(Color.yellow.opacity(0.75), Color.yellow)
-          default:
-          priorityTag(Color.red.opacity(0.75), Color.red)
-        }
-      
-    }
+//    @ViewBuilder
+//    private var priorityLabel: some View {
+// 
+//        switch task.priority {
+//          case "Low":
+//          priorityTag(Color.green.opacity(0.75), Color.green)
+//          case "Medium":
+//          priorityTag(Color.yellow.opacity(0.75), Color.yellow)
+//          default:
+//          priorityTag(Color.red.opacity(0.75), Color.red)
+//        }
+//      
+//    }
   
-    @ViewBuilder
-  private func priorityTag(_ color: Color, _ text: Color) -> some View {
-    //        Circle()
-    //              .fill(color)
-    //              .frame(width: 15, height: 15)
-    //      ZStack {
-    //
-    //        Image(systemName: "face.smiling.inverse")
-    //          .font(.system(size: 12))
-    //          .foregroundColor(color)
-    //          .overlay(Circle().stroke(Color.white, lineWidth: 2))
-    //          .background(Color.white)
-    //          .clipShape(Circle())
-    //
-    //
-    //        Image(systemName: "face.smiling.inverse")
-    //          .font(.system(size: 12))
-    //          .foregroundColor(color)
-    //          .overlay(Circle().stroke(text, lineWidth: 2))
-    //
-    //      }
-    
-    HStack(spacing: 1.5) {
-//      Image(systemName: "exclamationmark.square.fill")
-      //          .font(.system(size: 12))
-      Text(task.priority.uppercased())
-//      Image(systemName: "exclamationmark.square.fill")
-    }
-    .font(.custom("Lato-Bold", size: 12))
-//    .padding(.horizontal, 5)
-//    .padding(.vertical, 3)
-    .foregroundColor(.red)
-//    .background(color)
-//    .cornerRadius(5)
-  }
+//    @ViewBuilder
+//  private func priorityTag(_ color: Color, _ text: Color) -> some View {
+//    //        Circle()
+//    //              .fill(color)
+//    //              .frame(width: 15, height: 15)
+//    //      ZStack {
+//    //
+//    //        Image(systemName: "face.smiling.inverse")
+//    //          .font(.system(size: 12))
+//    //          .foregroundColor(color)
+//    //          .overlay(Circle().stroke(Color.white, lineWidth: 2))
+//    //          .background(Color.white)
+//    //          .clipShape(Circle())
+//    //
+//    //
+//    //        Image(systemName: "face.smiling.inverse")
+//    //          .font(.system(size: 12))
+//    //          .foregroundColor(color)
+//    //          .overlay(Circle().stroke(text, lineWidth: 2))
+//    //
+//    //      }
+//    
+//    HStack(spacing: 1.5) {
+////      Image(systemName: "exclamationmark.square.fill")
+//      //          .font(.system(size: 12))
+//      Text(task.priority.uppercased())
+////      Image(systemName: "exclamationmark.square.fill")
+//    }
+//    .font(.custom("Lato-Bold", size: 12))
+////    .padding(.horizontal, 5)
+////    .padding(.vertical, 3)
+//    .foregroundColor(.red)
+////    .background(color)
+////    .cornerRadius(5)
+//  }
       
        
     

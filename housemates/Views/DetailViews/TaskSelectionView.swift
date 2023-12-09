@@ -58,7 +58,7 @@ struct TaskSelectionView: View {
                 Spacer()
                 
                 NavigationLink(destination: AddTaskView(taskIconStringHardcoded: "", taskNameHardcoded: "", user: user)) {
-                    Text("Add a Custom Task +")
+                    Text("Add a Custom Task")
                         .font(.custom("Nunito-Bold", size: 18))
                         .bold()
                         .foregroundColor(.white)
