@@ -27,8 +27,7 @@ struct PostDetailView: View {
                 
                 // Image
                     if beforeImageURL != nil {
-                        // If there is a before image, use TabView to show both before and after
-                        TabView {
+                        HStack(spacing: 15) {
                             ForEach([("Before", beforeImageURL), ("After", afterImageURL)], id: \.0) { (description, url) in
                                 if let imageURL = url {
                                     VStack {
@@ -49,6 +48,9 @@ struct PostDetailView: View {
                                                 EmptyView()
                                             }
                                         }
+                                        .frame(width: 180) // You may set the width to half of your desired total width for both images
+                                        .aspectRatio(contentMode: .fit)
+
                                         Text(description)
                                             .font(.headline)
                                             .font(.custom("Lato", size: 12))
@@ -59,7 +61,7 @@ struct PostDetailView: View {
                         }
                         .frame(height: 300)
                         .background(Color(UIColor.systemBackground).opacity(0.6))
-                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+
                     } else if let afterImageURL = afterImageURL {
                         // If there is no before image, just show the after image without TabView
                         VStack {

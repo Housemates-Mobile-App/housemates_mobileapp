@@ -108,12 +108,20 @@ struct PostRowView: View {
                             
                             
                             // MARK: Bottom Text
-                            
-                            Text(" \(selectedTabIndex == 0 ? "Before:" : "After:")  \(post.task.name)")
-                                .font(.custom("Lato", size: 13.5))
-                                .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
-                                .shadow(radius: 3)
-                                .offset(x: -3, y: 20)
+                            if post.task.beforeImageURL == nil {
+                                Text( "Completed  \(post.task.name)")
+                                    .font(.custom("Lato", size: 13.5))
+                                    .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                                    .shadow(radius: 3)
+                                    .offset(x: -3, y: 20)
+                            } else {
+                                Text(" \(selectedTabIndex == 0 ? "Before:" : "After:")  \(post.task.name)")
+                                    .font(.custom("Lato", size: 13.5))
+                                    .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
+                                    .shadow(radius: 3)
+                                    .offset(x: -3, y: 20)
+
+                            }
                         } .offset(y: -2)
                     }
                 }
