@@ -19,10 +19,10 @@ struct NewInputView: View {
                 
             TextField(placeholder, text: $text)
                 .font(.custom("Lato", size: 14))
-                .background(
-                    RoundedRectangle(cornerRadius: 30)
-                        .fill(.white)
-                )
+//                .background(
+//                    RoundedRectangle(cornerRadius: 30)
+//                        .fill(.white)
+//                )
         }
         .padding(.horizontal)
         .padding(.vertical, 10)

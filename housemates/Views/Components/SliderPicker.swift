@@ -24,7 +24,7 @@ struct SliderPicker<PickerItem: SliderPickerItem>: View {
               ForEach(PickerItem.allCases, id: \.self) { item in
                 Text(item.displayValue)
                   .font(.custom(selectedItem ==  item ? "Lato-Bold" : "Lato", size: 14))
-                  .foregroundColor(selectedItem == item ? .white : .black)
+                  .foregroundColor(selectedItem == item ? .white : .primary)
                   .padding()
                   .frame(minWidth: geometry.size.width / CGFloat(PickerItem.allCases.count), alignment: .center)
                   .onTapGesture {

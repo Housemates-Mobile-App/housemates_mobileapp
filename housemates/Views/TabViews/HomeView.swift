@@ -89,7 +89,7 @@ struct HomeView: View {
                         .toolbar {
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 NavigationLink(destination: ActivityView(user: user)) {
-                                        Image(systemName: "tray.full.fill") // Use an appropriate system icon
+                                        Image(systemName: "bell.fill") // Use an appropriate system icon
                                             .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Customize the color if needed
                                         }
                             

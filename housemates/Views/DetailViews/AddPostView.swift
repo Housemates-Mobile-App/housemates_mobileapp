@@ -73,12 +73,13 @@ struct AddPostView: View {
 
                 Button(action: sharePost) {
                     Text("Share")
+                      
+                        .font(.custom("Nunito-Bold", size: 18))
                         .bold()
+                        .frame(maxWidth: .infinity, minHeight: 50)
+                        .background(Color(red: 0.439, green: 0.298, blue: 1.0))
                         .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(10)
+                        .cornerRadius(30)
                         .padding(.horizontal)
                 }
             }

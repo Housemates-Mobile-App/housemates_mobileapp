@@ -111,7 +111,7 @@ struct TaskView: View {
                     .foregroundColor(.red)
                   Text("•")
                     .font(.custom("Lato", size: 8))
-                    .foregroundColor(Color.black.opacity(0.25))
+                    .foregroundColor(Color.gray)
                 }
               }
             }
@@ -130,12 +130,12 @@ struct TaskView: View {
                   if timestamp == "Today" || timestamp == "Tomorrow" {
                     Text("Due \(timestamp)")
                       .font(.custom("Lato", size: 12))
-                      .foregroundColor(Color.black.opacity(0.5))
+                      .foregroundColor(Color.gray)
                   }
                   else {
                     Text("Due in \(timestamp)")
                       .font(.custom("Lato", size: 12))
-                      .foregroundColor(Color.black.opacity(0.5))
+                      .foregroundColor(Color.gray)
                   }
                 }
               }
