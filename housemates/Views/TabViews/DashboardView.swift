@@ -337,6 +337,7 @@ struct DashboardView: View {
       
     }
     .padding()
+    .padding(.bottom, 40)
     .onChange(of: currMonth) { newVal in
       currDay = getCurrMonth()
       
