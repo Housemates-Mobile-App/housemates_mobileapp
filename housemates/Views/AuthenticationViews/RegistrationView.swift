@@ -85,11 +85,16 @@ struct RegistrationView: View {
                 }
             }
             else if currentStep == 4 {
-                EmailView(email: $email) {
+                UsernameView(username: $username) {
                     currentStep += 1
                 }
             }
             else if currentStep == 5 {
+                EmailView(email: $email) {
+                    currentStep += 1
+                }
+            }
+            else if currentStep == 6 {
                 PasswordView(password: $password, confirmPassword: $confirmPassword) {
                     if formisValid {
                         self.signUp()
@@ -101,7 +106,7 @@ struct RegistrationView: View {
     }
     
     func calculateProgress() -> Float {
-           return Float(currentStep) / Float(6)
+           return Float(currentStep) / Float(7)
     }
 }
 
@@ -117,6 +122,7 @@ extension RegistrationView: AuthenticationFormProtocol {
                 && !lname.isEmpty
                 && !phone.isEmpty
                 && !dob.isEmpty
+                && !username.isEmpty
                 
         )
     }

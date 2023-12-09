@@ -151,6 +151,10 @@ class UserViewModel: ObservableObject {
         
         return daysLeftArray.first?.1
     }
+    
+    func usernameIsAvailable(username: String) -> Bool {
+        !self.users.contains { $0.username.lowercased() == username.lowercased() }
+    }
 }
 
 
