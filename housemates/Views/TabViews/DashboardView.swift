@@ -26,7 +26,8 @@ struct DashboardView: View {
                   Text("Dashboard")
                       .font(.custom("Nunito-Bold", size: 26))
                       .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                      .padding([.top, .horizontal])
+                      .padding(.horizontal)
+                      .padding(.top, 10)
                       .padding(.bottom, 2.5)
                   
                   

@@ -295,6 +295,7 @@ struct TaskView: View {
     private var claimButton: some View {
         Button("CLAIM", action: {
             taskViewModel.claimTask(task: task, user_id: user.id ?? "")
+            taskViewModel.highlight(task_id: task.id ?? "0")
 //          self.showCamera = true
 //          DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
 //            if let uid = user.id {
