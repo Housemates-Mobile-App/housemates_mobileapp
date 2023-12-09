@@ -25,8 +25,8 @@ struct FilterView: View {
             .frame(maxWidth: 75, maxHeight: 15)
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
-            .foregroundColor(selected == "All Tasks" ? Color.white : darkGray)
-            .background(selected == "All Tasks" ? deepPurple : lightGray)
+            .foregroundColor(selected == "All Tasks" ? Color.white : .gray)
+            .background(selected == "All Tasks" ? deepPurple : .gray.opacity(0.25))
             .cornerRadius(25)
         }
         
@@ -39,8 +39,8 @@ struct FilterView: View {
             .frame(maxWidth: 75, maxHeight: 15)
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
-            .foregroundColor(selected == "Unclaimed" ? Color.white : darkGray)
-            .background(selected == "Unclaimed" ? deepPurple : lightGray)
+            .foregroundColor(selected == "Unclaimed" ? Color.white : .gray)
+            .background(selected == "Unclaimed" ? deepPurple : .gray.opacity(0.25))
             .cornerRadius(25)
         }
         
@@ -54,8 +54,8 @@ struct FilterView: View {
 //            .bold()
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
-            .foregroundColor(selected == "In Progress" ? Color.white : darkGray)
-            .background(selected == "In Progress" ? deepPurple : lightGray)
+            .foregroundColor(selected == "In Progress" ? Color.white : .gray)
+            .background(selected == "In Progress" ? deepPurple : .gray.opacity(0.25))
             .cornerRadius(25)
         }
         
@@ -69,8 +69,8 @@ struct FilterView: View {
 //            .bold()
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
-            .foregroundColor(selected == "Completed" ? Color.white : darkGray)
-            .background(selected == "Completed" ? deepPurple : lightGray)
+            .foregroundColor(selected == "Completed" ? Color.white : .gray)
+            .background(selected == "Completed" ? deepPurple : .gray.opacity(0.25))
             .cornerRadius(25)
         }
       }.padding(.horizontal, 5)
