@@ -69,10 +69,9 @@ class TaskViewModel: ObservableObject {
         return self.tasks.filter { $0.user_id == user_id && $0.status == .inProgress}
     }
     
-    func getRecentCompletedTasksForUser(_ user_id: String) -> [task] {
+    func getRecentCompletedTasksForUser(_ user_id: String, currentDate: Date = Date()) -> [task] {
         let completedTasks = getCompletedTasksForUser(user_id)
         
-        let currentDate = Date()
         let calendar = Calendar.current
         let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: currentDate)!
         let eightDaysAgo = calendar.date(byAdding: .day, value: -8, to: currentDate)!
