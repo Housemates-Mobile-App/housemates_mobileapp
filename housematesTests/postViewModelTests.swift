@@ -34,7 +34,7 @@ final class postViewModelTests: XCTestCase {
         
         let  testUser1 = User(user_id: "1", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
         
-        let testTask1 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, priority:"low", recurrence:.none)
+        let testTask1 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, recurrence:.none)
         
         let testPost1 = Post(task: testTask1, group_id: "1", created_by: testUser1, num_likes: 3, num_comments: 2, liked_by: [], comments: [], reactions: [])
         let testPost2 = Post(task: testTask1, group_id: "1", created_by: testUser1, num_likes: 3, num_comments: 2, liked_by: [], comments: [], reactions: [])
@@ -54,7 +54,7 @@ final class postViewModelTests: XCTestCase {
         
         let  testUser1 = User(user_id: "1", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
         
-        let testTask1 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, priority:"low", recurrence:.none)
+        let testTask1 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, recurrence:.none)
         
         let testPost1 = Post(task: testTask1, group_id: "1", created_by: testUser1, num_likes: 3, num_comments: 2, liked_by: [], comments: [], reactions: [])
         let testPost2 = Post(task: testTask1, group_id: "1", created_by: testUser1, num_likes: 3, num_comments: 2, liked_by: [], comments: [], reactions: [])
@@ -85,7 +85,7 @@ final class postViewModelTests: XCTestCase {
         )
         let testReaction1 = Reaction(emoji: "❤️", created_by: testUser2, date_created: "10/10/2020")
         let testReaction2 = Reaction(emoji: "😂", created_by: testUser3, date_created: "10/10/2020")
-        let testTask = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, priority:"low", recurrence:.none)
+        let testTask = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, recurrence:.none)
         let testPost = Post(
             id: "post1",
             task: testTask,
@@ -143,7 +143,7 @@ final class postViewModelTests: XCTestCase {
         
         let testUser6 = User(id: "6", user_id: "6", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
         
-        let testTask = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, priority:"low", recurrence:.none)
+        let testTask = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, recurrence:.none)
 
         let testPost = Post(
             id: "post1",
@@ -197,11 +197,11 @@ final class postViewModelTests: XCTestCase {
         
         let testUser1 = User(id: "1", user_id: "1", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
         
-        let testTask1 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, date_completed: "01.01.00 12:00 AM", priority:"low", recurrence:.none)
+        let testTask1 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, date_completed: "01.01.00 12:00 AM", recurrence:.none)
         
-        let testTask2 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, date_completed: "01.01.02 12:00 AM", priority:"low", recurrence:.none)
+        let testTask2 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, date_completed: "01.01.02 12:00 AM", recurrence:.none)
         
-        let testTask3 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, date_completed: "01.01.99 12:00 AM", priority:"low", recurrence:.none)
+        let testTask3 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, date_completed: "01.01.99 12:00 AM", recurrence:.none)
         
         let testPost1 = Post(task: testTask1, group_id: "1", created_by: testUser1, num_likes: 3, num_comments: 2, liked_by: [], comments: [], reactions: [])
         

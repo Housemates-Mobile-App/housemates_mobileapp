@@ -16,9 +16,9 @@ final class taskViewModelTests: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         viewModel = TaskViewModel()
         testTasks = [
-            task(id: "1", name: "task1", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "2", name: "task2", group_id: "2", user_id: "2", description: "scrub it", status: task.Status.inProgress, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "3", name: "task3", group_id: "1", user_id: "3", description: "scrub it", status: task.Status.inProgress, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "1", name: "task1", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "2", name: "task2", group_id: "2", user_id: "2", description: "scrub it", status: task.Status.inProgress, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "3", name: "task3", group_id: "1", user_id: "3", description: "scrub it", status: task.Status.inProgress, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
         ]
         viewModel.tasks = testTasks
     }
@@ -47,9 +47,9 @@ final class taskViewModelTests: XCTestCase {
     
     func testGetUnclaimedTasksForGroup() {
         let tempTasks = [
-            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.inProgress, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.inProgress, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
         ]
         viewModel.tasks = tempTasks
         
@@ -63,9 +63,9 @@ final class taskViewModelTests: XCTestCase {
     
     func testGetInProgressTasksForGroup() {
         let tempTasks = [
-            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.inProgress, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.inProgress, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
         ]
         
         viewModel.tasks = tempTasks
@@ -80,9 +80,9 @@ final class taskViewModelTests: XCTestCase {
     
     func testGetCompletedTasksForGroup() {
         let tempTasks = [
-            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.done, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.done, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
         ]
         
         viewModel.tasks = tempTasks
@@ -97,9 +97,9 @@ final class taskViewModelTests: XCTestCase {
     
     func testGetCompletedTasksForUser() {
         let tempTasks = [
-            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.done, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.done, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
         ]
         
         viewModel.tasks = tempTasks
@@ -114,9 +114,9 @@ final class taskViewModelTests: XCTestCase {
     
     func testGetPendingTasksForUser() {
         let tempTasks = [
-            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.inProgress, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.inProgress, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
         ]
         
         viewModel.tasks = tempTasks
@@ -134,13 +134,12 @@ final class taskViewModelTests: XCTestCase {
         dateFormatter.dateFormat = "MM.dd.yy h:mm a"
         let calendar = Calendar.current
 
-        // Assuming today's date is fixed for the purpose of testing
+        // assume today's date is fixed for testing purposes
         let fixedCurrentDate = dateFormatter.date(from: "12.07.2023 12:00 PM")!
 
-        // Set up mock completed tasks
-        let taskCompletedYesterday = task(id: "1", name: "Task1", group_id: "1", user_id: "1", description: "Task completed yesterday", status: .done, date_completed: dateFormatter.string(from: calendar.date(byAdding: .day, value: -1, to: fixedCurrentDate)!), priority: "high", recurrence: .none, recurrenceStartDate: nil)
-        let taskCompleted8DaysAgo = task(id: "2", name: "Task2", group_id: "1", user_id: "1", description: "Task completed 8 days ago", status: .done, date_completed: dateFormatter.string(from: calendar.date(byAdding: .day, value: -8, to: fixedCurrentDate)!), priority: "high", recurrence: .none, recurrenceStartDate: nil)
-        let taskCompletedSameDay = task(id: "3", name: "Task3", group_id: "1", user_id: "1", description: "Task completed today", status: .done, date_completed: dateFormatter.string(from: fixedCurrentDate), priority: "high", recurrence: .none, recurrenceStartDate: nil)
+        let taskCompletedYesterday = task(id: "1", name: "Task1", group_id: "1", user_id: "1", description: "Task completed yesterday", status: .done, date_completed: dateFormatter.string(from: calendar.date(byAdding: .day, value: -1, to: fixedCurrentDate)!), recurrence: .none, recurrenceStartDate: nil)
+        let taskCompleted8DaysAgo = task(id: "2", name: "Task2", group_id: "1", user_id: "1", description: "Task completed 8 days ago", status: .done, date_completed: dateFormatter.string(from: calendar.date(byAdding: .day, value: -8, to: fixedCurrentDate)!), recurrence: .none, recurrenceStartDate: nil)
+        let taskCompletedSameDay = task(id: "3", name: "Task3", group_id: "1", user_id: "1", description: "Task completed today", status: .done, date_completed: dateFormatter.string(from: fixedCurrentDate), recurrence: .none, recurrenceStartDate: nil)
 
         viewModel.tasks = [taskCompletedYesterday, taskCompleted8DaysAgo, taskCompletedSameDay]
 
@@ -153,9 +152,9 @@ final class taskViewModelTests: XCTestCase {
     
     func testGetNumPendingTasksForUser() {
         let tempTasks = [
-            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.inProgress, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.inProgress, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
         ]
         
         viewModel.tasks = tempTasks
@@ -167,9 +166,9 @@ final class taskViewModelTests: XCTestCase {
     
     func testGetNumCompletedTasksForUser() {
         let tempTasks = [
-            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.done, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.done, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
         ]
         
         viewModel.tasks = tempTasks
@@ -181,9 +180,9 @@ final class taskViewModelTests: XCTestCase {
     
     func testGetNumCompletedTasksForGroup() {
         let tempTasks = [
-            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.done, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
-            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.done, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "4", name: "task4", group_id: "3", user_id: "4", description: "scrub it", status: task.Status.done, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "5", name: "task5", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.unclaimed, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
+            task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.done, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil),
         ]
         
         viewModel.tasks = tempTasks
@@ -193,7 +192,7 @@ final class taskViewModelTests: XCTestCase {
     }
     
     func testIsMyTask() {
-        let task = task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.done, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil)
+        let task = task(id: "6", name: "task6", group_id: "3", user_id: "5", description: "scrub it", status: task.Status.done, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil)
         let isTaskOfUserA = viewModel.isMyTask(task: task, user_id: "5")
         let isTaskOfUserB = viewModel.isMyTask(task: task, user_id: "1")
 
@@ -208,8 +207,8 @@ final class taskViewModelTests: XCTestCase {
         let calendar = Calendar.current
 
         // mock tasks
-        let taskCompletedToday = task(id: "1", name: "Today Task", group_id: "1", user_id: "1", description: "Completed Today", status: .done, date_completed: dateFormatter.string(from: Date()), priority: "high", recurrence: .none, recurrenceStartDate: nil)
-        let taskCompletedLastWeek = task(id: "2", name: "Last Week Task", group_id: "1", user_id: "1", description: "Completed Last Week", status: .done, date_completed: dateFormatter.string(from: calendar.date(byAdding: .day, value: -6, to: Date())!), priority: "high", recurrence: .none, recurrenceStartDate: nil)
+        let taskCompletedToday = task(id: "1", name: "Today Task", group_id: "1", user_id: "1", description: "Completed Today", status: .done, date_completed: dateFormatter.string(from: Date()), recurrence: .none, recurrenceStartDate: nil)
+        let taskCompletedLastWeek = task(id: "2", name: "Last Week Task", group_id: "1", user_id: "1", description: "Completed Last Week", status: .done, date_completed: dateFormatter.string(from: calendar.date(byAdding: .day, value: -6, to: Date())!), recurrence: .none, recurrenceStartDate: nil)
 
         viewModel.tasks = [taskCompletedToday, taskCompletedLastWeek]
 
@@ -226,8 +225,8 @@ final class taskViewModelTests: XCTestCase {
         let calendar = Calendar.current
 
         // mock tasks
-        let taskCompletedToday = task(id: "1", name: "Today Task", group_id: "1", user_id: "1", description: "Completed Today", status: .done, date_completed: dateFormatter.string(from: Date()), priority: "high", recurrence: .none, recurrenceStartDate: nil)
-        let taskCompletedLastMonth = task(id: "2", name: "Last Month Task", group_id: "1", user_id: "1", description: "Completed Last Month", status: .done, date_completed: dateFormatter.string(from: calendar.date(byAdding: .day, value: -25, to: Date())!), priority: "high", recurrence: .none, recurrenceStartDate: nil)
+        let taskCompletedToday = task(id: "1", name: "Today Task", group_id: "1", user_id: "1", description: "Completed Today", status: .done, date_completed: dateFormatter.string(from: Date()), recurrence: .none, recurrenceStartDate: nil)
+        let taskCompletedLastMonth = task(id: "2", name: "Last Month Task", group_id: "1", user_id: "1", description: "Completed Last Month", status: .done, date_completed: dateFormatter.string(from: calendar.date(byAdding: .day, value: -25, to: Date())!), recurrence: .none, recurrenceStartDate: nil)
 
         viewModel.tasks = [taskCompletedToday, taskCompletedLastMonth]
 
@@ -261,11 +260,11 @@ final class taskViewModelTests: XCTestCase {
         let currentDate = Date()
         let calendar = Calendar.current
 
-        let noCompletionDateTask = task(name: "wash dishes", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: calendar.date(byAdding: .day, value: -2, to: currentDate)!)
-        let noRecurrenceStartDateTask = task(name: "walk dog", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: nil, priority: "high", recurrence: .daily, recurrenceStartDate: nil)
-        let nonResetTask = task(name: "clean puke", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: nil, priority: "high", recurrence: .none)
-        let dailyTask = task(name: "clean toilet", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: "testDateCompleted", priority: "high", recurrence: .daily, recurrenceStartDate: calendar.date(byAdding: .day, value: -2, to: currentDate)!)
-        let weeklyTask = task(name: "take out trash", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: "testDateCompleted", priority: "high", recurrence: .weekly, recurrenceStartDate: calendar.date(byAdding: .weekOfYear, value: -2, to: currentDate)!)
+        let noCompletionDateTask = task(name: "wash dishes", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: nil, recurrence: .daily, recurrenceStartDate: calendar.date(byAdding: .day, value: -2, to: currentDate)!)
+        let noRecurrenceStartDateTask = task(name: "walk dog", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: nil, recurrence: .daily, recurrenceStartDate: nil)
+        let nonResetTask = task(name: "clean puke", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: nil, recurrence: .none)
+        let dailyTask = task(name: "clean toilet", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: "testDateCompleted", recurrence: .daily, recurrenceStartDate: calendar.date(byAdding: .day, value: -2, to: currentDate)!)
+        let weeklyTask = task(name: "take out trash", group_id: "1", user_id: "1", description: "scrub it", status: task.Status.inProgress, date_completed: "testDateCompleted", recurrence: .weekly, recurrenceStartDate: calendar.date(byAdding: .weekOfYear, value: -2, to: currentDate)!)
         
         XCTAssertFalse(viewModel.taskNeedsReset(task: noCompletionDateTask, currentDate: currentDate))
         XCTAssertFalse(viewModel.taskNeedsReset(task: noRecurrenceStartDateTask, currentDate: currentDate))

@@ -58,13 +58,13 @@ final class userViewModelTests: XCTestCase {
         viewModel.users = testUsers
         // Adding mock tasks to mockTaskViewModel for testing
         taskViewModel.tasks = [
-            task(id: "task1", name: "Task 1", group_id: "2", user_id: "1", description: "", status: .done, date_completed: "date1", priority: "high", recurrence: .none),
-            task(id: "task1a", name: "Task 1a", group_id: "2", user_id: "1", description: "", status: .inProgress, date_completed: "date1", priority: "high", recurrence: .none),
-            task(id: "task2", name: "Task 2", group_id: "2", user_id: "2", description: "", status: .done, date_completed: "date2", priority: "high", recurrence: .none),
-            task(id: "task2a", name: "Task 2a", group_id: "2", user_id: "2", description: "", status: .done, date_completed: "date2", priority: "high", recurrence: .none),
-            task(id: "task3", name: "Task 3", group_id: "2", user_id: "3", description: "", status: .done, date_completed: "date3", priority: "high", recurrence: .none),
-            task(id: "task4", name: "Task 4", group_id: "2", user_id: "3", description: "", status: .done, date_completed: "date3", priority: "high", recurrence: .none),
-            task(id: "task5", name: "Task 5", group_id: "2", user_id: "3", description: "", status: .done, date_completed: "date3", priority: "high", recurrence: .none)
+            task(id: "task1", name: "Task 1", group_id: "2", user_id: "1", description: "", status: .done, date_completed: "date1", recurrence: .none),
+            task(id: "task1a", name: "Task 1a", group_id: "2", user_id: "1", description: "", status: .inProgress, date_completed: "date1", recurrence: .none),
+            task(id: "task2", name: "Task 2", group_id: "2", user_id: "2", description: "", status: .done, date_completed: "date2", recurrence: .none),
+            task(id: "task2a", name: "Task 2a", group_id: "2", user_id: "2", description: "", status: .done, date_completed: "date2", recurrence: .none),
+            task(id: "task3", name: "Task 3", group_id: "2", user_id: "3", description: "", status: .done, date_completed: "date3", recurrence: .none),
+            task(id: "task4", name: "Task 4", group_id: "2", user_id: "3", description: "", status: .done, date_completed: "date3", recurrence: .none),
+            task(id: "task5", name: "Task 5", group_id: "2", user_id: "3", description: "", status: .done, date_completed: "date3", recurrence: .none)
         ]
 
         let sortedGroupmates = viewModel.getUserGroupmatesInclusiveByTask("1", taskViewModel)
@@ -82,13 +82,13 @@ final class userViewModelTests: XCTestCase {
         viewModel.users = testUsers
 
         taskViewModel.tasks = [
-            task(id: "task1", name: "Task 1", group_id: "2", user_id: "1", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), priority: "high", recurrence: .none),
-            task(id: "task1", name: "Task 1", group_id: "2", user_id: "1", description: "", status: .inProgress, date_completed: "nil", priority: "high", recurrence: .none),
-            task(id: "task2", name: "Task 2", group_id: "2", user_id: "2", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), priority: "high", recurrence: .none),
-            task(id: "task2b", name: "Task 2b", group_id: "2", user_id: "2", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), priority: "high", recurrence: .none),
-            task(id: "task3", name: "Task 3", group_id: "2", user_id: "3", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), priority: "high", recurrence: .none),
-            task(id: "task3b", name: "Task 3b", group_id: "2", user_id: "3", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), priority: "high", recurrence: .none),
-            task(id: "task3c", name: "Task 3c", group_id: "2", user_id: "3", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), priority: "high", recurrence: .none),
+            task(id: "task1", name: "Task 1", group_id: "2", user_id: "1", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), recurrence: .none),
+            task(id: "task1", name: "Task 1", group_id: "2", user_id: "1", description: "", status: .inProgress, date_completed: "nil", recurrence: .none),
+            task(id: "task2", name: "Task 2", group_id: "2", user_id: "2", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), recurrence: .none),
+            task(id: "task2b", name: "Task 2b", group_id: "2", user_id: "2", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), recurrence: .none),
+            task(id: "task3", name: "Task 3", group_id: "2", user_id: "3", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), recurrence: .none),
+            task(id: "task3b", name: "Task 3b", group_id: "2", user_id: "3", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), recurrence: .none),
+            task(id: "task3c", name: "Task 3c", group_id: "2", user_id: "3", description: "", status: .done, date_completed: dateFormatter.string(from: Date()), recurrence: .none),
         ]
 
         let sortedGroupmates = viewModel.getUserGroupmatesInclusiveByTaskTime("1", taskViewModel, timeframe: "Last Week")
