@@ -19,7 +19,7 @@ struct TaskBoardView: View {
                     // Main Content Section
                     mainContent(user: user)
 
-                }
+                }.padding(.bottom, 45)
             }
         }
     }
