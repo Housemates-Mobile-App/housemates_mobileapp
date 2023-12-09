@@ -37,7 +37,6 @@ struct FilterView: View {
             .font(.custom("Lato-Bold", size: 12))
 //            .font(.system(size: 12))
             .frame(maxWidth: 75, maxHeight: 15)
-        
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .foregroundColor(selected == "Unclaimed" ? Color.white : darkGray)

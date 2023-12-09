@@ -6,7 +6,19 @@ struct TaskBoardView: View {
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
     @State private var selected: String = "All Tasks"
     private var unknownDate = Date.distantPast
+    
+    init() {
+        let appear = UINavigationBarAppearance()
 
+        let atters: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "Nunito-Bold", size: 26)!,
+            .foregroundColor: UIColor(red: 0.439, green: 0.298, blue: 1.0, alpha: 1.0)
+        ]
+        
+        appear.largeTitleTextAttributes = atters
+        appear.titleTextAttributes = atters
+        UINavigationBar.appearance().standardAppearance = appear
+     }
 
     var body: some View {
         // Check for current user
@@ -14,12 +26,23 @@ struct TaskBoardView: View {
             NavigationStack {
                 VStack {
                     // Header Section
-                    taskHeader(user: user)
+//                    taskHeader(user: user)
 
                     // Main Content Section
                     mainContent(user: user)
 
-                }.padding(.bottom, 45)
+                }
+                    .padding(.top, 10)
+                    .navigationTitle("Tasks")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .coordinateSpace(name: "scroll")
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            addTaskButton(user: user)
+                            
+                        }
+                    }
+//                        .toolbar(hide ? .hidden : .visible, for: .navigationBar)
             }
         }
     }
@@ -31,7 +54,6 @@ struct TaskBoardView: View {
             Spacer()
             addTaskButton(user: user)
         }
-        .padding()
     }
 
     // Header Title
@@ -48,14 +70,14 @@ struct TaskBoardView: View {
                 tabBarViewModel.showTaskSelectionView = true
            }) {
                Image(systemName: "plus")
-                   .font(.headline)
                    .font(.custom("Lato-Bold", size: 15))
                    .imageScale(.small)
                    .foregroundColor(Color.white)
                    .padding(7.5)
-                   .background(Circle().fill(Color(red: 0.439, green: 0.298, blue: 1.0)))
+                   .background(Circle().fill(Color(red: 0.439, green: 0.298, blue: 1.0)).frame(width: 24, height: 24))
                    .fontWeight(.semibold)
-           }
+           }.padding(.bottom, 6)
+            .padding(.trailing, 5)
     }
 
     // Main Content Section
@@ -109,7 +131,6 @@ struct TaskBoardView: View {
                       Text("No in progress tasks to display")
                           .font(.custom("Lato-Regular", size: 12))
                           .foregroundColor(.gray)
-
                           .listRowSeparator(.hidden)
                   }
                   else {
@@ -162,6 +183,7 @@ struct TaskBoardView: View {
       }
 //      .listStyle(.plain)
       .listStyle(PlainListStyle())
+      .padding(.bottom, 50)
   }
 
 
