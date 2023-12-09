@@ -157,6 +157,8 @@
 		8AF549582B0584C800EB28CC /* AddPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF549572B0584C800EB28CC /* AddPostView.swift */; };
 		8AF5495A2B0585C300EB28CC /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF549592B0585C300EB28CC /* PostDetailView.swift */; };
 		8AF9669F2B2509EC006A44BF /* FriendInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF9669E2B2509EC006A44BF /* FriendInfo.swift */; };
+		8AF966A12B2516A9006A44BF /* FriendInfoDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF966A02B2516A9006A44BF /* FriendInfoDataRepository.swift */; };
+		8AF966A32B251933006A44BF /* FriendInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF966A22B251933006A44BF /* FriendInfoViewModel.swift */; };
 		AD7F57F12B1FF26E0023D476 /* BeforeCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7F57F02B1FF26E0023D476 /* BeforeCameraView.swift */; };
 		AD7F57F52B1FF8130023D476 /* AfterCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7F57F42B1FF8130023D476 /* AfterCameraView.swift */; };
 		AD95E0E02B168AD700577DAB /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95E0DF2B168AD700577DAB /* CameraView.swift */; };
@@ -277,6 +279,8 @@
 		8AF549572B0584C800EB28CC /* AddPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostView.swift; sourceTree = "<group>"; };
 		8AF549592B0585C300EB28CC /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		8AF9669E2B2509EC006A44BF /* FriendInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInfo.swift; sourceTree = "<group>"; };
+		8AF966A02B2516A9006A44BF /* FriendInfoDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInfoDataRepository.swift; sourceTree = "<group>"; };
+		8AF966A22B251933006A44BF /* FriendInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendInfoViewModel.swift; sourceTree = "<group>"; };
 		AD7F57F02B1FF26E0023D476 /* BeforeCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeforeCameraView.swift; sourceTree = "<group>"; };
 		AD7F57F42B1FF8130023D476 /* AfterCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterCameraView.swift; sourceTree = "<group>"; };
 		AD95E0DF2B168AD700577DAB /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
@@ -587,6 +591,7 @@
 				5188F2232B02AC47001B1AA0 /* GroupViewModel.swift */,
 				8AEE050A2B0423A80030A6E0 /* PostViewModel.swift */,
 				8AE1F98E2B1ED3CC00D4C0F6 /* TabBarViewModel.swift */,
+				8AF966A22B251933006A44BF /* FriendInfoViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -598,6 +603,7 @@
 				8AD6ED2A2AF19832006B56B6 /* PostDataRepository.swift */,
 				8AEE92D12AF1F856006AECD3 /* UserDataRepository.swift */,
 				ADD11A652AFAFA54001861A0 /* TaskDataRepository.swift */,
+				8AF966A02B2516A9006A44BF /* FriendInfoDataRepository.swift */,
 			);
 			path = DataRepositories;
 			sourceTree = "<group>";
@@ -814,12 +820,14 @@
 				8AD6ED262AF197D3006B56B6 /* Amentity.swift in Sources */,
 				8AD6ED092AF1969C006B56B6 /* housematesApp.swift in Sources */,
 				8AE8FF972AF4110E003AD997 /* RegistrationView.swift in Sources */,
+				8AF966A32B251933006A44BF /* FriendInfoViewModel.swift in Sources */,
 				8AF358442AF4B2E20009B93C /* CreateGroupView.swift in Sources */,
 				5188F2262B030DAF001B1AA0 /* HousemateCircleComponent.swift in Sources */,
 				8A7F0AC02AFD407900F7B76B /* UserViewModel.swift in Sources */,
 				AD7F57F12B1FF26E0023D476 /* BeforeCameraView.swift in Sources */,
 				8A16D4E22B214343006D1805 /* Reactions.swift in Sources */,
 				8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */,
+				8AF966A12B2516A9006A44BF /* FriendInfoDataRepository.swift in Sources */,
 				AD95E0E02B168AD700577DAB /* CameraView.swift in Sources */,
 				8AD6ED292AF1980D006B56B6 /* GroupDataRepository.swift in Sources */,
 				C171E1FB2B1E408100AE41EC /* NewWave.swift in Sources */,

@@ -20,6 +20,7 @@ protocol AuthenticationFormProtocol {
 class AuthViewModel: ObservableObject {
     private let userRepository = UserRepository()
     private let groupRepository = GroupRepository()
+    private let friendInfoRepository = FriendInfoRepository()
 
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
@@ -60,6 +61,11 @@ class AuthViewModel: ObservableObject {
             let user = User(id: result.user.uid, user_id: result.user.uid, username: username, first_name: first_name, last_name: last_name, phone_number: phone_number, email: email, birthday: birthday)
             let encodedUser = try Firestore.Encoder().encode(user)
             try await Firestore.firestore().collection("users").document(user.id!).setData(encodedUser)
+            
+            // Make FriendsInfo for created user
+            let friendInfo = FriendInfo(user_id: user.user_id, friendsList: [], friendRequests: [])
+            friendInfoRepository.create(friendInfo)
+            
             await fetchUser()
         }  catch {
             print("Failed to create user: \(error.localizedDescription)")
