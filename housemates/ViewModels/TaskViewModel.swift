@@ -66,7 +66,14 @@ class TaskViewModel: ObservableObject {
 
       return sortedUnclaimed
   }
+  
+    func getIncompleteTasksForGroup(_ group_id: String?) -> [task] {
+        guard let groupId = group_id else {
+            return []
+        }
 
+        return self.tasks.filter { $0.group_id == groupId && $0.status == .inProgress || $0.status == .unclaimed }
+    }
 
     func getInProgressTasksForGroup(_ group_id: String?) -> [task] {
         guard let groupId = group_id else {

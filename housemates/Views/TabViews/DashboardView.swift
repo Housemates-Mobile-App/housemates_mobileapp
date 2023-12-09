@@ -20,6 +20,7 @@ struct DashboardView: View {
       if let user = authViewModel.currentUser {
           NavigationStack {
               let completed = taskViewModel.getCompletedTasksForGroup(user.group_id)
+              let incompleted = taskViewModel.getIncompleteTasksForGroup(user.group_id)
               VStack(spacing: 0) {
                   
                   Text("Dashboard")
@@ -42,7 +43,7 @@ struct DashboardView: View {
                       ScrollView {
                           
                           
-                          calendar(completed: completed, user: user)
+                        calendar(completed: completed, incompleted: incompleted, user: user)
                       }
                       Spacer()
                   }
@@ -94,6 +95,16 @@ struct DashboardView: View {
     
   }
   
+  private func isSameDue(task: task, currDate: Date) -> Bool {
+    if let date_due = task.date_due {
+      
+      let calendar = Calendar.current
+      return calendar.isDate(date_due, inSameDayAs: currDate)
+    }
+    return false
+     
+  }
+  
   private func SameDaySelect(calDate: Date, currDate: Date) -> Bool {
     let calendar = Calendar.current
       return calendar.isDate(calDate, inSameDayAs: currDate)
@@ -108,72 +119,118 @@ struct DashboardView: View {
   }
   
   @ViewBuilder
-  func cardView(value: DateValue, completed: [task]) -> some View {
+  func cardView(value: DateValue, completed: [task], incompleted: [task]) -> some View {
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     let darkPurple = Color(red: 0.439 * 0.5, green: 0.298 * 0.5, blue: 1.0 * 0.5)
-//    let lightPurple = Color(red: 0.439 * 3, green: 0.298 * 3, blue: 1.0 * 3)
+    let lightPurple = Color(red: 185.0 / 255.0, green: 161.0 / 255.0, blue: 255.0 / 255.0, opacity: 1.0)
+
+    
+
    
     VStack {
       if value.day != -1 {
         
+        Button(action: {currDay = value.date}) {
           
-          if let task = completed.first(where: { task in
-            return isSameDay(task: task, currDate: value.date)
-          }){
+          
+          
+          ZStack(alignment: .bottom) {
             
-            VStack {
+            
+            if let task = completed.first(where: { task in
+              return isSameDay(task: task, currDate: value.date)
+            }){
               
-              Spacer()
-              Text("\(value.day)")
-                .font(.custom("Lato", size: 14))
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
+              VStack {
                 
-              Spacer()
-            }.frame(width: 35, height: 35, alignment: .top)
-        
-              .background(
-                RoundedRectangle(cornerRadius: 5)
-                  .fill(isSameDay(task: task, currDate: value.date) ? deepPurple : .clear)
+                
+                
+                Spacer()
+                Text("\(value.day)")
+                  .font(.custom("Nunito-Bold", size: 14))
+                  .foregroundColor(.white)
+                  .frame(maxWidth: .infinity)
+              
+                
+                Spacer()
+              }.frame(width: 35, height: 35, alignment: .top)
+              
+                .background(
+                  RoundedRectangle(cornerRadius: 5)
+                    .fill(isSameDay(task: task, currDate: value.date) ? deepPurple : .clear)
                 )
-              .overlay(
+                .overlay(
                   RoundedRectangle(cornerRadius: 5)
                     .stroke(SameDaySelect(calDate: value.date, currDate: currDay) ?  darkPurple : .clear, lineWidth: 3)
-              )
-              
-              
-            
-          }
-          else {
-            VStack {
-              
-              
-              Spacer()
-              Text("\(value.day)")
-                .font(.custom("Lato", size: 14))
-                
-                .frame(maxWidth: .infinity)
-              Spacer()
-            }.frame(width: 35, height: 35, alignment: .top)
-            
-              .background(
-                RoundedRectangle(cornerRadius: 5)
-                  .fill(.gray.opacity(0.1))
                 )
-              .overlay(
+              
+              
+              
+            }
+            
+            else {
+              VStack {
+                
+                Spacer()
+            
+                Text("\(value.day)")
+                  .padding(.bottom)
+                  .font(.custom("Nunito-Bold", size: 14))
+                  .foregroundColor(.primary.opacity(0.65))
+                
+                  .frame(maxWidth: .infinity)
+                Spacer()
+              }.frame(width: 35, height: 35, alignment: .top)
+              
+//                .background(
+//                  RoundedRectangle(cornerRadius: 5)
+//                    .fill(.gray.opacity(0.1))
+//                )
+                .overlay(
                   RoundedRectangle(cornerRadius: 5)
                     .stroke(SameDaySelect(calDate: value.date, currDate: currDay) ? deepPurple.opacity(0.5) : .clear, lineWidth: 3)
-              )
-//
+                )
+              //
               
+            }
+            
+            if let task = incompleted.first(where: { task in
+              return isSameDue(task: task, currDate: value.date)
+            }){
+              VStack {
+                
+                Spacer()
+            
+                Text("\(value.day)")
+                  .padding(.bottom)
+                  .font(.custom("Nunito-Bold", size: 14))
+                  .foregroundColor(.red)
+                
+                  .frame(maxWidth: .infinity)
+                Spacer()
+              }.frame(width: 35, height: 35, alignment: .top)
+//              Circle()
+//                .frame(width: 35, height: 35)
+//                .foregroundColor(lightPurple)
+               
+              
+            }
+            
+            //          if a due date in either unclaimed or claimed has a due date
+            //            put a circle
+            
+            
+            
           }
+        }
+        
         
         
       }
     }
   }
   
-  private func calendar(completed: [task], user: User) -> some View {
+  private func calendar(completed: [task], incompleted: [task], user: User) -> some View {
     
 //    calendar title
     VStack {
@@ -221,7 +278,7 @@ struct DashboardView: View {
             
             Text(day)
               .padding(.horizontal, 5)
-              .font(.custom("Lato-Bold", size: 12))
+              .font(.custom("Lato-Bold", size: 14))
               .frame(maxWidth: .infinity)
             
           }
@@ -231,16 +288,14 @@ struct DashboardView: View {
         
         LazyVGrid(columns: cols, spacing: 10) {
           ForEach(extract()) { value in
-            cardView(value: value, completed: completed)
+            cardView(value: value, completed: completed, incompleted: incompleted)
               .padding(.vertical, 2)
             
             //            .background (
             //              RoundedRectangle(cornerSize: 15, style: .continuous)
             //              .fill(.purple)
             //            )
-              .onTapGesture {
-                currDay = value.date
-              }
+              
           }
           
         }
