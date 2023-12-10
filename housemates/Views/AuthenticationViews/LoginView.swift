@@ -16,7 +16,7 @@ struct LoginView: View {
         NavigationStack {
             VStack {
                 // MARK: Housemates Logo
-                Image("temporaryLogo")
+                Image("logoLoading")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 221, height: 221)

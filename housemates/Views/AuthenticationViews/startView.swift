@@ -12,7 +12,7 @@ struct startView: View {
         NavigationView {
             VStack {
                 VStack(spacing: 0) {
-                    Image("temporaryLogo")
+                    Image("logoLoading")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 221, height: 221)
