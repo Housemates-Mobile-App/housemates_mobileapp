@@ -72,9 +72,9 @@ struct HousemateProfileView: View {
                             HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Call", iconStr: "phone.fill", urlScheme:"tel")
                             HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Text", iconStr: "message.fill", urlScheme:"sms")
                             
-//                            Button("add friend", action: {
-//                                friendInfoViewModel.addFriend(user1:currUser, user2:housemate)
-//                            }).buttonStyle(ClaimButtonStyle())
+                            Button("add friend", action: {
+                                friendInfoViewModel.addFriend(user1:currUser, user2:housemate)
+                            }).buttonStyle(ClaimButtonStyle())
                         }
                     }.padding(.top, 28)
                     

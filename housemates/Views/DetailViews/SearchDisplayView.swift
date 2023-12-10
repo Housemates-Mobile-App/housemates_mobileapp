@@ -87,11 +87,11 @@ struct SearchDisplayView: View {
             cachedHousemates = userViewModel.getUserGroupmates(currUser.id ?? "")
             
             let excludeUserIdsFriends: Set<String> = Set([currUser.user_id] + cachedHousemates.map { $0.user_id })
-            cachedFriends = friendInfoViewModel.getFriendsList(user: currUser).filter { !excludeUserIdsFriends.contains($0.id ?? "") }
+            cachedFriends = friendInfoViewModel.getFriendsList(user: currUser).filter { !excludeUserIdsFriends.contains($0.user_id) }
             
             // dont want to include housemates, friends, or curr user
             let excludeUserIdsPeople: Set<String> = Set([currUser.user_id] + cachedHousemates.map { $0.user_id } + cachedFriends.map { $0.user_id })
-            cachedPeople = userViewModel.users.filter { !excludeUserIdsPeople.contains($0.id ?? "") }
+            cachedPeople = userViewModel.users.filter { !excludeUserIdsPeople.contains($0.user_id) }
             
             filteredHousemates = search(searchText: searchUser, userList: cachedHousemates)
             filteredFriends = search(searchText: searchUser, userList: cachedFriends)

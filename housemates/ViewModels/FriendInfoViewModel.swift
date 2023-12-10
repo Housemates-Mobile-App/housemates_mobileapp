@@ -32,12 +32,35 @@ class FriendInfoViewModel: ObservableObject {
     }
     
     // MARK: Get friends list for for a user
+//    func getFriendsList(user: User) -> [User] {
+//        if let friendInfo = self.friendsInfos.filter({ $0.user_id == user.user_id }).first {
+//            return friendInfo.friendsList
+//        }
+//        return []
+//    }
+    
     func getFriendsList(user: User) -> [User] {
         if let friendInfo = self.friendsInfos.filter({ $0.user_id == user.user_id }).first {
-            return friendInfo.friendsList
+            return friendInfo.friendsList.map { friend in
+                // Create a new User object without the _id
+                return User(
+                    id: friend.user_id,
+                    user_id: friend.user_id,
+                    username: friend.username,
+                    first_name: friend.first_name,
+                    last_name: friend.last_name,
+                    is_home: friend.is_home,
+                    phone_number: friend.phone_number,
+                    email: friend.email,
+                    birthday: friend.birthday,
+                    group_id: friend.group_id,
+                    imageURLString: friend.imageURLString
+                )
+            }
         }
         return []
     }
+    
         
     // MARK: Get friend requests for a user
     func getFriendRequests(user: User) -> [User]{
