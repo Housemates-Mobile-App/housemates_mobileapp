@@ -32,7 +32,7 @@ final class postViewModelTests: XCTestCase {
     func testGetPostListFromActivities() {
         let viewModel = PostViewModel()
         
-        let  testUser1 = User(user_id: "1", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
+        let  testUser1 = User(user_id: "1", username: "test", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
         
         let testTask1 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, recurrence:.none)
         
@@ -52,7 +52,7 @@ final class postViewModelTests: XCTestCase {
     func testGetActivityListFromActivities() {
         let viewModel = PostViewModel()
         
-        let  testUser1 = User(user_id: "1", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
+        let  testUser1 = User(user_id: "1", username: "test", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
         
         let testTask1 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, recurrence:.none)
         
@@ -70,9 +70,9 @@ final class postViewModelTests: XCTestCase {
     }
     
     func testGetActivity() {
-        let testUser1 = User(id: "1", user_id: "1", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/05/2000")
-        let testUser2 = User(id: "2", user_id: "2", first_name: "bob", last_name: "mike", phone_number: "123456", email: "dan@gmail.com", birthday: "10/05/2000")
-        let testUser3 = User(id: "3", user_id: "3", first_name: "pop", last_name: "john", phone_number: "123456", email: "dan@gmail.com", birthday: "10/05/2000")
+        let testUser1 = User(id: "1", user_id: "1", username: "test", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/05/2000")
+        let testUser2 = User(id: "2", user_id: "2", username: "test2", first_name: "bob", last_name: "mike", phone_number: "123456", email: "dan@gmail.com", birthday: "10/05/2000")
+        let testUser3 = User(id: "3", user_id: "3", username: "test3", first_name: "pop", last_name: "john", phone_number: "123456", email: "dan@gmail.com", birthday: "10/05/2000")
         let testComment1 = Comment(
             text: "mock comment 1",
             date_created: "10-12-2023 10:00 AM",
@@ -135,13 +135,13 @@ final class postViewModelTests: XCTestCase {
     func testReactionDict() {
         let viewModel = PostViewModel()
         
-        let testUser1 = User(id: "1", user_id: "1", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
+        let testUser1 = User(id: "1", user_id: "1", username: "test", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
         
-        let testUser4 = User(id: "4", user_id: "4", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
+        let testUser4 = User(id: "4", user_id: "4", username: "test2",first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
         
-        let testUser5 = User(id: "5", user_id: "5", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
+        let testUser5 = User(id: "5", user_id: "5", username: "test4", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
         
-        let testUser6 = User(id: "6", user_id: "6", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
+        let testUser6 = User(id: "6", user_id: "6", username: "test5", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
         
         let testTask = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, recurrence:.none)
 
@@ -195,7 +195,7 @@ final class postViewModelTests: XCTestCase {
         formatter.dateFormat = "MM.dd.yy h:mm a"
         formatter.locale = Locale(identifier: "en_US_POSIX")
         
-        let testUser1 = User(id: "1", user_id: "1", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
+        let testUser1 = User(id: "1", user_id: "1", username: "test", first_name: "Daniel", last_name: "Gunawan", phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000")
         
         let testTask1 = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, date_completed: "01.01.00 12:00 AM", recurrence:.none)
         
