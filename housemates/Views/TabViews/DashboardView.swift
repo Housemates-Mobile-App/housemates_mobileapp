@@ -298,7 +298,7 @@ struct DashboardView: View {
       
       Text("Completed Tasks")
         .frame(maxWidth: .infinity, alignment: .leading)
-        .font(.custom("Lato-Bold", size: 15))
+        .font(.custom("Nunito-Bold", size: 15))
         .padding(.vertical)
         
       if completed.contains(where: { task in
@@ -312,6 +312,37 @@ struct DashboardView: View {
             
             ForEach(completed.filter({ task in
               isSameDay(task: task, currDate: currDay)
+            }), id: \.id) { task in
+                NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                    taskCard(task: task, user: user)
+                }
+              
+            }
+          }
+        }
+      } else {
+          Text("Nothing here, complete a task!!")
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .font(.custom("Lato", size: 15))
+          
+      }
+      
+      Text("Tasks Due")
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .font(.custom("Nunito-Bold", size: 15))
+        .padding(.vertical)
+        
+      if incompleted.contains(where: { task in
+          isSameDue(task: task, currDate: currDay)
+      }) {
+          
+        ScrollView(.horizontal, showsIndicators: false) {
+          
+          HStack() {
+            
+            
+            ForEach(incompleted.filter({ task in
+              isSameDue(task: task, currDate: currDay)
             }), id: \.id) { task in
                 NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
                     taskCard(task: task, user: user)
