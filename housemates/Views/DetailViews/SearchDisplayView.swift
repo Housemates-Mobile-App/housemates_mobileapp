@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchDisplayView: View {
     var currUser: User
+    @EnvironmentObject var tabBarViewModel : TabBarViewModel
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var friendInfoViewModel : FriendInfoViewModel
     @State private var searchUser: String = ""
@@ -50,7 +51,7 @@ struct SearchDisplayView: View {
                         .font(.custom("Lato-Bold", size: 16))
                         .foregroundColor(.primary)) {
                             ForEach(filteredHousemates) { housemate in
-                                NavigationLink(destination: HousemateProfileView(housemate: housemate)) {
+                                NavigationLink(destination: OtherProfileView(user: housemate)) {
                                     UserRowView(rowUser: housemate)
                                 }
                             }.listRowSeparator(.hidden)
@@ -62,7 +63,7 @@ struct SearchDisplayView: View {
                         .font(.custom("Lato-Bold", size: 16))
                         .foregroundColor(.primary)) {
                             ForEach(filteredFriends) { friend in
-                                NavigationLink(destination: HousemateProfileView(housemate: friend)) {
+                                NavigationLink(destination: OtherProfileView(user: friend)) {
                                     UserRowView(rowUser: friend)
                                 }
                             }.listRowSeparator(.hidden)
@@ -75,7 +76,7 @@ struct SearchDisplayView: View {
                         .font(.custom("Lato-Bold", size: 16))
                         .foregroundColor(.primary)) {
                             ForEach(filteredPeople) { person in
-                                NavigationLink(destination: HousemateProfileView(housemate: person)) {
+                                NavigationLink(destination: OtherProfileView(user: person)) {
                                     UserRowView(rowUser: person)
                                 }
                             }.listRowSeparator(.hidden)
@@ -84,6 +85,8 @@ struct SearchDisplayView: View {
                 
             }.listStyle(PlainListStyle())
         }.onAppear {
+            tabBarViewModel.hideTabBar = true
+            
             cachedHousemates = userViewModel.getUserGroupmates(currUser.id ?? "")
             
             let excludeUserIdsFriends: Set<String> = Set([currUser.user_id] + cachedHousemates.map { $0.user_id })
@@ -96,8 +99,6 @@ struct SearchDisplayView: View {
             filteredHousemates = search(searchText: searchUser, userList: cachedHousemates)
             filteredFriends = search(searchText: searchUser, userList: cachedFriends)
             filteredPeople = search(searchText: searchUser, userList: cachedPeople)
-            print(cachedFriends)
-            print(excludeUserIdsPeople)
         }
         .onChange(of: searchUser) { newValue in
             filteredHousemates = search(searchText: newValue, userList: cachedHousemates)

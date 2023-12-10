@@ -11,6 +11,8 @@ struct DashboardView: View {
   @EnvironmentObject var taskViewModel: TaskViewModel
   @EnvironmentObject var authViewModel: AuthViewModel
   @EnvironmentObject var userViewModel: UserViewModel
+  @EnvironmentObject var tabBarViewModel : TabBarViewModel
+
   @State private var selectedTab = 0
   
   @State var currMonth: Int = 0
@@ -39,9 +41,12 @@ struct DashboardView: View {
                       }
                       Spacer()
                   }
+              }.onAppear {
+                  tabBarViewModel.hideTabBar = false
               }
               .navigationTitle("Dashboard")
               .navigationBarTitleDisplayMode(.inline)
+              
           }
       }
     }

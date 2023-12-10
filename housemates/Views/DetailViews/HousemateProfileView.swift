@@ -12,7 +12,7 @@ struct HousemateProfileView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var taskViewModel : TaskViewModel
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
-//    @EnvironmentObject var friendInfoViewModel : FriendInfoViewModel
+    @EnvironmentObject var friendInfoViewModel : FriendInfoViewModel
     @Environment(\.presentationMode) var presentationMode
     
     let housemate: User
@@ -104,6 +104,36 @@ struct HousemateProfileView: View {
                         .stroke(Color.gray.opacity(0.5), lineWidth: 2)
                 ).offset(y: componentOffset * 1.15)
                 
+                VStack(spacing: 10){
+                    HStack {
+                        Text("Recent Activity")
+                            .font(.custom("Nunito-Bold", size: 22))
+                            .bold()
+                        Spacer()
+                    }
+                    
+                    if (!recentTasks.isEmpty) {
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            
+                            HStack {
+                                ForEach(recentTasks) {task in
+                                    NavigationLink(destination: TaskDetailView(currUser: housemate, currTask:task)) {
+                                        
+                                        taskCard(task: task, user: housemate)
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        Text("There's no recent activity...")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.custom("Lato", size: 15))
+                      
+                    }
+                }.offset(y: componentOffset * 1.30)
+                 .padding(.leading, 35)
+                
                 Spacer()
             }.edgesIgnoringSafeArea(.top)
     }.navigationBarBackButtonHidden(true)
@@ -134,72 +164,9 @@ struct HousemateProfileView_Previews: PreviewProvider {
             .environmentObject(AuthViewModel())
             .environmentObject(TaskViewModel())
             .environmentObject(TabBarViewModel())
-//            .environmentObject(FriendInfoViewModel())
+            .environmentObject(FriendInfoViewModel())
     }
 }
 
 // MARK: Recent Activity
-//VStack() {
-//    HStack() {
-//        Text("Recent Activity")
-//            .font(.custom("Nunito-Bold", size: 22))
-//            .bold()
-//    }
-//    .frame(maxWidth: .infinity, alignment: .leading)
-//    
-//    if (!recentTasks.isEmpty) {
-//        
-//        ScrollView(.horizontal, showsIndicators: false) {
-//            
-//            HStack {
-//                ForEach(recentTasks) {task in
-//                    NavigationLink(destination: TaskDetailView(currUser: housemate, currTask:task)) {
-//                        
-//                        taskCard(task: task, user: housemate)
-//                    }
-//                }
-//            }
-//        }
-//    } else {
-//        Text("There's no recent activity...")
-//            .frame(maxWidth: .infinity, alignment: .leading)
-//            .font(.custom("Lato", size: 15))
-//    }
-//    
-//    Spacer()
-//}.padding(.horizontal)
 
-
-//// MARK: Task Card
-//VStack (spacing: 25) {
-//    VStack(spacing: 10) {
-//        HStack(spacing: 45) {
-//            VStack {
-//                Text("\(taskViewModel.getNumCompletedTasksForUser(housemate.id!))")
-//                    .font(.system(size: 32))
-//                    .foregroundColor(deepPurple)
-//                    .bold()
-//                Text("Completed")
-//                    .font(.custom("Lato", size: 15))
-//                    .frame(minWidth: 55)
-//            }
-//            .padding(.leading, 50)
-//            .padding(.vertical, 25)
-//            VStack {
-//                Text("\(taskViewModel.getNumPendingTasksForUser(housemate.id!))")
-//                    .foregroundColor(deepPurple)
-//                    .font(.system(size: 32))
-//                    .bold()
-//                Text("Pending")
-//                    .font(.custom("Lato", size: 15))
-//                    .frame(minWidth: 55)
-//            }
-//            .padding(.trailing, 50)
-//            .padding(.vertical, 25)
-//        }
-//        .background(
-//            RoundedRectangle(cornerRadius: 16)
-//                .stroke(Color.gray.opacity(0.5), lineWidth: 2)
-//        )
-//    }
-//}.padding(.horizontal, 20)

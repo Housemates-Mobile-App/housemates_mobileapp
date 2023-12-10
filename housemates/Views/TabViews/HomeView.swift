@@ -63,7 +63,7 @@ struct HomeView: View {
                                 
                                 if let uid = user.id {
                                     ForEach(userViewModel.getUserGroupmates(uid)) { user in
-                                        NavigationLink(destination: HousemateProfileView(housemate: user)
+                                        NavigationLink(destination: OtherProfileView(user: user)
                                         ) {
                                             HousemateCircleComponent(housemate: user)
                                         }.buttonStyle(PlainButtonStyle())
