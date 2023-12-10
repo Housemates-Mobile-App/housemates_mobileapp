@@ -51,6 +51,11 @@ class UserViewModel: ObservableObject {
         return groupmates
     }
     
+    func getUsersExceptCurrUser(_ uid: String) -> [User] {
+        let filteredUsers = self.users.filter { $0.id != uid }
+        return filteredUsers
+    }
+    
     func joinGroup(group_code: String, uid: String) async {
         // Fetch the user object by ID
         guard var user = getUserByID(uid) else {

@@ -12,7 +12,7 @@ struct startView: View {
         NavigationView {
             VStack {
                 VStack(spacing: 0) {
-                    Image("temporaryLogo")
+                    Image("LogoLoading")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 221, height: 221)
@@ -26,14 +26,14 @@ struct startView: View {
                 }
                 
                 Spacer()
-                VStack(spacing: 20) {
+                VStack(spacing: 25) {
                     NavigationLink(destination: RegistrationView()) {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(Color(red: 0.439, green: 0.298, blue: 1.0))
                             .frame(width:357, height:61)
                             .overlay(
                                 Text("GET STARTED")
-                                    .font(.custom("Nunito-Bold", size: 24))
+                                    .font(.custom("Nunito-Bold", size: 20))
                                     .foregroundColor(.white)
                             )
                     }
@@ -43,7 +43,7 @@ struct startView: View {
                             .frame(width:357, height:61)
                             .overlay(
                                 Text("I HAVE AN ACCOUNT")
-                                    .font(.custom("Nunito-Bold", size: 24))
+                                    .font(.custom("Nunito-Bold", size: 20))
                                     .bold()
                                     .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                             )

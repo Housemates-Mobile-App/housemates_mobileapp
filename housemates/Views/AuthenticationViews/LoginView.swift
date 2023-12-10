@@ -16,10 +16,11 @@ struct LoginView: View {
         NavigationStack {
             VStack {
                 // MARK: Housemates Logo
-                Image("temporaryLogo")
+                Image("LogoLoading")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 221, height: 221)
+                    .padding(.bottom, 20)
                 
                 VStack(spacing:15) {
                     // MARK: Login Form

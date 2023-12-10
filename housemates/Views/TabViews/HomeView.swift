@@ -41,6 +41,26 @@ struct HomeView: View {
                         // MARK: Horizontal Housemates Scroll View
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 15) {
+                                //search circle component
+                                NavigationLink(destination: SearchDisplayView(currUser: user)
+                                ) {
+                                    VStack {
+                                        Circle()
+                                            .fill(
+                                                Color(red: 0.945, green: 0.945, blue: 0.945)
+                                            )
+                                            .frame(width: 58, height: 58)
+                                            .overlay(
+                                                Image(systemName: "magnifyingglass")
+                                                    .font(.custom("Nunito-Bold", size: 25))
+                                                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                                            )
+                                        
+                                        Text("search")
+                                            .font(.custom("Lato", size: 13))
+                                    }
+                                }
+                                
                                 if let uid = user.id {
                                     ForEach(userViewModel.getUserGroupmates(uid)) { user in
                                         NavigationLink(destination: HousemateProfileView(housemate: user)
