@@ -15,13 +15,16 @@ struct OtherProfileView: View {
     let user: User
     var body: some View {
         // MARK: If authenticated user and viewed user are in the same group, show housemate profile view
-        if authViewModel.currentUser?.group_id == user.group_id {
-            HousemateProfileView(housemate: user)
+        if let currUser = authViewModel.currentUser {
+            if currUser.group_id == user.group_id {
+                HousemateProfileView(housemate: user)
+            } else {
+                // MARK: Otherwise, show the user profile view
+                UserProfileView(user: user, currentUser: currUser)
+            }
         }
-        // MARK: Otherwise, show the user profile view
     }
 }
-
 //#Preview {
 //    OtherProfileView()
 //}

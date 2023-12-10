@@ -67,6 +67,7 @@
 		8A16D4E82B21913A006D1805 /* ReactionActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D4E72B21913A006D1805 /* ReactionActivityView.swift */; };
 		8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */; };
 		8A5A52B12B257DF600B1A2DC /* OtherProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A52B02B257DF600B1A2DC /* OtherProfileView.swift */; };
+		8A5A52B32B2580D300B1A2DC /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */; };
 		8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */; };
 		8A61D96F2B1DC318003A3494 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8A61D96E2B1DC318003A3494 /* MCEmojiPicker */; };
 		8A6AD4E12AFB534400A6DF85 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E02AFB534400A6DF85 /* FirebaseAuth */; };
@@ -246,6 +247,7 @@
 		8A16D4E72B21913A006D1805 /* ReactionActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionActivityView.swift; sourceTree = "<group>"; };
 		8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailView.swift; sourceTree = "<group>"; };
 		8A5A52B02B257DF600B1A2DC /* OtherProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileView.swift; sourceTree = "<group>"; };
+		8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		8AB780D42B06EEDF0072B065 /* CommentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListView.swift; sourceTree = "<group>"; };
@@ -513,6 +515,7 @@
 				8A16D4E72B21913A006D1805 /* ReactionActivityView.swift */,
 				C10A06352B251D2300FBD160 /* SearchDisplayView.swift */,
 				8A5A52B02B257DF600B1A2DC /* OtherProfileView.swift */,
+				8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -873,6 +876,7 @@
 				8A16D4E42B21709F006D1805 /* ActivityView.swift in Sources */,
 				5155A17A2AFDC6D500832E51 /* AllHousematesCard.swift in Sources */,
 				81013D5A2B2132CC00EE8ACD /* StatsView.swift in Sources */,
+				8A5A52B32B2580D300B1A2DC /* UserProfileView.swift in Sources */,
 				ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */,
 				8AF549582B0584C800EB28CC /* AddPostView.swift in Sources */,
 				C10A06382B2520C300FBD160 /* UserRowView.swift in Sources */,
