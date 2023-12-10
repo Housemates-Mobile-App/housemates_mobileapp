@@ -32,11 +32,11 @@ struct UserRowView: View {
                             endPoint: .bottomTrailing
                         )
                     )
-                    .frame(width: 40, height: 40)
+                    .frame(width: 50, height: 50)
                     .overlay(
                         Text("\(rowUser.first_name.prefix(1).capitalized + rowUser.last_name.prefix(1).capitalized)")
                         
-                            .font(.custom("Nunito-Bold", size: 40))
+                            .font(.custom("Nunito-Bold", size: 25))
                             .foregroundColor(.white)
                     )
                     .overlay(Circle().stroke(Color.white, lineWidth: 2))
