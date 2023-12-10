@@ -13,7 +13,7 @@ final class UserModelTest: XCTestCase {
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        testUser1 = User(user_id: "1", first_name: "Daniel", last_name: "Gunawan", is_home: false, phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000", group_id: "2", imageURLString: "https://google.com/testImage.jpg")
+        testUser1 = User(user_id: "1", username: "test", first_name: "Daniel", last_name: "Gunawan", is_home: false, phone_number: "123456", email: "dan@gmail.com", birthday: "10/10/2000", group_id: "2", imageURLString: "https://google.com/testImage.jpg")
     }
 
     override func tearDownWithError() throws {
