@@ -14,6 +14,7 @@ struct taskCard: View {
     var user: User
     
     var body: some View {
+      let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
         VStack {
           
           
@@ -30,7 +31,7 @@ struct taskCard: View {
     //              .overlay(Circle().stroke(Color.purple, lineWidth: 2))
                   .padding(7.5)
                
-                  .background(Color(red: 0.439, green: 0.298, blue: 1.0))
+                  .background(task.status == .done ? deepPurple.opacity(0.25) : .red.opacity(0.25))
                   .clipShape(Circle())
                   
                 
@@ -40,6 +41,7 @@ struct taskCard: View {
               }
               Text(task.name)
                 .font(.custom("Lato-Bold", size: 15))
+                .foregroundColor(.primary)
               Text("\(user.first_name) \(user.last_name)")
                 .font(.custom("Lato", size: 12))
                 .foregroundColor(Color.gray)
@@ -47,14 +49,40 @@ struct taskCard: View {
             }
             
             
+          } else {
+            ZStack(alignment: .bottomTrailing) {
+              Image(task.icon ?? "moon")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 65, height: 65)
+                
+                
+  //              .overlay(Circle().stroke(Color.purple, lineWidth: 2))
+                .padding(7.5)
+             
+                .background(.red.opacity(0.25))
+                .clipShape(Circle())
+                
+              
+//              userProfileImage(for: user)
+//                .offset(x: 10, y: 10)
+           
+            }
+            Text(task.name)
+              .font(.custom("Lato-Bold", size: 15))
+              .foregroundColor(.primary)
+            Text("Unclaimed")
+              .font(.custom("Lato", size: 12))
+              .foregroundColor(Color.gray)
           }
           
         }
         .padding()
-        .frame(minWidth: 200)
+        .frame(minWidth: 175)
         .overlay(
           RoundedRectangle(cornerRadius: 16)
-            .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 2))
+//            .stroke(.gray, lineWidth: 1))
+            .stroke(.gray.opacity(0.25), lineWidth: 1))
         .padding(2)
         
        
