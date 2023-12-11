@@ -1,4 +1,4 @@
-//
+
 //  CameraView.swift
 //  housemates
 //
@@ -188,6 +188,19 @@ struct CaptureButton: View {
             Circle()
                 .stroke(Color.purple, lineWidth: 5)
                 .frame(width: 85, height: 85)
+        }
+    }
+}
+
+func updateZoom(zoomFactor: CGFloat) {
+    if let device = AVCaptureDevice.default(for: .video) {
+        do {
+            try device.lockForConfiguration()
+            defer { device.unlockForConfiguration() }
+            // Set the desired zoom factor within the device's active format's video zoom factor upscaled binned range
+            device.videoZoomFactor = max(1.0, min(device.activeFormat.videoMaxZoomFactor, zoomFactor))
+        } catch {
+            print("Unable to set zoom factor due to an error: \(error)")
         }
     }
 }

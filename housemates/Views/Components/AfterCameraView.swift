@@ -97,7 +97,8 @@ struct AfterCustomCameraInterfaceView: View {
     @Binding var showPreview: Bool
     @State var takePhoto: Bool
     @Binding var flipCamera: Bool
-
+    @State private var zoomFactor: CGFloat = 1.0
+    @State private var isRearCameraActive: Bool = true
     var onDismiss: () -> Void
     
 
