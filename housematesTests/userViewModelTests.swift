@@ -15,9 +15,9 @@ final class userViewModelTests: XCTestCase {
 
     override func setUpWithError() throws {
         testUsers = [
-            User(id: "1", user_id: "user1", first_name: "Daniel", last_name: "Gunawan", is_home: false, phone_number: "123456", email: "dan@gmail.com", birthday: "10/05/2000", group_id: "2", imageURLString: "https://google.com/testImage.jpg"),
-            User(id: "2", user_id: "user2", first_name: "john", last_name: "Gunawan", is_home: false, phone_number: "123456", email: "dan@gmail.com", birthday: "10/04/2000", group_id: "2", imageURLString: "https://google.com/testImage.jpg"),
-            User(id: "3", user_id: "user3", first_name: "bob", last_name: "Gunawan", is_home: false, phone_number: "123456", email: "dan@gmail.com", birthday: "10/03/2000", group_id: "2", imageURLString: "https://google.com/testImage.jpg")
+            User(id: "1", user_id: "user1", username: "test", first_name: "Daniel", last_name: "Gunawan", is_home: false, phone_number: "123456", email: "dan@gmail.com", birthday: "10/05/2000", group_id: "2", imageURLString: "https://google.com/testImage.jpg"),
+            User(id: "2", user_id: "user2", username: "test2", first_name: "john", last_name: "Gunawan", is_home: false, phone_number: "123456", email: "dan@gmail.com", birthday: "10/04/2000", group_id: "2", imageURLString: "https://google.com/testImage.jpg"),
+            User(id: "3", user_id: "user3", username: "test3", first_name: "bob", last_name: "Gunawan", is_home: false, phone_number: "123456", email: "dan@gmail.com", birthday: "10/03/2000", group_id: "2", imageURLString: "https://google.com/testImage.jpg")
                 ]
         viewModel = UserViewModel()
         taskViewModel = TaskViewModel()
