@@ -139,18 +139,20 @@ class FriendInfoViewModel: ObservableObject {
         }
     }
     
-    // Helper function to remove a friend from a user's friend list
-    private func removeFriendFromUser(_ user: User, friend: User) {
-        if var friendInfo = self.friendsInfos.first(where: { $0.user_id == user.user_id }) {
-            // Remove the friend from the friends list
-            friendInfo.friendsList = friendInfo.friendsList.filter { $0.user_id != friend.user_id }
-            friendInfoRepository.update(friendInfo)
-        }
-    }
-    
     // MARK: Remove Friend from each users friends list
     func removeFriend(user1: User, user2: User) {
-        removeFriendFromUser(user1, friend: user2)
-        removeFriendFromUser(user2, friend: user1)
+        if var friendInfo1 = self.friendsInfos.first(where: { $0.user_id == user1.user_id }) {
+            // Remove the friend from the friends list
+            let new_friends_1 = friendInfo1.friendsList.filter { $0.user_id != user2.user_id }
+            friendInfo1.friendsList = new_friends_1
+            friendInfoRepository.update(friendInfo1)
+        }
+        
+        if var friendInfo2 = self.friendsInfos.first(where: { $0.user_id == user2.user_id }) {
+            // Remove the friend from the friends list
+            let new_friends_2 = friendInfo2.friendsList.filter { $0.user_id != user1.user_id }
+            friendInfo2.friendsList = new_friends_2
+            friendInfoRepository.update(friendInfo2)
+        }
     }
 }

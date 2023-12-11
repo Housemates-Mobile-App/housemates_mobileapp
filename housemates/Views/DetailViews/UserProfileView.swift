@@ -12,7 +12,9 @@ struct UserProfileView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var taskViewModel : TaskViewModel
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
+    @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var friendInfoViewModel : FriendInfoViewModel
+    @State private var isPopoverPresented = false
     @Environment(\.presentationMode) var presentationMode
     
     let user: User
@@ -77,22 +79,55 @@ struct UserProfileView: View {
                 // MARK: Button stating friend status and actionable button
                 let status = friendInfoViewModel.checkFriendStatus(viewed_user: user, curr_user: currentUser)
                 if status == "None" {
+
                     addFriendButton(currUser: currentUser, user: user).offset(y: componentOffset)
                 } else if status == "pending" {
                     pendingCard().offset(y: componentOffset)
                 } else if status == "accept" {
                     acceptDeclineButton(currUser: currentUser, user: user).offset(y: componentOffset)
                 } else {
-                    friendsCard(user: user).offset(y: componentOffset)
+                    friendsCard(currUser: currentUser, user: user).offset(y: componentOffset)
                 }
                 
+                
+                
+                // MARK: Lives with horizontal scroll view
+                if status == "friends" {
+                    let userHousemates = userViewModel.getUserGroupmates(user.user_id)
+                    if userHousemates.count > 0 {
+                        VStack(spacing: 10) {
+                            HStack {
+                                Text("Lives with:")
+                                    .font(.custom("Nunito-Bold", size: 22))
+                                    .bold()
+                                Spacer()
+                            }
+                            
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: 10){
+                                    ForEach(userHousemates) { user in
+                                        NavigationLink(destination: OtherProfileView(user: user)) {
+                                            HousemateSmallCard(user: user)
+                                        }
+                                    }
+                                }
+                            }
+                        }.offset(y: componentOffset * 1.30)
+                        .padding(.leading, 35)
+                    }
+            }
+                
                 Spacer()
+                
+                
             }.edgesIgnoringSafeArea(.top)
+            // END OF ZSTACK
         }.navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: backButton())
-            .onAppear {
-                tabBarViewModel.hideTabBar = true
-            }}
+        .navigationBarItems(leading: backButton())
+        .onAppear {
+            tabBarViewModel.hideTabBar = true
+        }}
+    
     private func backButton() -> some View {
         Button(action: {
             self.presentationMode.wrappedValue.dismiss()
@@ -129,18 +164,40 @@ struct UserProfileView: View {
         }
     }
     
-    private func friendsCard(user: User) -> some View {
+    private func friendsCard(currUser: User, user: User) -> some View {
         HStack {
             RoundedRectangle(cornerRadius: 10)
                 .fill(deepPurple)
-                .frame(width: UIScreen.main.bounds.width * 0.80, height: UIScreen.main.bounds.height * 0.05)
+                .frame(width: UIScreen.main.bounds.width * 0.60, height: UIScreen.main.bounds.height * 0.05)
                 .overlay(
                     Text("You are \(user.first_name) are friends!")
                         .foregroundColor(.white)
                         .font(.custom("Lato-Bold", size: 13))
                 )
+            
+            Menu {
+                Button {
+                    friendInfoViewModel.removeFriend(user1: currUser, user2: user)
+                } label: {
+                    Text("Remove Friend")
+                        .font(.custom("Lato", size: 12))
+
+                }
+            } label: {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(deepPurple)
+                    .frame(width: UIScreen.main.bounds.width * 0.12, height: UIScreen.main.bounds.height * 0.05)
+                    .overlay(
+                        Image(systemName: "person.crop.circle.badge.minus")
+                            .foregroundColor(.white)
+                            .font(.system(size:18))
+                            .bold()
+                            .padding(.vertical)
+                    )
+            }
         }
     }
+
     
     private func pendingCard() -> some View {
         HStack {
