@@ -1,5 +1,5 @@
 //
-//  CustomCameraView.swift
+//  BeforeCameraView.swift
 //  housemates
 //
 //  Created by Sanmoy Karmakar on 12/5/23.
@@ -160,14 +160,14 @@ struct BeforeImagePreviewView: View {
 //    @State var takePhoto: Bool
 //    var onClaimTask: (UIImage?) -> Void
 //    var onDismiss: () -> Void
-//    
+//
 //    var body: some View {
 //        ZStack {
 //            CustomCameraViewRepresentable(image: $image, isPresented: $showPreview, takePhoto: $takePhoto)
-//            
+//
 //            VStack {
 //                Spacer()
-//                
+//
 //                VStack {
 //                    HStack {
 //                        Button("Back") {
@@ -183,7 +183,7 @@ struct BeforeImagePreviewView: View {
 //                    .padding()
 //
 //                    Spacer()
-//                    
+//
 //                    VStack {
 //                        Text("Take a picture now, you'll see your hard work after!")
 //                            .font(.headline)
@@ -192,7 +192,7 @@ struct BeforeImagePreviewView: View {
 //                            .background(Color.black.opacity(0.75))
 //                            .cornerRadius(10)
 //                            .padding(.bottom, 25)
-//                        
+//
 //                        Button(action: {
 //                            self.takePhoto = true
 //    //                        self.showPreview = true
@@ -201,7 +201,7 @@ struct BeforeImagePreviewView: View {
 //                            CaptureButton()
 //                        }
 //                        .padding(.bottom, 30)
-//                        
+//
 //                        //                Button(action: {
 //                        //                    self.cameraController.takePicture { newImage in
 //                        //                        self.image = newImage
@@ -209,7 +209,7 @@ struct BeforeImagePreviewView: View {
 //                        //                    }
 //                        //                }) {
 //                        //                }
-//                        
+//
 //                        Button(action: {
 //                            onClaimTask(nil)
 //                            self.showPreview = false
@@ -221,7 +221,7 @@ struct BeforeImagePreviewView: View {
 //            }
 //        }
 //    }
-//    
+//
 //    // These are the UI components for the capture and skip buttons
 //    struct CaptureButton: View {
 //        var body: some View {
@@ -235,7 +235,7 @@ struct BeforeImagePreviewView: View {
 //            }
 //        }
 //    }
-//    
+//
 //    struct SkipButton: View {
 //        var body: some View {
 //            Text("Skip")
@@ -256,6 +256,8 @@ struct BeforeCustomCameraInterfaceView: View {
     @State var takePhoto: Bool
 //    var onClaimTask: (UIImage?) -> Void
     @Binding var flipCamera: Bool
+    @State private var zoomFactor: CGFloat = 1.0
+    @State private var isRearCameraActive: Bool = true
     var onDismiss: () -> Void
 
     var body: some View {
@@ -284,18 +286,31 @@ struct BeforeCustomCameraInterfaceView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
 
                     Spacer()
+                    
+                    
+                    VStack(spacing: -20) {
+                        if isRearCameraActive {
+                            Slider(value: $zoomFactor, in: 1...5, step: 0.1)
+                            .padding()
+                            .onChange(of: zoomFactor) { newZoomFactor in
+                                updateZoom(zoomFactor: newZoomFactor)
+                            }
+                        }
 
                         CaptureButton()
                         .onTapGesture {
                             self.takePhoto = true
                         }
-
-                        FlipButton()
-                        .onTapGesture {
-                            flipCamera.toggle()
-                        }
-                        .padding(.bottom, SafeAreaInsets.bottom + 20)
+                    }
                     
+                    FlipButton()
+                    .onTapGesture {
+                        flipCamera.toggle()
+                        isRearCameraActive.toggle()
+                    }
+                    .padding(.bottom, SafeAreaInsets.bottom + 20)
+            
+                
                     //SKip Button
                     //                Button(action: {
                     ////                    onClaimTask(nil)
@@ -329,6 +344,10 @@ struct BeforeCustomCameraInterfaceView: View {
             }
             .background(Color.black)
             .edgesIgnoringSafeArea(.all)
+            .onAppear {
+                // Set initial zoom level
+                updateZoom(zoomFactor: zoomFactor)
+            }
         }
     
 //    struct SkipButton: View {
@@ -344,4 +363,3 @@ struct BeforeCustomCameraInterfaceView: View {
 //    }
     
 }
-
