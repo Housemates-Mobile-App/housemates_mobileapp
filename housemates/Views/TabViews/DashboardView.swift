@@ -301,45 +301,18 @@ struct DashboardView: View {
       }.frame(height: 400, alignment: .top)
       
       
-      Text("Completed Tasks")
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .font(.custom("Nunito-Bold", size: 15))
-        .padding(.vertical)
-        
-      if completed.contains(where: { task in
-          isSameDay(task: task, currDate: currDay)
-      }) {
-          
-        ScrollView(.horizontal, showsIndicators: false) {
-          
-          HStack() {
-            
-            
-            ForEach(completed.filter({ task in
-              isSameDay(task: task, currDate: currDay)
-            }), id: \.id) { task in
-                NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
-                    taskCard(task: task, user: user)
-                }
-              
-            }
-          }
-        }
-      } else {
-          Text("Nothing here, complete a task!!")
-          .frame(maxWidth: .infinity, alignment: .leading)
-          .font(.custom("Lato", size: 15))
-          
-      }
       
-      Text("Tasks Due")
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .font(.custom("Nunito-Bold", size: 15))
-        .padding(.vertical)
+      
+     
         
       if incompleted.contains(where: { task in
           isSameDue(task: task, currDate: currDay)
       }) {
+        
+        Text("Tasks Due")
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .font(.custom("Nunito-Bold", size: 16))
+          .padding(.top)
           
         ScrollView(.horizontal, showsIndicators: false) {
           
@@ -356,11 +329,34 @@ struct DashboardView: View {
             }
           }
         }
-      } else {
-          Text("Nothing here, complete a task!!")
-          .frame(maxWidth: .infinity, alignment: .leading)
-          .font(.custom("Lato", size: 15))
+      }
+      
+    
+        
+      if completed.contains(where: { task in
+          isSameDay(task: task, currDate: currDay)
+      }) {
           
+        Text("Completed Tasks")
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .font(.custom("Nunito-Bold", size: 16))
+          .padding(.top)
+        
+        ScrollView(.horizontal, showsIndicators: false) {
+          
+          HStack() {
+            
+            
+            ForEach(completed.filter({ task in
+              isSameDay(task: task, currDate: currDay)
+            }), id: \.id) { task in
+                NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                    taskCard(task: task, user: user)
+                }
+              
+            }
+          }
+        }
       }
 
       

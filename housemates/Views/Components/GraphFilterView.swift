@@ -62,7 +62,7 @@ struct GraphFilterView: View {
 //                .foregroundColor(deepPurple)
             }
         }
-        .background(Color.white)
+        .background(Color(UIColor.systemBackground))
         .cornerRadius(5)
         .overlay(
             RoundedRectangle(cornerRadius: 10)

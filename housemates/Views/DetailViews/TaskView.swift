@@ -103,7 +103,7 @@ struct TaskView: View {
             
             if let due_date = task.date_due {
               if let timestamp = taskViewModel.getTimestamp(time: due_date) {
-                if (timestamp == "Today" || timestamp == "Tomorrow") {
+                if (timestamp == "Today" || timestamp == "Tomorrow" || timestamp == "OVERDUE") {
                   
                   
                   Image(systemName: "alarm.waves.left.and.right.fill")
@@ -111,7 +111,7 @@ struct TaskView: View {
                     .foregroundColor(.red)
                   Text("•")
                     .font(.custom("Lato", size: 8))
-                    .foregroundColor(Color.gray)
+                    .foregroundColor(timestamp == "OVERDUE" ? .red : Color.gray)
                 }
               }
             }
@@ -123,11 +123,11 @@ struct TaskView: View {
               if let due_date = task.date_due {
                 if let timestamp = taskViewModel.getTimestamp(time: due_date) {
                   if timestamp == "OVERDUE" {
-                    Text("Due \(timestamp)")
+                    Text("\(timestamp)")
                       .font(.custom("Lato-Bold", size: 12))
                       .foregroundColor(Color.red)
                   }
-                  if timestamp == "Today" || timestamp == "Tomorrow" {
+                  else if timestamp == "Today" || timestamp == "Tomorrow" {
                     Text("Due \(timestamp)")
                       .font(.custom("Lato", size: 12))
                       .foregroundColor(Color.gray)
@@ -150,7 +150,7 @@ struct TaskView: View {
                 if let timestamp = taskViewModel.getTimestamp(time: time) {
                   Text("Created \(timestamp) ago")
                     .font(.custom("Lato", size: 12))
-                    .foregroundColor(Color.black.opacity(0.5))
+                    .foregroundColor(Color.gray)
                 }
                 
               } else {

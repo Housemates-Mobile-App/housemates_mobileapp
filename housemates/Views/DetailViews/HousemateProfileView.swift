@@ -64,9 +64,9 @@ struct HousemateProfileView: View {
                 }
                 // MARK: Housemate name
                 Text("\(housemate.first_name) \(housemate.last_name)")
-                    .font(.system(size: 26))
+                    .font(.custom("Nunito-Bold", size: 26))
                     .bold()
-                    .foregroundColor(.black)
+                    
                     .offset(y: componentOffset)
                 
                 // MARK: Hosuemate buttons
@@ -106,6 +106,7 @@ struct HousemateProfileView: View {
                 
                 VStack(spacing: 10){
                     HStack {
+                      
                         Text("Recent Activity")
                             .font(.custom("Nunito-Bold", size: 22))
                             .bold()
@@ -126,9 +127,9 @@ struct HousemateProfileView: View {
                             }
                         }
                     } else {
-                        Text("There's no recent activity...")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.custom("Lato", size: 15))
+                        Text("No Tasks Completed in Last 7 Days")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.custom("Nunito", size: 15))
                       
                     }
                 }.offset(y: componentOffset * 1.30)

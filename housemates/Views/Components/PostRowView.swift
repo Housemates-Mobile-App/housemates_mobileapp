@@ -109,7 +109,7 @@ struct PostRowView: View {
                             
                             // MARK: Bottom Text
                             if post.task.beforeImageURL == nil {
-                                Text( "Completed  \(post.task.name)")
+                                Text( "Completed:  \(post.task.name)")
                                     .font(.custom("Lato", size: 13.5))
                                     .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.95))
                                     .shadow(radius: 3)

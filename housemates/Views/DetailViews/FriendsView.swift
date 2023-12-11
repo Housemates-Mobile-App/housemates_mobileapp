@@ -109,6 +109,7 @@ struct CustomFriendTabBar : View {
             }) {
                 
               Text("Friends")
+                .font(.custom("Nunito-Bold", size: 18))
                     .padding(.vertical,10)
                     .padding(.horizontal,25)
                     .background(self.selectedTab == 0 ? Color(UIColor.systemBackground).opacity(0.9) : Color.clear)
@@ -123,6 +124,7 @@ struct CustomFriendTabBar : View {
             }) {
                 
               Text("Requests")
+                .font(.custom("Nunito-Bold", size: 18))
                 .padding(.vertical,10)
                 .padding(.horizontal,25)
                 .background(self.selectedTab == 1 ? Color(UIColor.systemBackground).opacity(0.9) : Color.clear)

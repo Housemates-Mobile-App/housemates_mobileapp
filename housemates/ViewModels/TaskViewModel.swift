@@ -249,29 +249,30 @@ class TaskViewModel: ObservableObject {
   }
   
   func getTimestamp(time: Date) -> String? {
-      let completeDate = time
       let now = Date()
       let calendar = Calendar.current
 
-      let hourDifference = calendar.dateComponents([.hour], from: now, to: completeDate).hour ?? 0
-      let minuteDifference = calendar.dateComponents([.minute], from: now, to: completeDate).minute ?? 0
-    
-      
-      if calendar.isDateInToday(completeDate) || hourDifference < 24 {
-        return "Today"
-          
-      } else {
-          
-          let dayDifference = calendar.dateComponents([.day], from: now, to: completeDate).day ?? 0
-          if (dayDifference < 0) {
-            return "OVERDUE"
-          }
-          else if dayDifference == 1 {
-            return "Tomorrow"
-          }
-          return "\(dayDifference)d"
+  
+      let startOfNow = calendar.startOfDay(for: now)
+      let startOfDueDate = calendar.startOfDay(for: time)
+
+      let dayDifference = calendar.dateComponents([.day], from: startOfNow, to: startOfDueDate).day ?? 0
+
+      // Check if the task is overdue
+      if dayDifference < 0 {
+          return "OVERDUE"
       }
+
+    if dayDifference == 0 {
+      return "Today"
+    }
+    
+    else if dayDifference == 1 {
+      return "Tomorrow"
+    }
+      return "\(dayDifference)d"
   }
+
   
   func getCompletedTasksForUserByDay(_ user_id: String, timeframe: String) -> [task] {
        let completedTasks = getCompletedTasksForUser(user_id)

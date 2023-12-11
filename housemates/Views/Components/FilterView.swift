@@ -25,7 +25,7 @@ struct FilterView: View {
             .frame(maxWidth: 75, maxHeight: 15)
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
-            .foregroundColor(selected == "All Tasks" ? Color.white : .gray)
+            .foregroundColor(selected == "All Tasks" ? Color.white : .primary.opacity(0.75))
             .background(selected == "All Tasks" ? deepPurple : .gray.opacity(0.25))
             .cornerRadius(25)
         }
@@ -39,7 +39,7 @@ struct FilterView: View {
             .frame(maxWidth: 75, maxHeight: 15)
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
-            .foregroundColor(selected == "Unclaimed" ? Color.white : .gray)
+            .foregroundColor(selected == "Unclaimed" ? Color.white : .primary.opacity(0.75))
             .background(selected == "Unclaimed" ? deepPurple : .gray.opacity(0.25))
             .cornerRadius(25)
         }
@@ -54,7 +54,7 @@ struct FilterView: View {
 //            .bold()
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
-            .foregroundColor(selected == "In Progress" ? Color.white : .gray)
+            .foregroundColor(selected == "In Progress" ? Color.white : .primary.opacity(0.75))
             .background(selected == "In Progress" ? deepPurple : .gray.opacity(0.25))
             .cornerRadius(25)
         }
@@ -69,7 +69,7 @@ struct FilterView: View {
 //            .bold()
             .padding(.horizontal, 10)
             .padding(.vertical, 10)
-            .foregroundColor(selected == "Completed" ? Color.white : .gray)
+            .foregroundColor(selected == "Completed" ? Color.white : .primary.opacity(0.75))
             .background(selected == "Completed" ? deepPurple : .gray.opacity(0.25))
             .cornerRadius(25)
         }

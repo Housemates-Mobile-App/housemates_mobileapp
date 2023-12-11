@@ -138,14 +138,7 @@ struct AddTaskView: View {
                 
                 
                 // Text changes based on whether an image has been captured
-                HStack {
-                  Spacer()
-                  Text(image == nil ? "Take a Before Photo!" : "Before Photo Taken")
-                    .font(.custom("Lato", size: 18))
-                    .padding(.top, 10)
-                    
-                  Spacer()
-                }
+                
                 
                 
                 
@@ -158,22 +151,40 @@ struct AddTaskView: View {
                       .frame(width: 100, height: 100)
                   } else {
                     // Show a gray box
-                    Circle()
-                      .fill(Color.gray.opacity(0.25))
-                      .frame(width: 100, height: 100)
+//                    Circle()
+//                      .fill(Color.gray.opacity(0.25))
+//                      .frame(width: 100, height: 100)
                     
                     // Camera icon
-                    Image(systemName: "camera.fill")
-                      .font(.largeTitle)
+                    Image("camera")
+                      .resizable()
+                      .aspectRatio(contentMode: .fill)
+                      .frame(width: 65, height: 65)
+                      
+                      
+        //              .overlay(Circle().stroke(Color.purple, lineWidth: 2))
+                      .padding(7.5)
+                   
+                      .background(deepPurple.opacity(0.25))
+                      .clipShape(Circle())
+                      
                       .foregroundColor(.white)
                       .onTapGesture {
                         showCamera = true
                       }
                   }
-                }.padding([.horizontal, .bottom])
+                }.padding([.horizontal, .top])
                 .fullScreenCover(isPresented: $showCamera) {
                   BeforeCameraView(image: $image, isPresented: $showCamera)
                 }
+                HStack {
+                  Spacer()
+                  Text(image == nil ? "Take a Before Photo!" : "Before Photo Taken")
+                    .font(.custom("Lato-Bold", size: 18))
+                    .padding(.bottom)
+                    
+                  Spacer()
+                }.padding(.bottom)
               }
               Spacer()
             }
@@ -197,12 +208,14 @@ struct AddTaskView: View {
             .foregroundColor(.white)
             .cornerRadius(30)
             .padding(.horizontal)
+            
         }
         .buttonStyle(PlainButtonStyle())
         .padding(.bottom, 20)
       }
        
     }.navigationTitle((editableTask != nil) ? "Edit Task" : "Add Task")
+     
     .onAppear {
       taskName = taskNameHardcoded
             
@@ -223,6 +236,7 @@ struct AddTaskView: View {
             return Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
         }
     }
+    
 
   }
   
