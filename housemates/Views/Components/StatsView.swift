@@ -153,8 +153,9 @@ struct StatsView: View {
   
   
   private func GraphForUser(mate: User, maxVal: CGFloat, groupMates: [User]) -> some View{
+  
     HStack() {
-      if let member_id = mate.id {
+      if let member_id = mate.id, let first_id = groupMates[0].id {
         
         let imageURL = URL(string: mate.imageURLString ?? "")
         
@@ -175,6 +176,7 @@ struct StatsView: View {
               .aspectRatio(contentMode: .fill)
               .frame(width: 40, height: 40)
               .clipShape(Circle())
+              .overlay(Circle().stroke(first_id == member_id ? .yellow : (self.selectedUser == member_id ? deepPurple : .clear), lineWidth: 2))
           } placeholder: {
             // Default user profile picture
             Circle()
@@ -192,6 +194,7 @@ struct StatsView: View {
                   .font(.custom("Nunito-Bold", size: 18))
                   .foregroundColor(.white)
               )
+              .overlay(Circle().stroke(self.selectedUser == member_id ? deepPurple : .clear, lineWidth: 3))
           }.padding(.horizontal)
         }
    
@@ -299,7 +302,9 @@ struct StatsView: View {
               ForEach(tasks) { task in
                   if let user = userViewModel.getUserByID(userId) {
                     
-                    taskCard(task: task, user: user)
+                    NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                        taskCard(task: task, user: user)
+                    }
                     
                   }
               }
