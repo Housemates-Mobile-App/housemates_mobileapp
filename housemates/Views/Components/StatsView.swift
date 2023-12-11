@@ -24,128 +24,130 @@ struct StatsView: View {
     let lightPurple = Color(red: 0.725, green: 0.631, blue: 1.0)
 
     var body: some View {
-      if let user = authViewModel.currentUser {
-        
-        if let group_id = user.group_id, let user_id = user.id {
-          let maxVal = CGFloat(taskViewModel.getCompletedTasksForGroupByDay(group_id, timeframe: selectedGraph).count)
-          ZStack(alignment: .bottom) {
-           VStack() {
+        if let user = authViewModel.currentUser {
             
-             HStack {
-               
-               
-               
-               VStack {
-                 
-                 Text("Tasks Completed")
-                   .frame(maxWidth: .infinity, alignment: .leading)
-                   .font(.custom("Nunito-Bold", size: 16))
-                 Text(selectedGraph)
-                   .frame(maxWidth: .infinity, alignment: .leading)
-                   .font(.custom("Lato", size: 12))
-               }
-               Spacer()
-               GraphFilterView(selected: $selectedGraph, showDropdown: $showDropdown)
-                 .zIndex(1)
-             }.padding()
-             
-             
-            
-             
-             VStack(alignment: .leading, spacing: 15) {
-              
-              
-              //            col(user: user, maxVal: maxVal)
-               let groupMates = userViewModel.getUserGroupmatesInclusiveByTaskTime(user_id, taskViewModel, timeframe: selectedGraph)
-              
-              
-             
-              ForEach(groupMates) { mate in
-                GraphForUser(mate: mate, maxVal: maxVal, groupMates: groupMates)
-              }
-              
-            }
-             
-//             CREATES THE ENTIRE BOX
-             .padding(.vertical)
-             .frame(maxWidth: .infinity)
-               .overlay(RoundedRectangle(cornerRadius: 15)
-                .stroke(deepPurple, lineWidth: 2))
-//              .frame(height: statHeight)
-               
-              .padding(.horizontal)
-              
-              .overlay(
-                // Dropdown as an overlay
-                SwiftUI.Group {
-                  if showDropdown {
-                    VStack {
-                      
-                      
-                      HStack {
+            if let group_id = user.group_id, let user_id = user.id {
+                let maxVal = CGFloat(taskViewModel.getCompletedTasksForGroupByDay(group_id, timeframe: selectedGraph).count)
+                ZStack(alignment: .bottom) {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack() {
+                            
+                            HStack {
+                                
+                                
+                                
+                                VStack {
+                                    
+                                    Text("Tasks Completed")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.custom("Nunito-Bold", size: 16))
+                                    Text(selectedGraph)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.custom("Lato", size: 12))
+                                }
+                                Spacer()
+                                GraphFilterView(selected: $selectedGraph, showDropdown: $showDropdown)
+                                    .zIndex(1)
+                            }.padding()
+                            
+                            
+                            
+                            
+                            VStack(alignment: .leading, spacing: 15) {
+                                
+                                
+                                //            col(user: user, maxVal: maxVal)
+                                let groupMates = userViewModel.getUserGroupmatesInclusiveByTaskTime(user_id, taskViewModel, timeframe: selectedGraph)
+                                
+                                
+                                
+                                ForEach(groupMates) { mate in
+                                    GraphForUser(mate: mate, maxVal: maxVal, groupMates: groupMates)
+                                }
+                                
+                            }
+                            
+                            //             CREATES THE ENTIRE BOX
+                            .padding(.vertical)
+                            .frame(maxWidth: .infinity)
+                            .overlay(RoundedRectangle(cornerRadius: 15)
+                                .stroke(deepPurple, lineWidth: 2))
+                            //              .frame(height: statHeight)
+                            
+                            .padding(.horizontal)
+                            
+                            .overlay(
+                                // Dropdown as an overlay
+                                SwiftUI.Group {
+                                    if showDropdown {
+                                        VStack {
+                                            
+                                            
+                                            HStack {
+                                                
+                                                
+                                                Spacer()
+                                                GraphFilterView(selected: $selectedGraph, showDropdown: $showDropdown)
+                                                    .dropdownOptions()
+                                                // Adjust positioning as needed
+                                                    .offset(x: 0, y: -10)
+                                                    .zIndex(2)
+                                                
+                                            }
+                                            Spacer()
+                                        }.padding(.horizontal)
+                                    }
+                                }
+                            )
+                            //              .onChange(of: selectedGraph) { _ in
+                            //                updateFilteredTasks(user_id: user_id)
+                            //
+                            //              }
+                            
+                            //            .border(.bottom, width: 3, color: lightPurple)
+                            
+                            
+                            
+                            //            col(user: user, maxVal: maxVal)
+                            //             HStack {
+                            //               RoundedRectangle(cornerRadius: 5)
+                            //                 .frame(height: 3)
+                            //                 .foregroundColor(lightPurple)
+                            //             }.frame(maxWidth: .infinity)
+                            //             creates the box around
+                            VStack {
+                                
+                                if let selected = selectedUser {
+                                    if let user = userViewModel.getUserByID(selected) {
+                                        Text("\(user.first_name)'s Completed Tasks")
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .font(.custom("Nunito-Bold", size: 15))
+                                        Text("\(selectedGraph) • \(getPercentageForUser(member_id: selected, maxVal: maxVal))%")
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .font(.custom("Lato", size: 12))
+                                        
+                                        
+                                    }
+                                }
+                                else {
+                                    Text("Select to See Completed Tasks")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.custom("Nunito-Bold", size: 15))
+                                }
+                            }.padding()
+                            
+                            completedTasks()
+                                .padding(.horizontal)
+                                .padding(.bottom, 40)
+                            //             add to  vstack here the completed
+                        }
                         
-                        
-                        Spacer()
-                        GraphFilterView(selected: $selectedGraph, showDropdown: $showDropdown)
-                          .dropdownOptions()
-                        // Adjust positioning as needed
-                          .offset(x: 0, y: -10)
-                          .zIndex(2)
-                          
-                      }
-                      Spacer()
-                    }.padding(.horizontal)
-                  }
+                    }
                 }
-                )
-//              .onChange(of: selectedGraph) { _ in
-//                updateFilteredTasks(user_id: user_id)
-//
-//              }
-             
-//            .border(.bottom, width: 3, color: lightPurple)
-            
-             
-            
-//            col(user: user, maxVal: maxVal)
-//             HStack {
-//               RoundedRectangle(cornerRadius: 5)
-//                 .frame(height: 3)
-//                 .foregroundColor(lightPurple)
-//             }.frame(maxWidth: .infinity)
-//             creates the box around
-             VStack {
-              
-               if let selected = selectedUser {
-                 if let user = userViewModel.getUserByID(selected) {
-                   Text("\(user.first_name)'s Completed Tasks")
-                     .frame(maxWidth: .infinity, alignment: .leading)
-                     .font(.custom("Nunito-Bold", size: 15))
-                   Text("\(selectedGraph) • \(getPercentageForUser(member_id: selected, maxVal: maxVal))%")
-                     .frame(maxWidth: .infinity, alignment: .leading)
-                     .font(.custom("Lato", size: 12))
-                   
-                  
-                 }
-               }
-               else {
-                 Text("Select to See Completed Tasks")
-                   .frame(maxWidth: .infinity, alignment: .leading)
-                   .font(.custom("Nunito-Bold", size: 15))
-               }
-             }.padding()
-             
-             completedTasks()
-               .padding(.horizontal)
-//             add to  vstack here the completed
-          }
-          
+                
+                
+            }
         }
-        }
-        
-        
-      }
-      
       
     }
   
