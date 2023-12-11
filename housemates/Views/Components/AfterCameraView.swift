@@ -128,10 +128,19 @@ struct AfterCustomCameraInterfaceView: View {
 
                     Spacer()
 
-                    // Capture button
-                    CaptureButton()
-                    .onTapGesture {
-                        self.takePhoto = true
+                    VStack(spacing: -20) {
+                        if isRearCameraActive {
+                            Slider(value: $zoomFactor, in: 1...5, step: 0.1)
+                            .padding()
+                            .onChange(of: zoomFactor) { newZoomFactor in
+                                updateZoom(zoomFactor: newZoomFactor)
+                            }
+                        }
+
+                        CaptureButton()
+                        .onTapGesture {
+                            self.takePhoto = true
+                        }
                     }
 
                     FlipButton()
