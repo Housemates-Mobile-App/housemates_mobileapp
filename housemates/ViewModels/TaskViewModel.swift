@@ -263,7 +263,13 @@ class TaskViewModel: ObservableObject {
           return "OVERDUE"
       }
 
-     
+    if dayDifference == 0 {
+      return "Today"
+    }
+    
+    else if dayDifference == 1 {
+      return "Tomorrow"
+    }
       return "\(dayDifference)d"
   }
 

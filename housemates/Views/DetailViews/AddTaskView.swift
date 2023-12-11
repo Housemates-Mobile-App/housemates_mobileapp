@@ -180,11 +180,11 @@ struct AddTaskView: View {
                 HStack {
                   Spacer()
                   Text(image == nil ? "Take a Before Photo!" : "Before Photo Taken")
-                    .font(.custom("Lato-Bold", size: 14))
+                    .font(.custom("Lato-Bold", size: 18))
                     .padding(.bottom)
                     
                   Spacer()
-                }
+                }.padding(.bottom)
               }
               Spacer()
             }
@@ -208,12 +208,14 @@ struct AddTaskView: View {
             .foregroundColor(.white)
             .cornerRadius(30)
             .padding(.horizontal)
+            
         }
         .buttonStyle(PlainButtonStyle())
         .padding(.bottom, 20)
       }
        
     }.navigationTitle((editableTask != nil) ? "Edit Task" : "Add Task")
+     
     .onAppear {
       taskName = taskNameHardcoded
             
@@ -234,6 +236,7 @@ struct AddTaskView: View {
             return Alert(title: Text(alertMessage.isEmpty ? "Adding task..." : alertMessage))
         }
     }
+    
 
   }
   

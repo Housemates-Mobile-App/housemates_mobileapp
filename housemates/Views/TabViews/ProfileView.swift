@@ -133,9 +133,9 @@ struct ProfileView: View {
                     
                     // MARK: Housemate name
                     Text("\(user.first_name) \(user.last_name)")
-                        .font(.system(size: 30))
+                        .font(.custom("Nunito-Bold", size: 26))
                         .bold()
-                        .foregroundColor(.black)
+                        
                         .offset(y: componentOffset * 0.4)
                     
                     if let group_name = group_name {

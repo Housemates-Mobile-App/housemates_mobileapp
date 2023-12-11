@@ -150,7 +150,7 @@ struct TaskView: View {
                 if let timestamp = taskViewModel.getTimestamp(time: time) {
                   Text("Created \(timestamp) ago")
                     .font(.custom("Lato", size: 12))
-                    .foregroundColor(Color.black.opacity(0.5))
+                    .foregroundColor(Color.gray)
                 }
                 
               } else {
