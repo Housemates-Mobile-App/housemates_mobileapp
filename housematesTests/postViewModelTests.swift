@@ -104,7 +104,6 @@ final class postViewModelTests: XCTestCase {
         viewModel.posts = [testPost]
 
         let activities = viewModel.getActivity(user: testUser1)
-        print(activities)
 
         XCTAssertFalse(activities.isEmpty, "Activities should not be empty")
         // first 2 should be comments

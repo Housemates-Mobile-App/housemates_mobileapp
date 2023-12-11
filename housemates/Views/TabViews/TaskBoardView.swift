@@ -187,7 +187,7 @@ struct TaskBoardView: View {
       }
 //      .listStyle(.plain)
       .listStyle(PlainListStyle())
-      .padding(.bottom, 50)
+      .padding(.bottom, 45)
   }
 
 

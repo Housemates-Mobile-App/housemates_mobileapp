@@ -28,43 +28,28 @@ class FriendInfoViewModel: ObservableObject {
     }
     // MARK: Given a list of users, return a list of the user_ids
     func getUserIDs(users: [User]) -> [String] {
-            return users.map { $0.user_id }
+        return users.map { $0.user_id }
+    }
+    
+    func setIdsToUserIds(users: inout [User]) {
+        for index in users.indices {
+            users[index].id = users[index].user_id
+        }
     }
     
     // MARK: Get friends list for for a user
-//    func getFriendsList(user: User) -> [User] {
-//        if let friendInfo = self.friendsInfos.filter({ $0.user_id == user.user_id }).first {
-//            return friendInfo.friendsList
-//        }
-//        return []
-//    }
-    
     func getFriendsList(user: User) -> [User] {
-        if let friendInfo = self.friendsInfos.filter({ $0.user_id == user.user_id }).first {
-            return friendInfo.friendsList.map { friend in
-                // Create a new User object without the _id
-                return User(
-                    id: friend.user_id,
-                    user_id: friend.user_id,
-                    username: friend.username,
-                    first_name: friend.first_name,
-                    last_name: friend.last_name,
-                    is_home: friend.is_home,
-                    phone_number: friend.phone_number,
-                    email: friend.email,
-                    birthday: friend.birthday,
-                    group_id: friend.group_id,
-                    imageURLString: friend.imageURLString
-                )
-            }
+        if var friendInfo = self.friendsInfos.filter({ $0.user_id == user.user_id }).first {
+            setIdsToUserIds(users: &friendInfo.friendsList)
+            return friendInfo.friendsList
         }
         return []
     }
     
-        
     // MARK: Get friend requests for a user
     func getFriendRequests(user: User) -> [User]{
-        if let friendInfo = self.friendsInfos.filter({ $0.user_id == user.user_id }).first {
+        if var friendInfo = self.friendsInfos.filter({ $0.user_id == user.user_id }).first {
+            setIdsToUserIds(users: &friendInfo.friendRequests)
             return friendInfo.friendRequests
         }
         return []
@@ -84,39 +69,7 @@ class FriendInfoViewModel: ObservableObject {
         }
     }
     
-    // Helper function to add a friend to a user's friend list
-    private func addFriendToUser(_ user: User, friend: User) {
-        if var friendInfo = self.friendsInfos.first(where: { $0.user_id == user.user_id }) {
-            var newFriendsList = friendInfo.friendsList
-            // If the friend_id is not in the friend list of the user, append and update
-            if !getUserIDs(users: newFriendsList).contains(friend.user_id) {
-                newFriendsList.append(friend)
-                friendInfo.friendsList = newFriendsList
-                friendInfoRepository.update(friendInfo)
-            }
-        }
-    }
     
-    // MARK: Add Friend to each users friends list
-    func addFriend(user1: User, user2: User) {
-        addFriendToUser(user1, friend: user2)
-        addFriendToUser(user2, friend: user1)
-    }
-    
-    // Helper function to remove a friend from a user's friend list
-    private func removeFriendFromUser(_ user: User, friend: User) {
-        if var friendInfo = self.friendsInfos.first(where: { $0.user_id == user.user_id }) {
-            // Remove the friend from the friends list
-            friendInfo.friendsList = friendInfo.friendsList.filter { $0.user_id != friend.user_id }
-            friendInfoRepository.update(friendInfo)
-        }
-    }
-    
-    // MARK: Remove Friend from each users friends list
-    func removeFriend(user1: User, user2: User) {
-        removeFriendFromUser(user1, friend: user2)
-        removeFriendFromUser(user2, friend: user1)
-    }
     
     // Helper function to check if two users are friends
     private func areFriends(user1: User, user2: User) -> Bool {
@@ -125,11 +78,12 @@ class FriendInfoViewModel: ObservableObject {
         }
         return false
     }
-
+    
     // Helper function to check if a friend request has been sent from one user to another
     private func hasSentFriendRequest(from: User, to: User) -> Bool {
-        if let friendInfo = self.friendsInfos.first(where: { $0.user_id == from.user_id }) {
-            return getUserIDs(users: friendInfo.friendRequests).contains(to.user_id)
+        if let friendInfo = self.friendsInfos.first(where: { $0.user_id == to.user_id }) {
+            //            print("\(to.first_name) has a friend request list of \(friendInfo.friendRequests)")
+            return getUserIDs(users: friendInfo.friendRequests).contains(from.user_id)
         }
         return false
     }
@@ -145,17 +99,17 @@ class FriendInfoViewModel: ObservableObject {
         if areFriends(user1: curr_user, user2: viewed_user) {
             return "friends"
         }
-
+        
         // Check if curr_user has sent a friend request
         if hasSentFriendRequest(from: curr_user, to: viewed_user) {
             return "pending"
         }
-
+        
         // Check if viewed_user has sent a friend request to curr_user
         if hasSentFriendRequest(from: viewed_user, to: curr_user) {
             return "accept"
         }
-
+        
         // If the users are not affiliated yet
         return "None"
     }
@@ -171,10 +125,42 @@ class FriendInfoViewModel: ObservableObject {
     
     // MARK: Add each user to friends lists and remove request from from receive_user
     func acceptFriendRequest(receive_user: User, sent_user: User) {
-        // Add each user to the other user's friends list
-           addFriend(user1: receive_user, user2: sent_user)
-           
-         // Remove the friend request from receive_user
-          removeFriendRequest(receive_user: receive_user, sent_user: sent_user)
+        // Add sent_user to receive_user's friend list and remove the friend request from the receive_user
+        if var receiveFriendInfo = self.friendsInfos.first(where: { $0.user_id == receive_user.user_id }) {
+            var receiveNewFriendsList = receiveFriendInfo.friendsList
+            receiveNewFriendsList.append(sent_user)
+            receiveFriendInfo.friendsList = receiveNewFriendsList
+            // MARK: CANNOT USE REMOVEFRIENDREQUEST FUNCTION BECAUSE OVERLAPPING UPDATE TRANSACTIONS (EVEN WITH ASYNC)
+            receiveFriendInfo.friendRequests = receiveFriendInfo.friendRequests.filter { $0.user_id != sent_user.user_id }
+            friendInfoRepository.update(receiveFriendInfo)
+            
+        }
+        
+        // Add receive_user to sent friend's list
+        if var sentFriendInfo = self.friendsInfos.first(where: { $0.user_id == sent_user.user_id }) {
+            var sentNewFriendsList = sentFriendInfo.friendsList
+            sentNewFriendsList.append(receive_user)
+            sentFriendInfo.friendsList = sentNewFriendsList
+            friendInfoRepository.update(sentFriendInfo)
+
+        
+        }
+    }
+    
+    // MARK: Remove Friend from each users friends list
+    func removeFriend(user1: User, user2: User) {
+        if var friendInfo1 = self.friendsInfos.first(where: { $0.user_id == user1.user_id }) {
+            // Remove the friend from the friends list
+            let new_friends_1 = friendInfo1.friendsList.filter { $0.user_id != user2.user_id }
+            friendInfo1.friendsList = new_friends_1
+            friendInfoRepository.update(friendInfo1)
+        }
+        
+        if var friendInfo2 = self.friendsInfos.first(where: { $0.user_id == user2.user_id }) {
+            // Remove the friend from the friends list
+            let new_friends_2 = friendInfo2.friendsList.filter { $0.user_id != user1.user_id }
+            friendInfo2.friendsList = new_friends_2
+            friendInfoRepository.update(friendInfo2)
+        }
     }
 }

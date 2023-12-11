@@ -45,7 +45,7 @@ struct AllHousematesCard: View {
                      .foregroundColor(.gray)
              }
              Spacer()
-             NavigationLink(destination: isCurrentUser ? AnyView(ProfileView()) : AnyView(HousemateProfileView(housemate: housemate))) {
+             NavigationLink(destination: isCurrentUser ? AnyView(ProfileView()) : AnyView(OtherProfileView(user: housemate))) {
                  RoundedRectangle(cornerRadius: 10)
                      .frame(width: 80, height: 40)
                      .foregroundColor(isCurrentUser ? .white : Color(red: 0.439, green: 0.298, blue: 1.0))

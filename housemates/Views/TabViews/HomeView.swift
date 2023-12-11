@@ -10,6 +10,8 @@ struct HomeView: View {
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var postViewModel : PostViewModel
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
+    @EnvironmentObject var friendInfoViewModel : FriendInfoViewModel
+
     
     @State var hide = false
     @State private var showActivityView = false
@@ -44,44 +46,41 @@ struct HomeView: View {
                                 //search circle component
                                 NavigationLink(destination: SearchDisplayView(currUser: user)
                                 ) {
-                                    VStack {
-                                        Circle()
-                                            .fill(
-                                                Color(red: 0.945, green: 0.945, blue: 0.945)
-                                            )
-                                            .frame(width: 58, height: 58)
-                                            .overlay(
-                                                Image(systemName: "magnifyingglass")
-                                                    .font(.custom("Nunito-Bold", size: 25))
-                                                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                                            )
-                                        
-                                        Text("search")
-                                            .font(.custom("Lato", size: 13))
-                                    }
+                                    
+                                    Circle()
+                                        .fill(
+                                            Color(red: 0.945, green: 0.945, blue: 0.945)
+                                        )
+                                        .frame(width: 58, height: 58)
+                                        .overlay(
+                                            Image(systemName: "magnifyingglass")
+                                                .font(.custom("Nunito-Bold", size: 25))
+                                                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                                        )
+                                        .padding(.bottom, 20)
                                 }
                                 
                                 if let uid = user.id {
                                     ForEach(userViewModel.getUserGroupmates(uid)) { user in
-                                        NavigationLink(destination: HousemateProfileView(housemate: user)
+                                        NavigationLink(destination: OtherProfileView(user: user)
                                         ) {
                                             HousemateCircleComponent(housemate: user)
                                         }.buttonStyle(PlainButtonStyle())
                                     }
                                 }
                             }.padding(.horizontal)
-                                .padding(.bottom)
-                        }.padding(.top, 10)
+                             .padding(.bottom)
+                        }.padding(.top, 13)
                         
                         
                         if let group_id = user.group_id {
                             let group_posts = postViewModel.getPostsForGroup(group_id)
                             
                                 if group_posts.isEmpty {
-                                    Text("Complete a task to see posts!")
-                                        .font(.custom("Lato", size: 17))
-                                        .padding(45)
-                                    
+                                    Text("Complete tasks to see posts!")
+                                        .foregroundColor(.gray)
+                                        .font(.custom("Nunito-Bold", size: 23))
+                                        .multilineTextAlignment(.center)
                                 } else {
                                     ForEach(group_posts) { post in
                                         PostRowView(post: post, user: user).padding(.bottom, 5)
@@ -107,6 +106,23 @@ struct HomeView: View {
                         .coordinateSpace(name: "scroll")
                         .toolbar(hide ? .hidden : .visible, for: .navigationBar)
                         .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                NavigationLink(destination: FriendsView(currUser: user)) {
+                                    ZStack{
+                                        Image(systemName: "person.fill.badge.plus") // Use an appropriate system icon
+                                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Customize the color if needed
+                                            .padding(.leading, 5)
+                                        if friendInfoViewModel.getFriendRequests(user: user).count > 0 {
+                                            Circle()
+                                                .frame(width: 7.5, height: 7.5)
+                                                .foregroundColor(.red)
+                                                .offset(x: UIScreen.main.bounds.height * 0.013, y: -UIScreen.main.bounds.height * 0.012)
+
+                                        }
+                                    }
+                                    
+                                }
+                            }
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 NavigationLink(destination: ActivityView(user: user)) {
                                         Image(systemName: "bell.fill") // Use an appropriate system icon

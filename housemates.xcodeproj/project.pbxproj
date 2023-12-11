@@ -65,7 +65,10 @@
 		8A16D4E42B21709F006D1805 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D4E32B21709F006D1805 /* ActivityView.swift */; };
 		8A16D4E62B219101006D1805 /* CommentActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D4E52B219101006D1805 /* CommentActivityView.swift */; };
 		8A16D4E82B21913A006D1805 /* ReactionActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D4E72B21913A006D1805 /* ReactionActivityView.swift */; };
+		8A265BCF2B2655DF00B7A038 /* HousemateSmallCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A265BCE2B2655DF00B7A038 /* HousemateSmallCard.swift */; };
 		8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */; };
+		8A5A52B12B257DF600B1A2DC /* OtherProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A52B02B257DF600B1A2DC /* OtherProfileView.swift */; };
+		8A5A52B32B2580D300B1A2DC /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */; };
 		8A5AC67C2AFDAD890015A7B0 /* MessageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */; };
 		8A61D96F2B1DC318003A3494 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8A61D96E2B1DC318003A3494 /* MCEmojiPicker */; };
 		8A6AD4E12AFB534400A6DF85 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4E02AFB534400A6DF85 /* FirebaseAuth */; };
@@ -78,6 +81,7 @@
 		8A6AD4EF2AFB534400A6DF85 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4EE2AFB534400A6DF85 /* FirebaseStorage */; };
 		8A6AD4F12AFB534400A6DF85 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4F02AFB534400A6DF85 /* FirebaseStorageCombine-Community */; };
 		8A7F0AC02AFD407900F7B76B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */; };
+		8A89A9AD2B26A8EB00FD9FD0 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A89A9AC2B26A8EB00FD9FD0 /* FriendsView.swift */; };
 		8AA3B8B92AF9D4680064CFD6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8B82AF9D4680064CFD6 /* FirebaseAnalytics */; };
 		8AA3B8BB2AF9D4680064CFD6 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8BA2AF9D4680064CFD6 /* FirebaseAnalyticsOnDeviceConversion */; };
 		8AA3B8BD2AF9D4680064CFD6 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8BC2AF9D4680064CFD6 /* FirebaseAnalyticsSwift */; };
@@ -243,9 +247,13 @@
 		8A16D4E32B21709F006D1805 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		8A16D4E52B219101006D1805 /* CommentActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentActivityView.swift; sourceTree = "<group>"; };
 		8A16D4E72B21913A006D1805 /* ReactionActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionActivityView.swift; sourceTree = "<group>"; };
+		8A265BCE2B2655DF00B7A038 /* HousemateSmallCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousemateSmallCard.swift; sourceTree = "<group>"; };
 		8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailView.swift; sourceTree = "<group>"; };
+		8A5A52B02B257DF600B1A2DC /* OtherProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileView.swift; sourceTree = "<group>"; };
+		8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		8A89A9AC2B26A8EB00FD9FD0 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		8AB780D42B06EEDF0072B065 /* CommentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListView.swift; sourceTree = "<group>"; };
 		8AD6ED052AF1969C006B56B6 /* housemates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = housemates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD6ED082AF1969C006B56B6 /* housematesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housematesApp.swift; sourceTree = "<group>"; };
@@ -488,6 +496,7 @@
 				81013D592B2132CC00EE8ACD /* StatsView.swift */,
 				81013D5B2B21339D00EE8ACD /* GraphFilterView.swift */,
 				C10A06372B2520C300FBD160 /* UserRowView.swift */,
+				8A265BCE2B2655DF00B7A038 /* HousemateSmallCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -510,6 +519,9 @@
 				8A16D4E52B219101006D1805 /* CommentActivityView.swift */,
 				8A16D4E72B21913A006D1805 /* ReactionActivityView.swift */,
 				C10A06352B251D2300FBD160 /* SearchDisplayView.swift */,
+				8A5A52B02B257DF600B1A2DC /* OtherProfileView.swift */,
+				8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */,
+				8A89A9AC2B26A8EB00FD9FD0 /* FriendsView.swift */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -830,6 +842,7 @@
 				8AF358442AF4B2E20009B93C /* CreateGroupView.swift in Sources */,
 				5188F2262B030DAF001B1AA0 /* HousemateCircleComponent.swift in Sources */,
 				8A7F0AC02AFD407900F7B76B /* UserViewModel.swift in Sources */,
+				8A265BCF2B2655DF00B7A038 /* HousemateSmallCard.swift in Sources */,
 				AD7F57F12B1FF26E0023D476 /* BeforeCameraView.swift in Sources */,
 				8A16D4E22B214343006D1805 /* Reactions.swift in Sources */,
 				8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */,
@@ -848,12 +861,14 @@
 				81DBF19B2B1E4AE1002DF472 /* DateValue.swift in Sources */,
 				81DBF1992B1E4AD1002DF472 /* DashboardView.swift in Sources */,
 				81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */,
+				8A89A9AD2B26A8EB00FD9FD0 /* FriendsView.swift in Sources */,
 				51B3976A2B01FF2600A0AF2A /* SliderPicker.swift in Sources */,
 				C113C9B52B250FB0004B8CF3 /* UsernameView.swift in Sources */,
 				51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */,
 				81CF29E02AFEDA1E00748D58 /* TaskHousematesView.swift in Sources */,
 				515939D42AFF37B2004C31BB /* TaskData.swift in Sources */,
 				515939D22AFF3609004C31BB /* TaskSelectionView.swift in Sources */,
+				8A5A52B12B257DF600B1A2DC /* OtherProfileView.swift in Sources */,
 				816C30282AF49D59004F1771 /* TaskView.swift in Sources */,
 				51B397682B01FB8000A0AF2A /* NewInputView.swift in Sources */,
 				81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */,
@@ -869,6 +884,7 @@
 				8A16D4E42B21709F006D1805 /* ActivityView.swift in Sources */,
 				5155A17A2AFDC6D500832E51 /* AllHousematesCard.swift in Sources */,
 				81013D5A2B2132CC00EE8ACD /* StatsView.swift in Sources */,
+				8A5A52B32B2580D300B1A2DC /* UserProfileView.swift in Sources */,
 				ADD11A642AFAFA3B001861A0 /* TaskViewModel.swift in Sources */,
 				8AF549582B0584C800EB28CC /* AddPostView.swift in Sources */,
 				C10A06382B2520C300FBD160 /* UserRowView.swift in Sources */,
@@ -1080,7 +1096,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = H9CQ7WA25J;
+				DEVELOPMENT_TEAM = 79WMU8S839;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -1098,7 +1114,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates334";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1114,7 +1130,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = H9CQ7WA25J;
+				DEVELOPMENT_TEAM = 79WMU8S839;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -1132,7 +1148,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates334";
+
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates"; 
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
