@@ -81,6 +81,7 @@
 		8A6AD4EF2AFB534400A6DF85 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4EE2AFB534400A6DF85 /* FirebaseStorage */; };
 		8A6AD4F12AFB534400A6DF85 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 8A6AD4F02AFB534400A6DF85 /* FirebaseStorageCombine-Community */; };
 		8A7F0AC02AFD407900F7B76B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */; };
+		8A89A9AD2B26A8EB00FD9FD0 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A89A9AC2B26A8EB00FD9FD0 /* FriendsView.swift */; };
 		8AA3B8B92AF9D4680064CFD6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8B82AF9D4680064CFD6 /* FirebaseAnalytics */; };
 		8AA3B8BB2AF9D4680064CFD6 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8BA2AF9D4680064CFD6 /* FirebaseAnalyticsOnDeviceConversion */; };
 		8AA3B8BD2AF9D4680064CFD6 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8AA3B8BC2AF9D4680064CFD6 /* FirebaseAnalyticsSwift */; };
@@ -252,6 +253,7 @@
 		8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
 		8A5AC67B2AFDAD890015A7B0 /* MessageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCard.swift; sourceTree = "<group>"; };
 		8A7F0ABF2AFD407900F7B76B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		8A89A9AC2B26A8EB00FD9FD0 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		8AB780D42B06EEDF0072B065 /* CommentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListView.swift; sourceTree = "<group>"; };
 		8AD6ED052AF1969C006B56B6 /* housemates.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = housemates.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AD6ED082AF1969C006B56B6 /* housematesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = housematesApp.swift; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 				C10A06352B251D2300FBD160 /* SearchDisplayView.swift */,
 				8A5A52B02B257DF600B1A2DC /* OtherProfileView.swift */,
 				8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */,
+				8A89A9AC2B26A8EB00FD9FD0 /* FriendsView.swift */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -858,6 +861,7 @@
 				81DBF19B2B1E4AE1002DF472 /* DateValue.swift in Sources */,
 				81DBF1992B1E4AD1002DF472 /* DashboardView.swift in Sources */,
 				81EC60C12AFE024000A1B753 /* GraphView.swift in Sources */,
+				8A89A9AD2B26A8EB00FD9FD0 /* FriendsView.swift in Sources */,
 				51B3976A2B01FF2600A0AF2A /* SliderPicker.swift in Sources */,
 				C113C9B52B250FB0004B8CF3 /* UsernameView.swift in Sources */,
 				51B20F382AFACD8E006FC5F7 /* JoinCreateCard.swift in Sources */,

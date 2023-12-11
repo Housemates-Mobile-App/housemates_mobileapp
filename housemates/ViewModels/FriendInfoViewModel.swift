@@ -31,9 +31,16 @@ class FriendInfoViewModel: ObservableObject {
         return users.map { $0.user_id }
     }
     
+    func setIdsToUserIds(users: inout [User]) {
+        for index in users.indices {
+            users[index].id = users[index].user_id
+        }
+    }
+    
     // MARK: Get friends list for for a user
     func getFriendsList(user: User) -> [User] {
-        if let friendInfo = self.friendsInfos.filter({ $0.user_id == user.user_id }).first {
+        if var friendInfo = self.friendsInfos.filter({ $0.user_id == user.user_id }).first {
+            setIdsToUserIds(users: &friendInfo.friendsList)
             return friendInfo.friendsList
         }
         return []
@@ -41,7 +48,8 @@ class FriendInfoViewModel: ObservableObject {
     
     // MARK: Get friend requests for a user
     func getFriendRequests(user: User) -> [User]{
-        if let friendInfo = self.friendsInfos.filter({ $0.user_id == user.user_id }).first {
+        if var friendInfo = self.friendsInfos.filter({ $0.user_id == user.user_id }).first {
+            setIdsToUserIds(users: &friendInfo.friendRequests)
             return friendInfo.friendRequests
         }
         return []

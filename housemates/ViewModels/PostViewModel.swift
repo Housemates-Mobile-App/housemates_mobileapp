@@ -293,6 +293,9 @@ class PostViewModel: ObservableObject {
     }
     
     func addComment(user: User, text: String, post: Post) {
+        if text == "" {
+            return
+        }
         var post = post
         let formatter = DateFormatter()
         formatter.dateFormat = "MM.dd.yy h:mm a"
