@@ -98,6 +98,19 @@ struct TaskBoardView: View {
       let unclaimedTasks = taskViewModel.getUnclaimedTasksForGroup(user.group_id)
       let completedTasks = taskViewModel.getCompletedTasksForGroup(user.group_id)
       let inProgressTasks = taskViewModel.getInProgressTasksForGroup(user.group_id)
+      
+      let inProgressTasksSorted = inProgressTasks.sorted {
+          guard let date1 = getFullDate(dateStr: $0.date_created ?? ""),
+                let date2 = getFullDate(dateStr: $1.date_created ?? "") else {
+              return false
+          }
+          return date1 > date2
+      }
+      
+      let inProgressTasksForCurrentUser = inProgressTasksSorted.filter { $0.user_id == user.user_id }
+      let inProgressTasksForOtherUsers = inProgressTasksSorted.filter { $0.user_id != user.user_id }
+      
+      
       return List {
           if selected == "Unclaimed" || selected == "All Tasks" {
               Section(header: Text("Unclaimed")
@@ -138,7 +151,19 @@ struct TaskBoardView: View {
                           .listRowSeparator(.hidden)
                   }
                   else {
-                      ForEach(inProgressTasks) { task in
+                      ForEach(inProgressTasksForCurrentUser) { task in
+                          ZStack {
+                              NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                  //                        gets rid of the arrow icon
+                                  
+                              }
+                              .opacity(0)
+                              
+                              taskRow(task: task, user: user)
+                              
+                          }.listRowSeparator(.hidden)
+                      }
+                      ForEach(inProgressTasksForOtherUsers) { task in
                           ZStack {
                               NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
                                   //                        gets rid of the arrow icon
@@ -265,6 +290,7 @@ struct TaskBoardView: View {
                   Label("Claim", systemImage: "arrowshape.turn.up.backward.fill")
                   
                 }.tint(Color(red: 0.439, green: 0.298, blue: 1.0))
+                  
               }
             }
             
