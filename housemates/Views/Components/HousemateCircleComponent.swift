@@ -40,7 +40,7 @@ struct HousemateCircleComponent: View {
                     )
             }
             
-            Text("\(housemate.first_name.lowercased()) \(housemate.last_name.first?.lowercased() ?? "")")
+            Text("\(housemate.username)")
                 
                 .font(.custom("Lato", size: 13))
         }
