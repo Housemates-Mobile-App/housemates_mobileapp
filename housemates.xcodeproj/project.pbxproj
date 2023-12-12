@@ -176,7 +176,6 @@
 		C16775082B22B00A000076F2 /* userViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16775072B22B00A000076F2 /* userViewModelTests.swift */; };
 		C167750A2B22C459000076F2 /* postViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16775092B22C459000076F2 /* postViewModelTests.swift */; };
 		C167750C2B23DB72000076F2 /* groupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167750B2B23DB72000076F2 /* groupViewModelTests.swift */; };
-		C16E21E02B2802C500E1E49D /* testAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16E21DF2B2802C500E1E49D /* testAnimation.swift */; };
 		C171E1FB2B1E408100AE41EC /* NewWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C171E1FA2B1E408100AE41EC /* NewWave.swift */; };
 		C171E1FD2B1E7DDB00AE41EC /* taskCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C171E1FC2B1E7DDB00AE41EC /* taskCard.swift */; };
 /* End PBXBuildFile section */
@@ -305,7 +304,6 @@
 		C16775072B22B00A000076F2 /* userViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userViewModelTests.swift; sourceTree = "<group>"; };
 		C16775092B22C459000076F2 /* postViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postViewModelTests.swift; sourceTree = "<group>"; };
 		C167750B2B23DB72000076F2 /* groupViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = groupViewModelTests.swift; sourceTree = "<group>"; };
-		C16E21DF2B2802C500E1E49D /* testAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testAnimation.swift; sourceTree = "<group>"; };
 		C171E1FA2B1E408100AE41EC /* NewWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWave.swift; sourceTree = "<group>"; };
 		C171E1FC2B1E7DDB00AE41EC /* taskCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -524,7 +522,6 @@
 				8A5A52B02B257DF600B1A2DC /* OtherProfileView.swift */,
 				8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */,
 				8A89A9AC2B26A8EB00FD9FD0 /* FriendsView.swift */,
-				C16E21DF2B2802C500E1E49D /* testAnimation.swift */,
 			);
 			path = DetailViews;
 			sourceTree = "<group>";
@@ -897,7 +894,6 @@
 				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
 				8A16D4E62B219101006D1805 /* CommentActivityView.swift in Sources */,
 				8AE4D8762B1D7FF60073DBD8 /* Emoji.swift in Sources */,
-				C16E21E02B2802C500E1E49D /* testAnimation.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,
 				51802D8F2B08CE6900B4EE9A /* DateOfBirthView.swift in Sources */,
 				51EA51E72B09950F0098D342 /* GroupNameView.swift in Sources */,
