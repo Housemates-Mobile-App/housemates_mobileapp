@@ -19,53 +19,106 @@ struct TaskDetailView: View {
             VStack(alignment: .leading, spacing: 10) {
               SwiftUI.Group {
                 
-                
-                // make it dynamic.
-                Image(currTask.icon ?? "dalle2")
-                  .resizable()
-                  .aspectRatio(contentMode: .fit)
-                  .frame(width: 60, height: 60)
-                
-                Text(currTask.name)
-                  .font(.custom("Lato-Bold", size: 18))
-                
-                if (currTask.status != .done) {
-                  if (assignee?.first_name == nil) {
-                    Text("Unclaimed")
-                      .font(.custom("Lato-Regular", size: 14))
-                      .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
-                    
-                  }
-                  else {
-                    Text("Claimed by \(assignee?.first_name ?? "Nobody")")
-                      .font(.custom("Lato-Regular", size: 14))
-                      .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
-                  }
+                  HStack {
+                    Spacer()
                  
-                }
-                else {
-                  Text("Completed by \(assignee?.first_name ?? "Error)")")
-                    .font(.custom("Lato-Regular", size: 14))
-                    .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
-                }
-                
-                
-                  CachedAsyncImage(url: imageURL) { image in
-                  image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 35, height: 35)
-                    .clipShape(Circle())
-                    .foregroundColor(.gray)
-                } placeholder: {
-                  // MARK: Default user profile picture
-                  Image(systemName: "person.circle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 35, height: 35)
-                    .clipShape(Circle())
-                    .foregroundColor(.gray)
-                }
+                        Image(currTask.icon ?? "dalle2")
+                          .resizable()
+                          .aspectRatio(contentMode: .fill)
+                          .frame(width: 70, height: 70)
+                          .foregroundColor(.gray)
+                          .padding(5)
+                      Spacer()
+                    }
+                    
+    
+                  Text("Task Name")
+                      .font(.custom("Lato-Bold", size: 18))
+                  Text(currTask.name)
+                      .font(.custom("Lato-Regular", size: 14))
+                      .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                  Divider()
+                      .padding(.vertical, 10)
+                  
+                  Text("Status")
+                      .font(.custom("Lato-Bold", size: 18))
+                  HStack {
+                      if (currTask.status != .done) {
+                          if (assignee?.first_name == nil) {
+                              Text("Unclaimed")
+                                  .font(.custom("Lato-Regular", size: 14))
+                                  .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                              
+                          }
+                          else {
+                              Text("Claimed by \(assignee?.first_name ?? "Nobody")")
+                                  .font(.custom("Lato-Regular", size: 14))
+                                  .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                              
+                              CachedAsyncImage(url: imageURL) { image in
+                                  image
+                                      .resizable()
+                                      .aspectRatio(contentMode: .fill)
+                                      .frame(width: 35, height: 35)
+                                      .clipShape(Circle())
+                                      .foregroundColor(.gray)
+                              } placeholder: {
+                                  // MARK: Default user profile picture
+                                  Circle()
+                                      .fill(
+                                          LinearGradient(
+                                              gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                                              startPoint: .topLeading,
+                                              endPoint: .bottomTrailing
+                                          )
+                                      )
+                                      .frame(width: 35, height: 35)
+                                      .overlay(
+                                        Text("\(assignee!.first_name.prefix(1).capitalized + assignee!.last_name.prefix(1).capitalized)")
+                                            
+                                              .font(.custom("Nunito-Bold", size: 16))
+                                              .foregroundColor(.white)
+                                      )
+                              }
+                          }
+                          
+                      }
+                      else {
+                          Text("Completed by \(assignee?.first_name ?? "Error)")")
+                              .font(.custom("Lato-Regular", size: 14))
+                              .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                          
+                          CachedAsyncImage(url: imageURL) { image in
+                              image
+                                  .resizable()
+                                  .aspectRatio(contentMode: .fill)
+                                  .frame(width: 35, height: 35)
+                                  .clipShape(Circle())
+                                  .foregroundColor(.gray)
+                          } placeholder: {
+                              // MARK: Default user profile picture
+                              Circle()
+                                  .fill(
+                                      LinearGradient(
+                                          gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                                          startPoint: .topLeading,
+                                          endPoint: .bottomTrailing
+                                      )
+                                  )
+                                  .frame(width: 35, height: 35)
+                                  .overlay(
+                                    Text("\(assignee!.first_name.prefix(1).capitalized + assignee!.last_name.prefix(1).capitalized)")
+                                        
+                                          .font(.custom("Nunito-Bold", size: 16))
+                                          .foregroundColor(.white)
+                                  )
+                          }
+                      }
+                      
+                      
+                      
+                      
+                  }
                 Divider()
                   .padding(.vertical, 10)
                 
@@ -79,13 +132,16 @@ struct TaskDetailView: View {
               Divider()
                   .padding(.vertical, 10)
               
-                Text("Description")
-                    .font(.custom("Lato-Bold", size: 18))
-                Text(currTask.description)
-                    .font(.custom("Lato-Regular", size: 14))
-                    .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
-                Divider()
-                    .padding(.vertical, 10)
+              
+                if currTask.description != "" {
+                    Text("Description")
+                        .font(.custom("Lato-Bold", size: 18))
+                    Text(currTask.description)
+                        .font(.custom("Lato-Regular", size: 14))
+                        .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+                    Divider()
+                        .padding(.vertical, 10)
+                }
                 
                 Text("Due Date")
                     .font(.custom("Lato-Bold", size: 18))
