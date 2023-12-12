@@ -11,15 +11,15 @@ struct SearchDisplayView: View {
     var currUser: User
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
     @EnvironmentObject var userViewModel : UserViewModel
-    @EnvironmentObject var friendInfoViewModel : FriendInfoViewModel
+//    @EnvironmentObject var friendInfoViewModel : FriendInfoViewModel
     @State private var searchUser: String = ""
     
-    @State private var cachedPeople: [User] = []
+//    @State private var cachedPeople: [User] = []
     @State private var cachedHousemates: [User] = []
-    @State private var cachedFriends: [User] = []
-    @State private var filteredPeople: [User] = []
+//    @State private var cachedFriends: [User] = []
+//    @State private var filteredPeople: [User] = []
     @State private var filteredHousemates: [User] = []
-    @State private var filteredFriends: [User] = []
+//    @State private var filteredFriends: [User] = []
     
     var body: some View {
 //        let housemates = search(searchText: searchUser, userList: userViewModel.getUserGroupmates(currUser.id ?? ""))
@@ -58,30 +58,30 @@ struct SearchDisplayView: View {
                         }
                 }
                 // friends
-                if (filteredFriends.count > 0) {
-                    Section(header: Text("Friends")
-                        .font(.custom("Lato-Bold", size: 16))
-                        .foregroundColor(.primary)) {
-                            ForEach(filteredFriends) { friend in
-                                NavigationLink(destination: OtherProfileView(user: friend)) {
-                                    UserRowView(rowUser: friend)
-                                }
-                            }.listRowSeparator(.hidden)
-                        }
-                }
+//                if (filteredFriends.count > 0) {
+//                    Section(header: Text("Friends")
+//                        .font(.custom("Lato-Bold", size: 16))
+//                        .foregroundColor(.primary)) {
+//                            ForEach(filteredFriends) { friend in
+//                                NavigationLink(destination: OtherProfileView(user: friend)) {
+//                                    UserRowView(rowUser: friend)
+//                                }
+//                            }.listRowSeparator(.hidden)
+//                        }
+//                }
                 
                 // people
-                if (searchUser.count > 0 && filteredPeople.count > 0) {
-                    Section(header: Text("People")
-                        .font(.custom("Lato-Bold", size: 16))
-                        .foregroundColor(.primary)) {
-                            ForEach(filteredPeople) { person in
-                                NavigationLink(destination: OtherProfileView(user: person)) {
-                                    UserRowView(rowUser: person)
-                                }
-                            }.listRowSeparator(.hidden)
-                        }
-                }
+//                if (searchUser.count > 0 && filteredPeople.count > 0) {
+//                    Section(header: Text("People")
+//                        .font(.custom("Lato-Bold", size: 16))
+//                        .foregroundColor(.primary)) {
+//                            ForEach(filteredPeople) { person in
+//                                NavigationLink(destination: OtherProfileView(user: person)) {
+//                                    UserRowView(rowUser: person)
+//                                }
+//                            }.listRowSeparator(.hidden)
+//                        }
+//                }
                 
             }.listStyle(PlainListStyle())
         }.onAppear {
@@ -90,20 +90,20 @@ struct SearchDisplayView: View {
             cachedHousemates = userViewModel.getUserGroupmates(currUser.id ?? "")
             
 //            let excludeUserIdsFriends: Set<String> = Set([currUser.user_id] + cachedHousemates.map { $0.user_id })
-            cachedFriends = friendInfoViewModel.getFriendsList(user: currUser)
+//            cachedFriends = friendInfoViewModel.getFriendsList(user: currUser)
             
             // dont want to include housemates, friends, or curr user
-            let excludeUserIdsPeople: Set<String> = Set([currUser.user_id] + cachedHousemates.map { $0.user_id } + cachedFriends.map { $0.user_id })
-            cachedPeople = userViewModel.users.filter { !excludeUserIdsPeople.contains($0.user_id) }
-            
+//            let excludeUserIdsPeople: Set<String> = Set([currUser.user_id] + cachedHousemates.map { $0.user_id } + cachedFriends.map { $0.user_id })
+//            cachedPeople = userViewModel.users.filter { !excludeUserIdsPeople.contains($0.user_id) }
+//            
             filteredHousemates = search(searchText: searchUser, userList: cachedHousemates)
-            filteredFriends = search(searchText: searchUser, userList: cachedFriends)
-            filteredPeople = search(searchText: searchUser, userList: cachedPeople)
+//            filteredFriends = search(searchText: searchUser, userList: cachedFriends)
+//            filteredPeople = search(searchText: searchUser, userList: cachedPeople)
         }
         .onChange(of: searchUser) { newValue in
             filteredHousemates = search(searchText: newValue, userList: cachedHousemates)
-            filteredFriends = search(searchText: newValue, userList: cachedFriends)
-            filteredPeople = search(searchText: newValue, userList: cachedPeople)
+//            filteredFriends = search(searchText: newValue, userList: cachedFriends)
+//            filteredPeople = search(searchText: newValue, userList: cachedPeople)
         }
     }
     
