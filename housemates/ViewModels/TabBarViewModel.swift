@@ -10,6 +10,11 @@ import Foundation
 class TabBarViewModel: ObservableObject {
     @Published var hideTabBar: Bool = false
     @Published var showTaskSelectionView: Bool = false
+    @Published var showAddTaskBanner: Bool = false
+    @Published var showEditTaskBanner: Bool = false
+    @Published var showAddPostBanner: Bool = false
+    @Published var selectedTab: Int = 0
+
 }
 
 extension TabBarViewModel {

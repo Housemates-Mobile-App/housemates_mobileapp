@@ -198,6 +198,12 @@ struct AddTaskView: View {
               Task {
                   await addTask()
               }
+              if (editableTask != nil) {
+                  tabBarViewModel.showEditTaskBanner = true
+              } else {
+                  tabBarViewModel.showAddTaskBanner = true
+              }
+              tabBarViewModel.selectedTab = 1
               tabBarViewModel.hideTabBar = false
           }) {
             Text((editableTask != nil) ? "Edit Task" : "Add Task")
@@ -317,13 +323,13 @@ struct AddTaskView: View {
           alertMessage = "Task added successfully."
       }
     
-      showAlert = true
+//      showAlert = true
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-      showAlert = false
+//    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//      showAlert = false
       presentationMode.wrappedValue.dismiss()
       tabBarViewModel.showTaskSelectionView = false
-    }
+//    }
   }
   
   
