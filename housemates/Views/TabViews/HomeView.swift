@@ -10,7 +10,7 @@ struct HomeView: View {
     @EnvironmentObject var userViewModel : UserViewModel
     @EnvironmentObject var postViewModel : PostViewModel
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
-    @EnvironmentObject var friendInfoViewModel : FriendInfoViewModel
+//    @EnvironmentObject var friendInfoViewModel : FriendInfoViewModel
 
     
     @State var hide = false
@@ -106,29 +106,29 @@ struct HomeView: View {
                         .coordinateSpace(name: "scroll")
                         .toolbar(hide ? .hidden : .visible, for: .navigationBar)
                         .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                NavigationLink(destination: FriendsView(currUser: user)) {
-                                    ZStack{
-                                        Image(systemName: "person.fill.badge.plus") // Use an appropriate system icon
-                                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Customize the color if needed
-                                            .padding(.leading, 5)
-                                        if friendInfoViewModel.getFriendRequests(user: user).count > 0 {
-                                            Circle()
-                                                .frame(width: 7.5, height: 7.5)
-                                                .foregroundColor(.red)
-                                                .offset(x: UIScreen.main.bounds.height * 0.013, y: -UIScreen.main.bounds.height * 0.012)
-
-                                        }
-                                    }
-                                    
-                                }
-                            }
+//                            ToolbarItem(placement: .navigationBarLeading) {
+//                                NavigationLink(destination: FriendsView(currUser: user)) {
+//                                    ZStack{
+//                                        Image(systemName: "person.fill.badge.plus") // Use an appropriate system icon
+//                                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Customize the color if needed
+//                                            .padding(.leading, 5)
+//                                        if friendInfoViewModel.getFriendRequests(user: user).count > 0 {
+//                                            Circle()
+//                                                .frame(width: 7.5, height: 7.5)
+//                                                .foregroundColor(.red)
+//                                                .offset(x: UIScreen.main.bounds.height * 0.013, y: -UIScreen.main.bounds.height * 0.012)
+//
+//                                        }
+//                                    }
+//                                    
+//                                }
+//                            }
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 NavigationLink(destination: ActivityView(user: user)) {
                                         Image(systemName: "bell.fill") // Use an appropriate system icon
                                             .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Customize the color if needed
                                         }
-                            
+                                
                                     }
                     }.onAppear {
                         tabBarViewModel.hideTabBar = false

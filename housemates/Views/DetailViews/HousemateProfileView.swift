@@ -12,7 +12,7 @@ struct HousemateProfileView: View {
     @EnvironmentObject var authViewModel : AuthViewModel
     @EnvironmentObject var taskViewModel : TaskViewModel
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
-    @EnvironmentObject var friendInfoViewModel : FriendInfoViewModel
+//    @EnvironmentObject var friendInfoViewModel : FriendInfoViewModel
     @Environment(\.presentationMode) var presentationMode
     
     let housemate: User
