@@ -337,7 +337,20 @@ struct TaskView: View {
         CachedAsyncImage(url: URL(string: user.imageURLString ?? "")) { image in
             image.resizable()
         } placeholder: {
-            Image(systemName: "person.circle").resizable()
+            Circle()
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.gray.opacity(0.8), Color.gray.opacity(0.4)]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .overlay(
+                    Text("\(user.first_name.prefix(1).capitalized + user.last_name.prefix(1).capitalized)")
+                      
+                        .font(.custom("Nunito-Bold", size: 14))
+                        .foregroundColor(.white)
+                )
         }
         .aspectRatio(contentMode: .fill)
         .frame(width: 35, height: 35)
