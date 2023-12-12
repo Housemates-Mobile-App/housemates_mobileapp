@@ -61,6 +61,7 @@ struct BannerModifier: ViewModifier {
                     .cornerRadius(8)
                     Spacer()
                 }
+                .zIndex(1)
                 .padding()
                 .animation(.easeInOut)
                 .transition(AnyTransition.move(edge: .top).combined(with: .opacity))
@@ -69,7 +70,7 @@ struct BannerModifier: ViewModifier {
                         self.show = false
                     }
                 }.onAppear(perform: {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         withAnimation {
                             self.show = false
                         }

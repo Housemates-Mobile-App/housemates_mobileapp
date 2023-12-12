@@ -19,8 +19,8 @@ struct AuthContentView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             if tabBarViewModel.selectedTab == 0 {
-                            HomeView()
-                            
+                HomeView()
+                
             } else if tabBarViewModel.selectedTab == 1 {
                 TaskBoardView()
                 
@@ -29,13 +29,13 @@ struct AuthContentView: View {
 
             } else if tabBarViewModel.selectedTab == 3 {
                 ProfileView()
-
             }
                         
             if tabBarViewModel.hideTabBar == false {
                 BottomBar(selected : $tabBarViewModel.selectedTab).padding()
                     .padding(.horizontal, 15)
                     .background(CurvedShape().fill(Color(UIColor.systemBackground)).shadow(radius: 1))
+                    .zIndex(1)
                 
                 Button(action: {
                     tabBarViewModel.showTaskSelectionView = true
@@ -47,6 +47,8 @@ struct AuthContentView: View {
                     .clipShape(Circle())
                     .offset(y: -5)
                     .shadow(radius: 1)
+                    .zIndex(1)
+
             }
         }
         .banner(data: $addTaskBanner, show: $tabBarViewModel.showAddTaskBanner)
