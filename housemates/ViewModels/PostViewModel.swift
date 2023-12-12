@@ -69,8 +69,20 @@ class PostViewModel: ObservableObject {
         return activityList
     }
     
+    // Helper function to get date from item
+    func getDateFromItem(_ item: (Post, Any), dateFormatter: DateFormatter) -> Date {
+        switch item.1 {
+        case let comment as Comment:
+            return dateFormatter.date(from: comment.date_created)!
+        case let reaction as Reaction:
+            return dateFormatter.date(from: reaction.date_created)!
+        default:
+            fatalError("Unsupported item type")
+        }
+    }
+    
     // Gets a list of comments and reactions by user in reverse chronolgoical order
-    func getActivity(user: User) -> [(Post, Any)] {
+    func getActivity(user: User) -> ([Post], [Any]) {
         var activity = [(Post, Any)]()
         
         // Get posts by user
@@ -90,7 +102,6 @@ class PostViewModel: ObservableObject {
             for reaction in reactions {
                 activity.append((post, reaction))
             }
-//            activity += comments + reactions
         }
         
         // Convert date strings to Date objects
@@ -98,15 +109,23 @@ class PostViewModel: ObservableObject {
         dateFormatter.dateFormat = "MM.dd.yy h:mm a"
         
         // TODO: SORTING
-//        activity = activity.sorted { (item1, item2) -> Bool in
-//            if let date1 = dateFormatter.date(from : ((item1 as? Comment)?.date_created ?? (item1 as? Reaction)?.date_created)!),
-//               let date2 = dateFormatter.date(from: ((item2 as? Comment)?.date_created ?? (item2 as? Reaction)?.date_created)!) {
-//                return date1 > date2
-//            }
-//            return false
-//        }
+        // Sort activity array by date in reverse chronological order
+       activity.sort { (item1, item2) -> Bool in
+           let date1 = getDateFromItem(item1, dateFormatter: dateFormatter)
+           let date2 = getDateFromItem(item2, dateFormatter: dateFormatter)
+           return date1 > date2
+       }
         
-        return activity
+        var newPosts = [Post]()
+        var actions = [Any]()
+        for i in 0..<activity.count {
+            let post = activity[i].0
+            let action = activity[i].1
+            newPosts.append(post)
+            actions.append(action)
+        }
+        
+        return (newPosts, actions)
     }
     
     

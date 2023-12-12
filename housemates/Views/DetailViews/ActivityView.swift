@@ -12,23 +12,13 @@ struct ActivityView: View {
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
     @Environment(\.presentationMode) var presentationMode: Binding
        
-    var btnBack : some View { Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }) {
-            HStack {
-                Image(systemName: "chevron.left") // set image here
-                Text("Notifications")
-                    .font(.custom("Nunito-Bold", size: 23))
-            }
-        }
-    }
           
         
     let user: User
     var body: some View {
         let activities = postViewModel.getActivity(user: user)
-        let postList = postViewModel.getPostListFromActivities(activities: activities)
-        let activityList = postViewModel.getActivityListFromActivities(activities : activities)
+        let postList = activities.0
+        let activityList = activities.1
         
         VStack(alignment: .leading, spacing: 10) {
             if activityList.isEmpty {
@@ -53,13 +43,35 @@ struct ActivityView: View {
             }
         }
         .padding(.top, 5)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: btnBack)
         .onAppear {
             tabBarViewModel.hideTabBar = true
         }
+        .navigationBarBackButtonHidden(true)
+            .navigationBarItems(leading: BackButton())
+     }
+     private func BackButton() -> some View {
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                HStack {
+                    Image(systemName: "chevron.left") // set image here
+                    Text("Notifications")
+                        .font(.custom("Nunito-Bold", size: 23))
+            }
+        }
+    }
+}
+
+
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
     }
 
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
+    }
 }
 //
 //#Preview {

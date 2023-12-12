@@ -50,12 +50,14 @@ struct CommentActivityView: View {
                 }
                 let timestamp = String(postViewModel.getTimestamp(time: comment.date_created) ?? "")
                 
-                Text("**\(comment.created_by.first_name)** commented: \(comment.text)")
+                (Text("**\(comment.created_by.first_name)** commented: \(comment.text)")
                     .font(.custom("Lato", size: 14))
                     .foregroundColor(.black)
                 + Text("  \(timestamp)")
                     .font(.custom("Lato", size: 14))
-                    .foregroundColor(.gray)
+                    .foregroundColor(.gray))
+                .multilineTextAlignment(.leading)
+
                 
                 Spacer()
                 
@@ -86,7 +88,7 @@ struct CommentActivityView: View {
     }
 }
 
-//#Preview {
-//    CommentActivityView(comment: PostViewModel.mockComment(), post: PostViewModel.mockPost())
-//        .environmentObject(PostViewModel.mock())
-//}
+#Preview {
+    CommentActivityView(comment: PostViewModel.mockComment(), post: PostViewModel.mockPost())
+        .environmentObject(PostViewModel.mock())
+}
