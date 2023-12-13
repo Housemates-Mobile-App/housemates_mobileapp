@@ -148,7 +148,12 @@ struct AddTaskView: View {
                     Image(uiImage: capturedImage)
                       .resizable()
                       .scaledToFit()
-                      .frame(width: 100, height: 100)
+                      .frame(height: 125)
+                      .cornerRadius(10)
+                      .overlay(Color.black.opacity(0.35).clipShape(RoundedRectangle(cornerRadius: 10)))
+//                      .clipShape(RoundedRectangle(cornerRadius: 10))
+
+                      
                   } else {
                     // Show a gray box
 //                    Circle()

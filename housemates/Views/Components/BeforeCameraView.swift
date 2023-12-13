@@ -119,7 +119,7 @@ struct BeforeImagePreviewView: View {
                         self.showPreview = false
                         self.image = nil
                     }
-                    .font(.custom("Nunito-Bold", size: 17))
+                    .font(.custom("Nunito-Bold", size: 16))
                     .frame(width: 100, height: 30)
                     .padding()
                     .background(Color.white)
@@ -133,15 +133,15 @@ struct BeforeImagePreviewView: View {
                     Button("Use Photo") {
                         self.isPresented = false
                     }
-                    .font(.custom("Nunito-Bold", size: 17))
+                    .font(.custom("Nunito-Bold", size: 16))
                     .frame(width: 100, height: 30)
                     .padding()
-                    .background(Color.white)
-                    .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                    .background(Color(red: 0.439, green: 0.298, blue: 1.0))
+                    .foregroundColor(.white)
                     .clipShape(Capsule())
                     .overlay(
                         Capsule()
-                        .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5)
+                          .stroke(.white, lineWidth: 5)
                     )
                 }
                 .padding()
