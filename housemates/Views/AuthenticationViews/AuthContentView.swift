@@ -12,27 +12,30 @@ struct AuthContentView: View {
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
+    @State var editTaskBanner: BannerModifier.BannerData = BannerModifier.BannerData(title: "Edited Task Success!", detail: "You have sucessfully edited a task.", type: .Info)
+    @State var addPostBanner: BannerModifier.BannerData = BannerModifier.BannerData(title: "Nice! You completed a task!", detail: "Your post has been shared with your housemates!", type: .Info)
+    @State var addTaskBanner: BannerModifier.BannerData = BannerModifier.BannerData(title: "Added Task Success!", detail: "You have sucessfully added a task.", type: .Info)
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            if selected == 0 {
-                            HomeView()
-                            
-                        } else if selected == 1 {
-                            TaskBoardView()
-                            
-                        } else if selected == 2 {
-                            DashboardView()
+            if tabBarViewModel.selectedTab == 0 {
+                HomeView()
+                
+            } else if tabBarViewModel.selectedTab == 1 {
+                TaskBoardView()
+                
+            } else if tabBarViewModel.selectedTab == 2 {
+                DashboardView()
 
-                        } else if selected == 3 {
-                            ProfileView()
-
-                        }
+            } else if tabBarViewModel.selectedTab == 3 {
+                ProfileView()
+            }
                         
             if tabBarViewModel.hideTabBar == false {
-                BottomBar(selected : $selected).padding()
+                BottomBar(selected : $tabBarViewModel.selectedTab).padding()
                     .padding(.horizontal, 15)
                     .background(CurvedShape().fill(Color(UIColor.systemBackground)).shadow(radius: 1))
+                    .zIndex(1)
                 
                 Button(action: {
                     tabBarViewModel.showTaskSelectionView = true
@@ -44,8 +47,14 @@ struct AuthContentView: View {
                     .clipShape(Circle())
                     .offset(y: -5)
                     .shadow(radius: 1)
+                    .zIndex(1)
+
             }
-        }.sheet(isPresented: $tabBarViewModel.showTaskSelectionView) {
+        }
+        .banner(data: $addTaskBanner, show: $tabBarViewModel.showAddTaskBanner)
+        .banner(data: $editTaskBanner, show: $tabBarViewModel.showEditTaskBanner)
+        .banner(data: $addPostBanner, show: $tabBarViewModel.showAddPostBanner)
+                .sheet(isPresented: $tabBarViewModel.showTaskSelectionView) {
             TaskSelectionView(user: authViewModel.currentUser!)
         }.onAppear {
             taskViewModel.setupRecurringTaskReset()

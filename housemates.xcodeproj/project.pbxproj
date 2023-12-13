@@ -66,6 +66,7 @@
 		8A16D4E62B219101006D1805 /* CommentActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D4E52B219101006D1805 /* CommentActivityView.swift */; };
 		8A16D4E82B21913A006D1805 /* ReactionActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A16D4E72B21913A006D1805 /* ReactionActivityView.swift */; };
 		8A265BCF2B2655DF00B7A038 /* HousemateSmallCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A265BCE2B2655DF00B7A038 /* HousemateSmallCard.swift */; };
+		8A3404C22B29088D00C5387C /* BannerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3404C12B29088D00C5387C /* BannerModifier.swift */; };
 		8A41F2B62B07FE5A00997667 /* CommentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */; };
 		8A5A52B12B257DF600B1A2DC /* OtherProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A52B02B257DF600B1A2DC /* OtherProfileView.swift */; };
 		8A5A52B32B2580D300B1A2DC /* UserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */; };
@@ -248,6 +249,7 @@
 		8A16D4E52B219101006D1805 /* CommentActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentActivityView.swift; sourceTree = "<group>"; };
 		8A16D4E72B21913A006D1805 /* ReactionActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionActivityView.swift; sourceTree = "<group>"; };
 		8A265BCE2B2655DF00B7A038 /* HousemateSmallCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HousemateSmallCard.swift; sourceTree = "<group>"; };
+		8A3404C12B29088D00C5387C /* BannerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerModifier.swift; sourceTree = "<group>"; };
 		8A41F2B52B07FE5A00997667 /* CommentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDetailView.swift; sourceTree = "<group>"; };
 		8A5A52B02B257DF600B1A2DC /* OtherProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileView.swift; sourceTree = "<group>"; };
 		8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileView.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				81013D5B2B21339D00EE8ACD /* GraphFilterView.swift */,
 				C10A06372B2520C300FBD160 /* UserRowView.swift */,
 				8A265BCE2B2655DF00B7A038 /* HousemateSmallCard.swift */,
+				8A3404C12B29088D00C5387C /* BannerModifier.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -892,6 +895,7 @@
 				512246752B034E6B006C3F23 /* FlashcardComponent.swift in Sources */,
 				5188F2242B02AC47001B1AA0 /* GroupViewModel.swift in Sources */,
 				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
+				8A3404C22B29088D00C5387C /* BannerModifier.swift in Sources */,
 				8A16D4E62B219101006D1805 /* CommentActivityView.swift in Sources */,
 				8AE4D8762B1D7FF60073DBD8 /* Emoji.swift in Sources */,
 				8AD6ED1D2AF1975F006B56B6 /* User.swift in Sources */,

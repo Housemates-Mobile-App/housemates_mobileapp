@@ -96,7 +96,7 @@ struct HomeView: View {
                                     proxy: proxy,
                                     offsetHolder: $scrollOffset,
                                     thresHold: $threshHold,
-                                    toggle: $hide
+                                    toggle: $tabBarViewModel.hideTabBar
 
                                 )
                         }
@@ -104,7 +104,7 @@ struct HomeView: View {
                     }.navigationTitle("Housemates")
                         .navigationBarTitleDisplayMode(.inline)
                         .coordinateSpace(name: "scroll")
-                        .toolbar(hide ? .hidden : .visible, for: .navigationBar)
+                        .toolbar(tabBarViewModel.hideTabBar ? .hidden : .visible, for: .navigationBar)
                         .toolbar {
 //                            ToolbarItem(placement: .navigationBarLeading) {
 //                                NavigationLink(destination: FriendsView(currUser: user)) {
@@ -169,7 +169,7 @@ extension View {
                     // Save current offset to threshhold
                     thresHold.wrappedValue = offsetHolder.wrappedValue
                     // Hide overlay
-                    withAnimation(.easeOut(duration: 1), {
+                    withAnimation(.easeOut(duration: 0.1), {
                         toggle.wrappedValue = true
                     })
                 }
