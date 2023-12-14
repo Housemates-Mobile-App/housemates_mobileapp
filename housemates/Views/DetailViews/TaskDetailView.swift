@@ -141,14 +141,24 @@ struct TaskDetailView: View {
                     }.ignoresSafeArea()
                     Spacer()
                     if currTask.status == .unclaimed || (currTask.status == .inProgress && taskViewModel.isMyTask(task: currTask, user_id: authUser.user_id)) {
-                        Text(currTask.status == .unclaimed ? "CLAIM" : "DONE")
-                            .font(.custom("Nunito-Bold", size: 18))
-                            .bold()
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, minHeight: 50)
-                            .background(Color(red: 0.439, green: 0.298, blue: 1.0))
-                            .cornerRadius(20)
-                            .padding()
+                        Button(action: {
+                            // Define the action to perform when the button is tapped
+                            if currTask.status == .unclaimed {
+                                taskViewModel.claimTask(task: currTask, user_id: authUser.id ?? "")
+                                taskViewModel.highlight(task_id: currTask.id ?? "0")
+                            } else if currTask.status == .inProgress && taskViewModel.isMyTask(task: currTask, user_id: authUser.user_id) {
+                                print("test")
+                            }
+                        }) {
+                            Text(currTask.status == .unclaimed ? "CLAIM" : "DONE")
+                                .font(.custom("Nunito-Bold", size: 18))
+                                .bold()
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, minHeight: 50)
+                                .background(currTask.status == .unclaimed ? Color(red: 0.439, green: 0.298, blue: 1.0) : Color(red: 0.10, green: 0.85, blue: 0.23))
+                                .cornerRadius(20)
+                                .padding()
+                        }
                     }
                 }
                 
