@@ -276,6 +276,36 @@ class PostViewModel: ObservableObject {
       }
   }
 
+    func getPostsForUser(user: User) -> [Post] {
+        return self.posts.filter{ $0.created_by.user_id == user.user_id}
+    }
+    
+    func getUserPostForDay(user: User, date: Date) -> Post? {
+        let UserPosts = getPostsForUser(user: user)
+        if posts.isEmpty {
+            return nil
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.dd.yy h:mm a"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(abbreviation: "EST")
+        
+        for post in UserPosts {
+            if let postDate = formatter.date(from: post.task.date_completed!),
+               Calendar.current.isDate(date, inSameDayAs: postDate) {
+//               print("POST DAY", Calendar.current.component(.day, from: postDate))
+//               print("POST MONTH", Calendar.current.component(.month, from: postDate))
+//                print("CURR DAY", Calendar.current.component(.day, from: date))
+//                print("CURR MONTH", Calendar.current.component(.month, from: date))
+//                print(post.afterImageURL)
+               return post
+            }
+        }
+        return nil
+    }
+    
+   
     
     // Get list of posts for group in chronogical order
     func getPostsForGroup(_ group_id: String) -> [Post] {

@@ -137,8 +137,8 @@ struct BottomBar: View {
                         self.selected = 1
 //                    })
                 }) {
-                    Image(systemName: "checkmark.square.fill")
-                        .font(.system(size: 23))
+                    Image(systemName: "list.bullet.clipboard")
+                        .font(.system(size: 18))
                         .offset(y: 15)
                 }.foregroundColor(self.selected == 1 ? Color(red: 0.439, green: 0.298, blue: 1.0) : .gray)
             }
@@ -157,8 +157,8 @@ struct BottomBar: View {
                         self.selected = 2
 //                    })
                 }) {
-                    Image(systemName: "chart.pie.fill")
-                        .font(.system(size: 22))
+                    Image(systemName: "chart.bar.fill")
+                        .font(.system(size: 20))
                         .offset(y: 15)
                 }.foregroundColor(self.selected == 2 ? Color(red: 0.439, green: 0.298, blue: 1.0) : .gray)
             }

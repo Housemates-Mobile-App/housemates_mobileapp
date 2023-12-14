@@ -169,7 +169,7 @@ extension View {
                     // Save current offset to threshhold
                     thresHold.wrappedValue = offsetHolder.wrappedValue
                     // Hide overlay
-                    withAnimation(.easeOut(duration: 0.1), {
+                    withAnimation(.easeOut(duration: 0.2), {
                         toggle.wrappedValue = true
                     })
                 }
