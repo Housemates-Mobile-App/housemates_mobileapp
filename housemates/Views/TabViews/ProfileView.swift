@@ -114,11 +114,10 @@ struct ProfileView: View {
                         // MARK: Photo picker for changing profile picture
                         PhotosPicker(selection: $selectedPhoto,
                                      matching: .images) {
-                            Image(systemName: "pencil.circle.fill")
+                            Image(systemName: "camera.circle.fill")
                                 .symbolRenderingMode(.multicolor)
                                 .font(.system(size: 24))
                                 .foregroundColor(.accentColor)
-                                .offset(x: UIScreen.main.bounds.width * 0.10, y: UIScreen.main.bounds.height * 0.020)
                         }.onChange(of: selectedPhoto) { newValue in
                             Task {
                                 do {
@@ -132,7 +131,8 @@ struct ProfileView: View {
                                     print("ERROR: Selecting image failed \(error.localizedDescription)")
                                 }
                             }
-                        }
+                        }.offset(x: UIScreen.main.bounds.width * 0.10, y: UIScreen.main.bounds.height * 0.020)
+
                         
                         // MARK: Housemate name
                         Text("\(user.first_name) \(user.last_name)")
