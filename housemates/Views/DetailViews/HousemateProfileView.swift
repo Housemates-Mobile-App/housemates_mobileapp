@@ -29,7 +29,10 @@ struct HousemateProfileView: View {
                 ZStack {
                     NewWave()
                         .fill(deepPurple)
-                        .frame(height: UIScreen.main.bounds.height * 0.20)
+                        .frame(height: UIScreen.main.bounds.height * 0.13)
+
+                    // MARK: End of Menu for Prolile Tab
+
                     
                     let imageURL = URL(string: housemate.imageURLString ?? "")
                     
@@ -40,7 +43,7 @@ struct HousemateProfileView: View {
                             .frame(width: imageSize, height: imageSize)
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                            .offset(y: UIScreen.main.bounds.height * 0.10)
+                            .offset(x: -UIScreen.main.bounds.width * 0.32 ,y: UIScreen.main.bounds.height * 0.10)
                     } placeholder: {
                         // Default user profile picture
                         Circle()
@@ -59,50 +62,93 @@ struct HousemateProfileView: View {
                                     .foregroundColor(.white)
                             )
                             .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                            .offset(y: UIScreen.main.bounds.height * 0.10)
+                            .offset(x: -UIScreen.main.bounds.width * 0.32 ,y: UIScreen.main.bounds.height * 0.10)
                     }
                 }
                 // MARK: Housemate name
-                Text("\(housemate.first_name) \(housemate.last_name)")
-                    .font(.custom("Nunito-Bold", size: 26))
-                    .bold()
-                    
-                    .offset(y: componentOffset)
+                // MARK: Housemate name
+                HStack {
+                    VStack {
+                        Text("\(housemate.first_name) \(housemate.last_name)")
+                            .font(.custom("Nunito-Bold", size: 26))
+                            .bold()
+                            .padding(.leading, 25)
+                        
+                      
+
+                       
+                            Text("@\(housemate.username)")
+                                .font(.custom("Nunito-Bold", size: 16))
+                                .foregroundColor(deepPurple)
+                                .padding(.trailing, 28)
+                            
+                    }
+                    Spacer()
+                }.offset( y: UIScreen.main.bounds.height * 0.08)
                 
+                
+              
+                // MARK: Task Card
+                HStack(spacing: 17) {
+                    VStack {
+                        Text("Completed")
+                            .font(.custom("Nunito", size: 15))
+                            .frame(minWidth: 55)
+                        Text("\(taskViewModel.getNumCompletedTasksForUser(housemate.user_id))")
+                            .font(.system(size: 32))
+                            .foregroundColor(deepPurple)
+                            .bold()
+                        
+                    }
+                    
+                    Divider().frame(height: UIScreen.main.bounds.height * 0.07)
+                    
+                    VStack {
+                        Text("Pending")
+                            .font(.custom("Nunito", size: 15))
+                            .frame(minWidth: 55)
+                        Text("\(taskViewModel.getNumPendingTasksForUser(housemate.user_id))")
+                            .foregroundColor(deepPurple)
+                            .font(.system(size: 32))
+                            .bold()
+                       
+                    }
+                   
+                }.offset(x: UIScreen.main.bounds.width * 0.16, y: -componentOffset * 1.5)
                 // MARK: Hosuemate buttons
-                HStack(spacing: 15) {
-                    HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Call", iconStr: "phone.fill", urlScheme:"tel")
-                    HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Text", iconStr: "message.fill", urlScheme:"sms")
-                }.offset(y: componentOffset * 0.95)
+//                HStack(spacing: 15) {
+//                    HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Call", iconStr: "phone.fill", urlScheme:"tel")
+//                    HousemateProfileButton(phoneNumber: housemate.phone_number, title: "Text", iconStr: "message.fill", urlScheme:"sms")
+//                }.offset(y: componentOffset * 0.95)
                 
                 // MARK: Task Card
-                HStack(spacing: 45) {
-                    VStack {
-                        Text("\(taskViewModel.getNumCompletedTasksForUser(housemate.id!))")
-                            .font(.system(size: 32))
-                            .foregroundColor(deepPurple)
-                            .bold()
-                        Text("Completed")
-                            .font(.custom("Lato", size: 15))
-                            .frame(minWidth: 55)
-                    }
-                    .padding(.leading, 50)
-                    .padding(.vertical, 25)
-                    VStack {
-                        Text("\(taskViewModel.getNumPendingTasksForUser(housemate.id!))")
-                            .foregroundColor(deepPurple)
-                            .font(.system(size: 32))
-                            .bold()
-                        Text("Pending")
-                            .font(.custom("Lato", size: 15))
-                            .frame(minWidth: 55)
-                    }
-                    .padding(.trailing, 50)
-                    .padding(.vertical, 25)
-                }.background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(Color.gray.opacity(0.5), lineWidth: 2)
-                ).offset(y: componentOffset * 1.15)
+//                HStack(spacing: 45) {
+//                    VStack {
+//                        Text("\(taskViewModel.getNumCompletedTasksForUser(housemate.id!))")
+//                            .font(.system(size: 32))
+//                            .foregroundColor(deepPurple)
+//                            .bold()
+//                        Text("Completed")
+//                            .font(.custom("Lato", size: 15))
+//                            .frame(minWidth: 55)
+//                    }
+//                    .padding(.leading, 50)
+//                    .padding(.vertical, 25)
+//                    VStack {
+//                        Text("\(taskViewModel.getNumPendingTasksForUser(housemate.id!))")
+//                            .foregroundColor(deepPurple)
+//                            .font(.system(size: 32))
+//                            .bold()
+//                        Text("Pending")
+//                            .font(.custom("Lato", size: 15))
+//                            .frame(minWidth: 55)
+//                    }
+//                    .padding(.trailing, 50)
+//                    .padding(.vertical, 25)
+//                }.background(
+//                    RoundedRectangle(cornerRadius: 16)
+//                        .stroke(Color.gray.opacity(0.5), lineWidth: 2)
+//                ).offset(y: componentOffset * 1.15)
                 
                 // MARK: Calendar Preview
                 VStack {
@@ -160,7 +206,7 @@ struct HousemateProfileView: View {
                              y: -UIScreen.main.bounds.height * 0.015)
                     
                     
-                }.offset(y: componentOffset * 1.60)
+                }
                     .padding(.leading, 20)
                 
                 // MARK: END Calendar  Preview
