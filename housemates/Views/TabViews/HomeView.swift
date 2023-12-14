@@ -38,7 +38,7 @@ struct HomeView: View {
             NavigationStack {
                 VStack {
                     // MARK: Vertical Scroll View
-                    ScrollView(.vertical) {
+                    ScrollView(.vertical, showsIndicators: false) {
                         
                         // MARK: Horizontal Housemates Scroll View
                         ScrollView(.horizontal, showsIndicators: false) {
@@ -169,7 +169,7 @@ extension View {
                     // Save current offset to threshhold
                     thresHold.wrappedValue = offsetHolder.wrappedValue
                     // Hide overlay
-                    withAnimation(.easeOut(duration: 0.1), {
+                    withAnimation(.easeOut(duration: 0.2), {
                         toggle.wrappedValue = true
                     })
                 }

@@ -13,7 +13,7 @@ struct DashboardView: View {
   @EnvironmentObject var userViewModel: UserViewModel
   @EnvironmentObject var tabBarViewModel : TabBarViewModel
 
-  @State private var selectedTab = 0
+//  @State private var selectedTab = 0
   
   @State var currMonth: Int = 0
   @State var currDay: Date = Date()
@@ -25,26 +25,26 @@ struct DashboardView: View {
               let incompleted = taskViewModel.getIncompleteTasksForGroup(user.group_id)
               VStack(spacing: 0) {
                   
-                  CustomTabBar(selectedTab: $selectedTab)
-                  
-                  if selectedTab == 0 {
+//                  CustomTabBar(selectedTab: $selectedTab)
+//                  
+//                  if selectedTab == 0 {
                       
                     StatsView(statHeight: UIScreen.main.bounds.size.width * 0.55)
                       Spacer()
-                  }
+//                  }
                   
-                  if selectedTab == 1 {
-                      ScrollView {
-                          
-                          
-                        calendar(completed: completed, incompleted: incompleted, user: user)
-                      }
-                      Spacer()
-                  }
+//                  if selectedTab == 1 {
+//                      ScrollView {
+//                          
+//                          
+//                        calendar(completed: completed, incompleted: incompleted, user: user)
+//                      }
+//                      Spacer()
+//                  }
               }.onAppear {
                   tabBarViewModel.hideTabBar = false
               }
-              .navigationTitle("Dashboard")
+              .navigationTitle("Leaderboard")
               .navigationBarTitleDisplayMode(.inline)
               
           }
@@ -128,14 +128,8 @@ struct DashboardView: View {
    
     VStack {
       if value.day != -1 {
-        
         Button(action: {currDay = value.date}) {
-          
-          
-          
           ZStack(alignment: .bottom) {
-            
-            
             if let task = completed.first(where: { task in
               return isSameDay(task: task, currDate: value.date)
             }){
@@ -469,14 +463,14 @@ struct CustomTabBar : View {
 //    }
 //}
 
-extension Date {
-  func getAll() -> [Date] {
-    let calendar = Calendar.current
-    let start = calendar.date(from: Calendar.current.dateComponents([.year, .month], from: self))!
-    let range = calendar.range(of: .day, in: .month, for: self)!
-  
-    return range.compactMap { day -> Date in
-      return calendar.date(byAdding: .day, value: day - 1, to: start)!
-    }
-  }
-}
+//extension Date {
+//  func getAll() -> [Date] {
+//    let calendar = Calendar.current
+//    let start = calendar.date(from: Calendar.current.dateComponents([.year, .month], from: self))!
+//    let range = calendar.range(of: .day, in: .month, for: self)!
+//  
+//    return range.compactMap { day -> Date in
+//      return calendar.date(byAdding: .day, value: day - 1, to: start)!
+//    }
+//  }
+//}

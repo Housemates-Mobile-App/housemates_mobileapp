@@ -26,8 +26,9 @@ struct CommentDetailView: View {
                     List {
                         ForEach(post.comments) { comment in
                             CommentListView(comment: comment)
-                        }
+                        }.listRowSeparator(.hidden)
                     }.listStyle(InsetListStyle())
+                  
             }
                 
             
