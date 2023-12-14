@@ -35,7 +35,10 @@ struct AddPostView: View {
                                 case .empty:
                                     ProgressView()
                                 case .success(let image):
-                                    image.resizable()
+                                    image
+                                    .resizable()
+                                    .cornerRadius(25)
+                                    .overlay(Color.black.opacity(0.35).clipShape(RoundedRectangle(cornerRadius: 25)))
                                 case .failure:
                                     Image(systemName: "photo")
                                 @unknown default:
@@ -54,6 +57,8 @@ struct AddPostView: View {
                             Image(uiImage: afterImage)
                                 .resizable()
                                 .scaledToFit()
+                                .cornerRadius(25)
+                                .overlay(Color.black.opacity(0.35).clipShape(RoundedRectangle(cornerRadius: 25)))
 
                             Text("After")
                                 .font(.headline)
