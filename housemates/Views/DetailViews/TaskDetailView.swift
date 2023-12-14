@@ -7,6 +7,12 @@ struct TaskDetailView: View {
     @EnvironmentObject var postViewModel: PostViewModel
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
     @EnvironmentObject var authViewModel : AuthViewModel
+    @Environment(\.presentationMode) var presentationMode
+    
+    @State private var showCamera = false
+    @State private var capturedImage: UIImage?
+    @State private var navigateToAddPostView = false
+    @State private var isAddPostViewActive = false
 
     let currUser: User
     let currTask: task
@@ -140,16 +146,53 @@ struct TaskDetailView: View {
                         .ignoresSafeArea()
                     }.ignoresSafeArea()
                     Spacer()
-//                    if currTask.status == .unclaimed || (currTask.status == .inProgress && taskViewModel.isMyTask(task: currTask, user_id: authUser.user_id)) {
-//                        Text(currTask.status == .unclaimed ? "CLAIM" : "DONE")
-//                            .font(.custom("Nunito-Bold", size: 18))
-//                            .bold()
-//                            .foregroundColor(.white)
-//                            .frame(maxWidth: .infinity, minHeight: 50)
-//                            .background(Color(red: 0.439, green: 0.298, blue: 1.0))
-//                            .cornerRadius(20)
-//                            .padding()
-//                    }
+
+                    if currTask.status == .unclaimed {
+                        Button(action: {
+                                taskViewModel.claimTask(task: currTask, user_id: authUser.id ?? "")
+                                taskViewModel.highlight(task_id: currTask.id ?? "0")
+                                self.presentationMode.wrappedValue.dismiss()
+
+                        }) {
+                            Text("CLAIM")
+                                .font(.custom("Nunito-Bold", size: 18))
+                                .bold()
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, minHeight: 50)
+                                .background(Color(red: 0.439, green: 0.298, blue: 1.0))
+                                .cornerRadius(20)
+                                .padding()
+                        }
+                    } else if (currTask.status == .inProgress && taskViewModel.isMyTask(task: currTask, user_id: authUser.user_id)) {
+                        Button(action: {
+                            showCamera = true
+                        }) {
+                            Text("DONE")
+                                .font(.custom("Nunito-Bold", size: 18))
+                                .bold()
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, minHeight: 50)
+                                .background(Color(red: 0.10, green: 0.85, blue: 0.23))
+                                .cornerRadius(20)
+                                .padding()
+                        }.fullScreenCover(isPresented: $showCamera) {
+                            AfterCameraView(image: $capturedImage, isPresented: $showCamera, onDismiss: {
+                                navigateToAddPostView = capturedImage != nil
+                            })
+                        }
+                        .onChange(of: capturedImage) { newImage in
+                            if newImage != nil && !showCamera {
+                                // Navigate to AddPostView only if a new image is captured and the camera view is not visible
+                                isAddPostViewActive = true
+                            }
+                        }
+                        .background(
+                            NavigationLink(destination: AddPostView(task: currTask, user: currUser, image: capturedImage), isActive: $navigateToAddPostView) {
+                                EmptyView()
+                            }
+                                .hidden()
+                        )
+                    }
                 }
                 
                 
