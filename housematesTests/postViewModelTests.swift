@@ -80,11 +80,11 @@ final class postViewModelTests: XCTestCase {
         )
         let testComment2 = Comment(
             text: "mock comment 2",
-            date_created: "10-12-2023 10:00 AM",
+            date_created: "10-12-2023 10:30 AM",
             created_by: testUser3
         )
-        let testReaction1 = Reaction(emoji: "❤️", created_by: testUser2, date_created: "10/10/2020")
-        let testReaction2 = Reaction(emoji: "😂", created_by: testUser3, date_created: "10/10/2020")
+        let testReaction1 = Reaction(emoji: "❤️", created_by: testUser2, date_created: "10-12-2023 11:00 AM")
+        let testReaction2 = Reaction(emoji: "😂", created_by: testUser3, date_created: "10-12-2023 11:30 AM")
         let testTask = task(name: "clean dishes", group_id:"2", description:"10 plates", status:task.Status.inProgress, recurrence:.none)
         let testPost = Post(
             id: "post1",
@@ -104,27 +104,28 @@ final class postViewModelTests: XCTestCase {
         viewModel.posts = [testPost]
 
         let activities = viewModel.getActivity(user: testUser1)
+        let newPostList = activities.0
+        let actionList = activities.1
 
-        XCTAssertFalse(activities.isEmpty, "Activities should not be empty")
         // first 2 should be comments
-        if let firstActivityComment = activities[0].1 as? Comment {
-            XCTAssertEqual(firstActivityComment.text, testComment1.text, "First activity should be testComment1")
+        if let firstActivityComment = actionList[actionList.count - 1] as? Comment {
+            XCTAssertEqual(firstActivityComment.text, testComment1.text, "first activity should be testComment1")
         } else {
             XCTFail("First activity should be a Comment")
         }
-        if let secondActivityComment = activities[1].1 as? Comment {
+        if let secondActivityComment = actionList[actionList.count - 2] as? Comment {
             XCTAssertEqual(secondActivityComment.text, testComment2.text, "Second activity should be testComment2")
         } else {
             XCTFail("Second activity should be a Comment")
         }
         
         //next 2 should be reactions
-        if let thirdActivityReaction = activities[2].1 as? Reaction {
+        if let thirdActivityReaction = actionList[actionList.count - 3] as? Reaction {
             XCTAssertEqual(thirdActivityReaction.emoji, testReaction1.emoji, "Third activity should be testReaction1")
         } else {
             XCTFail("Third activity should be a Reaction")
         }
-        if let fourthActivityReaction = activities[3].1 as? Reaction {
+        if let fourthActivityReaction = actionList[actionList.count - 4] as? Reaction {
             XCTAssertEqual(fourthActivityReaction.emoji, testReaction2.emoji, "Fourth activity should be testReaction2")
         } else {
             XCTFail("Fourth activity should be a Reaction")
