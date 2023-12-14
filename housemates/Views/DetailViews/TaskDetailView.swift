@@ -140,16 +140,16 @@ struct TaskDetailView: View {
                         .ignoresSafeArea()
                     }.ignoresSafeArea()
                     Spacer()
-                    if currTask.status == .unclaimed || (currTask.status == .inProgress && taskViewModel.isMyTask(task: currTask, user_id: authUser.user_id)) {
-                        Text(currTask.status == .unclaimed ? "CLAIM" : "DONE")
-                            .font(.custom("Nunito-Bold", size: 18))
-                            .bold()
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity, minHeight: 50)
-                            .background(Color(red: 0.439, green: 0.298, blue: 1.0))
-                            .cornerRadius(20)
-                            .padding()
-                    }
+//                    if currTask.status == .unclaimed || (currTask.status == .inProgress && taskViewModel.isMyTask(task: currTask, user_id: authUser.user_id)) {
+//                        Text(currTask.status == .unclaimed ? "CLAIM" : "DONE")
+//                            .font(.custom("Nunito-Bold", size: 18))
+//                            .bold()
+//                            .foregroundColor(.white)
+//                            .frame(maxWidth: .infinity, minHeight: 50)
+//                            .background(Color(red: 0.439, green: 0.298, blue: 1.0))
+//                            .cornerRadius(20)
+//                            .padding()
+//                    }
                 }
                 
                 
