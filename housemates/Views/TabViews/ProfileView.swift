@@ -50,7 +50,7 @@ struct ProfileView: View {
 
                             NewWave()
                                 .fill(deepPurple)
-                                .frame(height: UIScreen.main.bounds.height * 0.20)
+                                .frame(height: UIScreen.main.bounds.height * 0.13)
                             // MARK: End of Menu for Prolile Tab
 
                             // MARK: Menu for Prolile Tab
@@ -92,7 +92,7 @@ struct ProfileView: View {
                                     .frame(width: imageSize, height: imageSize)
                                     .clipShape(Circle())
                                     .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                                    .offset(y: UIScreen.main.bounds.height * 0.10)
+                                    .offset(x: -UIScreen.main.bounds.width * 0.32 ,y: UIScreen.main.bounds.height * 0.10)
                             } placeholder: {
                                 // Default user profile picture
                                 Circle()
@@ -111,8 +111,11 @@ struct ProfileView: View {
                                             .foregroundColor(.white)
                                     )
                                     .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                                    .offset(y: UIScreen.main.bounds.height * 0.10)
+                                    .offset(x: -UIScreen.main.bounds.width * 0.32 ,y: UIScreen.main.bounds.height * 0.10)
                             }
+                            
+                            
+
                         }
                         // MARK: End of second ZStack
                         
@@ -136,59 +139,89 @@ struct ProfileView: View {
                                     print("ERROR: Selecting image failed \(error.localizedDescription)")
                                 }
                             }
-                        }.offset(x: UIScreen.main.bounds.width * 0.10, y: UIScreen.main.bounds.height * 0.020)
+                        }.offset(x: -UIScreen.main.bounds.width * 0.23, y: UIScreen.main.bounds.height * 0.060)
 
                         
                         // MARK: Housemate name
-                        Text("\(user.first_name) \(user.last_name)")
-                            .font(.custom("Nunito-Bold", size: 26))
-                            .bold()
-                        
-                            .offset(y: componentOffset * 0.4)
-                        
-                        if let group_name = group_name {
-                            Text(group_name)
-                                .font(.custom("Lato", size: 21))
-                                .offset(y: componentOffset * 0.4)
-                        } else {
-                            Text("Group Name: N/A")
-                                .font(.custom("Lato", size: 21))
-                                .offset(y: componentOffset * 0.4)
-                        }
-                        
-                        // MARK: Task Card
-                        HStack(spacing: 45) {
+                        HStack {
                             VStack {
+                                Text("\(user.first_name) \(user.last_name)")
+                                    .font(.custom("Nunito-Bold", size: 26))
+                                    .bold()
+                                    .padding(.leading, 25)
+                                
+                                
+                                if let group_name = group_name {
+                                    Text(group_name)
+                                        .font(.custom("Nunito-Bold", size: 16))
+                                        .foregroundColor(deepPurple)
+                                        .padding(.trailing, 15)
+                                    
+                                } else {
+                                    Text("Group Name: N/A")
+                                        .font(.custom("Nunito-Bold", size: 16))
+                                        .foregroundColor(deepPurple)
+                                        .padding(.trailing, 15)
+
+                                }
+                            }
+                            Spacer()
+                        }.offset( y: UIScreen.main.bounds.height * 0.060)
+                        
+                      
+                        // MARK: Task Card
+                        HStack(spacing: 17) {
+                            VStack {
+                                Text("Completed")
+                                    .font(.custom("Nunito", size: 15))
+                                    .frame(minWidth: 55)
                                 Text("\(taskViewModel.getNumCompletedTasksForUser(user.user_id))")
                                     .font(.system(size: 32))
                                     .foregroundColor(deepPurple)
                                     .bold()
-                                Text("Completed")
-                                    .font(.custom("Lato", size: 15))
-                                    .frame(minWidth: 55)
+                                
                             }
-                            .padding(.leading, 50)
-                            .padding(.vertical, 25)
+                            
+                            Divider().frame(height: UIScreen.main.bounds.height * 0.07)
+                            
                             VStack {
+                                Text("Pending")
+                                    .font(.custom("Nunito", size: 15))
+                                    .frame(minWidth: 55)
                                 Text("\(taskViewModel.getNumPendingTasksForUser(user.user_id))")
                                     .foregroundColor(deepPurple)
                                     .font(.system(size: 32))
                                     .bold()
-                                Text("Pending")
-                                    .font(.custom("Lato", size: 15))
-                                    .frame(minWidth: 55)
+                               
                             }
-                            .padding(.trailing, 50)
-                            .padding(.vertical, 25)
-                        }.background(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.gray.opacity(0.5), lineWidth: 2)
-                        ).offset(y: componentOffset * 0.4)
-                        
+                           
+                        }.offset(x: UIScreen.main.bounds.width * 0.16, y: -componentOffset * 1.5)
                        
+                        let recentTasks = taskViewModel.getRecentCompletedTasksForUser(user.user_id)
+
                         
                         // MARK: Calendar Preview
                         VStack {
+                            if (!recentTasks.isEmpty) {
+                                
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    
+                                    HStack(spacing: 15){
+                                        ForEach(recentTasks) {task in
+                                            NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                                
+                                                taskCard(task: task, user: user)
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                Text("No Tasks Completed in Last 7 Days")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                    .font(.custom("Nunito", size: 15))
+                              
+                            }
+                            
                             HStack {
                                 Text("Your Activity")
                                     .font(.custom("Nunito-Bold", size: 21))
@@ -243,14 +276,15 @@ struct ProfileView: View {
                                      y: -UIScreen.main.bounds.height * 0.015)
                             
                             
-                        }.offset(y: componentOffset)
+                        }.offset(y: -componentOffset * 0.6)
                             .padding(.leading, 20)
                         
                         // MARK: END Calendar  Preview
-
+                        
                         
                         Spacer()
                     }.edgesIgnoringSafeArea(.top)
+
                     // MARK: End Vstack
                 
                 // MARK: END Zstack
