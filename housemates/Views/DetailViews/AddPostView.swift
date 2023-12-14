@@ -118,6 +118,7 @@ struct AddPostView: View {
                 await postViewModel.sharePost(user: user, task: task, image: uiImage, caption: caption)
             }
         }
+        tabBarViewModel.counter += 1
         tabBarViewModel.selectedTab = 0
         tabBarViewModel.showAddPostBanner = true
         presentationMode.wrappedValue.dismiss()

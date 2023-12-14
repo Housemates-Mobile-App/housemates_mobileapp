@@ -166,6 +166,7 @@
 		8AF966A12B2516A9006A44BF /* FriendInfoDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF966A02B2516A9006A44BF /* FriendInfoDataRepository.swift */; };
 		8AF966A32B251933006A44BF /* FriendInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF966A22B251933006A44BF /* FriendInfoViewModel.swift */; };
 		8AFFBF252B2AB16600847C3D /* CalendarPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFFBF242B2AB16600847C3D /* CalendarPostView.swift */; };
+		8AFFBF282B2AE7BD00847C3D /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8AFFBF272B2AE7BD00847C3D /* ConfettiSwiftUI */; };
 		AD7F57F12B1FF26E0023D476 /* BeforeCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7F57F02B1FF26E0023D476 /* BeforeCameraView.swift */; };
 		AD7F57F52B1FF8130023D476 /* AfterCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7F57F42B1FF8130023D476 /* AfterCameraView.swift */; };
 		AD95E0E02B168AD700577DAB /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD95E0DF2B168AD700577DAB /* CameraView.swift */; };
@@ -356,6 +357,7 @@
 				8AD6ED382AF1991F006B56B6 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				8AD6ED362AF1991F006B56B6 /* FirebaseFirestore in Frameworks */,
 				8A6AD4EF2AFB534400A6DF85 /* FirebaseStorage in Frameworks */,
+				8AFFBF282B2AE7BD00847C3D /* ConfettiSwiftUI in Frameworks */,
 				8A6AD4E92AFB534400A6DF85 /* FirebaseFirestore in Frameworks */,
 				8AA3B8E52AF9D4680064CFD6 /* FirebasePerformance in Frameworks */,
 				8AA3B8D72AF9D4680064CFD6 /* FirebaseFunctions in Frameworks */,
@@ -737,6 +739,7 @@
 				81E659F52B08852E00B77EE4 /* SlidingTabView */,
 				8A61D96E2B1DC318003A3494 /* MCEmojiPicker */,
 				8A02F5FD2B1FF854002341C7 /* CachedAsyncImage */,
+				8AFFBF272B2AE7BD00847C3D /* ConfettiSwiftUI */,
 			);
 			productName = housemates;
 			productReference = 8AD6ED052AF1969C006B56B6 /* housemates.app */;
@@ -777,6 +780,7 @@
 				81E659F42B08852E00B77EE4 /* XCRemoteSwiftPackageReference "SlidingTabView" */,
 				8A61D96D2B1DC318003A3494 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
 				8A02F5FC2B1FF854002341C7 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				8AFFBF262B2AE7BD00847C3D /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 			);
 			productRefGroup = 8AD6ED062AF1969C006B56B6 /* Products */;
 			projectDirPath = "";
@@ -1108,7 +1112,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = H9CQ7WA25J;
+				DEVELOPMENT_TEAM = 79WMU8S839;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -1126,7 +1130,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates1";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1142,7 +1146,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"housemates/Preview Content\"";
-				DEVELOPMENT_TEAM = H9CQ7WA25J;
+				DEVELOPMENT_TEAM = 79WMU8S839;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = housemates/Info.plist;
@@ -1160,7 +1164,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates1";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobile-apps.housemates";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1247,6 +1251,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 10.17.0;
+			};
+		};
+		8AFFBF262B2AE7BD00847C3D /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1546,6 +1558,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8AD6ED2C2AF1991F006B56B6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		8AFFBF272B2AE7BD00847C3D /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8AFFBF262B2AE7BD00847C3D /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
