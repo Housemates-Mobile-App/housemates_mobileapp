@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CalendarView: View {
+struct TaskCalendarView: View {
     @EnvironmentObject var weekStore: WeekStore
     
 //    let distantPastDate = Calendar.current.date(byAdding: .year, value: -10, to: Date()) ?? Date()
@@ -62,8 +62,8 @@ struct CalendarView: View {
     }
 }
 
-//struct CalendarView_Previews: PreviewProvider {
+//struct TaskCalendarView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        CalendarView()
+//        TaskCalendarView()
 //    }
 //}

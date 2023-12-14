@@ -96,7 +96,7 @@ struct TaskBoardView: View {
 //            Text("Pseudo Selected Date: \(weekStore.pseudoSelectedDate.formatted())")
 
     VStack(spacing: 0) {
-        CalendarView()
+        TaskCalendarView()
         taskSections(user: user, selectedDate: weekStore.selectedDate)
     }
             
