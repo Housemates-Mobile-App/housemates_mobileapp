@@ -149,7 +149,7 @@ struct PostDetailView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 25, height: 25)
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                     }
                     .padding(.trailing)
                 }
