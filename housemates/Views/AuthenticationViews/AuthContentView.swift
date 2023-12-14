@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ConfettiSwiftUI
 
 struct AuthContentView: View {
     @State var selected = 0
@@ -51,6 +52,7 @@ struct AuthContentView: View {
 
             }
         }
+        .confettiCannon(counter: $tabBarViewModel.counter, num: 55)
         .banner(data: $addTaskBanner, show: $tabBarViewModel.showAddTaskBanner)
         .banner(data: $editTaskBanner, show: $tabBarViewModel.showEditTaskBanner)
         .banner(data: $addPostBanner, show: $tabBarViewModel.showAddPostBanner)
