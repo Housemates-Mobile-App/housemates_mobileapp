@@ -1,4 +1,4 @@
-# Housemates
+# Housemates: Team 6
 Swift Mobile Application for housekeeping efficiency, collaboration, and organization.
 
 Housemates is a way for people of the same living space, whther roomates, family, or large living communities to organized chores and tasks.
