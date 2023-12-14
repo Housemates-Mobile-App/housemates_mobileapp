@@ -32,3 +32,13 @@ class GroupViewModel: ObservableObject {
         return filteredGroup.first
     }
 }
+
+extension GroupViewModel {
+    static func mock() -> GroupViewModel {
+        let mockGroup = Group(id: "wwyqNgGYFXMCpMcr9jvI", address: "909 Forbes Ave", name: "Hype House", code: "1423")
+        let mockGroupViewModel = GroupViewModel()
+        let mockGroups = [mockGroup]
+        mockGroupViewModel.groups = mockGroups
+        return mockGroupViewModel
+    }
+}

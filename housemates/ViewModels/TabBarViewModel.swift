@@ -14,6 +14,7 @@ class TabBarViewModel: ObservableObject {
     @Published var showEditTaskBanner: Bool = false
     @Published var showAddPostBanner: Bool = false
     @Published var selectedTab: Int = 0
+    @Published var counter: Int = 0
 
 }
 

@@ -73,7 +73,7 @@ struct PostRowView: View {
                                 )
                                 .frame(width: 35, height: 35)
                                 .overlay(
-                                  Text("\(user.first_name.prefix(1).capitalized+user.last_name.prefix(1).capitalized)")
+                                    Text("\(post.created_by.first_name.prefix(1).capitalized+post.created_by.last_name.prefix(1).capitalized)")
                                   
                                       .font(.custom("Nunito-Bold", size: 17))
                                       .foregroundColor(.white)
