@@ -177,6 +177,7 @@
 		C16325C92B2A936E0078C88A /* Week.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16325C82B2A936E0078C88A /* Week.swift */; };
 		C16325CD2B2A95770078C88A /* WeeksTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16325CC2B2A95770078C88A /* WeeksTabView.swift */; };
 		C16325CF2B2A95830078C88A /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16325CE2B2A95830078C88A /* WeekView.swift */; };
+		C16325D22B2AEC6A0078C88A /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16325D12B2AEC6A0078C88A /* DateExtensions.swift */; };
 		C16775062B22ABB9000076F2 /* taskViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16775052B22ABB9000076F2 /* taskViewModelTests.swift */; };
 		C16775082B22B00A000076F2 /* userViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16775072B22B00A000076F2 /* userViewModelTests.swift */; };
 		C167750A2B22C459000076F2 /* postViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16775092B22C459000076F2 /* postViewModelTests.swift */; };
@@ -311,6 +312,7 @@
 		C16325C82B2A936E0078C88A /* Week.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Week.swift; sourceTree = "<group>"; };
 		C16325CC2B2A95770078C88A /* WeeksTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeksTabView.swift; sourceTree = "<group>"; };
 		C16325CE2B2A95830078C88A /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
+		C16325D12B2AEC6A0078C88A /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		C16775052B22ABB9000076F2 /* taskViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskViewModelTests.swift; sourceTree = "<group>"; };
 		C16775072B22B00A000076F2 /* userViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userViewModelTests.swift; sourceTree = "<group>"; };
 		C16775092B22C459000076F2 /* postViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postViewModelTests.swift; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 		8AD6ED072AF1969C006B56B6 /* housemates */ = {
 			isa = PBXGroup;
 			children = (
+				C16325D02B2AEC5B0078C88A /* Extensions */,
 				81E9ED542B05F09400A258A8 /* Font */,
 				8AD6ED272AF197F3006B56B6 /* DataRepositories */,
 				8AD6ED1B2AF19738006B56B6 /* ViewModels */,
@@ -642,6 +645,14 @@
 				8AF966A02B2516A9006A44BF /* FriendInfoDataRepository.swift */,
 			);
 			path = DataRepositories;
+			sourceTree = "<group>";
+		};
+		C16325D02B2AEC5B0078C88A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C16325D12B2AEC6A0078C88A /* DateExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C171E1F72B1E403400AE41EC /* Shapes */ = {
@@ -929,6 +940,7 @@
 				8AE1F98F2B1ED3CC00D4C0F6 /* TabBarViewModel.swift in Sources */,
 				8AE8FF952AF41101003AD997 /* LoginView.swift in Sources */,
 				51802D952B08CE8A00B4EE9A /* PasswordView.swift in Sources */,
+				C16325D22B2AEC6A0078C88A /* DateExtensions.swift in Sources */,
 				5125D3352B016C4C00E9E623 /* HousemateProfileButton.swift in Sources */,
 				8AE8FFA32AF41F47003AD997 /* TaskBoardView.swift in Sources */,
 				8AE8FF992AF4113B003AD997 /* AuthContentView.swift in Sources */,

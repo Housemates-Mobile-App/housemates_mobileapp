@@ -17,7 +17,7 @@ struct WeekView: View {
             ForEach(0..<7) { i in
                 ZStack {
                     RoundedRectangle(cornerRadius: 15)
-                        .fill(week.dates[i] == week.referenceDate ? (week.referenceDate.isSameDay(as: Date()) ? Color(red: 0.439, green: 0.298, blue: 1.0) : Color(red: 0.725, green: 0.631, blue: 1.0)) : .clear)
+                        .fill(weekStore.selectedDate == nil ? .clear : (week.dates[i] == week.referenceDate ? Color(red: 0.439, green: 0.298, blue: 1.0) : .clear))
                         .frame(height: 69)
 //                        .overlay(RoundedRectangle(cornerRadius: 15)
 //                            .stroke(week.dates[i].isSameDay(as: Date()) ? Color(red: 0.439, green: 0.298, blue: 1.0).opacity(0.7) : .gray.opacity(0.7))
@@ -28,13 +28,13 @@ struct WeekView: View {
                         VStack(spacing: 0) {
                             Text(week.dates[i].toString(format: "EEE"))
                                 .font(.custom("Nunito", size: 14))
-                                .foregroundColor(week.dates[i] == week.referenceDate ? .white : .gray)
+                                .foregroundColor(weekStore.selectedDate == nil ? .gray : (week.dates[i] == week.referenceDate ? .white : .gray))
                                 .frame(maxWidth: .infinity)
                             
                             Text(week.dates[i].toString(format: "d"))
                                 .font(.custom("Nunito-Bold", size: 14))
                                 .frame(maxWidth: .infinity)
-                                .foregroundColor(week.dates[i] == week.referenceDate ? .white : (week.dates[i].isSameDay(as: Date()) ? .accentColor : .black))
+                                .foregroundColor(determineTextColorDate(for: week.dates[i], with: week.referenceDate))
                         }
                         Circle()
                             .fill(taskViewModel.hasTasksDueAndNotDone(date: week.dates[i]) ? Color.yellow : Color.clear)
@@ -43,7 +43,13 @@ struct WeekView: View {
                     }
                 }.onTapGesture {
                     withAnimation {
-                        weekStore.selectedDate = week.dates[i]
+                        if weekStore.selectedDate == nil || weekStore.selectedDate != week.dates[i] {
+                            weekStore.selectedDate = week.dates[i]
+                            weekStore.pseudoSelectedDate = weekStore.startOfWeek(for: week.dates[i])
+                        } else {
+                            weekStore.pseudoSelectedDate = weekStore.startOfWeek(for: weekStore.selectedDate!)
+                            weekStore.selectedDate = nil
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity)
@@ -51,43 +57,15 @@ struct WeekView: View {
         }
         .padding()
     }
-}
-
-extension Date {
-    func monthToString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "LLLL"
-        return dateFormatter.string(from: self)
-    }
-
-    func toString(format: String) -> String {
-        let formatter = DateFormatter()
-        formatter.calendar = Calendar.current
-        formatter.dateFormat = format
-
-        return formatter.string(from: self)
-    }
-
-    var yesterday: Date {
-        Calendar.current.date(byAdding: .day, value: -1, to: self)!
-    }
-
-    var tomorrow: Date {
-        Calendar.current.date(byAdding: .day, value: 1, to: self)!
-    }
-
-    private func isEqual(to date: Date, toGranularity component: Calendar.Component, in calendar: Calendar = .current) -> Bool {
-        var customCalendar = Calendar(identifier: .gregorian)
-        customCalendar.firstWeekday = 2
-
-        return customCalendar.isDate(self, equalTo: date, toGranularity: component)
-    }
-
-    func isInSameWeek(as date: Date) -> Bool {
-        isEqual(to: date, toGranularity: .weekOfYear)
-    }
-
-    func isInSameDay(as date: Date) -> Bool {
-        isEqual(to: date, toGranularity: .day)
+    func determineTextColorDate(for date: Date, with referenceDate: Date) -> Color {
+        if date == referenceDate && weekStore.selectedDate != nil {
+            return .white
+        }
+        if date.isSameDay(as: Date()) {
+            return .accentColor
+        } else {
+            return .black
+        }
     }
 }
+

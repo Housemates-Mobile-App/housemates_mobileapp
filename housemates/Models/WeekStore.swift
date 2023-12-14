@@ -14,15 +14,33 @@ enum TimeDirection {
 
 class WeekStore: ObservableObject {
     @Published var weeks: [Week] = []
-    @Published var selectedDate: Date {
+    @Published var selectedDate: Date? {
         didSet {
-            calcWeeks(with: selectedDate)
+            updateWeeks()
         }
     }
+    
+    var pseudoSelectedDate: Date
 
     init(with date: Date = Date()) {
-        self.selectedDate = Calendar.current.startOfDay(for: date)
-        calcWeeks(with: selectedDate)
+//        self.selectedDate = Calendar.current.startOfDay(for: date)
+//        calcWeeks(with: selectedDate)
+        pseudoSelectedDate = Calendar.current.startOfDay(for: Date())
+        updateWeeks()
+    }
+    
+    func startOfWeek(for date: Date) -> Date {
+        guard let startOfWeek = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date)) else {
+            return date
+        }
+        return startOfWeek
+    }
+    
+    private func updateWeeks() {
+        // use selectedDate if available, elsee fall back to pseudoSelectedDate
+        pseudoSelectedDate = startOfWeek(for:pseudoSelectedDate)
+        let date = selectedDate ?? pseudoSelectedDate
+        calcWeeks(with: date)
     }
 
     private func calcWeeks(with date: Date) {
@@ -58,15 +76,23 @@ class WeekStore: ObservableObject {
     func update(to direction: TimeDirection) {
         switch direction {
         case .future:
-            selectedDate = Calendar.current.date(byAdding: .day, value: 7, to: selectedDate)!
-
+            if selectedDate != nil {
+                selectedDate = Calendar.current.date(byAdding: .day, value: 7, to: selectedDate!)!
+                pseudoSelectedDate = startOfWeek(for:selectedDate!)
+            } else {
+                pseudoSelectedDate = Calendar.current.date(byAdding: .day, value: 7, to: pseudoSelectedDate)!
+            }
         case .past:
-            selectedDate = Calendar.current.date(byAdding: .day, value: -7, to: selectedDate)!
-
+            if selectedDate != nil {
+                selectedDate = Calendar.current.date(byAdding: .day, value: -7, to: selectedDate!)!
+                pseudoSelectedDate = startOfWeek(for:selectedDate!)
+            } else {
+                pseudoSelectedDate = Calendar.current.date(byAdding: .day, value: -7, to: pseudoSelectedDate)!
+            }
         case .unknown:
             selectedDate = selectedDate
+            pseudoSelectedDate = startOfWeek(for:selectedDate!)
         }
-
-        calcWeeks(with: selectedDate)
+        updateWeeks()
     }
 }

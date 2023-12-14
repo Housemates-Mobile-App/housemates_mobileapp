@@ -7,7 +7,7 @@ struct CalendarView: View {
     
     var body: some View {
         VStack(spacing: 15) {
-            HeaderView(selectedDate: $weekStore.selectedDate).padding(.leading)
+            HeaderView(dateBinding: dateBinding).padding(.leading)
             WeeksTabView { week in
                 WeekView(week: week)
             }.frame(height: 70, alignment: .top)
@@ -15,27 +15,34 @@ struct CalendarView: View {
         }
     }
     
+    private var dateBinding: Binding<Date> {
+        Binding<Date>(
+            get: { weekStore.selectedDate ?? weekStore.pseudoSelectedDate },
+            set: { weekStore.selectedDate = $0 }
+        )
+    }
+    
     struct HeaderView: View {
         @EnvironmentObject var weekStore: WeekStore
-        @Binding var selectedDate: Date
+        var dateBinding: Binding<Date>
 
         var body: some View {
-            let monthYearComponents = selectedDate.monthYearString.components(separatedBy: " ")
+            let monthYearComponents = dateBinding.wrappedValue.monthYearString.components(separatedBy: " ")
             HStack (spacing: 5){
                 Text(monthYearComponents.first?.prefix(3) ?? "")
-                    .font(.custom("Nunito-Bold", size: 20))
+                    .font(.custom("Nunito-Bold", size: 14))
                     .foregroundColor(Color.black)
                     Text(monthYearComponents.last ?? "") // Year
-                        .font(.custom("Nunito-Bold", size: 20))
-                        .foregroundColor(Color.black)
+                        .font(.custom("Nunito-Bold", size: 14))
+                        .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
                     
                     Image(systemName: "chevron.down")
                         .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                        .font(.system(size: 20))
+                        .font(.system(size: 14))
                         .overlay{
                             DatePicker(
                                 "",
-                                selection: $weekStore.selectedDate,
+                                selection: dateBinding,
                                 displayedComponents: [.date]
                             )
                             .blendMode(.destinationOver)
@@ -52,19 +59,6 @@ struct CalendarView: View {
                 Spacer()
             }
         }
-    }
-}
-
-extension Date {
-    var monthYearString: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM yyyy"
-        return dateFormatter.string(from: self)
-    }
-    
-    func isSameDay(as date: Date) -> Bool {
-        let calendar = Calendar.current
-        return calendar.isDate(self, inSameDayAs: date)
     }
 }
 

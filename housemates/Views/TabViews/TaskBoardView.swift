@@ -7,9 +7,6 @@ struct TaskBoardView: View {
     @EnvironmentObject var weekStore: WeekStore
 //    @State private var selected: String = "All Tasks"
     @State private var isAnimating = false
-    @State private var selectedDate : Date? = nil
-    @State private var showingDatePicker = false
-    @State private var selectedTab = 0
     
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     private var unknownDate = Date.distantPast
@@ -92,16 +89,17 @@ struct TaskBoardView: View {
     // Main Content Section
     private func mainContent(user: User) -> some View {
         VStack {
-            CustomTabBarNew(selectedTab: $selectedTab)
-            if selectedTab == 0 {
-                taskSections(user: user, selectedDate: nil)
-            }
-            if selectedTab == 1 {
-                VStack(spacing: 0) {
-                    CalendarView()
-                    taskSections(user: user, selectedDate: weekStore.selectedDate)
-                }
-            }
+//            // Debugging selectedDate
+//            Text("Selected Date: \(weekStore.selectedDate?.formatted() ?? "nil")")
+//            
+//            // Debugging pseudoSelectedDate
+//            Text("Pseudo Selected Date: \(weekStore.pseudoSelectedDate.formatted())")
+
+    VStack(spacing: 0) {
+        CalendarView()
+        taskSections(user: user, selectedDate: weekStore.selectedDate)
+    }
+            
         }
       }
 
@@ -124,20 +122,20 @@ struct TaskBoardView: View {
       let inProgressTasksForOtherUsers = inProgressTasksSorted.filter { $0.user_id != user.user_id }
         
       // filtering by date if necessary
-    let filteredUnclaimedTasks = selectedDate != nil ?
-        unclaimedTasks.filter { $0.date_due!.isSameDay(as: selectedDate!) } :
+        let filteredUnclaimedTasks = weekStore.selectedDate != nil ?
+        unclaimedTasks.filter { $0.date_due!.isSameDay(as: weekStore.selectedDate!) } :
             unclaimedTasks
         
-    let filteredInProgressTasksForCurrentUser = selectedDate != nil ?
-        inProgressTasksForCurrentUser.filter { $0.date_due!.isSameDay(as: selectedDate!) } :
+    let filteredInProgressTasksForCurrentUser = weekStore.selectedDate != nil ?
+        inProgressTasksForCurrentUser.filter { $0.date_due!.isSameDay(as: weekStore.selectedDate!) } :
         inProgressTasksForCurrentUser
         
-    let filteredInProgressTasksForOtherUsers = selectedDate != nil ?
-        inProgressTasksForOtherUsers.filter { $0.date_due!.isSameDay(as: selectedDate!) } :
+    let filteredInProgressTasksForOtherUsers = weekStore.selectedDate != nil ?
+        inProgressTasksForOtherUsers.filter { $0.date_due!.isSameDay(as: weekStore.selectedDate!) } :
         inProgressTasksForOtherUsers
         
-    let filteredCompletedTasks = selectedDate != nil ?
-        completedTasks.filter { getFullDate(dateStr: $0.date_completed ?? "")!.isSameDay(as: selectedDate!) } :
+    let filteredCompletedTasks = weekStore.selectedDate != nil ?
+        completedTasks.filter { getFullDate(dateStr: $0.date_completed ?? "")!.isSameDay(as: weekStore.selectedDate!) } :
         completedTasks
       
       
@@ -215,7 +213,7 @@ struct TaskBoardView: View {
                       .listRowSeparator(.hidden)
               }
               else {
-                  if selectedDate == nil {
+                  if weekStore.selectedDate == nil {
                       ForEach (convertCompletedList(completedList: filteredCompletedTasks), id: \.0) { date, tasks in
                           HStack {
                               Text(convertDateToStr(date: date)).font(.custom("Lato-Regular", size: 12))
@@ -393,54 +391,6 @@ struct TaskBoardView: View {
             dateFormatter.dateFormat = "EEEE, MMM d"
             return dateFormatter.string(from: date)
         }
-    }
-}
-
-//reference: https://www.youtube.com/watch?v=Zv1jw__VKTo&ab_channel=Kavsoft
-struct CustomTabBarNew : View {
-    
-    @Binding var selectedTab : Int
-    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
-    var body : some View{
-        
-        HStack{
-            
-            Button(action: {
-                
-                self.selectedTab = 0
-                
-            }) {
-                
-              Image(systemName: "blinds.horizontal.closed")
-                    .resizable()
-                    .frame(width: 20, height: 20)
-                    .padding(.vertical,10)
-                    .padding(.horizontal,25)
-                    .background(self.selectedTab == 0 ? Color(UIColor.systemBackground).opacity(0.9) : Color.clear)
-                    .clipShape(Capsule())
-            }
-            .foregroundColor(self.selectedTab == 0 ? deepPurple : .gray.opacity(0.5))
-            
-            Button(action: {
-                
-                self.selectedTab = 1
-                
-            }) {
-                
-              Image(systemName: "roller.shade.open")
-                .resizable()
-                .frame(width: 20, height: 20)
-                .padding(.vertical,10)
-                .padding(.horizontal,25)
-                .background(self.selectedTab == 1 ? Color(UIColor.systemBackground).opacity(0.9) : Color.clear)
-                .clipShape(Capsule())
-            }
-            .foregroundColor(self.selectedTab == 1 ? deepPurple : .gray.opacity(0.5))
-            
-            }.padding(8)
-        .background(.gray.opacity(0.1))
-            .clipShape(Capsule())
-            
     }
 }
 
