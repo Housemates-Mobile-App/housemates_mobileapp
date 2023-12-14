@@ -138,7 +138,7 @@ struct BottomBar: View {
 //                    })
                 }) {
                     Image(systemName: "list.bullet.clipboard")
-                        .font(.system(size: 18))
+                        .font(.system(size: 19))
                         .offset(y: 15)
                 }.foregroundColor(self.selected == 1 ? Color(red: 0.439, green: 0.298, blue: 1.0) : .gray)
             }

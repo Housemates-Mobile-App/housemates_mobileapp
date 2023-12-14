@@ -137,6 +137,8 @@ struct CalendarView: View {
 
 struct SmallSquareCalendar: View {
     @EnvironmentObject var postViewModel: PostViewModel
+    @State private var isPopoverPresented = false
+
     let date: Date
     let user: User
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
@@ -156,22 +158,22 @@ struct SmallSquareCalendar: View {
                 ZStack {
                     if let afterImageURL = post?.afterImageURL,
                        let afterPostURL = URL(string: afterImageURL) {
-                        NavigationLink(destination: PostDetailView(post: post!, user: user)) {
+                        
                             
-                            CachedAsyncImage(url: afterPostURL) { image in
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: UIScreen.main.bounds.width * 0.1, height:  UIScreen.main.bounds.height * 0.0675)
-                                    .cornerRadius(6)
-                                //                                .overlay(Color.black.opacity(0.35).clipShape(RoundedRectangle(cornerRadius: 25))) // Adjust opacity as needed
-                            } placeholder: {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: .gray))
-                                    .frame(width: UIScreen.main.bounds.width * 0.1, height:  UIScreen.main.bounds.height * 0.0675)
-                                    .cornerRadius(6)
-                            }
+                        CachedAsyncImage(url: afterPostURL) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: UIScreen.main.bounds.width * 0.1, height:  UIScreen.main.bounds.height * 0.0675)
+                                .cornerRadius(6)
+                            //                                .overlay(Color.black.opacity(0.35).clipShape(RoundedRectangle(cornerRadius: 25))) // Adjust opacity as needed
+                        } placeholder: {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: .gray))
+                                .frame(width: UIScreen.main.bounds.width * 0.1, height:  UIScreen.main.bounds.height * 0.0675)
+                                .cornerRadius(6)
                         }
+                        
                     }
                    if isToday {
                        Circle()
@@ -184,6 +186,16 @@ struct SmallSquareCalendar: View {
                }
                
             )
+            .onTapGesture {
+                isPopoverPresented = true
+            }
+            .popover(isPresented: $isPopoverPresented) {
+                // Add your fullscreen content here
+                if let shownPost = post {
+                    CalendarPostView(isPresented: $isPopoverPresented, post: shownPost, user: user)
+                        .presentationCompactAdaptation(.fullScreenCover)
+                }
+            }
     }
 }
 

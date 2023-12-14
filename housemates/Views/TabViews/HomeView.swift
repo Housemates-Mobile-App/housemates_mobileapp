@@ -38,7 +38,7 @@ struct HomeView: View {
             NavigationStack {
                 VStack {
                     // MARK: Vertical Scroll View
-                    ScrollView(.vertical) {
+                    ScrollView(.vertical, showsIndicators: false) {
                         
                         // MARK: Horizontal Housemates Scroll View
                         ScrollView(.horizontal, showsIndicators: false) {

@@ -104,37 +104,67 @@ struct HousemateProfileView: View {
                         .stroke(Color.gray.opacity(0.5), lineWidth: 2)
                 ).offset(y: componentOffset * 1.15)
                 
-                VStack(spacing: 10){
+                // MARK: Calendar Preview
+                VStack {
                     HStack {
-                      
-                        Text("Recent Activity")
-                            .font(.custom("Nunito-Bold", size: 22))
+                        Text("\(housemate.first_name)'s Activity")
+                            .font(.custom("Nunito-Bold", size: 21))
                             .bold()
                         Spacer()
                     }
-                    
-                    if (!recentTasks.isEmpty) {
+                    ZStack(alignment: .topLeading) {
+                        RoundedRectangle(cornerRadius: 16)
+                        //                                .foregroundColor(deepPurple.opacity(0.6))
+                            .stroke(Color.gray.opacity(0.5), lineWidth: 2)
+                            .frame(width: UIScreen.main.bounds.width * 0.90,
+                                   height: UIScreen.main.bounds.height * 0.28)
                         
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            
-                            HStack {
-                                ForEach(recentTasks) {task in
-                                    NavigationLink(destination: TaskDetailView(currUser: housemate, currTask:task)) {
-                                        
-                                        taskCard(task: task, user: housemate)
-                                    }
-                                }
+                        Text("Last 14 Days").padding()
+                            .font(.custom("Nunito-Bold", size: 17))
+                            .foregroundColor(.black)
+                            .offset(y: -4)
+                        
+                        // cells for two weeks ago
+                        HStack(spacing: 5) {
+                            ForEach((0..<7).reversed(), id: \.self) { dayIndex in
+                                SmallSquare(dayOffset: dayIndex + 7, user: housemate)
+
                             }
                         }
-                    } else {
-                        Text("No Tasks Completed in Last 7 Days")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                            .font(.custom("Nunito", size: 15))
-                      
-                    }
-                }.offset(y: componentOffset * 1.30)
-                 .padding(.leading, 35)
+                        .offset(x: componentOffset * 0.2, y: componentOffset * 0.80)
+                        
+                        // cells for one week ago
+                        HStack(spacing: 5) {
+                            ForEach((0..<7).reversed(), id: \.self) { dayIndex in
+                                SmallSquare(dayOffset: dayIndex, user: housemate)
+                            }
+                        }
+                        .offset(x: componentOffset * 0.2, y: componentOffset * 2)
+                        
+                        // View all activity button
+                        NavigationLink(destination: CalendarView( user: housemate)) {
+                            
+                            Text("View All")
+                                .font(.custom("Lato-Bold", size: 16))
+                                .foregroundColor(.black)
+                                .padding(.all, 9)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.black, lineWidth: 1)
+                                )
+                        }.offset(x: UIScreen.main.bounds.width / 2.85, y: componentOffset * 3.4)
+                        
+                        
+                        
+                    }.offset(x: -UIScreen.main.bounds.width * 0.03,
+                             y: -UIScreen.main.bounds.height * 0.015)
+                    
+                    
+                }.offset(y: componentOffset * 1.60)
+                    .padding(.leading, 20)
                 
+                // MARK: END Calendar  Preview
+
                 Spacer()
             }.edgesIgnoringSafeArea(.top)
     }.navigationBarBackButtonHidden(true)

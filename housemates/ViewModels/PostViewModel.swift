@@ -280,6 +280,24 @@ class PostViewModel: ObservableObject {
         return self.posts.filter{ $0.created_by.user_id == user.user_id}
     }
     
+    func getSortedPostsForUser(user: User) -> [Post] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM.dd.yy h:mm a"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        return self.posts
+            .filter { $0.created_by.user_id == user.user_id}
+            .sorted { post1, post2 in
+              
+             
+              guard let date1 = formatter.date(from: post1.task.date_completed ?? "01.01.00 12:00 AM"),
+                    let date2 = formatter.date(from: post2.task.date_completed ?? "01.01.00 12:00 AM")
+              else {
+                  return false
+                }
+                return date1 > date2
+            }
+    }
     func getUserPostForDay(user: User, date: Date) -> Post? {
         let UserPosts = getPostsForUser(user: user)
         if posts.isEmpty {

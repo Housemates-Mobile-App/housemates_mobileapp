@@ -35,6 +35,7 @@ struct ProfileView: View {
     @State private var selectedPhoto:  PhotosPickerItem?
     @State private var uiImageSelected = UIImage()
     @State private var activeAlert: ActiveAlert?
+
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     
     var body: some View {
@@ -43,14 +44,16 @@ struct ProfileView: View {
         if let user = authViewModel.currentUser {
             NavigationStack {
                 ZStack {
-                    
-                    // MARK: Wave Background
                     VStack {
                         ZStack {
+                            // MARK: Wave Background
+
                             NewWave()
                                 .fill(deepPurple)
                                 .frame(height: UIScreen.main.bounds.height * 0.20)
-                            
+                            // MARK: End of Menu for Prolile Tab
+
+                            // MARK: Menu for Prolile Tab
                             HStack {
                                 Spacer()
                                 Menu {
@@ -77,7 +80,8 @@ struct ProfileView: View {
                                 }
                                 
                             }
-                            
+                            // MARK: End of Menu for Prolile Tab
+
                             
                             let imageURL = URL(string: user.imageURLString ?? "")
                             
@@ -110,6 +114,7 @@ struct ProfileView: View {
                                     .offset(y: UIScreen.main.bounds.height * 0.10)
                             }
                         }
+                        // MARK: End of second ZStack
                         
                         // MARK: Photo picker for changing profile picture
                         PhotosPicker(selection: $selectedPhoto,
@@ -180,9 +185,9 @@ struct ProfileView: View {
                                 .stroke(Color.gray.opacity(0.5), lineWidth: 2)
                         ).offset(y: componentOffset * 0.4)
                         
-                        // MARK: Calendar Preview
+                       
                         
-                        // MARK Calendar header
+                        // MARK: Calendar Preview
                         VStack {
                             HStack {
                                 Text("Your Activity")
@@ -202,15 +207,16 @@ struct ProfileView: View {
                                     .foregroundColor(.black)
                                     .offset(y: -4)
                                 
-                                // two weeks ago
+                                // cells for two weeks ago
                                 HStack(spacing: 5) {
                                     ForEach((0..<7).reversed(), id: \.self) { dayIndex in
                                         SmallSquare(dayOffset: dayIndex + 7, user: user)
+
                                     }
                                 }
                                 .offset(x: componentOffset * 0.2, y: componentOffset * 0.80)
                                 
-                                // One week ago
+                                // cells for one week ago
                                 HStack(spacing: 5) {
                                     ForEach((0..<7).reversed(), id: \.self) { dayIndex in
                                         SmallSquare(dayOffset: dayIndex, user: user)
@@ -221,7 +227,7 @@ struct ProfileView: View {
                                 // View all activity button
                                 NavigationLink(destination: CalendarView( user: user)) {
                                     
-                                    Text("View All my Activity")
+                                    Text("View All")
                                         .font(.custom("Lato-Bold", size: 16))
                                         .foregroundColor(.black)
                                         .padding(.all, 9)
@@ -229,7 +235,7 @@ struct ProfileView: View {
                                             RoundedRectangle(cornerRadius: 12)
                                                 .stroke(Color.black, lineWidth: 1)
                                         )
-                                }.offset(x: UIScreen.main.bounds.width / 4, y: componentOffset * 3.4)
+                                }.offset(x: UIScreen.main.bounds.width / 2.85, y: componentOffset * 3.4)
                                 
                                 
                                 
@@ -240,11 +246,15 @@ struct ProfileView: View {
                         }.offset(y: componentOffset)
                             .padding(.leading, 20)
                         
-                        
+                        // MARK: END Calendar  Preview
+
                         
                         Spacer()
                     }.edgesIgnoringSafeArea(.top)
-                    
+                    // MARK: End Vstack
+                
+                // MARK: END Zstack
+
                 }.onAppear {
                     group = groupViewModel.getGroupByID(user.group_id!)
                     group_name = group?.name
@@ -289,8 +299,11 @@ struct ProfileView: View {
     }
 }
 
+
 struct SmallSquare: View {
     @EnvironmentObject var postViewModel: PostViewModel
+    @State private var isPopoverPresented = false
+
     let dayOffset: Int
     let user: User
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
@@ -311,7 +324,6 @@ struct SmallSquare: View {
                 ZStack {
                     if let afterImageURL = post?.afterImageURL,
                        let afterPostURL = URL(string: afterImageURL) {
-                        NavigationLink(destination: PostDetailView(post: post!, user: user)) {
                             
                             CachedAsyncImage(url: afterPostURL) { image in
                                 image
@@ -326,7 +338,6 @@ struct SmallSquare: View {
                                     .frame(width: UIScreen.main.bounds.width * 0.1, height:  UIScreen.main.bounds.height * 0.0675)
                                     .cornerRadius(6)
                             }
-                        }
                     }
                    if isToday {
                        Circle()
@@ -336,6 +347,15 @@ struct SmallSquare: View {
                     Text("\(day)")
                         .foregroundColor((isToday || post != nil) ? Color.white : deepPurple)
                         .font(.custom("Lato-Bold", size: 17.5))
+               }.onTapGesture {
+                   isPopoverPresented = true
+               }
+               .popover(isPresented: $isPopoverPresented) {
+                   // Add your fullscreen content here
+                   if let shownPost = post {
+                       CalendarPostView(isPresented: $isPopoverPresented, post: shownPost, user: user)
+                           .presentationCompactAdaptation(.fullScreenCover)
+                   }
                }
                
             )
@@ -359,9 +379,9 @@ struct ProfileView_Previews: PreviewProvider {
       NavigationStack {
           ProfileView()
               .environmentObject(AuthViewModel.mock())
-              .environmentObject(TaskViewModel())
-              .environmentObject(UserViewModel())
-              .environmentObject(GroupViewModel())
+              .environmentObject(TaskViewModel.mock())
+              .environmentObject(UserViewModel.mock())
+              .environmentObject(GroupViewModel.mock())
               .environmentObject(PostViewModel.mock())
       }
   }
