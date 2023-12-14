@@ -176,12 +176,18 @@
 		C10A06362B251D2300FBD160 /* SearchDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10A06352B251D2300FBD160 /* SearchDisplayView.swift */; };
 		C10A06382B2520C300FBD160 /* UserRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10A06372B2520C300FBD160 /* UserRowView.swift */; };
 		C113C9B52B250FB0004B8CF3 /* UsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C113C9B42B250FB0004B8CF3 /* UsernameView.swift */; };
+		C16325C72B2A93460078C88A /* WeekStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16325C62B2A93460078C88A /* WeekStore.swift */; };
+		C16325C92B2A936E0078C88A /* Week.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16325C82B2A936E0078C88A /* Week.swift */; };
+		C16325CD2B2A95770078C88A /* WeeksTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16325CC2B2A95770078C88A /* WeeksTabView.swift */; };
+		C16325CF2B2A95830078C88A /* WeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16325CE2B2A95830078C88A /* WeekView.swift */; };
+		C16325D22B2AEC6A0078C88A /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16325D12B2AEC6A0078C88A /* DateExtensions.swift */; };
 		C16775062B22ABB9000076F2 /* taskViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16775052B22ABB9000076F2 /* taskViewModelTests.swift */; };
 		C16775082B22B00A000076F2 /* userViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16775072B22B00A000076F2 /* userViewModelTests.swift */; };
 		C167750A2B22C459000076F2 /* postViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C16775092B22C459000076F2 /* postViewModelTests.swift */; };
 		C167750C2B23DB72000076F2 /* groupViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167750B2B23DB72000076F2 /* groupViewModelTests.swift */; };
 		C171E1FB2B1E408100AE41EC /* NewWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = C171E1FA2B1E408100AE41EC /* NewWave.swift */; };
 		C171E1FD2B1E7DDB00AE41EC /* taskCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = C171E1FC2B1E7DDB00AE41EC /* taskCard.swift */; };
+		C18BAE762B2A344800CABEFE /* TaskCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18BAE752B2A344800CABEFE /* TaskCalendarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -307,12 +313,18 @@
 		C10A06352B251D2300FBD160 /* SearchDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDisplayView.swift; sourceTree = "<group>"; };
 		C10A06372B2520C300FBD160 /* UserRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRowView.swift; sourceTree = "<group>"; };
 		C113C9B42B250FB0004B8CF3 /* UsernameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameView.swift; sourceTree = "<group>"; };
+		C16325C62B2A93460078C88A /* WeekStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekStore.swift; sourceTree = "<group>"; };
+		C16325C82B2A936E0078C88A /* Week.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Week.swift; sourceTree = "<group>"; };
+		C16325CC2B2A95770078C88A /* WeeksTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeksTabView.swift; sourceTree = "<group>"; };
+		C16325CE2B2A95830078C88A /* WeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekView.swift; sourceTree = "<group>"; };
+		C16325D12B2AEC6A0078C88A /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		C16775052B22ABB9000076F2 /* taskViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskViewModelTests.swift; sourceTree = "<group>"; };
 		C16775072B22B00A000076F2 /* userViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = userViewModelTests.swift; sourceTree = "<group>"; };
 		C16775092B22C459000076F2 /* postViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = postViewModelTests.swift; sourceTree = "<group>"; };
 		C167750B2B23DB72000076F2 /* groupViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = groupViewModelTests.swift; sourceTree = "<group>"; };
 		C171E1FA2B1E408100AE41EC /* NewWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewWave.swift; sourceTree = "<group>"; };
 		C171E1FC2B1E7DDB00AE41EC /* taskCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = taskCard.swift; sourceTree = "<group>"; };
+		C18BAE752B2A344800CABEFE /* TaskCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCalendarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -532,6 +544,9 @@
 				8A5A52B02B257DF600B1A2DC /* OtherProfileView.swift */,
 				8A5A52B22B2580D300B1A2DC /* UserProfileView.swift */,
 				8A89A9AC2B26A8EB00FD9FD0 /* FriendsView.swift */,
+				C18BAE752B2A344800CABEFE /* TaskCalendarView.swift */,
+				C16325CC2B2A95770078C88A /* WeeksTabView.swift */,
+				C16325CE2B2A95830078C88A /* WeekView.swift */,
 				8AFFBF242B2AB16600847C3D /* CalendarPostView.swift */,
 			);
 			path = DetailViews;
@@ -558,6 +573,7 @@
 		8AD6ED072AF1969C006B56B6 /* housemates */ = {
 			isa = PBXGroup;
 			children = (
+				C16325D02B2AEC5B0078C88A /* Extensions */,
 				81E9ED542B05F09400A258A8 /* Font */,
 				8AD6ED272AF197F3006B56B6 /* DataRepositories */,
 				8AD6ED1B2AF19738006B56B6 /* ViewModels */,
@@ -594,6 +610,8 @@
 				81DBF19A2B1E4AE1002DF472 /* DateValue.swift */,
 				8A16D4E12B214343006D1805 /* Reactions.swift */,
 				8AF9669E2B2509EC006A44BF /* FriendInfo.swift */,
+				C16325C62B2A93460078C88A /* WeekStore.swift */,
+				C16325C82B2A936E0078C88A /* Week.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -635,6 +653,14 @@
 				8AF966A02B2516A9006A44BF /* FriendInfoDataRepository.swift */,
 			);
 			path = DataRepositories;
+			sourceTree = "<group>";
+		};
+		C16325D02B2AEC5B0078C88A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C16325D12B2AEC6A0078C88A /* DateExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C171E1F72B1E403400AE41EC /* Shapes */ = {
@@ -846,8 +872,10 @@
 			files = (
 				51802D912B08CE7400B4EE9A /* PhoneNumberView.swift in Sources */,
 				51802D972B08D33E00B4EE9A /* ProgressBar.swift in Sources */,
+				C18BAE762B2A344800CABEFE /* TaskCalendarView.swift in Sources */,
 				8A034DAF2B29B41B00D3B9B1 /* CalendarView.swift in Sources */,
 				8AEE050B2B0423A80030A6E0 /* PostViewModel.swift in Sources */,
+				C16325CF2B2A95830078C88A /* WeekView.swift in Sources */,
 				8AD6ED0B2AF1969C006B56B6 /* ContentView.swift in Sources */,
 				8AD6ED262AF197D3006B56B6 /* Amentity.swift in Sources */,
 				8AD6ED092AF1969C006B56B6 /* housematesApp.swift in Sources */,
@@ -887,8 +915,10 @@
 				816C30282AF49D59004F1771 /* TaskView.swift in Sources */,
 				51B397682B01FB8000A0AF2A /* NewInputView.swift in Sources */,
 				81CF29E22AFF56C400748D58 /* FilterView.swift in Sources */,
+				C16325C72B2A93460078C88A /* WeekStore.swift in Sources */,
 				8A16D4E82B21913A006D1805 /* ReactionActivityView.swift in Sources */,
 				8AE8FF9F2AF41F2B003AD997 /* HomeView.swift in Sources */,
+				C16325C92B2A936E0078C88A /* Week.swift in Sources */,
 				81E9ED532B05EDA000A258A8 /* Font.swift in Sources */,
 				8AF358422AF4B2BA0009B93C /* JoinGroupView.swift in Sources */,
 				8AF358402AF4B17A0009B93C /* JoinCreateGroupView.swift in Sources */,
@@ -905,6 +935,7 @@
 				C10A06382B2520C300FBD160 /* UserRowView.swift in Sources */,
 				8AEE92D02AF1EF1F006AECD3 /* AuthViewModel.swift in Sources */,
 				512246752B034E6B006C3F23 /* FlashcardComponent.swift in Sources */,
+				C16325CD2B2A95770078C88A /* WeeksTabView.swift in Sources */,
 				5188F2242B02AC47001B1AA0 /* GroupViewModel.swift in Sources */,
 				8AEE92D22AF1F856006AECD3 /* UserDataRepository.swift in Sources */,
 				8A3404C22B29088D00C5387C /* BannerModifier.swift in Sources */,
@@ -921,6 +952,7 @@
 				8AE1F98F2B1ED3CC00D4C0F6 /* TabBarViewModel.swift in Sources */,
 				8AE8FF952AF41101003AD997 /* LoginView.swift in Sources */,
 				51802D952B08CE8A00B4EE9A /* PasswordView.swift in Sources */,
+				C16325D22B2AEC6A0078C88A /* DateExtensions.swift in Sources */,
 				5125D3352B016C4C00E9E623 /* HousemateProfileButton.swift in Sources */,
 				8AE8FFA32AF41F47003AD997 /* TaskBoardView.swift in Sources */,
 				8AE8FF992AF4113B003AD997 /* AuthContentView.swift in Sources */,
