@@ -40,12 +40,6 @@ struct TaskBoardView: View {
                     .navigationTitle("Tasks")
                     .navigationBarTitleDisplayMode(.inline)
                     .coordinateSpace(name: "scroll")
-                    .toolbar {
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            addTaskButton(user: user)
-                            
-                        }
-                    }
                     .onAppear {
                         tabBarViewModel.hideTabBar = false
                     }
@@ -138,119 +132,142 @@ struct TaskBoardView: View {
         completedTasks.filter { getFullDate(dateStr: $0.date_completed ?? "")!.isSameDay(as: weekStore.selectedDate!) } :
         completedTasks
       
-      
-      return List {
-          Section(header: Text("Unclaimed")
-            .font(.custom("Nunito-Bold", size: 16))
-            .foregroundColor(.primary)) {
-            if (unclaimedTasks.count == 0) {
-                Text("No unclaimed tasks to display")
-                    .font(.custom("Lato-Regular", size: 12))
-                    .foregroundColor(.gray)
-                    .listRowSeparator(.hidden)
-            }
-            else {
-                ForEach(filteredUnclaimedTasks) { task in
-                    
-                    ZStack {
-                        NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+        if (filteredUnclaimedTasks.count == 0 && filteredInProgressTasksForCurrentUser.count == 0 && filteredInProgressTasksForOtherUsers.count == 0 && filteredCompletedTasks.count == 0) {
+            return AnyView(emptyTasksView())
+        }
+        else {
+            return AnyView(
+                List {
+                Section(header: Text("Unclaimed")
+                    .font(.custom("Nunito-Bold", size: 16))
+                    .foregroundColor(.primary)) {
+                        if (unclaimedTasks.count == 0) {
+                            Text("No unclaimed tasks to display")
+                                .font(.custom("Lato-Regular", size: 12))
+                                .foregroundColor(.gray)
+                                .listRowSeparator(.hidden)
                         }
-                        .opacity(0)
+                        else {
+                            ForEach(filteredUnclaimedTasks) { task in
+                                
+                                ZStack {
+                                    NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                    }
+                                    .opacity(0)
+                                    
+                                    taskRow(task: task, user: user)
+                                    
+                                }.listRowSeparator(.hidden)
+                            }
+                        }
+                    }
+                
+                Section(header: Text("In Progress")
+                    .font(.custom("Nunito-Bold", size: 16))
+                    .foregroundColor(.primary)
                         
-                        taskRow(task: task, user: user)
-                        
-                    }.listRowSeparator(.hidden)
+                ) {
+                    if (inProgressTasks.count == 0) {
+                        Text("No in progress tasks to display")
+                            .font(.custom("Lato-Regular", size: 12))
+                            .foregroundColor(.gray)
+                            .listRowSeparator(.hidden)
+                    }
+                    else {
+                        ForEach(filteredInProgressTasksForCurrentUser) { task in
+                            ZStack {
+                                NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                    //                        gets rid of the arrow icon
+                                    
+                                }
+                                .opacity(0)
+                                
+                                taskRow(task: task, user: user)
+                                
+                            }.listRowSeparator(.hidden)
+                        }
+                        ForEach(filteredInProgressTasksForOtherUsers) { task in
+                            ZStack {
+                                NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                    //                        gets rid of the arrow icon
+                                    
+                                }
+                                .opacity(0)
+                                
+                                taskRow(task: task, user: user)
+                                
+                            }.listRowSeparator(.hidden)
+                        }
+                    }
                 }
+                
+                Section(header: Text("Completed")
+                    .font(.custom("Nunito-Bold", size: 16))
+                    .foregroundColor(.primary)) {
+                        if (completedTasks.count == 0) {
+                            Text("No completed tasks to display")
+                                .font(.custom("Lato-Regular", size: 12))
+                                .foregroundColor(.gray)
+                                .listRowSeparator(.hidden)
+                        }
+                        else {
+                            if weekStore.selectedDate == nil {
+                                ForEach (convertCompletedList(completedList: filteredCompletedTasks), id: \.0) { date, tasks in
+                                    HStack {
+                                        Text(convertDateToStr(date: date)).font(.custom("Lato-Regular", size: 12))
+                                            .foregroundColor(.gray)
+                                        Spacer()
+                                    }
+                                    ForEach(tasks, id: \.id) { task in
+                                        ZStack {
+                                            NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                            }
+                                            .opacity(0)
+                                            taskRow(task: task, user: user)
+                                            
+                                        }.listRowSeparator(.hidden)
+                                    }
+                                }.listRowSeparator(.hidden)
+                            } else {
+                                ForEach(filteredCompletedTasks) { task in
+                                    ZStack {
+                                        NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+                                            
+                                        }
+                                        .opacity(0)
+                                        
+                                        taskRow(task: task, user: user)
+                                        
+                                    }.listRowSeparator(.hidden)
+                                }
+                            }
+                        }
+                    }
             }
-          }
-
-          Section(header: Text("In Progress")
-            .font(.custom("Nunito-Bold", size: 16))
-            .foregroundColor(.primary)
-          
-          ) {
-              if (inProgressTasks.count == 0) {
-                  Text("No in progress tasks to display")
-                      .font(.custom("Lato-Regular", size: 12))
-                      .foregroundColor(.gray)
-                      .listRowSeparator(.hidden)
-              }
-              else {
-                  ForEach(filteredInProgressTasksForCurrentUser) { task in
-                      ZStack {
-                          NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
-                              //                        gets rid of the arrow icon
-                              
-                          }
-                          .opacity(0)
-                          
-                          taskRow(task: task, user: user)
-                          
-                      }.listRowSeparator(.hidden)
-                  }
-                  ForEach(filteredInProgressTasksForOtherUsers) { task in
-                      ZStack {
-                          NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
-                              //                        gets rid of the arrow icon
-                              
-                          }
-                          .opacity(0)
-                          
-                          taskRow(task: task, user: user)
-                          
-                      }.listRowSeparator(.hidden)
-                  }
-              }
-          }
-        
-          Section(header: Text("Completed")
-            .font(.custom("Nunito-Bold", size: 16))
-            .foregroundColor(.primary)) {
-              if (completedTasks.count == 0) {
-                  Text("No completed tasks to display")
-                      .font(.custom("Lato-Regular", size: 12))
-                      .foregroundColor(.gray)
-                      .listRowSeparator(.hidden)
-              }
-              else {
-                  if weekStore.selectedDate == nil {
-                      ForEach (convertCompletedList(completedList: filteredCompletedTasks), id: \.0) { date, tasks in
-                          HStack {
-                              Text(convertDateToStr(date: date)).font(.custom("Lato-Regular", size: 12))
-                                  .foregroundColor(.gray)
-                              Spacer()
-                          }
-                          ForEach(tasks, id: \.id) { task in
-                              ZStack {
-                                  NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
-                                  }
-                                  .opacity(0)
-                                  taskRow(task: task, user: user)
-                                  
-                              }.listRowSeparator(.hidden)
-                          }
-                      }.listRowSeparator(.hidden)
-                  } else {
-                      ForEach(filteredCompletedTasks) { task in
-                          ZStack {
-                              NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
-                                  
-                              }
-                              .opacity(0)
-                              
-                              taskRow(task: task, user: user)
-                              
-                          }.listRowSeparator(.hidden)
-                      }
-                  }
-              }
-          }
-      }
-//      .listStyle(.plain)
-      .listStyle(PlainListStyle())
-      .padding(.bottom, 45)
+            //      .listStyle(.plain)
+            .listStyle(PlainListStyle())
+            .padding(.bottom, 45)
+        )}
   }
 
+    private func emptyTasksView() -> some View {
+        ScrollView(.vertical, showsIndicators:false) {
+            VStack {
+                Image("sadhouse")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 200, height: 200)
+                    .padding(.top, 30)
+                    .padding(.leading, 20)
+                Text("No tasks here")
+                    .font(.custom("Nunito-Bold", size: 24))
+                Text("Try selecting a different date, or add a new task")
+                    .font(.custom("Lato-Bold", size: 12))
+                    .foregroundColor(.gray)
+                Spacer()
+            }
+        }
+    }
 
     // Individual Task Section
   private func taskRow(task: task, user: User) -> some View {
