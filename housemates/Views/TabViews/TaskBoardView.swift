@@ -4,9 +4,13 @@ struct TaskBoardView: View {
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var tabBarViewModel : TabBarViewModel
+    @EnvironmentObject var weekStore: WeekStore
 //    @State private var selected: String = "All Tasks"
     @State private var isAnimating = false
     @State private var selectedDate : Date? = nil
+    @State private var showingDatePicker = false
+    @State private var selectedTab = 0
+    
     let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
     private var unknownDate = Date.distantPast
     
@@ -87,9 +91,17 @@ struct TaskBoardView: View {
 
     // Main Content Section
     private func mainContent(user: User) -> some View {
-      VStack {
-          CalendarView(selectedDate: $selectedDate)
-          taskSections(user: user, selectedDate: selectedDate)
+        VStack {
+            CustomTabBarNew(selectedTab: $selectedTab)
+            if selectedTab == 0 {
+                taskSections(user: user, selectedDate: nil)
+            }
+            if selectedTab == 1 {
+                VStack(spacing: 0) {
+                    CalendarView()
+                    taskSections(user: user, selectedDate: weekStore.selectedDate)
+                }
+            }
         }
       }
 
@@ -112,8 +124,6 @@ struct TaskBoardView: View {
       let inProgressTasksForOtherUsers = inProgressTasksSorted.filter { $0.user_id != user.user_id }
         
       // filtering by date if necessary
-        print(selectedDate)
-        print(unclaimedTasks)
     let filteredUnclaimedTasks = selectedDate != nil ?
         unclaimedTasks.filter { $0.date_due!.isSameDay(as: selectedDate!) } :
             unclaimedTasks
@@ -196,7 +206,7 @@ struct TaskBoardView: View {
           }
         
           Section(header: Text("Completed")
-            .font(.custom("Nunito-Bold", size: 15))
+            .font(.custom("Nunito-Bold", size: 16))
             .foregroundColor(.primary)) {
               if (completedTasks.count == 0) {
                   Text("No completed tasks to display")
@@ -383,6 +393,54 @@ struct TaskBoardView: View {
             dateFormatter.dateFormat = "EEEE, MMM d"
             return dateFormatter.string(from: date)
         }
+    }
+}
+
+//reference: https://www.youtube.com/watch?v=Zv1jw__VKTo&ab_channel=Kavsoft
+struct CustomTabBarNew : View {
+    
+    @Binding var selectedTab : Int
+    let deepPurple = Color(red: 0.439, green: 0.298, blue: 1.0)
+    var body : some View{
+        
+        HStack{
+            
+            Button(action: {
+                
+                self.selectedTab = 0
+                
+            }) {
+                
+              Image(systemName: "blinds.horizontal.closed")
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .padding(.vertical,10)
+                    .padding(.horizontal,25)
+                    .background(self.selectedTab == 0 ? Color(UIColor.systemBackground).opacity(0.9) : Color.clear)
+                    .clipShape(Capsule())
+            }
+            .foregroundColor(self.selectedTab == 0 ? deepPurple : .gray.opacity(0.5))
+            
+            Button(action: {
+                
+                self.selectedTab = 1
+                
+            }) {
+                
+              Image(systemName: "roller.shade.open")
+                .resizable()
+                .frame(width: 20, height: 20)
+                .padding(.vertical,10)
+                .padding(.horizontal,25)
+                .background(self.selectedTab == 1 ? Color(UIColor.systemBackground).opacity(0.9) : Color.clear)
+                .clipShape(Capsule())
+            }
+            .foregroundColor(self.selectedTab == 1 ? deepPurple : .gray.opacity(0.5))
+            
+            }.padding(8)
+        .background(.gray.opacity(0.1))
+            .clipShape(Capsule())
+            
     }
 }
 

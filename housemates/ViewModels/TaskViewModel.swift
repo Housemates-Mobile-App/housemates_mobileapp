@@ -29,6 +29,15 @@ class TaskViewModel: ObservableObject {
             .store(in: &self.cancellables)
     }
     
+    func hasTasksDueAndNotDone(date: Date) -> Bool {
+        tasks.contains { task in
+            if let dueDate = task.date_due {
+                return task.status != .done && Calendar.current.isDate(dueDate, inSameDayAs: date)
+            }
+            return false
+        }
+    }
+    
     func getUserIdByTaskId(_ tid: String) -> String? {
         let associatedTask = self.tasks.filter { $0.id == tid }.first
         return associatedTask?.user_id

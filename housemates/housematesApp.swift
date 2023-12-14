@@ -27,6 +27,7 @@ struct housematesApp: App {
     @StateObject var postViewModel = PostViewModel()
     @StateObject var tabBarViewModel = TabBarViewModel()
 //    @StateObject var friendInfoViewModel = FriendInfoViewModel()
+    @StateObject var weekStore: WeekStore = WeekStore()
     
     @State var hideTabBar: Bool = false
 
@@ -39,6 +40,7 @@ struct housematesApp: App {
                 .environmentObject(groupViewModel)
                 .environmentObject(postViewModel)
                 .environmentObject(tabBarViewModel)
+                .environmentObject(weekStore)
 //                .environmentObject(friendInfoViewModel)
         }
     }
