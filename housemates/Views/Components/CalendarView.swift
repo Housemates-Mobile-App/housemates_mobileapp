@@ -20,13 +20,12 @@ struct CalendarView: View {
     let days: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
     var body: some View {
-        if let user = authViewModel.currentUser {
             ScrollView {
                 calendar(user: user)
             }.onAppear {
                 tabBarViewModel.hideTabBar = false
             }
-        }
+        
     }
 
     private func getCurrMonth() -> Date {

@@ -146,6 +146,7 @@ struct TaskDetailView: View {
                         .ignoresSafeArea()
                     }.ignoresSafeArea()
                     Spacer()
+
                     if currTask.status == .unclaimed {
                         Button(action: {
                                 taskViewModel.claimTask(task: currTask, user_id: authUser.id ?? "")
