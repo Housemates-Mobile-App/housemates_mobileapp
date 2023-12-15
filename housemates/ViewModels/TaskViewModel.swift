@@ -362,7 +362,7 @@ class TaskViewModel: ObservableObject {
    }
   
   
-    func editTask(task: task, name: String? = nil, description: String? = nil, date_due: Date? = nil, icon: String? = nil, status: task.Status? = nil, recurrence: Recurrence? = nil, recurrenceStartDate: Date? = nil, recurrenceEndDate: Date? = nil) {
+    func editTask(task: task, name: String? = nil, description: String? = nil, date_due: Date? = nil, icon: String? = nil, status: task.Status? = nil, recurrence: Recurrence? = nil, recurrenceStartDate: Date? = nil, recurrenceEndDate: Date? = nil, beforeImageURL: String? = nil) {
         
         var taskToUpdate = task
 
@@ -390,6 +390,9 @@ class TaskViewModel: ObservableObject {
         }
         if let recurrenceEndDate = recurrenceEndDate {
             taskToUpdate.recurrenceEndDate = recurrenceEndDate
+        }
+        if let beforeImageURL = beforeImageURL {
+            taskToUpdate.beforeImageURL = beforeImageURL
         }
 
         taskRepository.update(taskToUpdate)
