@@ -268,7 +268,7 @@ struct ProfileView: View {
                                 .font(.system(size: 23))
                                 .padding()
                         }
-                    }.offset(y: -componentOffset * 1.4)
+                    }.offset(y: -componentOffset * 0.95)
                     
                 // MARK: END Zstack
                 }.onAppear {

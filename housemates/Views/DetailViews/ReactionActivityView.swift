@@ -25,7 +25,7 @@ struct ReactionActivityView: View {
                         .scaledToFill()
                         .frame(width: 42, height: 42)
                         .clipShape(Circle())
-                        .shadow(radius: 3)
+              
                         .padding(.trailing, 3)
                 } placeholder: {
                     

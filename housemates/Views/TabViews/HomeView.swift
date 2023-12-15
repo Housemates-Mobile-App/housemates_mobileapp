@@ -49,7 +49,7 @@ struct HomeView: View {
                                     
                                     Circle()
                                         .fill(
-                                            Color(red: 0.945, green: 0.945, blue: 0.945)
+                                          .gray.opacity(0.15)
                                         )
                                         .frame(width: 58, height: 58)
                                         .overlay(
@@ -187,9 +187,9 @@ extension View {
 struct TitleView: View {
     var body: some View {
         HStack {
-            Image("changingLogo")
+            Image("logoHome")
                 .resizable()
-                .frame(width: 60, height: 60)
+                .frame(width: 65, height: 65)
                 .padding(.vertical, 10)
 //                .padding(.top, 8)
 //                .padding(.bottom, 8)

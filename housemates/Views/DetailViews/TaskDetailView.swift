@@ -61,14 +61,16 @@ struct TaskDetailView: View {
                       .cornerRadius(16)
                   }
                   
-                  if taskViewModel.getTimestamp(time: currTask.date_due ?? Date()) == "Today" || taskViewModel.getTimestamp(time: currTask.date_due ?? Date()) == "Tomorrow" {
-                    Text("Due Soon")
-                      .font(.custom("Lato-Bold", size: 12))
-                      .foregroundColor(.white)
-                      .padding(.horizontal)
-                      .padding(.vertical, 5)
-                      .background(.red)
-                      .cornerRadius(16)
+                  if let date_due = currTask.date_due {
+                    if taskViewModel.getTimestamp(time: date_due) == "Today" || taskViewModel.getTimestamp(time: date_due) == "Tomorrow" {
+                      Text("Due Soon")
+                        .font(.custom("Lato-Bold", size: 12))
+                        .foregroundColor(.white)
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
+                        .background(.red)
+                        .cornerRadius(16)
+                    }
                   }
                 }
               }.padding()

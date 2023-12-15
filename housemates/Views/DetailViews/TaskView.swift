@@ -90,6 +90,7 @@ struct TaskView: View {
 //          add else if here
         }
         else if task.status == .inProgress, let uid = task.user_id, let user = userViewModel.getUserByID(uid) {
+          
           Text("Claimed by \(user.first_name) \(user.last_name)")
             .font(.custom("Lato", size: 12))
             .foregroundColor(Color.gray)

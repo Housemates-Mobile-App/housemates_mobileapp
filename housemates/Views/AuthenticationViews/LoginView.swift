@@ -19,7 +19,7 @@ struct LoginView: View {
                 Image("LogoLoading")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 221, height: 221)
+                    .frame(width: 100, height: 100)
                     .padding(.bottom, 20)
                 
                 VStack(spacing:15) {
@@ -40,7 +40,7 @@ struct LoginView: View {
                     }
                 } label: {
                     HStack {
-                        Text("LOGIN")
+                        Text("Login")
                             .font(.custom("Nunito-Bold", size: 24))
                     }
                     .foregroundColor(.white)
@@ -50,7 +50,7 @@ struct LoginView: View {
                 .disabled(!formisValid)
                 .opacity(formisValid ? 1.0 : 0.5)
                 .cornerRadius(10)
-                .padding(.top, 24)
+                .padding(.top, 10)
                 
                 Spacer()
                 
@@ -61,7 +61,7 @@ struct LoginView: View {
                 } label: {
                     HStack(spacing: 3) {
                         Text("New User?")
-                        Text("Please Sign Up!")
+                        Text("Sign Up!")
                             .fontWeight(.bold)
                     }
                 }
