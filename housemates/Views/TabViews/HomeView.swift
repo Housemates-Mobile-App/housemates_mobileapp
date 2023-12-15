@@ -101,7 +101,14 @@ struct HomeView: View {
                                 )
                         }
                       
-                    }.navigationTitle("Housemates")
+                    }
+//                    .navigationTitle("Housemates")
+                        .toolbar {
+                            ToolbarItem(placement: .principal) { // or .navigationBarLeading
+                                TitleView()
+                                    .padding(.vertical, 10)
+                            }
+                        }
                         .navigationBarTitleDisplayMode(.inline)
                         .coordinateSpace(name: "scroll")
                         .toolbar(tabBarViewModel.hideTabBar ? .hidden : .visible, for: .navigationBar)
@@ -125,11 +132,10 @@ struct HomeView: View {
 //                            }
                             ToolbarItem(placement: .navigationBarTrailing) {
                                 NavigationLink(destination: ActivityView(user: user)) {
-                                        Image(systemName: "bell.fill") // Use an appropriate system icon
-                                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0)) // Customize the color if needed
-                                        }
-                                
-                                    }
+                                    Image(systemName: "bell.fill") // Use an appropriate system icon
+                                        .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                                }
+                            }
                     }.onAppear {
                         tabBarViewModel.hideTabBar = false
                     }
@@ -175,6 +181,24 @@ extension View {
                 }
                 
          }
+    }
+}
+
+struct TitleView: View {
+    var body: some View {
+        HStack {
+            Image("changingLogo")
+                .resizable()
+                .frame(width: 60, height: 60)
+                .padding(.vertical, 10)
+//                .padding(.top, 8)
+//                .padding(.bottom, 8)
+
+//            Text("Housemates")
+//                .font(.custom("Nunito-Bold", size: 26))
+//                .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+        }
+//        .padding(.bottom, 8)
     }
 }
 
