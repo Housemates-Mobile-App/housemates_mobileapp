@@ -186,7 +186,7 @@ struct CaptureButton: View {
                 .fill(Color.white)
                 .frame(width: 75, height: 75)
             Circle()
-                .stroke(Color.purple, lineWidth: 5)
+                .stroke(Color(red: 0.439, green: 0.298, blue: 1.0), lineWidth: 5)
                 .frame(width: 85, height: 85)
         }
     }
