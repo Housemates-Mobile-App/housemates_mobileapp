@@ -25,175 +25,446 @@ struct TaskDetailView: View {
         let assignee = assigneeUserId != nil ? userViewModel.getUserByID(assigneeUserId!) : nil
 
         if let authUser = authViewModel.currentUser {
+          
+          
+          VStack {
             
-            ZStack {
-                deepPurple
-                    .ignoresSafeArea()
+            VStack(alignment: .leading) {
+              
+              //              the edit task button
+//              HStack {
+//                Spacer()
+//                Text("Edit Task")
+//              }
+              
+              VStack(alignment: .leading) {
+                Image(currTask.icon ?? "dalle2")
+                  .resizable()
+                  .aspectRatio(contentMode: .fill)
+                  .frame(width: 75, height: 75)
+                  .foregroundColor(.gray)
+                Text(currTask.name)
+                  .font(.custom("Nunito-Bold", size: 24))
                 
-                // Your other content here
-                // Other layers will respect the safe area edges
-                VStack {
-                    RoundedRectangle(cornerRadius:0)
-                        .fill(.clear)
-                        .ignoresSafeArea()
-                        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.10)
-                    Text("testada")
-                        .foregroundColor(.clear)
-                    Spacer()
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.white)
-                        .ignoresSafeArea()
-                        .frame(maxWidth: .infinity)
-                }.ignoresSafeArea()
+                Text("Created on \(createdDateText(for: currTask))")
+                  .font(.custom("Lato-Bold", size: 12))
+                  .foregroundColor(.gray)
                 
-                VStack {
-                    ScrollView {
-                        VStack {
-                            RoundedRectangle(cornerRadius:0)
-                                .fill(.clear)
-                                .ignoresSafeArea()
-                                .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.10)
-
-                            Image(currTask.icon ?? "dalle2")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 150, height: 150)
-                                .foregroundColor(.gray)
-                            Text(currTask.name)
-                                .font(.custom("Lato-Bold", size: 24))
-                                .padding(.bottom, 30)
-                            
-                            VStack (alignment: .leading, spacing: 20) {
-                                HStack (spacing: 50) {
-                                    VStack(alignment: .leading, spacing: 10) {
-                                        Text("Who's Responsible?")
-                                            .font(.custom("Lato-Bold", size: 16))
-                                        
-                                        let imageURL = URL(string: assignee?.imageURLString ?? "")
-                                        
-                                        CachedAsyncImage(url: imageURL) { image in
-                                            image
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: imageSize, height: imageSize)
-                                                .clipShape(RoundedRectangle(cornerRadius:20))
-                                        } placeholder: {
-                                            // Default user profile picture
-                                            RoundedRectangle(cornerRadius:20)
-                                                .fill(
-                                                    LinearGradient(
-                                                        gradient: Gradient(colors: [Color(red: 0.6, green: 0.6, blue: 0.6), Color(red: 0.8, green: 0.8, blue: 0.8)]),
-                                                        startPoint: .topLeading,
-                                                        endPoint: .bottomTrailing
-                                                    )
-                                                )
-                                                .frame(width: imageSize, height: imageSize)
-                                                .overlay(
-                                                    Text("\(assignee?.first_name.prefix(1).capitalized ?? "D" + (assignee?.last_name.prefix(1).capitalized ?? "G"))")
-                                                    
-                                                        .font(.custom("Nunito-Bold", size: 40))
-                                                        .foregroundColor(.white)
-                                                )
-                                        }
-                                        
-                                        Text(assignee?.first_name ?? "Nobody")
-                                            .font(.custom("Lato-Regular", size: 14))
-                                            .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
-                                        
-                                        Spacer()
-                                    }
-                                    
-                                    VStack(alignment: .leading, spacing: 15) {
-                                        VStack(alignment: .leading, spacing: 5) {
-                                            Text("How Often")
-                                                .font(.custom("Lato-Bold", size: 16))
-                                            Text("\(recurrenceText(for: currTask))")
-                                                .font(.custom("Lato-Regular", size: 14))
-                                                .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
-                                        }
-                                        
-                                        VStack(alignment: .leading, spacing: 5) {
-                                            Text("Created on")
-                                                .font(.custom("Lato-Bold", size: 16))
-                                            Text(createdDateText(for: currTask))
-                                                .font(.custom("Lato-Regular", size: 14))
-                                                .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
-                                        }
-                                        
-                                        VStack(alignment: .leading, spacing: 5) {
-                                            Text("Due on")
-                                                .font(.custom("Lato-Bold", size: 16))
-                                            Text("\(dueDateText(for: currTask))")
-                                                .font(.custom("Lato-Regular", size: 14))
-                                                .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
-                                        }
-                                        Spacer()
-                                    }
-                                }
-                                
-                                VStack(alignment: .leading, spacing: 5) {
-                                    Text("Description")
-                                        .font(.custom("Lato-Bold", size: 16))
-                                    Text(currTask.description.count > 0 ? currTask.description : "No description provided")
-                                        .font(.custom("Lato-Regular", size: 14))
-                                        .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
-                                }
-                                
-                            }
-                            
-                            
-                        }
-                        .ignoresSafeArea()
-                    }.ignoresSafeArea()
-                    Spacer()
-
-                    if currTask.status == .unclaimed {
-                        Button(action: {
-                                taskViewModel.claimTask(task: currTask, user_id: authUser.id ?? "")
-                                taskViewModel.highlight(task_id: currTask.id ?? "0")
-                                self.presentationMode.wrappedValue.dismiss()
-
-                        }) {
-                            Text("CLAIM")
-                                .font(.custom("Nunito-Bold", size: 18))
-                                .bold()
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity, minHeight: 50)
-                                .background(Color(red: 0.439, green: 0.298, blue: 1.0))
-                                .cornerRadius(20)
-                                .padding()
-                        }
-                    } else if (currTask.status == .inProgress && taskViewModel.isMyTask(task: currTask, user_id: authUser.user_id)) {
-                        Button(action: {
-                            showCamera = true
-                        }) {
-                            Text("DONE")
-                                .font(.custom("Nunito-Bold", size: 18))
-                                .bold()
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity, minHeight: 50)
-                                .background(Color(red: 0.10, green: 0.85, blue: 0.23))
-                                .cornerRadius(20)
-                                .padding()
-                        }.fullScreenCover(isPresented: $showCamera) {
-                            AfterCameraView(image: $capturedImage, isPresented: $showCamera, onDismiss: {
-                                navigateToAddPostView = capturedImage != nil
-                            })
-                        }
-                        .onChange(of: capturedImage) { newImage in
-                            if newImage != nil && !showCamera {
-                                // Navigate to AddPostView only if a new image is captured and the camera view is not visible
-                                isAddPostViewActive = true
-                            }
-                        }
-                        .background(
-                            NavigationLink(destination: AddPostView(task: currTask, user: currUser, image: capturedImage), isActive: $navigateToAddPostView) {
-                                EmptyView()
-                            }
-                                .hidden()
+                HStack {
+                  if currTask.recurrence != .none {
+                    Text("Recurring")
+                      .font(.custom("Lato-Bold", size: 12))
+                      .foregroundColor(.white)
+                      .padding(.horizontal)
+                      .padding(.vertical, 5)
+                      .background(.blue)
+                      .cornerRadius(16)
+                  }
+                  
+                  if taskViewModel.getTimestamp(time: currTask.date_due ?? Date()) == "Today" || taskViewModel.getTimestamp(time: currTask.date_due ?? Date()) == "Tomorrow" {
+                    Text("Due Soon")
+                      .font(.custom("Lato-Bold", size: 12))
+                      .foregroundColor(.white)
+                      .padding(.horizontal)
+                      .padding(.vertical, 5)
+                      .background(.red)
+                      .cornerRadius(16)
+                  }
+                }
+              }.padding()
+              
+              //              if statements, if due soon or recurring add a tag
+              
+              
+              HStack {
+                switch currTask.status {
+                case .unclaimed:
+                  HStack {
+                    
+                    
+                    Text("Unclaimed")
+                      .font(.custom("Nunito-Bold", size: 14))
+                      .padding(.horizontal)
+                    
+                  }
+                case .inProgress:
+                  
+                  HStack {
+                    
+                    
+                    VStack(alignment: .leading) {
+                      Text("In Progress")
+                        .font(.custom("Nunito-Bold", size: 14))
+                   
+                      Text(assignee?.first_name ?? "Nobody")
+                        .font(.custom("Nunito-Bold", size: 14))
+                        .foregroundColor(.gray)
+                      
+                    }.padding(.horizontal)
+                    
+                    
+                  }
+                default:
+                  HStack {
+                    
+                    
+                    VStack(alignment: .leading) {
+                      Text("Completed")
+                        .font(.custom("Nunito-Bold", size: 14))
+                    
+                      Text(assignee?.first_name ?? "Nobody")
+                        .font(.custom("Nunito-Bold", size: 14))
+                        .foregroundColor(.gray)
+                      
+                    }.padding(.horizontal)
+                    
+                  }
+                  
+                  
+                }
+                
+                Spacer()
+                if currTask.status == .inProgress || currTask.status == .done {
+                  
+                  
+                  let imageURL = URL(string: assignee?.imageURLString ?? "")
+                  //
+                  CachedAsyncImage(url: imageURL) { image in
+                    image
+                      .resizable()
+                      .aspectRatio(contentMode: .fill)
+                      .frame(width: 35, height: 35)
+                      .clipShape(Circle())
+                  } placeholder: {
+                    // Default user profile picture
+                    Circle()
+                      .fill(
+                        LinearGradient(
+                          gradient: Gradient(colors: [Color(red: 0.6, green: 0.6, blue: 0.6), Color(red: 0.8, green: 0.8, blue: 0.8)]),
+                          startPoint: .topLeading,
+                          endPoint: .bottomTrailing
                         )
+                      )
+                      .frame(width: 35, height: 35)
+                      .overlay(
+                        Text("\(assignee?.first_name.prefix(1).capitalized ?? "D" + (assignee?.last_name.prefix(1).capitalized ?? "G"))")
+                        
+                          .font(.custom("Nunito-Bold", size: 18))
+                          .foregroundColor(.white)
+                      )
+                  }.padding(.horizontal)
+                  
+                  
+                }
+                else {
+                  Image(systemName: "circle.dashed")
+                    .font(.system(size: 26))
+                    .padding(.horizontal)
+                }
+              }
+              
+              Divider()
+            
+              
+              VStack() {
+                  
+                  
+                  HStack {
+                    Image(systemName: "clock")
+                      .font(.system(size: 26))
+                    
+                    VStack(alignment: .leading) {
+                      Text("Due Date")
+                        .font(.custom("Nunito-Bold", size: 16))
+                      Text("\(dueDateText(for: currTask))")
+                        .font(.custom("Lato", size: 12))
+                        .foregroundColor(.gray)
+                    }
+                    Spacer()
+                  }.padding()
+                  
+                  HStack {
+                    Image(systemName: "list.bullet")
+                      .font(.system(size: 26))
+                    VStack(alignment: .leading) {
+                      Text("Description")
+                        .font(.custom("Nunito-Bold", size: 16))
+                      Text(currTask.description)
+                        .foregroundColor(.gray)
+                        .font(.custom("Lato", size: 12))
+                    }.frame(maxWidth: .infinity, alignment: .leading)
+                    Spacer()
+                  }.padding()
+                  
+                  HStack {
+                    Image(systemName: "arrow.2.squarepath")
+                      .font(.system(size: 26))
+                    VStack(alignment: .leading) {
+                      Text("Recurrence")
+                        .font(.custom("Nunito-Bold", size: 16))
+                      
+                      
+                      Text("\(recurrenceText(for: currTask))")
+                        .font(.custom("Lato", size: 12))
+                        .foregroundColor(.gray)
+                    }.frame(maxWidth: .infinity, alignment: .leading)
+                    Spacer()
+                    
+                  }.padding()
+                  
+                  HStack {
+                    Image(systemName: "photo")
+                      .font(.system(size: 26))
+                    VStack(alignment: .leading) {
+                      Text("Before Photo")
+                        .font(.custom("Nunito-Bold", size: 16))
+                      Text(currTask.beforeImageURL == nil ? "No" : "Yes")
+                        .font(.custom("Lato", size: 12))
+                        .foregroundColor(.gray)
+                    }.frame(maxWidth: .infinity, alignment: .leading)
+                    Spacer()
+                  }.padding()
+                  
+              }.padding(.vertical)
+              
+              
+            
+            if currTask.status == .unclaimed {
+                Button(action: {
+                        taskViewModel.claimTask(task: currTask, user_id: authUser.id ?? "")
+                        taskViewModel.highlight(task_id: currTask.id ?? "0")
+                        self.presentationMode.wrappedValue.dismiss()
+
+                }) {
+                    Text("CLAIM")
+                        .font(.custom("Nunito-Bold", size: 18))
+                        .bold()
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, minHeight: 50)
+                        .background(Color(red: 0.439, green: 0.298, blue: 1.0))
+                        .cornerRadius(20)
+                        .padding()
+                }
+            } else if (currTask.status == .inProgress && taskViewModel.isMyTask(task: currTask, user_id: authUser.user_id)) {
+                Button(action: {
+                    showCamera = true
+                }) {
+                    Text("DONE")
+                        .font(.custom("Nunito-Bold", size: 18))
+                        .bold()
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, minHeight: 50)
+                        .background(Color(red: 0.10, green: 0.85, blue: 0.23))
+                        .cornerRadius(20)
+                        .padding()
+                }.fullScreenCover(isPresented: $showCamera) {
+                    AfterCameraView(image: $capturedImage, isPresented: $showCamera, onDismiss: {
+                        navigateToAddPostView = capturedImage != nil
+                    })
+                }
+                .onChange(of: capturedImage) { newImage in
+                    if newImage != nil && !showCamera {
+                        // Navigate to AddPostView only if a new image is captured and the camera view is not visible
+                        isAddPostViewActive = true
                     }
                 }
+                .background(
+                    NavigationLink(destination: AddPostView(task: currTask, user: currUser, image: capturedImage), isActive: $navigateToAddPostView) {
+                        EmptyView()
+                    }
+                        .hidden()
+                )
+            }
+              Spacer()
+                
+            }
+            
+            .toolbar {
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                if (currTask.status == .unclaimed) {
+                                    NavigationLink(destination: AddTaskView(taskIconStringHardcoded: currTask.icon ?? "dalle2", taskNameHardcoded: currTask.name, user: currUser, editableTask: currTask)) {
+                                        Label("", systemImage: "pencil")
+                                            .font(.system(size: 16))
+                                            .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
+                                    }
+                                }
+                            }
+                        }.onAppear {
+                            tabBarViewModel.hideTabBar = true
+                        }
+        
+          
+            
+//            ZStack {
+//                deepPurple
+//                    .ignoresSafeArea()
+//                
+//                // Your other content here
+//                // Other layers will respect the safe area edges
+//                VStack {
+//                    RoundedRectangle(cornerRadius:0)
+//                        .fill(.clear)
+//                        .ignoresSafeArea()
+//                        .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.10)
+//                    Text("testada")
+//                        .foregroundColor(.clear)
+//                    Spacer()
+//                    RoundedRectangle(cornerRadius: 20)
+//                        .fill(Color.white)
+//                        .ignoresSafeArea()
+//                        .frame(maxWidth: .infinity)
+//                }.ignoresSafeArea()
+//                
+//                VStack {
+//                    ScrollView {
+//                        VStack {
+//                            RoundedRectangle(cornerRadius:0)
+//                                .fill(.clear)
+//                                .ignoresSafeArea()
+//                                .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.10)
+//
+//                            Image(currTask.icon ?? "dalle2")
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fill)
+//                                .frame(width: 150, height: 150)
+//                                .foregroundColor(.gray)
+//                            Text(currTask.name)
+//                                .font(.custom("Lato-Bold", size: 24))
+//                                .padding(.bottom, 30)
+//                            
+//                            VStack (alignment: .leading, spacing: 20) {
+//                                HStack (spacing: 50) {
+//                                    VStack(alignment: .leading, spacing: 10) {
+//                                        Text("Who's Responsible?")
+//                                            .font(.custom("Lato-Bold", size: 16))
+//                                        
+//                                        let imageURL = URL(string: assignee?.imageURLString ?? "")
+//                                        
+//                                        CachedAsyncImage(url: imageURL) { image in
+//                                            image
+//                                                .resizable()
+//                                                .aspectRatio(contentMode: .fill)
+//                                                .frame(width: imageSize, height: imageSize)
+//                                                .clipShape(RoundedRectangle(cornerRadius:20))
+//                                        } placeholder: {
+//                                            // Default user profile picture
+//                                            RoundedRectangle(cornerRadius:20)
+//                                                .fill(
+//                                                    LinearGradient(
+//                                                        gradient: Gradient(colors: [Color(red: 0.6, green: 0.6, blue: 0.6), Color(red: 0.8, green: 0.8, blue: 0.8)]),
+//                                                        startPoint: .topLeading,
+//                                                        endPoint: .bottomTrailing
+//                                                    )
+//                                                )
+//                                                .frame(width: imageSize, height: imageSize)
+//                                                .overlay(
+//                                                    Text("\(assignee?.first_name.prefix(1).capitalized ?? "D" + (assignee?.last_name.prefix(1).capitalized ?? "G"))")
+//                                                    
+//                                                        .font(.custom("Nunito-Bold", size: 40))
+//                                                        .foregroundColor(.white)
+//                                                )
+//                                        }
+//                                        
+//                                        Text(assignee?.first_name ?? "Nobody")
+//                                            .font(.custom("Lato-Regular", size: 14))
+//                                            .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+//                                        
+//                                        Spacer()
+//                                    }
+//                                    
+//                                    VStack(alignment: .leading, spacing: 15) {
+//                                        VStack(alignment: .leading, spacing: 5) {
+//                                            Text("How Often")
+//                                                .font(.custom("Lato-Bold", size: 16))
+//                                            Text("\(recurrenceText(for: currTask))")
+//                                                .font(.custom("Lato-Regular", size: 14))
+//                                                .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+//                                        }
+//                                        
+//                                        VStack(alignment: .leading, spacing: 5) {
+//                                            Text("Created on")
+//                                                .font(.custom("Lato-Bold", size: 16))
+//                                            Text(createdDateText(for: currTask))
+//                                                .font(.custom("Lato-Regular", size: 14))
+//                                                .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+//                                        }
+//                                        
+//                                        VStack(alignment: .leading, spacing: 5) {
+//                                            Text("Due on")
+//                                                .font(.custom("Lato-Bold", size: 16))
+//                                            Text("\(dueDateText(for: currTask))")
+//                                                .font(.custom("Lato-Regular", size: 14))
+//                                                .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+//                                        }
+//                                        Spacer()
+//                                    }
+//                                }
+//                                
+//                                VStack(alignment: .leading, spacing: 5) {
+//                                    Text("Description")
+//                                        .font(.custom("Lato-Bold", size: 16))
+//                                    Text(currTask.description.count > 0 ? currTask.description : "No description provided")
+//                                        .font(.custom("Lato-Regular", size: 14))
+//                                        .foregroundColor(Color(red: 0.486, green: 0.486, blue: 0.486))
+//                                }
+//                                
+//                            }
+//                            
+//                            
+//                        }
+//                        .ignoresSafeArea()
+//                    }.ignoresSafeArea()
+//                    Spacer()
+//
+//                    if currTask.status == .unclaimed {
+//                        Button(action: {
+//                                taskViewModel.claimTask(task: currTask, user_id: authUser.id ?? "")
+//                                taskViewModel.highlight(task_id: currTask.id ?? "0")
+//                                self.presentationMode.wrappedValue.dismiss()
+//
+//                        }) {
+//                            Text("CLAIM")
+//                                .font(.custom("Nunito-Bold", size: 18))
+//                                .bold()
+//                                .foregroundColor(.white)
+//                                .frame(maxWidth: .infinity, minHeight: 50)
+//                                .background(Color(red: 0.439, green: 0.298, blue: 1.0))
+//                                .cornerRadius(20)
+//                                .padding()
+//                        }
+//                    } else if (currTask.status == .inProgress && taskViewModel.isMyTask(task: currTask, user_id: authUser.user_id)) {
+//                        Button(action: {
+//                            showCamera = true
+//                        }) {
+//                            Text("DONE")
+//                                .font(.custom("Nunito-Bold", size: 18))
+//                                .bold()
+//                                .foregroundColor(.white)
+//                                .frame(maxWidth: .infinity, minHeight: 50)
+//                                .background(Color(red: 0.10, green: 0.85, blue: 0.23))
+//                                .cornerRadius(20)
+//                                .padding()
+//                        }.fullScreenCover(isPresented: $showCamera) {
+//                            AfterCameraView(image: $capturedImage, isPresented: $showCamera, onDismiss: {
+//                                navigateToAddPostView = capturedImage != nil
+//                            })
+//                        }
+//                        .onChange(of: capturedImage) { newImage in
+//                            if newImage != nil && !showCamera {
+//                                // Navigate to AddPostView only if a new image is captured and the camera view is not visible
+//                                isAddPostViewActive = true
+//                            }
+//                        }
+//                        .background(
+//                            NavigationLink(destination: AddPostView(task: currTask, user: currUser, image: capturedImage), isActive: $navigateToAddPostView) {
+//                                EmptyView()
+//                            }
+//                                .hidden()
+//                        )
+//                    }
+                }
+          
+          // ends here
                 
                 
                 //            ScrollView {
@@ -359,9 +630,7 @@ struct TaskDetailView: View {
                 //            }.onAppear {
                 //                tabBarViewModel.hideTabBar = true
                 //            }
-            }.onAppear {
-                tabBarViewModel.hideTabBar = true
-            }
+            
         }
     }
 

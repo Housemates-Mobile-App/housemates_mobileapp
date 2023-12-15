@@ -203,9 +203,7 @@ struct AddTaskView: View {
               Task {
                   await addTask()
               }
-              if (editableTask != nil) {
-                  tabBarViewModel.showEditTaskBanner = true
-              } else {
+              if (editableTask == nil) {
                   tabBarViewModel.showAddTaskBanner = true
               }
               tabBarViewModel.selectedTab = 1
@@ -322,6 +320,8 @@ struct AddTaskView: View {
 
       if let editableTask = editableTask {
         taskViewModel.editTask(task: editableTask, name: taskName, description: taskDescription, date_due: dueDate, icon: taskIconStringNew, recurrence: recurrence, recurrenceStartDate: recurrenceStartDate, recurrenceEndDate: recurrenceEndDate)
+          tabBarViewModel.showEditTaskBanner = true
+
           alertMessage = "Task edited successfully."
       } else {
         taskViewModel.create(task: newTask)
