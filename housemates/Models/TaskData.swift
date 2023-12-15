@@ -20,16 +20,22 @@ let hardcodedHouseworkTaskData: [TaskData] = [
     TaskData(taskIcon: "dining", taskName: "Wipe Table"),
     TaskData(taskIcon: "trash", taskName: "Take out Trash"),
     TaskData(taskIcon: "dust", taskName: "Sweep Floor"),
-    TaskData(taskIcon: "brita", taskName: "Refill Water"),
+    TaskData(taskIcon: "brita", taskName: "Replace Water Filter"),
+    TaskData(taskIcon: "living room", taskName: "Clean Common Area"),
+    TaskData(taskIcon: "light", taskName: "Replace Lights"),
+    TaskData(taskIcon: "wifi", taskName: "Fix WiFi"),
 ]
 
 let hardcodedIndoorTaskData: [TaskData] = [
     TaskData(taskIcon: "recycle", taskName: "Recycle"),
     TaskData(taskIcon: "chef", taskName: "Prep Meals"),
     TaskData(taskIcon: "fridge", taskName: "Clear Fridge"),
-    TaskData(taskIcon: "toilet", taskName: "Scrub Toilet"),
+    TaskData(taskIcon: "toilet", taskName: "Clean Bathroom"),
     TaskData(taskIcon: "laundry", taskName: "Do Laundry"),
-    TaskData(taskIcon: "tub", taskName: "Clean Shower"),
+    TaskData(taskIcon: "spider", taskName: "Pest Control"),
+    TaskData(taskIcon: "dust", taskName: "Dust Surfaces"),
+    TaskData(taskIcon: "clock", taskName: "Set Time"),
+    TaskData(taskIcon: "bread", taskName: "Dispose Perishables"),
 ]
 
 let hardcodedOutdoorTaskData: [TaskData] = [
@@ -39,6 +45,9 @@ let hardcodedOutdoorTaskData: [TaskData] = [
     TaskData(taskIcon: "shovel snow", taskName: "Shovel Snow"),
     TaskData(taskIcon: "car", taskName: "Wash Car"),
     TaskData(taskIcon: "drinks", taskName: "Get Drinks"),
+    TaskData(taskIcon: "dog", taskName: "Walk Dog"),
+    TaskData(taskIcon: "lawnmow", taskName: "Mow Lawn"),
+    TaskData(taskIcon: "leaf", taskName: "Rake the Leaves"),
 ]
 
 let hardcodedFullTaskData: [TaskData] = [
