@@ -23,7 +23,7 @@ let hardcodedHouseworkTaskData: [TaskData] = [
     TaskData(taskIcon: "brita", taskName: "Replace Water Filter"),
     TaskData(taskIcon: "living room", taskName: "Clean Common Area"),
     TaskData(taskIcon: "light", taskName: "Replace Lights"),
-    TaskData(taskIcon: "wifi", taskName: "Fix WiFi"),
+    TaskData(taskIcon: "Wifi", taskName: "Fix WiFi"),
 ]
 
 let hardcodedIndoorTaskData: [TaskData] = [

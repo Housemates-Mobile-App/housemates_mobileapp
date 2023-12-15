@@ -97,13 +97,13 @@ struct CalendarPostView: View {
                                             Text("\(users.count)")
                                                 .padding(.trailing, 5)
                                                 .font(.custom("Lato", size: 15))
-                                                .foregroundColor(.black.opacity(0.6))
+                                                .foregroundColor(.primary.opacity(0.75))
                                             
                                         }.padding(6)
                                         
                                             .background(
                                                 RoundedRectangle(cornerRadius: 18)
-                                                    .fill(.gray.opacity(0.3))
+                                                    .fill(.gray.opacity(0.1))
                                                 )
                                             .cornerRadius(15)
                                     }
