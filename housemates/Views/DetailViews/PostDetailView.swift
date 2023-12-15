@@ -123,6 +123,7 @@ struct PostDetailView: View {
                         .font(.custom("Nunito", size: 15))
                 }
                 .padding(.horizontal)
+                .padding(.top)
                 
                 Divider()
 
