@@ -27,7 +27,7 @@ struct ProfileView: View {
     @EnvironmentObject var taskViewModel: TaskViewModel
     @EnvironmentObject var userViewModel: UserViewModel
     @EnvironmentObject var groupViewModel: GroupViewModel
-    @EnvironmentObject var postViewModel: PostViewModel
+//    @EnvironmentObject var postViewModel: PostViewModel
     @EnvironmentObject var tabBarViewModel: TabBarViewModel
     @State private var group: Group?
     @State private var group_code: String?
@@ -43,82 +43,49 @@ struct ProfileView: View {
         let componentOffset = UIScreen.main.bounds.height * 0.063
         if let user = authViewModel.currentUser {
             NavigationStack {
-                ZStack {
+                ZStack(alignment: .topLeading) {
+                   
+                        
                     VStack {
                         ZStack {
                             // MARK: Wave Background
-
                             NewWave()
                                 .fill(deepPurple)
                                 .frame(height: UIScreen.main.bounds.height * 0.13)
-                            // MARK: End of Menu for Prolile Tab
-
-                            // MARK: Menu for Prolile Tab
-                            HStack {
-                                Spacer()
-                                Menu {
-                                    if let group_code = group_code {
-                                        Text("Group Code: \(group_code)")
-                                    } else {
-                                        Text("Group Code: N/A")
-                                    }
-                                    Button {
-                                        activeAlert = .leaveGroup
-                                    } label: {
-                                        Text("Leave Group")
-                                    }
-                                    Button(role: .destructive) {
-                                        activeAlert = .signOut
-                                    } label: {
-                                        Text("Sign Out")
-                                    }
-                                } label: {
-                                    Image(systemName: "gearshape.fill")
-                                        .foregroundColor(.white)
-                                        .font(.system(size: 23))
-                                        .padding()
-                                }
-                                
-                            }
-                            // MARK: End of Menu for Prolile Tab
-
-                            
-                            let imageURL = URL(string: user.imageURLString ?? "")
-                            
-                            CachedAsyncImage(url: imageURL) { image in
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: imageSize, height: imageSize)
-                                    .clipShape(Circle())
-                                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                                    .offset(x: -UIScreen.main.bounds.width * 0.32 ,y: UIScreen.main.bounds.height * 0.10)
-                            } placeholder: {
-                                // Default user profile picture
-                                Circle()
-                                    .fill(
-                                        LinearGradient(
-                                            gradient: Gradient(colors: [Color(red: 0.6, green: 0.6, blue: 0.6), Color(red: 0.8, green: 0.8, blue: 0.8)]),
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        )
-                                    )
-                                    .frame(width: imageSize, height: imageSize)
-                                    .overlay(
-                                        Text("\(user.first_name.prefix(1).capitalized + user.last_name.prefix(1).capitalized)")
-                                        
-                                            .font(.custom("Nunito-Bold", size: 40))
-                                            .foregroundColor(.white)
-                                    )
-                                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                                    .offset(x: -UIScreen.main.bounds.width * 0.32 ,y: UIScreen.main.bounds.height * 0.10)
-                            }
-                            
-                            
-
                         }
-                        // MARK: End of second ZStack
                         
+                        // MARK: Profile Picture
+                        let imageURL = URL(string: user.imageURLString ?? "")
+                        
+                        CachedAsyncImage(url: imageURL) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: imageSize, height: imageSize)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                                .offset(x: -UIScreen.main.bounds.width * 0.32 ,y: UIScreen.main.bounds.height * -0.018)
+                        } placeholder: {
+                            // Default user profile picture
+                            Circle()
+                                .fill(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color(red: 0.6, green: 0.6, blue: 0.6), Color(red: 0.8, green: 0.8, blue: 0.8)]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    )
+                                )
+                                .frame(width: imageSize, height: imageSize)
+                                .overlay(
+                                    Text("\(user.first_name.prefix(1).capitalized + user.last_name.prefix(1).capitalized)")
+                                    
+                                        .font(.custom("Nunito-Bold", size: 40))
+                                        .foregroundColor(.white)
+                                )
+                                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                                .offset(x: -UIScreen.main.bounds.width * 0.32 ,y: UIScreen.main.bounds.height * -0.018)
+                        }
+                            
                         // MARK: Photo picker for changing profile picture
                         PhotosPicker(selection: $selectedPhoto,
                                      matching: .images) {
@@ -139,35 +106,7 @@ struct ProfileView: View {
                                     print("ERROR: Selecting image failed \(error.localizedDescription)")
                                 }
                             }
-                        }.offset(x: -UIScreen.main.bounds.width * 0.23, y: UIScreen.main.bounds.height * 0.060)
-
-                        
-                        // MARK: Housemate name
-                        HStack {
-                            VStack {
-                                Text("\(user.first_name) \(user.last_name)")
-                                    .font(.custom("Nunito-Bold", size: 26))
-                                    .bold()
-                                    .padding(.leading, 25)
-                                
-                                
-                                if let group_name = group_name {
-                                    Text(group_name)
-                                        .font(.custom("Nunito-Bold", size: 16))
-                                        .foregroundColor(deepPurple)
-                                        .padding(.trailing, 15)
-                                    
-                                } else {
-                                    Text("Group Name: N/A")
-                                        .font(.custom("Nunito-Bold", size: 16))
-                                        .foregroundColor(deepPurple)
-                                        .padding(.trailing, 15)
-
-                                }
-                            }
-                            Spacer()
-                        }.offset( y: UIScreen.main.bounds.height * 0.060)
-                        
+                        }.offset(x: -UIScreen.main.bounds.width * 0.22, y: UIScreen.main.bounds.height * -0.06)
                       
                         // MARK: Task Card
                         HStack(spacing: 17) {
@@ -195,100 +134,143 @@ struct ProfileView: View {
                                
                             }
                            
-                        }.offset(x: UIScreen.main.bounds.width * 0.16, y: -componentOffset * 1.5)
+                        }.offset(x: UIScreen.main.bounds.width * 0.16, y: -componentOffset * 2.2)
                        
-                        let recentTasks = taskViewModel.getRecentCompletedTasksForUser(user.user_id)
-
-                        
-                        // MARK: Calendar Preview
-                        VStack {
-                            if (!recentTasks.isEmpty) {
-                                
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    
-                                    HStack(spacing: 15){
-                                        ForEach(recentTasks) {task in
-                                            NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
-                                                
-                                                taskCard(task: task, user: user)
-                                            }
-                                        }
-                                    }
-                                }
-                            } else {
-                                Text("No Tasks Completed in Last 7 Days")
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                    .font(.custom("Nunito", size: 15))
-                              
-                            }
-                            
-                            HStack {
-                                Text("Your Activity")
-                                    .font(.custom("Nunito-Bold", size: 21))
-                                    .bold()
-                                Spacer()
-                            }
-                            ZStack(alignment: .topLeading) {
-                                RoundedRectangle(cornerRadius: 16)
-                                //                                .foregroundColor(deepPurple.opacity(0.6))
-                                    .stroke(Color.gray.opacity(0.5), lineWidth: 2)
-                                    .frame(width: UIScreen.main.bounds.width * 0.90,
-                                           height: UIScreen.main.bounds.height * 0.28)
-                                
-                                Text("Last 14 Days").padding()
-                                    .font(.custom("Nunito-Bold", size: 17))
-                                    .foregroundColor(.black)
-                                    .offset(y: -4)
-                                
-                                // cells for two weeks ago
-                                HStack(spacing: 5) {
-                                    ForEach((0..<7).reversed(), id: \.self) { dayIndex in
-                                        SmallSquare(dayOffset: dayIndex + 7, user: user)
-
-                                    }
-                                }
-                                .offset(x: componentOffset * 0.2, y: componentOffset * 0.80)
-                                
-                                // cells for one week ago
-                                HStack(spacing: 5) {
-                                    ForEach((0..<7).reversed(), id: \.self) { dayIndex in
-                                        SmallSquare(dayOffset: dayIndex, user: user)
-                                    }
-                                }
-                                .offset(x: componentOffset * 0.2, y: componentOffset * 2)
-                                
-                                // View all activity button
-                                NavigationLink(destination: CalendarView( user: user)) {
-                                    
-                                    Text("View All")
-                                        .font(.custom("Lato-Bold", size: 16))
-                                        .foregroundColor(.black)
-                                        .padding(.all, 9)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .stroke(Color.black, lineWidth: 1)
-                                        )
-                                }.offset(x: UIScreen.main.bounds.width / 2.85, y: componentOffset * 3.4)
-                                
-                                
-                                
-                            }.offset(x: -UIScreen.main.bounds.width * 0.03,
-                                     y: -UIScreen.main.bounds.height * 0.015)
-                            
-                            
-                        }.offset(y: -componentOffset * 0.6)
-                            .padding(.leading, 20)
-                        
-                        // MARK: END Calendar  Preview
-                        
-                        
                         Spacer()
                     }.edgesIgnoringSafeArea(.top)
-
                     // MARK: End Vstack
                 
-                // MARK: END Zstack
+                
+                    // MARK: Housemate name
+                    VStack(alignment: .leading) { // Set alignment to .leading
+                 
+                        Text("\(user.first_name) \(user.last_name)")
+                            .font(.custom("Nunito-Bold", size: 26))
+                            .bold()
+                         
+                        
 
+                        if let group_name = group_name {
+                            Text(group_name)
+                                .font(.custom("Nunito-Bold", size: 16))
+                                .foregroundColor(deepPurple)
+                        } else {
+                            Text("Group Name: N/A")
+                                .font(.custom("Nunito-Bold", size: 16))
+                                .foregroundColor(deepPurple)
+                        }
+                    }.offset(y: UIScreen.main.bounds.height * 0.17)
+                        .padding(.leading, 27)
+                    
+                    
+                     let recentTasks = taskViewModel.getRecentCompletedTasksForUser(user.user_id)
+
+                     
+                // MARK: Calendar Preview
+                VStack {
+                    if (!recentTasks.isEmpty) {
+
+                        ScrollView(.horizontal, showsIndicators: false) {
+
+                            HStack(spacing: 15){
+                                ForEach(recentTasks) {task in
+                                    NavigationLink(destination: TaskDetailView(currUser: user, currTask:task)) {
+
+                                        taskCard(task: task, user: user)
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    HStack {
+                        Text("Your Activity")
+                            .font(.custom("Nunito-Bold", size: 21))
+                            .bold()
+                        Spacer()
+                    }
+                    ZStack(alignment: .topLeading) {
+                        RoundedRectangle(cornerRadius: 16)
+                        //                                .foregroundColor(deepPurple.opacity(0.6))
+                            .stroke(Color.gray.opacity(0.5), lineWidth: 2)
+                            .frame(width: UIScreen.main.bounds.width * 0.90,
+                                   height: UIScreen.main.bounds.height * 0.23)
+
+                        Text("Last 14 Days").padding()
+                            .font(.custom("Nunito-Bold", size: 17))
+                            .foregroundColor(.black)
+                            .offset(y: -4)
+
+                        // cells for two weeks ago
+                        HStack(spacing: 5) {
+                            ForEach((0..<7).reversed(), id: \.self) { dayIndex in
+                                SmallSquare(dayOffset: dayIndex + 7, user: user)
+
+                            }
+                        }
+                        .offset(x: componentOffset * 0.2, y: componentOffset * 0.80)
+
+                        // cells for one week ago
+                        HStack(spacing: 5) {
+                            ForEach((0..<7).reversed(), id: \.self) { dayIndex in
+                                SmallSquare(dayOffset: dayIndex, user: user)
+                            }
+                        }
+                        .offset(x: componentOffset * 0.2, y: componentOffset * 2)
+
+                        // View all activity button
+                        NavigationLink(destination: CalendarView( user: user)) {
+
+                            Text("View All")
+                                .font(.custom("Lato-Bold", size: 16))
+                                .foregroundColor(.black)
+                                .padding(.all, 6)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.black, lineWidth: 1)
+                                )
+                        }.offset(x: UIScreen.main.bounds.width * 0.68, y: UIScreen.main.bounds.height * 0.011)
+
+
+
+                    }.offset(x: -UIScreen.main.bounds.width * 0.03,
+                             y: -UIScreen.main.bounds.height * 0.015)
+
+
+                }.offset(y: componentOffset * 4)
+                .padding(.leading, 20)
+
+                // MARK: END Calendar  Preview
+                
+                
+                // MARK: Menu for Prolile Tab
+                    HStack {
+                        Spacer()
+                        Menu {
+                            if let group_code = group_code {
+                                Text("Group Code: \(group_code)")
+                            } else {
+                                Text("Group Code: N/A")
+                            }
+                            Button {
+                                activeAlert = .leaveGroup
+                            } label: {
+                                Text("Leave Group")
+                            }
+                            Button(role: .destructive) {
+                                activeAlert = .signOut
+                            } label: {
+                                Text("Sign Out")
+                            }
+                        } label: {
+                            Image(systemName: "gearshape.fill")
+                                .foregroundColor(.white)
+                                .font(.system(size: 23))
+                                .padding()
+                        }
+                    }.offset(y: -componentOffset * 1.4)
+                    
+                // MARK: END Zstack
                 }.onAppear {
                     group = groupViewModel.getGroupByID(user.group_id!)
                     group_name = group?.name
