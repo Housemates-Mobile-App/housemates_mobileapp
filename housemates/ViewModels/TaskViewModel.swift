@@ -29,10 +29,19 @@ class TaskViewModel: ObservableObject {
             .store(in: &self.cancellables)
     }
     
-    func hasTasksDueAndNotDone(date: Date) -> Bool {
+    func hasTasksDueAndNotDoneUnclaimed(date: Date) -> Bool {
         tasks.contains { task in
             if let dueDate = task.date_due {
-                return task.status != .done && Calendar.current.isDate(dueDate, inSameDayAs: date)
+                return task.status == .unclaimed && Calendar.current.isDate(dueDate, inSameDayAs: date)
+            }
+            return false
+        }
+    }
+    
+    func hasTasksDueAndNotDoneInProgress(date: Date) -> Bool {
+        tasks.contains { task in
+            if let dueDate = task.date_due {
+                return task.status == .inProgress && Calendar.current.isDate(dueDate, inSameDayAs: date)
             }
             return false
         }
