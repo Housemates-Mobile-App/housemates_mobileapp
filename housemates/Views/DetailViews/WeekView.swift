@@ -62,6 +62,11 @@ struct WeekView: View {
                                             .zIndex(1)
                                     )
                             }
+                            if (!taskViewModel.hasTasksDueAndNotDoneUnclaimed(date: week.dates[i]) && !taskViewModel.hasTasksDueAndNotDoneInProgress(date: week.dates[i])) {
+                                Circle()
+                                    .fill(.clear)
+                                    .frame(width: 7, height: 7)
+                            }
                         }
                         
                     }
