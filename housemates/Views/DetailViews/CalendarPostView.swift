@@ -97,7 +97,7 @@ struct CalendarPostView: View {
                                             Text("\(users.count)")
                                                 .padding(.trailing, 5)
                                                 .font(.custom("Lato", size: 15))
-                                                .foregroundColor(.black.opacity(0.6))
+                                                .foregroundColor(.primary.opacity(0.6))
                                             
                                         }.padding(6)
                                         

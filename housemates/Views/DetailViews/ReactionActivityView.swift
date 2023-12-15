@@ -52,7 +52,7 @@ struct ReactionActivityView: View {
                 
                 Text("**\(reaction.created_by.first_name)** reacted: \(reaction.emoji)  to your post")
                     .font(.custom("Lato", size: 14))
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                 + Text("  \(timestamp)")
                     .font(.custom("Lato", size: 14))
                     .foregroundColor(.gray)

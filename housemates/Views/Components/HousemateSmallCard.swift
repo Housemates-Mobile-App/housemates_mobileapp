@@ -53,7 +53,7 @@ struct HousemateSmallCard: View {
                                 Text("\(user.first_name)")
                                     .font(.system(size: 14.5))
                                     .bold()
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.primary)
                 
                                 // MARK: Housemate username
                                 Text("@\(user.username)")
