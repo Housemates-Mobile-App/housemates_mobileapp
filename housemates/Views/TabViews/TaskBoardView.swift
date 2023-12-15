@@ -285,8 +285,8 @@ struct TaskBoardView: View {
 //      }
 //      .rotationEffect(.degrees(isAnimating && taskViewModel.recentID == task.id ? 45 : 0))
     
-      .shadow(color: deepPurple.opacity(isAnimating && taskViewModel.recentID == task.id ? 0.75 : 0), radius: 5, x: 0, y: 0)
-                  .animation(Animation.easeInOut(duration: 1), value: isAnimating)
+      .shadow(color: deepPurple.opacity(isAnimating && taskViewModel.recentID == task.id ? 1 : 0), radius: 7, x: 0, y: 0)
+      .animation(Animation.easeOut(duration: 0.2), value: isAnimating)
                   
             .onAppear {
               if taskViewModel.recentID == task.id {
