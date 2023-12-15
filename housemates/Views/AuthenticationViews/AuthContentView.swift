@@ -44,6 +44,8 @@ struct AuthContentView: View {
                     Image(systemName: "plus").padding(18)
                         .foregroundColor(.white)
                         .bold()
+                        .font(.custom("Lato", size: 25))
+
                 }.background(Color(red: 0.439, green: 0.298, blue: 1.0))
                     .clipShape(Circle())
                     .offset(y: -5)
