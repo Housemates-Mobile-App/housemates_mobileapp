@@ -159,7 +159,7 @@ struct ProfileView: View {
                                 .font(.custom("Nunito-Bold", size: 16))
                                 .foregroundColor(deepPurple)
                         }
-                    }.offset(y: UIScreen.main.bounds.height * 0.17)
+                    }.offset(y: UIScreen.main.bounds.height * 0.178)
                         .padding(.leading, 27)
                     
                     
@@ -237,7 +237,7 @@ struct ProfileView: View {
                              y: -UIScreen.main.bounds.height * 0.015)
 
 
-                }.offset(y: componentOffset * 4)
+                }.offset(y: componentOffset * 4.2)
                 .padding(.leading, 20)
 
                 // MARK: END Calendar  Preview
