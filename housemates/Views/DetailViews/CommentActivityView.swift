@@ -52,7 +52,7 @@ struct CommentActivityView: View {
                 
                 (Text("**\(comment.created_by.first_name)** commented: \(comment.text)")
                     .font(.custom("Lato", size: 14))
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                 + Text("  \(timestamp)")
                     .font(.custom("Lato", size: 14))
                     .foregroundColor(.gray))

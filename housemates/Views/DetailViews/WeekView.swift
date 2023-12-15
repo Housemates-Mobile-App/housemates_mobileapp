@@ -93,7 +93,7 @@ struct WeekView: View {
         if date.isSameDay(as: Date()) {
             return Color(red: 0.439, green: 0.298, blue: 1.0)
         } else {
-            return .black
+            return .primary
         }
     }
     

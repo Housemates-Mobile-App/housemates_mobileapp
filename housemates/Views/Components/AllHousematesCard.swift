@@ -51,7 +51,7 @@ struct AllHousematesCard: View {
                      .foregroundColor(isCurrentUser ? .white : Color(red: 0.439, green: 0.298, blue: 1.0))
                      .overlay(
                          Text("View")
-                             .foregroundColor(isCurrentUser ? .black : .white)
+                             .foregroundColor(isCurrentUser ? .primary : .white)
                      )
              }
          }

@@ -198,7 +198,7 @@ struct ProfileView: View {
 
                         Text("Last 14 Days").padding()
                             .font(.custom("Nunito-Bold", size: 17))
-                            .foregroundColor(.black)
+                            .foregroundColor(.primary)
                             .offset(y: -4)
 
                         // cells for two weeks ago
@@ -223,7 +223,7 @@ struct ProfileView: View {
 
                             Text("View All")
                                 .font(.custom("Lato-Bold", size: 16))
-                                .foregroundColor(.black)
+                                .foregroundColor(.primary)
                                 .padding(.all, 6)
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)

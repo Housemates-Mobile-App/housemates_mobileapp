@@ -68,7 +68,7 @@ struct UserProfileView: View {
                 Text("\(user.first_name) \(user.last_name)")
                     .font(.system(size: 26))
                     .bold()
-                    .foregroundColor(.black)
+                    .foregroundColor(.primary)
                     .offset(y: componentOffset)
                 
                 // MARK: Housemate username

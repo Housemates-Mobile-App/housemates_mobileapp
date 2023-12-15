@@ -156,7 +156,7 @@ struct TaskView: View {
               } else {
                 Text("Recurring")
                   .font(.custom("Lato", size: 12))
-                  .foregroundColor(Color.black.opacity(0.5))
+                  .foregroundColor(.primary.opacity(0.5))
               }
             }
           }

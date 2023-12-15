@@ -31,7 +31,7 @@ struct TaskCalendarView: View {
             HStack (spacing: 5){
                 Text(monthYearComponents.first?.prefix(3) ?? "")
                     .font(.custom("Nunito-Bold", size: 14))
-                    .foregroundColor(Color.black)
+                    .foregroundColor(.primary)
                     Text(monthYearComponents.last ?? "") // Year
                         .font(.custom("Nunito-Bold", size: 14))
                         .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
