@@ -36,9 +36,33 @@ struct WeekView: View {
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(determineTextColorDate(for: week.dates[i], with: week.referenceDate))
                         }
-                        Circle()
-                            .fill(taskViewModel.hasTasksDueAndNotDone(date: week.dates[i]) ? Color.yellow : Color.clear)
-                            .frame(width: 7, height: 7)
+
+                        HStack(spacing: -2) {
+                            if taskViewModel.hasTasksDueAndNotDoneUnclaimed(date: week.dates[i]) {
+                                Circle()
+                                    .fill(Color(red: 0.835, green: 0.349, blue: 1.0))
+                                    .frame(width: 7, height: 7)
+                                    .zIndex(1)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color(UIColor.systemBackground))
+                                            .frame(width: 7, height: 7)
+                                            .zIndex(1)
+                                    )
+                            }
+
+                            if taskViewModel.hasTasksDueAndNotDoneInProgress(date: week.dates[i]) {
+                                Circle()
+                                    .fill(Color(red: 1.0, green: 0.925, blue: 0.302))
+                                    .frame(width: 7, height: 7)
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color(UIColor.systemBackground))
+                                            .frame(width: 7, height: 7)
+                                            .zIndex(1)
+                                    )
+                            }
+                        }
                         
                     }
                 }.onTapGesture {

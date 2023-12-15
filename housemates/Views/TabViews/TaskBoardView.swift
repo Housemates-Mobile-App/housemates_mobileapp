@@ -138,9 +138,15 @@ struct TaskBoardView: View {
         else {
             return AnyView(
                 List {
-                Section(header: Text("Unclaimed")
-                    .font(.custom("Nunito-Bold", size: 16))
-                    .foregroundColor(.primary)) {
+                    Section(header: HStack {
+                        Text("Unclaimed")
+                            .font(.custom("Nunito-Bold", size: 16))
+                            .foregroundColor(.primary)
+                        Circle()
+                            .fill(Color(red: 0.835, green: 0.349, blue: 1.0))
+                            .frame(maxWidth: 13)
+                    })
+                     {
                         if (unclaimedTasks.count == 0) {
                             Text("No unclaimed tasks to display")
                                 .font(.custom("Lato-Regular", size: 12))
@@ -162,10 +168,14 @@ struct TaskBoardView: View {
                         }
                     }
                 
-                Section(header: Text("In Progress")
-                    .font(.custom("Nunito-Bold", size: 16))
-                    .foregroundColor(.primary)
-                        
+                Section(header: HStack {
+                        Text("In Progress")
+                            .font(.custom("Nunito-Bold", size: 16))
+                            .foregroundColor(.primary)
+                        Circle()
+                            .fill(Color(red: 1.0, green: 0.925, blue: 0.302))
+                            .frame(maxWidth: 13)
+                    }
                 ) {
                     if (inProgressTasks.count == 0) {
                         Text("No in progress tasks to display")
