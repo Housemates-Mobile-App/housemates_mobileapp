@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 import FirebaseStorage
+import CachedAsyncImage
 
 struct AddTaskView: View {
   let taskIconStringHardcoded: String
@@ -235,6 +236,19 @@ struct AddTaskView: View {
           self.recurrence = task.recurrence
           self.recurrenceStartDate = task.recurrenceStartDate ?? Date()
           self.recurrenceEndDate = task.recurrenceEndDate ?? Date()
+//          self.image = CachedAsyncImage(url: URL(string: (task.beforeImageURL ?? "") ?? ""))
+          if let urlString = task.beforeImageURL, let url = URL(string: urlString) {
+              URLSession.shared.dataTask(with: url) { data, response, error in
+                  if let data = data, error == nil {
+                      DispatchQueue.main.async {
+                          self.image = UIImage(data: data)
+                      }
+                  }
+              }.resume()
+          } else {
+              self.image = nil
+          }
+          
     }
             
     }
@@ -319,7 +333,7 @@ struct AddTaskView: View {
     
 
       if let editableTask = editableTask {
-        taskViewModel.editTask(task: editableTask, name: taskName, description: taskDescription, date_due: dueDate, icon: taskIconStringNew, recurrence: recurrence, recurrenceStartDate: recurrenceStartDate, recurrenceEndDate: recurrenceEndDate)
+          taskViewModel.editTask(task: editableTask, name: taskName, description: taskDescription, date_due: dueDate, icon: taskIconStringNew, recurrence: recurrence, recurrenceStartDate: recurrenceStartDate, recurrenceEndDate: recurrenceEndDate, beforeImageURL: imageURL)
           tabBarViewModel.showEditTaskBanner = true
 
           alertMessage = "Task edited successfully."
