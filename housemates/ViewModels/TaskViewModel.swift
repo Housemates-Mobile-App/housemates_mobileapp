@@ -217,7 +217,6 @@ class TaskViewModel: ObservableObject {
       
       var task = task
       task.user_id = nil
-      task.beforeImageURL = nil
       task.date_started = nil
       task.date_completed = nil
       
