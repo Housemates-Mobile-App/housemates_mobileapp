@@ -117,15 +117,16 @@ struct TaskBoardView: View {
         
       // filtering by date if necessary
         let filteredUnclaimedTasks = weekStore.selectedDate != nil ?
-        unclaimedTasks.filter { $0.date_due!.isSameDay(as: weekStore.selectedDate!) } :
+            unclaimedTasks.filter { $0.date_due?.isSameDay(as: weekStore.selectedDate!) ?? false } :
             unclaimedTasks
+
         
     let filteredInProgressTasksForCurrentUser = weekStore.selectedDate != nil ?
-        inProgressTasksForCurrentUser.filter { $0.date_due!.isSameDay(as: weekStore.selectedDate!) } :
+        inProgressTasksForCurrentUser.filter { $0.date_due?.isSameDay(as: weekStore.selectedDate!) ?? false } :
         inProgressTasksForCurrentUser
         
     let filteredInProgressTasksForOtherUsers = weekStore.selectedDate != nil ?
-        inProgressTasksForOtherUsers.filter { $0.date_due!.isSameDay(as: weekStore.selectedDate!) } :
+        inProgressTasksForOtherUsers.filter { $0.date_due?.isSameDay(as: weekStore.selectedDate!) ?? false} :
         inProgressTasksForOtherUsers
         
     let filteredCompletedTasks = weekStore.selectedDate != nil ?
