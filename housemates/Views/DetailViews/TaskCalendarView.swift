@@ -38,7 +38,7 @@ struct TaskCalendarView: View {
                     
                     Image(systemName: "chevron.down")
                         .foregroundColor(Color(red: 0.439, green: 0.298, blue: 1.0))
-                        .font(.system(size: 14))
+                        .font(.system(size: 12))
                         .overlay{
                             DatePicker(
                                 "",

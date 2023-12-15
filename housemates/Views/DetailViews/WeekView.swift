@@ -28,7 +28,7 @@ struct WeekView: View {
                         VStack(spacing: 0) {
                             Text(week.dates[i].toString(format: "EEE"))
                                 .font(.custom("Nunito", size: 14))
-                                .foregroundColor(weekStore.selectedDate == nil ? .gray : (week.dates[i] == week.referenceDate ? .white : .gray))
+                                .foregroundColor(determineTextColorDay(for: week.dates[i], with: week.referenceDate))
                                 .frame(maxWidth: .infinity)
                             
                             Text(week.dates[i].toString(format: "d"))
@@ -62,10 +62,23 @@ struct WeekView: View {
             return .white
         }
         if date.isSameDay(as: Date()) {
-            return .accentColor
+            return Color(red: 0.439, green: 0.298, blue: 1.0)
         } else {
             return .black
         }
     }
+    
+    func determineTextColorDay(for date: Date, with referenceDate: Date) -> Color {
+        if date == referenceDate && weekStore.selectedDate != nil {
+            return .white
+        }
+        if date.isSameDay(as: Date()) {
+            return Color(red: 0.439, green: 0.298, blue: 1.0)
+        } else {
+            return .gray
+        }
+    }
 }
+
+
 
