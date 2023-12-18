@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Firebase
 
 class GroupRepository: ObservableObject {
     private let path: String = "groups"
@@ -18,10 +19,16 @@ class GroupRepository: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
 
     init() {
-        self.get()
+        fetchGroupsIfUserLoggedIn()
     }
 
-    func get() {
+    func fetchGroupsIfUserLoggedIn() {
+        if Auth.auth().currentUser != nil {
+            fetchGroups()
+        }
+    }
+
+    private func fetchGroups() {
         store.collection(path)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
@@ -35,6 +42,21 @@ class GroupRepository: ObservableObject {
                 
          }
     }
+
+//    func get() {
+//        store.collection(path)
+//            .addSnapshotListener { querySnapshot, error in
+//                if let error = error {
+//                    print("Error getting groups: \(error.localizedDescription)")
+//                    return
+//                }
+//                
+//                self.groups = querySnapshot?.documents.compactMap { document in
+//                    try? document.data(as: Group.self)
+//                } ?? []
+//                
+//         }
+//    }
     
     // MARK: CRUD methods
     func create(_ group: Group) {

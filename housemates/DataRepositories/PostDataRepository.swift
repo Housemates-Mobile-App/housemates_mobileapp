@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Firebase
 
 class PostRepository: ObservableObject {
     private let path: String = "posts"
@@ -18,10 +19,16 @@ class PostRepository: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
 
     init() {
-        self.get()
+        fetchPostsIfUserLoggedIn()
     }
 
-    func get() {
+    func fetchPostsIfUserLoggedIn() {
+        if Auth.auth().currentUser != nil {
+            fetchPosts()
+        }
+    }
+
+    private func fetchPosts() {
         store.collection(path)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
@@ -35,6 +42,25 @@ class PostRepository: ObservableObject {
                 
             }
     }
+    
+//    init() {
+//        self.get()
+//    }
+//
+//    func get() {
+//        store.collection(path)
+//            .addSnapshotListener { querySnapshot, error in
+//                if let error = error {
+//                    print("Error getting posts: \(error.localizedDescription)")
+//                    return
+//                }
+//                
+//                self.posts = querySnapshot?.documents.compactMap { document in
+//                    try? document.data(as: Post.self)
+//                } ?? []
+//                
+//            }
+//    }
 
     // MARK: CRUD methods
     func create(_ post: Post) {

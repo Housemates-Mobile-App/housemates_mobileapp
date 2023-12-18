@@ -18,10 +18,16 @@ class TaskRepository: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
-        self.get()
+        fetchTasksIfUserLoggedIn()
     }
-    
-    func get() {
+
+    func fetchTasksIfUserLoggedIn() {
+        if Auth.auth().currentUser != nil {
+            fetchTasks()
+        }
+    }
+
+    private func fetchTasks() {
         store.collection(path)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
@@ -35,6 +41,25 @@ class TaskRepository: ObservableObject {
                 
             }
     }
+    
+//    init() {
+//        self.get()
+//    }
+//    
+//    func get() {
+//        store.collection(path)
+//            .addSnapshotListener { querySnapshot, error in
+//                if let error = error {
+//                    print("Error getting tasks: \(error.localizedDescription)")
+//                    return
+//                }
+//                
+//                self.tasks = querySnapshot?.documents.compactMap { document in
+//                    return try? document.data(as: task.self)
+//                } ?? []
+//                
+//            }
+//    }
     
     // MARK: CRUD methods
     func create(_ task: task) {

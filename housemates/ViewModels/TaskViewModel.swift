@@ -21,6 +21,19 @@ class TaskViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
 
     init() {
+        setupAuthStateListener()
+        fetchData()
+    }
+    
+    private func setupAuthStateListener() {
+        Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            if user != nil {
+                self?.taskRepository.fetchTasksIfUserLoggedIn()
+            }
+        }
+    }
+
+    func fetchData() {
         taskRepository.$tasks
             .receive(on: DispatchQueue.main)
             .sink { updatedTasks in
@@ -28,6 +41,15 @@ class TaskViewModel: ObservableObject {
             }
             .store(in: &self.cancellables)
     }
+    
+//    init() {
+//        taskRepository.$tasks
+//            .receive(on: DispatchQueue.main)
+//            .sink { updatedTasks in
+//                self.tasks = updatedTasks
+//            }
+//            .store(in: &self.cancellables)
+//    }
     
     func hasTasksDueAndNotDoneUnclaimed(date: Date) -> Bool {
         tasks.contains { task in

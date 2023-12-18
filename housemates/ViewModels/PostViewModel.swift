@@ -21,14 +21,36 @@ class PostViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
+        setupAuthStateListener()
+        fetchData()
+    }
+    
+    private func setupAuthStateListener() {
+        Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            if user != nil {
+                self?.postRepository.fetchPostsIfUserLoggedIn()
+            }
+        }
+    }
+
+    func fetchData() {
         postRepository.$posts
             .receive(on: DispatchQueue.main)
             .sink { updatedPosts in
                 self.posts = updatedPosts
             }
             .store(in: &self.cancellables)
-        
     }
+    
+//    init() {
+//        postRepository.$posts
+//            .receive(on: DispatchQueue.main)
+//            .sink { updatedPosts in
+//                self.posts = updatedPosts
+//            }
+//            .store(in: &self.cancellables)
+//        
+//    }
     
     func create(post: Post) {
         postRepository.create(post)

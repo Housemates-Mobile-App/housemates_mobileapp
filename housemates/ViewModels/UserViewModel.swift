@@ -19,14 +19,36 @@ class UserViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
+        setupAuthStateListener()
+        fetchData()
+    }
+    
+    private func setupAuthStateListener() {
+        Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            if user != nil {
+                self?.userRepository.fetchUsersIfUserLoggedIn()
+            }
+        }
+    }
+
+    func fetchData() {
         userRepository.$users
             .receive(on: DispatchQueue.main)
             .sink { updatedUsers in
                 self.users = updatedUsers
             }
             .store(in: &self.cancellables)
-        
     }
+    
+//    init() {
+//        userRepository.$users
+//            .receive(on: DispatchQueue.main)
+//            .sink { updatedUsers in
+//                self.users = updatedUsers
+//            }
+//            .store(in: &self.cancellables)
+//        
+//    }
     
     func getUserByID(_ uid: String) -> User? {
         let filteredUsers = self.users.filter { $0.id == uid }

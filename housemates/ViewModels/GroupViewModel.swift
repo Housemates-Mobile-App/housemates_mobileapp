@@ -18,14 +18,36 @@ class GroupViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
+        setupAuthStateListener()
+        fetchData()
+    }
+    
+    private func setupAuthStateListener() {
+        Auth.auth().addStateDidChangeListener { [weak self] _, user in
+            if user != nil {
+                self?.groupRepository.fetchGroupsIfUserLoggedIn()
+            }
+        }
+    }
+
+    func fetchData() {
         groupRepository.$groups
             .receive(on: DispatchQueue.main)
             .sink { updatedGroups in
                 self.groups = updatedGroups
             }
             .store(in: &self.cancellables)
-        
     }
+    
+//    init() {
+//        groupRepository.$groups
+//            .receive(on: DispatchQueue.main)
+//            .sink { updatedGroups in
+//                self.groups = updatedGroups
+//            }
+//            .store(in: &self.cancellables)
+//        
+//    }
     
     func getGroupByID(_ gid: String) -> Group? {
         let filteredGroup = self.groups.filter { $0.id == gid }

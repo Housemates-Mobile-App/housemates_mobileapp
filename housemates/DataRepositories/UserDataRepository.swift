@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Firebase
 
 class UserRepository: ObservableObject {
     private let path: String = "users"
@@ -18,10 +19,16 @@ class UserRepository: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
-        self.get()
+        fetchUsersIfUserLoggedIn()
     }
-    
-    func get() {
+
+    func fetchUsersIfUserLoggedIn() {
+        if Auth.auth().currentUser != nil {
+            fetchUsers()
+        }
+    }
+
+    private func fetchUsers() {
         store.collection(path)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
@@ -35,6 +42,25 @@ class UserRepository: ObservableObject {
                 
             }
     }
+    
+//    init() {
+//        self.get()
+//    }
+//    
+//    func get() {
+//        store.collection(path)
+//            .addSnapshotListener { querySnapshot, error in
+//                if let error = error {
+//                    print("Error getting users: \(error.localizedDescription)")
+//                    return
+//                }
+//                
+//                self.users = querySnapshot?.documents.compactMap { document in
+//                    try? document.data(as: User.self)
+//                } ?? []
+//                
+//            }
+//    }
     // MARK: CRUD methods
     func update(_ user: User) {
         guard let userId = user.id else { return }
