@@ -1,3 +1,7 @@
+# Firebase configuration file
+GoogleService-Info.plist
+/temp
+
 ## User settings
 xcuserdata/
 
